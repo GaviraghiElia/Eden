@@ -73,8 +73,8 @@ before_script:
   - echo "il percorso di PATH è $PATH"
   - echo "il percorso di ANDROID_HOME è $ANDROID_HOME"
 
-  - GRADLEW_DIR=$(dirname $(find $ANDROID_HOME -name gradlew))
-  - echo "La directory del file gradlew è $GRADLEW_DIR"
+  #- GRADLEW_DIR=$(dirname $(find $ANDROID_HOME -name gradlew))
+  #- echo "La directory del file gradlew è $GRADLEW_DIR"
 
   - chmod +x ./gradlew
   # temporarily disable checking for EPIPE error and use yes to accept all licenses
