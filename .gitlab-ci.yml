@@ -11,6 +11,7 @@ before_script:
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
   - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}.zip
+  - mkdir -p android-sdk-linux/cmdline-tools/latest
   - unzip -d android-sdk-linux android-sdk.zip
   - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --sdk_root=$PWD/android-sdk-linux "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
 
