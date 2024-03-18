@@ -55,48 +55,44 @@ before_script:
   - mkdir -p android-sdk-linux/cmdline-tools/latest/
   - find android-sdk-linux/cmdline-tools -mindepth 1 -maxdepth 1 ! -name "latest" -exec mv -t android-sdk-linux/cmdline-tools/latest/ {} +
 
-
-  #LORO CODICE
-  #=android-sdk.zip == =$ANDROID_HOME/cmdline-tools.zip 
-  #android-sdk-linux == "$ANDROID_HOME/cmdline-tools"
-  #- unzip -q -d "$ANDROID_HOME/cmdline-tools" "$ANDROID_HOME/cmdline-tools.zip"
-  #- mv -T "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/tools"
-  #- export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/cmdline-tools/tools/bin
-
-  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" #>/dev/null
-  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" #>/dev/null
-  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" #>/dev/null
+  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" >/dev/null
+  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" >/dev/null
+  - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}" >/dev/null
 
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
-
   - echo "il percorso di PATH è $PATH"
   - echo "il percorso di ANDROID_HOME è $ANDROID_HOME"
-
-  #- GRADLEW_DIR=$(dirname $(find $ANDROID_HOME -name gradlew))
-  #- echo "La directory del file gradlew è $GRADLEW_DIR"
 
   - chmod +x ./gradlew
   # temporarily disable checking for EPIPE error and use yes to accept all licenses
   - set +o pipefail
-  - yes | android-sdk-linux/tools/bin/sdkmanager --licenses
+  - yes | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses
   - set -o pipefail
 
- # - mv -T "$ANDROID_HOME/android_sdk/cmdline-tools" "$ANDROID_HOME/cmdline-tools/tools"
-  #- export PATH=$PATH:$ANDROID_HOME/android_sdk/cmdline-tools/latest/bin
-  #- export PATH=$ANDROID_HOME/android_sdk/cmdline-tools/latest/bin
-
-
-
+stages:
+  - build
+  - test
 
 lintDebug:
-  interruptible: true
   stage: build
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+
+assembleDebug:
+  stage: build
+  script:
+    - ./gradlew assembleDebug
   artifacts:
     paths:
-      - app/lint/reports/lint-results-debug.html
-    expose_as: "lint-report"
-    when: always
+    - app/build/outputs/
 
+debugTests:
+  stage: test
+  script:
+    - ./gradlew -Pci --console=plain :app:testDebug
+
+coverageTests:
+  stage: test
+  script:
+    - ./gradlew -Pci --console=plain jacocoTestReport coveralls
