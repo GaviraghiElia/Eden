@@ -15,4 +15,9 @@
         android:name="com.unimib.eden.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_stand"
+        android:name="com.unimib.eden.ui.stand.StandFragment"
+        android:label="fragment_stand"
+        tools:layout="@layout/fragment_stand" />
 </navigation>

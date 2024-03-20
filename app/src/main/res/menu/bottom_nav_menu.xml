@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_profile" />
 
+    <item
+        android:id="@+id/navigation_stand"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/title_stand" />
+
 </menu>
