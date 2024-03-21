@@ -1,4 +1,4 @@
-package com.unimib.eden.ui.profile;
+package com.unimib.eden.ui.profilo;
 
 import android.os.Bundle;
 
@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import com.unimib.eden.R;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfiloFragment extends Fragment {
 
-    private static final String TAG = "ProfileFragment";
+    private static final String TAG = "ProfiloFragment";
 
 
 
-    public ProfileFragment() {
+    public ProfiloFragment() {
         // Required empty public constructor
     }
 
@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_profilo, container, false);
 
     }
 }

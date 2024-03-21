@@ -10,21 +10,21 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "colture")
-public class Growing implements Serializable {
+public class Coltura implements Serializable {
 
     @PrimaryKey
     private String id;
     @ColumnInfo(name = "pianta")
-    private String plant_id;
+    private String idPianta;
     @ColumnInfo(name = "quantita")
-    private int quantity;
+    private int quantita;
     @ColumnInfo(name = "note")
-    private String notes;
+    private String note;
     @ColumnInfo(name = "data_inserimento")
-    private Date insertDate;
+    private Date dataInserimento;
     @ColumnInfo(name = "fase_attuale")
-    private int currentPhase;
+    private int faseAttuale;
     @ColumnInfo(name = "data_ultimo_innaffiamento")
-    private Date lastWateringDate;
+    private Date dataUltimoInnaffiamento;
 
 }
