@@ -26,4 +26,17 @@ public class Constants {
     public static final String PLANT_PHASE_DESCRIPTION = "descrizione";
     public static final String PLANT_PHASE_IMAGE = "immagine";
 
+    public static final String ID_PRODOTTO = "_id";
+    public static final String TIPO_PRODOTTO = "tipo";
+    public static final String VENDITORE_PRODOTTO = "venditore";
+    public static final String PREZZO_PRODOTTO = "prezzo";
+    public static final String STORIA_OFFERTE_PRODOTTO = "storia_offerte";
+    public static final String ALTRE_INFORMAZIONI_PRODOTTO = "altre_informazioni";
+    public static final String SCAMBIO_PRODOTTO = "scambio";
+    public static final String PESO_PRODOTTO = "peso";
+    public static final String ID_PIANTA_PRODOTTO = "_id";
+    public static final String ACQUIRENTE_OFFERTA = "acquirente";
+    public static final String PREZZO_OFFERTA = "offerta";
+    public static final String STATO_OFFERTA = "stato";
+
 }
