@@ -1,4 +1,4 @@
-package com.unimib.eden.ui.stand;
+package com.unimib.eden.ui.bancarella;
 
 import android.os.Bundle;
 
@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import com.unimib.eden.R;
 
 
-public class StandFragment extends Fragment {
+public class BancarellaFragment extends Fragment {
 
 
-    public StandFragment() {
+    public BancarellaFragment() {
         // Required empty public constructor
     }
 
