@@ -9,16 +9,20 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.unimib.eden.R;
 
+
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_profile, R.id.navigation_stand).build();
@@ -28,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         // For the Toolbar
-        setSupportActionBar(findViewById(R.id.toolbar));
+        //setSupportActionBar(findViewById(R.id.toolbar));
         ((Toolbar) findViewById(R.id.toolbar)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
 
         navController.getCurrentDestination().setLabel(getString(R.string.app_name));
 
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         // For the BottomNavigationView
         NavigationUI.setupWithNavController((BottomNavigationView) findViewById(R.id.nav_view), navController);
