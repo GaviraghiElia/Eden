@@ -21,7 +21,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 public class BancarellaFragmentUnitTest {
 
-    private static final String TAG = "BancarellaFragmentUnitTest";
     @Mock
     LayoutInflater mockInflater;
 
