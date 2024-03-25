@@ -24,7 +24,7 @@ public class Coltura implements Serializable {
     private Date dataInserimento;
     @ColumnInfo(name = "fase_attuale")
     private int faseAttuale;
-    @ColumnInfo(name = "data_ultimo_innaffiamento")
-    private Date dataUltimoInnaffiamento;
+    @ColumnInfo(name = "ultimo_innaffiamento")
+    private Date ultimoInnaffiamento;
 
 }
