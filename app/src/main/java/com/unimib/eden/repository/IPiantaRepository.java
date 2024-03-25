@@ -7,4 +7,8 @@ import java.util.List;
 public interface IPiantaRepository {
 
     List<Pianta> getAllPiante();
+
+    void deletePianta(Pianta pianta);
+
+    void insert(Pianta pianta);
 }
