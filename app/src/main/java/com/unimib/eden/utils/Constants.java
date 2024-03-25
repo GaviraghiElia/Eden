@@ -21,5 +21,8 @@ public class Constants {
     public static final String FASE_DURATA_FASE = "durata_fase";
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
+    public static final int VERSIONE_DATABASE = 1;
+
+    public static final String NOME_DATABASE_ORTO = "pianta_db";
 
 }
