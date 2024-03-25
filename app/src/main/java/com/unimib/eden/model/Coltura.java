@@ -16,6 +16,8 @@ public class Coltura implements Serializable {
     private String id;
     @ColumnInfo(name = "pianta")
     private String idPianta;
+    @ColumnInfo(name = "proprietario")
+    private String proprietario;
     @ColumnInfo(name = "quantita")
     private int quantita;
     @ColumnInfo(name = "note")
