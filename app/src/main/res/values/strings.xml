@@ -2,7 +2,7 @@
     <string name="app_name">Eden</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="title_home">Home</string>
-    <string name="profile_fragment">Profile fragment</string>
+    <string name="profilo_fragment">Profilo fragment</string>
     <string name="title_profile">Profile</string>
     <string name="app_bar_search">Search</string>
 </resources>
