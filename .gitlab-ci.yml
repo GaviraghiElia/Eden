@@ -15,7 +15,7 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
-image: openjdk:11-jdk
+image: eclipse-temurin:17-jdk-jammy
 ## image: eclipse-temurin:17-jdk-jammy or openjdk:8-jdk
 variables:
   #ANDROID_SDK_ROOT: "C:/Users/e6440/AppData/Local/Android/Sdk"
