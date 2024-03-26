@@ -24,7 +24,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.unimib.eden.utils.Converters;
 
 @Entity(tableName = "pianta")

@@ -48,5 +48,6 @@
     <string name="password_requirements">La password deve contenere da 6 a 15 caratteri tra cui un numero e un carattere speciale</string>
     <string name="successfull_registration">Utente registrato con successo</string>
     <string name="registration_error">"Errore di registrazione: "</string>
+    <string name="title_activity_auth">AuthActivity</string>
 
 </resources>

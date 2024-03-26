@@ -1,5 +1,7 @@
 package com.unimib.eden.ui.main;
 
+import androidx.databinding.DataBindingComponent;
+import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -15,7 +17,6 @@ import android.util.Log;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
-
 
 public class MainActivity extends AppCompatActivity {
 
