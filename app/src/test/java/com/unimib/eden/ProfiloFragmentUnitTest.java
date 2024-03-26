@@ -9,8 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.unimib.eden.ui.home.HomeFragment;
-import com.unimib.eden.ui.profile.ProfileFragment;
+import com.unimib.eden.ui.profilo.ProfiloFragment;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +20,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProfileFragmentUnitTest {
+public class ProfiloFragmentUnitTest {
 
     @Mock
     LayoutInflater mockInflater;
@@ -31,13 +30,13 @@ public class ProfileFragmentUnitTest {
     @Mock
     private Bundle mockSavedInstanceState;
 
-    ProfileFragment profileFragment;
+    ProfiloFragment profiloFragment;
 
     @Before
     public void setUp() {
         //homeFragment = new HomeFragment();
         MockitoAnnotations.initMocks(this);
-        profileFragment = new ProfileFragment();
+        profiloFragment = new ProfiloFragment();
 
     }
 
@@ -45,10 +44,10 @@ public class ProfileFragmentUnitTest {
     public void testOnCreateView() {
         // Mock inflater behavior
         when(mockInflater.inflate(Mockito.anyInt(), Mockito.any(ViewGroup.class), Mockito.anyBoolean()))
-                .thenReturn(new View(profileFragment.getContext()));
+                .thenReturn(new View(profiloFragment.getContext()));
 
         // Invoke onCreateView method
-        View view = profileFragment.onCreateView(mockInflater, mockContainer, mockSavedInstanceState);
+        View view = profiloFragment.onCreateView(mockInflater, mockContainer, mockSavedInstanceState);
 
         // Verify that the view is not null
         assertNotNull(view);
