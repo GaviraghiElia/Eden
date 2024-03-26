@@ -16,6 +16,16 @@ public class Constants {
     public static final String PIANTA_MAX_TEMPERATURA = "max_temperatura";
     public static final String PIANTA_ESPOSIZIONE_SOLE = "esposizione_sole";
 
+
+    public static final String COLTURA_PIANTA = "pianta";
+    public static final String COLTURA_PROPRIETARIO = "proprietario";
+    public static final String COLTURA_QUANTITA = "quantita";
+    public static final String COLTURA_NOTE = "note";
+    public static final String COLTURA_DATA_INSERIMENTO = "data_inserimento";
+    public static final String COLTURA_FASE_ATTUALE = "fase_attuale";
+    public static final String COLTURA_ULTIMO_INNAFFIAMENTO = "ultimo_innaffiamento";
+
+
     public static final String FASE_NOME_FASE = "nome_fase";
     public static final String FASE_INIZIO_FASE = "inizio_fase";
     public static final String FASE_DURATA_FASE = "durata_fase";
@@ -24,7 +34,8 @@ public class Constants {
     public static final int VERSIONE_DATABASE = 2;
 
     public static final String NOME_DATABASE_ORTO = "pianta";
+    public static final String NOME_DATABASE_COLTURA = "coltura";
 
     public static final String FIRESTORE_COLLECTION_PIANTE = "piante";
-
+    public static final String FIRESTORE_COLLECTION_COLTURE = "colture";
 }

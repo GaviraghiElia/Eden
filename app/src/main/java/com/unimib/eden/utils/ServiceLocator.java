@@ -2,6 +2,7 @@ package com.unimib.eden.utils;
 
 import android.app.Application;
 
+import com.unimib.eden.database.ColturaRoomDatabase;
 import com.unimib.eden.database.PiantaRoomDatabase;
 
 import java.io.File;
@@ -27,6 +28,8 @@ public class ServiceLocator {
         return PiantaRoomDatabase.getDatabase(application);
     }
 
-
+    public ColturaRoomDatabase getColturaDao(Application application) {
+        return ColturaRoomDatabase.getDatabase(application);
+    }
 
 }

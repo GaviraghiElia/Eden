@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewFase"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/growing_plant"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewPianta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plant Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_toEndOf="@id/imageViewFase"
+        android:layout_alignTop="@id/imageViewFase"/>
+
+    <ImageView
+        android:id="@+id/imageViewWater"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/watering_can_with_water_drops"
+        android:layout_toEndOf="@id/imageViewFase"
+        android:layout_below="@id/textViewPianta"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewDaysNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/imageViewWater"
+        android:layout_alignTop="@id/imageViewWater"
+        android:layout_marginStart="4dp"/>
+
+    <TextView
+        android:id="@+id/textViewDaysFixed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" days"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/textViewDaysNumber"
+        android:layout_alignTop="@id/imageViewWater"/>
+
+    <ImageView
+        android:id="@+id/imageViewCalendar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/baseline_calendar_month_24"
+        android:layout_below="@id/textViewDaysNumber"
+        android:layout_toEndOf="@id/imageViewFase"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/imageViewCalendar"
+        android:layout_alignTop="@id/imageViewCalendar"
+        android:layout_marginStart="4dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewNote"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/note_sticky"
+        android:layout_below="@id/imageViewCalendar"
+        android:layout_toEndOf="@id/imageViewFase"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/imageViewNote"
+        android:layout_alignTop="@id/imageViewNote"
+        android:layout_marginStart="4dp"/>
+
+</RelativeLayout>
