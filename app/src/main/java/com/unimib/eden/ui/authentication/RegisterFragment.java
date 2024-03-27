@@ -5,6 +5,7 @@ import static com.unimib.eden.utils.Constants.PASSWORD_PATTERN;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -114,13 +115,15 @@ public class RegisterFragment extends Fragment
                             if (firebaseResponse.isSuccess())
                             {
                                 makeMessage(getString(R.string.successfull_registration));
+                                Log.d("mAuthRegister", "registrazione effettuata");
                                 firebaseAuth = FirebaseAuth.getInstance();
                                 firebaseAuth.signOut();
+                                navController.navigate(R.id.action_registerFragment_to_loginFragment);
                             }
                             else
                             {
                                 makeMessage(firebaseResponse.getMessage());
-                                navController.navigate(R.id.action_registerFragment_to_loginFragment);
+                                Log.d("mAuthRegister", "registrazione fallita");
                             }
                         }
                     });
@@ -133,6 +136,7 @@ public class RegisterFragment extends Fragment
             @Override
             public void onClick(View v)
             {
+                Log.d("mAuthRegister", "onclick register");
                 navController.navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });

@@ -19,7 +19,6 @@ import com.unimib.eden.R;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +45,5 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
-            Log.d("mAuth", "current user != null");
-        }else
-        {
-            Log.d("mAuth", "current user == null");
-        }
-    }
+
 }

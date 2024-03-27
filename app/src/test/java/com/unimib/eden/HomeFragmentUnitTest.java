@@ -38,7 +38,6 @@ public class HomeFragmentUnitTest {
         //homeFragment = new HomeFragment();
         MockitoAnnotations.initMocks(this);
         homeFragment = new HomeFragment();
-
     }
 
     @Test
