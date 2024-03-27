@@ -20,8 +20,11 @@ android {
         }
     }
 
+    viewBinding {
+        enabled = true
+    }
+
     buildFeatures{
-        dataBinding true
         compose true
     }
 

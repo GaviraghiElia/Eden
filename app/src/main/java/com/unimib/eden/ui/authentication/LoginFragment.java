@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private NavController navController;
-
     private FragmentLoginBinding mBinding;
     private UtenteViewModel mUserViewModel;
     private String email;
