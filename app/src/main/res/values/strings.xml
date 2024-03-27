@@ -7,6 +7,9 @@
     <string name="app_bar_search">Search</string>
     <string name="registration_failure">Registrazione fallita</string>
 
+    <string name="incorrect_password">Password errata</string>
+    <string name="forgot_password">Password dimenticata?</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="add_to_list">add to list</string>
@@ -49,5 +52,6 @@
     <string name="successfull_registration">Utente registrato con successo</string>
     <string name="registration_error">"Errore di registrazione: "</string>
     <string name="title_activity_auth">AuthActivity</string>
+    <string name="bad_email">Email non valida</string>
 
 </resources>

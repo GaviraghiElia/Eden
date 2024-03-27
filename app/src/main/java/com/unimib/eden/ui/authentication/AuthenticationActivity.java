@@ -1,7 +1,29 @@
 package com.unimib.eden.ui.authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
-public class AuthenticationActivity extends AppCompatActivity {
+import android.os.Bundle;
+import android.view.View;
 
+import com.unimib.eden.databinding.ActivityAuthenticationBinding;
+
+public class AuthenticationActivity extends AppCompatActivity
+{
+    private NavHostFragment navHostFragment;
+    private NavController navController;
+    private ActivityAuthenticationBinding mBinding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mBinding = ActivityAuthenticationBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
+        setContentView(view);
+
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(mBinding.fragmentAuthContainerView.getId());
+        navController = navHostFragment.getNavController();
+    }
 }

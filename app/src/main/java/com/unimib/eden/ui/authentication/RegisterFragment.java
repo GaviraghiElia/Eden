@@ -60,7 +60,7 @@ public class RegisterFragment extends Fragment
         mBinding.registerPassword.addTextChangedListener(loginTextWatcher);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        fDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
+        fDB = FirebaseDatabase.getInstance();
         reference = fDB.getReference("users");
 
         mBinding.buttonRegister.setOnClickListener(new View.OnClickListener() {

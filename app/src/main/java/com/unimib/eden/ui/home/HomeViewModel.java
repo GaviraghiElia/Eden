@@ -34,6 +34,6 @@ public class HomeViewModel extends AndroidViewModel {
     public List<Pianta> getPiante() { return mPiante;}
 
     public void updateDB() {
-        piantaRepository.updateLocalDB();
+        //piantaRepository.updateLocalDB();
     }
 }

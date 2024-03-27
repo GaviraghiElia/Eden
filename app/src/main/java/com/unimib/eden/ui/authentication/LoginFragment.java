@@ -14,19 +14,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.unimib.eden.R;
+import com.unimib.eden.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private NavController navController;
+
     private FragmentLoginBinding mBinding;
-    private UtenteViewModel mUserViewModel;
+    private UtenteViewModel mUtenteViewModel;
     private String email;
     private String password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUserViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
+        mUtenteViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
     }
 
     @Override
@@ -48,13 +51,13 @@ public class LoginFragment extends Fragment {
                     mBinding.loginEmail.setError(getString(R.string.email_not_empty));
                     mBinding.loginEmail.requestFocus();
                 } else if (!isValidEmail(email)) {
-                    mBinding.loginEmail.setError(getString(R.string.bad_email));
+                    mBinding.loginEmail.setError(getString(R.string.    bad_email));
                     mBinding.loginEmail.requestFocus();
                 } else if (password.isEmpty()) {
                     mBinding.loginPassword.setError(getString(R.string.password_not_empty));
                     mBinding.loginPassword.requestFocus();
                 } else {
-                    mUserViewModel.signInWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
+                    mUtenteViewModel.signInWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
                         if (firebaseResponse != null) {
                             if (firebaseResponse.isSuccess()) {
                                 NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
@@ -109,6 +112,6 @@ public class LoginFragment extends Fragment {
 
     private void makeMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        mUserViewModel.clear();
+        mUtenteViewModel.clear();
     }
 }
