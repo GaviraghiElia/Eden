@@ -17,17 +17,12 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ColturaRepository implements IColturaRepository {
     private static final String TAG = "ColturaRepository";
 
     private final ColturaDao mColturaDao;
-
-    List<String> colture = new ArrayList<String>();
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Coltura> allColture;
 
@@ -53,72 +48,28 @@ public class ColturaRepository implements IColturaRepository {
     }
 
     public void updateLocalDB() {
-
-        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                List<Coltura> tempColture = allColture;
-                                boolean isColturaPresent = false;
-                                boolean isColturaChanged = false;
-                                Coltura oldColtura = null;
-                                Coltura newColtura = null;
-//                                Log.d(TAG, "onComplete: TEMPMATCH1 " + tempMatch.toString());
-                                assert tempColture != null;
-                                for (Coltura c : tempColture) {
-                                    if (c.getId().equals(document.getId())) {
-                                        isColturaPresent = true;
-                                    }
-                                    Log.d(TAG, "onComplete: ARRAYLIST " + (c.equals(document)));
-                                    if (c.getId().equals(document.getId()) && c.equals(document)) {
-                                        //m.hashCode() != document.getData().hashCode()
-                                        //!m.equals(document.getData())
-                                        oldColtura = c;
-                                        isColturaChanged = true;
-                                    }
-                                    boolean colturaFireBaseDBNotPresent = false;
-                                    for (QueryDocumentSnapshot d : task.getResult()) {
-                                        if (c.getId().equals(d.getId())) {
-                                            colturaFireBaseDBNotPresent = true;
-                                        }
-                                    }
-                                    if (!colturaFireBaseDBNotPresent) {
-                                        deleteColtura(c);
-                                    }
-
-
+        if(allColture.isEmpty()) {
+            Log.d(TAG, "Scaricamento colture personali...");
+            db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                    .whereEqualTo("proprietario", "g.colombo147@campus.unimib.it") //TODO: currentUser
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    insert(new Coltura(document));
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
                                 }
-                                if (!isColturaPresent) {
-                                    Map<String, Object> tempMap = document.getData();
-                                    //ArrayList<String> tmpListFasi = (ArrayList) document.getData().get(FIRESTORE_COLLECTION_COLTURE);
-
-                                    Log.d(TAG, "onComplete: TEMP_MAP" + tempMap.toString());
-                                    //Log.d(TAG, "onComplete: FASI " + tmpListFasi);
-                                    newColtura = new Coltura(document);
-                                    insert(newColtura);
-                                }
-                                if (isColturaChanged) {
-                                    deleteColtura(oldColtura);
-                                    Log.d(TAG, "onComplete: DATABASE_DATA " + getAllColture().toString());
-                                    Map<String, Object> tempMap = document.getData();
-                                    //ArrayList<String> tmpListFasi = (ArrayList) document.getData().get(FIRESTORE_COLLECTION_COLTURE);
-
-
-                                    newColtura = new Coltura(document);
-                                    insert(newColtura);
-
-
-                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
                             }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
                         }
-                    }
-                });
+                    });
+        }
+        else {
+            Log.d(TAG, "Colture già presenti nel db");
+        }
     }
 
     private static class DeleteColturaAsyncTask extends AsyncTask<Coltura, Void, Void> {
