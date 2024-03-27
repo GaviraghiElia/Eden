@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.unimib.eden.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;

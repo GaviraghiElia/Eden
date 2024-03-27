@@ -9,8 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Eden">
         <activity
-            android:name=".ui.authentication.AuthActivity"
-            android:exported="false"
+            android:name=".ui.authentication.AuthenticationActivity"
+            android:exported="true"
             android:label="@string/title_activity_auth"
             android:theme="@style/Theme.Eden" />
         <activity

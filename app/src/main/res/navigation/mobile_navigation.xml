@@ -15,4 +15,24 @@
         android:name="com.unimib.eden.ui.profilo.ProfiloFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profilo" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.unimib.eden.ui.authentication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.unimib.eden.ui.authentication.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.unimib.eden.ui.authentication.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <activity
+        android:id="@+id/authenticationActivity"
+        android:name="com.unimib.eden.ui.authentication.AuthenticationActivity"
+        android:label="activity_authentication"
+        tools:layout="@layout/activity_authentication" />
 </navigation>
