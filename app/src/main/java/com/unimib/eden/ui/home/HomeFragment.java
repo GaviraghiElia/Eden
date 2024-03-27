@@ -4,27 +4,25 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 
 
 import com.unimib.eden.R;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,10 @@ public class HomeFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
 
+    private List<Coltura> mColture;
     private HomeViewModel homeViewModel;
+
+    private ColturaAdapter mColturaAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,17 +54,25 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
 
-
+        mColture = homeViewModel.getColture();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        homeViewModel.updateDB();
-        // Inflate the layout for this fragment
-        return view;
 
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        homeViewModel.updateDB();
+
+        RecyclerView mRecyclerViewHome = view.findViewById(R.id.homeRecyclerView);
+        mRecyclerViewHome.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        mColturaAdapter = new ColturaAdapter(mColture, R.layout.coltura_small_card, getActivity().getApplication());
+        mRecyclerViewHome.setAdapter(mColturaAdapter);
+        Log.d(TAG, "mColture: " + mColture.toString());
+
+        return view;
     }
 }

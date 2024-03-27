@@ -4,13 +4,12 @@ import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonWriter;
-import com.unimib.eden.model.Fase;
 
-import java.io.StringWriter;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Converters {
 
@@ -39,6 +38,16 @@ public class Converters {
             return null;
         } else {
             return date.getTime();
+        }
+    }
+
+    @TypeConverter
+    public static String dateToString(Date date) {
+        if (date == null) {
+            return null;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            return sdf.format(date);
         }
     }
 }

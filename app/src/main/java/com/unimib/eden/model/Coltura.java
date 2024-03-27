@@ -8,6 +8,7 @@ import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
 import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
 import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
 import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.NOME_DATABASE_COLTURA;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -22,7 +23,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
-@Entity(tableName = "coltura")
+@Entity(tableName = NOME_DATABASE_COLTURA)
 public class Coltura {
 
     @NonNull

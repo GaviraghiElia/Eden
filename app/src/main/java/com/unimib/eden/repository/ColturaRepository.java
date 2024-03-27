@@ -51,7 +51,7 @@ public class ColturaRepository implements IColturaRepository {
         if(allColture.isEmpty()) {
             Log.d(TAG, "Scaricamento colture personali...");
             db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
-                    .whereEqualTo("proprietario", "g.colombo147@campus.unimib.it") //TODO: currentUser
+                    .whereEqualTo(Constants.COLTURA_PROPRIETARIO, "g.colombo147@campus.unimib.it") //TODO: currentUser
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -80,8 +80,8 @@ public class ColturaRepository implements IColturaRepository {
         }
 
         @Override
-        protected Void doInBackground(Coltura... matches) {
-            colturaDao.delete(matches[0]);
+        protected Void doInBackground(Coltura... colture) {
+            colturaDao.delete(colture[0]);
             return null;
         }
     }

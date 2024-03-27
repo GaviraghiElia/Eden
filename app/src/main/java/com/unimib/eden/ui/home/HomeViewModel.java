@@ -4,7 +4,6 @@ package com.unimib.eden.ui.home;
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.model.Coltura;
@@ -37,6 +36,8 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public List<Pianta> getPiante() { return mPiante;}
+
+    public List<Coltura> getColture() { return mColture;}
 
     public void updateDB() {
         //piantaRepository.updateLocalDB();

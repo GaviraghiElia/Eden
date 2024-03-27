@@ -6,12 +6,13 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.utils.Constants;
 
 import java.util.List;
 
 @Dao
 public interface ColturaDao {
-    @Query("SELECT * FROM 'coltura'")
+    @Query("SELECT * FROM " + Constants.NOME_DATABASE_COLTURA)
     List<Coltura> getAll();
 
     @Delete
