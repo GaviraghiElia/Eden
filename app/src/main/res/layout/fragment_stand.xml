@@ -6,8 +6,9 @@
     tools:context=".ui.bancarella.BancarellaFragment">
 
     <TextView
+        android:id="@+id/prodotto_pianta"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/stand_fragment" />
+        android:text="@string/bancarella_fragment" />
 
 </FrameLayout>

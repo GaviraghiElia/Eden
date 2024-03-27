@@ -5,25 +5,32 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.repository.ProdottoRepository;
 import java.util.List;
 
 public class BancarellaViewModel extends AndroidViewModel {
-    //comunica con ProdottoRepository
     private static final String TAG = "BancarellaViewModel";
+    private List<Prodotto> mProdotti;
     private ProdottoRepository prodottoRepository;
-    private LiveData<List<Prodotto>> prodottiLiveData;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public BancarellaViewModel(@NonNull Application application) {
+    public BancarellaViewModel(Application application) {
         super(application);
-        Log.d(TAG,"sei dentro BancarellaViewModel PRIMA di prodottoRepository");
+
         prodottoRepository = new ProdottoRepository(application);
-        //prodottiLiveData = prodottoRepository.getProdotti();
-        Log.d(TAG,"sei dentro BancarellaViewModel DOPO di getProdotti");
+        mProdotti = prodottoRepository.getAllProdotti();
     }
 
-    public LiveData<List<Prodotto>> getProdottiLiveData() {
-        return prodottiLiveData;
+    public List<Prodotto> getProdotti() {
+        Log.d(TAG, "lunghezza mProdotti: " + mProdotti.size());
+        return mProdotti;
+    }
+
+    public void updateDB() {
+        prodottoRepository.updateLocalDB();
     }
 }

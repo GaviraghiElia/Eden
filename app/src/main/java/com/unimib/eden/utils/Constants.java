@@ -21,23 +21,25 @@ public class Constants {
     public static final String FASE_DURATA_FASE = "durata_fase";
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
-    public static final int VERSIONE_DATABASE = 2;
+    public static final int VERSIONE_DATABASE = 5;
 
     public static final String NOME_DATABASE_ORTO = "pianta";
 
     public static final String FIRESTORE_COLLECTION_PIANTE = "piante";
 
-    public static final String ID_PRODOTTO = "_id";
-    public static final String TIPO_PRODOTTO = "tipo";
-    public static final String VENDITORE_PRODOTTO = "venditore";
-    public static final String PREZZO_PRODOTTO = "prezzo";
-    public static final String STORIA_OFFERTE_PRODOTTO = "storia_offerte";
-    public static final String ALTRE_INFORMAZIONI_PRODOTTO = "altre_informazioni";
-    public static final String SCAMBIO_PRODOTTO = "scambio";
-    public static final String PESO_PRODOTTO = "peso";
-    public static final String ID_PIANTA_PRODOTTO = "_id";
-    public static final String ACQUIRENTE_OFFERTA = "acquirente";
-    public static final String PREZZO_OFFERTA = "offerta";
-    public static final String STATO_OFFERTA = "stato";
+    public static final String PRODOTTO_TIPO = "tipo";
+    public static final String PRODOTTO_VENDITORE = "venditore";
+    public static final String PRODOTTO_PREZZO = "prezzo";
+    public static final String PRODOTTO_STORIA_OFFERTE = "storia_offerte";
+    public static final String PRODOTTO_ALTRE_INFORMAZIONI = "altre_informazioni";
+    public static final String PRODOTTO_QUANTITA = "quantita";
+    public static final String PRODOTTO_PIANTA = "pianta";
+    public static final String PRODOTTO_FASE_ATTUALE = "fase_attuale";
 
+    public static final String OFFERTA_ACQUIRENTE = "acquirente";
+    public static final String OFFERTA_PREZZO = "offerta";
+    public static final String OFFERTA_STATO = "stato";
+    public static final String FIRESTORE_COLLECTION_PRODOTTI = "prodotti";
+
+    public static final String NOME_DATABASE_PRODOTTO = "prodotto";
 }

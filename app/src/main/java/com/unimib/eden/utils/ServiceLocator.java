@@ -3,6 +3,7 @@ package com.unimib.eden.utils;
 import android.app.Application;
 
 import com.unimib.eden.database.PiantaRoomDatabase;
+import com.unimib.eden.database.ProdottoRoomDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,5 +29,7 @@ public class ServiceLocator {
     }
 
 
-
+    public ProdottoRoomDatabase getProdottoDao(Application application) {
+        return ProdottoRoomDatabase.getDatabase(application);
+    }
 }
