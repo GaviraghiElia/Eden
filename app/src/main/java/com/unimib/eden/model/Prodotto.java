@@ -70,23 +70,13 @@ public class Prodotto implements Serializable {
         this.quantita = Integer.parseInt(tempMap.get(PRODOTTO_QUANTITA).toString());
         this.faseAttuale = Integer.parseInt(tempMap.get(PRODOTTO_FASE_ATTUALE).toString());
         this.altreInformazioni = String.valueOf(tempMap.get(PRODOTTO_ALTRE_INFORMAZIONI));
-
-
-        /*ArrayList<String> offerteList = new ArrayList<>();
-        List<Map<String, Object>> storiaOfferte = (List<Map<String, Object>>) tempMap.get(PRODOTTO_STORIA_OFFERTE);
-        if (storiaOfferte != null) {
-            for (Map<String, Object> offerta : storiaOfferte) {
-                offerteList.add(String.valueOf(offerta.get(PRODOTTO_STORIA_OFFERTE)));
-            }
-        }
-        this.offerte = offerteList;*/
-        ArrayList<String> offerte = (ArrayList) document.getData().get(PRODOTTO_STORIA_OFFERTE);
-        this.offerte = offerte;
-        //riempirre offerte. copiare repository da Gaia
-        // altezza max prevista in Pianta è double e non int
+        this.offerte = (ArrayList<String>) (ArrayList) document.getData().get(PRODOTTO_STORIA_OFFERTE);
+        //TODO: aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
+        //booleano per "scambio si/no". booleano per "coltura/eccedenza"
+        //riempire offerte. altezza max prevista in Pianta è double e non int
         //è necessario copiare tutto il lavoro fatto anche per Offerta? SI
-        //in ProdottoRepository far andare "isProdottoChanged" con degli equals, magari - codice gaia
-        //parte grafica, guardare se Gaia ha pushato le card
+        //per riempire il db: mandare una stampa a chatgpt e farsi generare il codice per inserirne altre
+        //parte grafica di prodotti, guardare se Gaia ha pushato le card
         //nella pipeline implementare anche la parte di artefatti, ovvero generare un .apk testato e funzionante
     }
 

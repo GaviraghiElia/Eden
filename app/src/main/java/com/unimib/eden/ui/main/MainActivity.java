@@ -69,13 +69,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
-            Log.d(TAG, "current user != null");
-        }else
-        {
-            Log.d(TAG, "current user == null");
-        }
     }
 }

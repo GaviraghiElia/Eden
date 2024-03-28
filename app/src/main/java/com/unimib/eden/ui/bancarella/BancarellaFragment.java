@@ -1,28 +1,26 @@
 package com.unimib.eden.ui.bancarella;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 
-import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.databinding.FragmentStandBinding;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.Prodotto;
-import com.unimib.eden.ui.home.HomeViewModel;
+import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +51,23 @@ public class BancarellaFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentStandBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        //codice per spostarsi in "InserimentoProdottoActivity"
+        Button addButton = view.findViewById(R.id.buttonAddProduct);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "sei dentro onClick");
+                if (v.getId() == R.id.buttonAddProduct) {
+                    Intent intent = new Intent(requireContext(), InserimentoProdottoActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
         bancarellaViewModel.updateDB();
         Log.d(TAG, "onCreate: " + bancarellaViewModel.getProdotti());
         // Inflate the layout for this fragment
         return view;
     }
- }
+}

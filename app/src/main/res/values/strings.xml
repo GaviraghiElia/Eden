@@ -8,4 +8,13 @@
     <string name="title_stand">Bancarella</string>
     <string name="app_bar_search">Search</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aggiungi_prodotto">Aggiungi un prodotto</string>
+    <string name="inserisci_nuovo_prodotto">Inserisci nuovo prodotto</string>
+    <string name="tipo">Tipo</string>
+    <string name="prezzo">Prezzo</string>
+    <string name="pianta">Pianta (menu di ricerca)</string>
+    <string name="quantita">Quantita</string>
+    <string name="fase_attuale">Fase Attuale</string>
+    <string name="altre_informazioni">Altre informazioni</string>
+    <string name="invia">Invia</string>
 </resources>

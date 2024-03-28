@@ -59,6 +59,17 @@ public class ProdottoRepository implements IProdottoRepository {
         new ProdottoRepository.InsertProdottoAsyncTask(mProdottoDao).execute(prodotto);
     }
 
+    public void aggiungiProdotto(Prodotto prodotto) {
+        db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
+                .add(prodotto)
+                .addOnSuccessListener(documentReference -> {
+                    Log.d(TAG, "Prodotto aggiunto con ID: " + documentReference.getId());
+                    // Inserisci anche localmente
+                    insert(prodotto);
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Errore durante l'aggiunta del prodotto", e));
+    }
+
     public void updateLocalDB() {
         if(allProdotti.isEmpty()){
             Log.d(TAG, "Scaricamento prodotti personali...");
