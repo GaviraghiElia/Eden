@@ -29,9 +29,9 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
     private OnItemClickListener onItemClickListener;
     private int layout;
 
-    public ColturaAdapter(List<Coltura> coltureList, /*OnItemClickListener onItemClickListener,*/ int layout, Application application) {
+    public ColturaAdapter(List<Coltura> coltureList, OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mColtureList = coltureList;
-        //this.onItemClickListener = onItemClickListener;
+        this.onItemClickListener = onItemClickListener;
         this.layout = layout;
     }
 
@@ -75,13 +75,12 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
             this.textViewNote.setText(coltura.getNote());
 
-            //TODO: RIMETTERE ON LISTENER POI
-            /*itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onItemClickListener.onItemClick(coltura);
                 }
-            });*/
+            });
         }
     }
 }

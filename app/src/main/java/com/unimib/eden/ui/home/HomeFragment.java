@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
 
     private List<Coltura> mColture;
@@ -68,8 +69,16 @@ public class HomeFragment extends Fragment {
         RecyclerView mRecyclerViewHome = view.findViewById(R.id.homeRecyclerView);
         mRecyclerViewHome.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Coltura coltura) {
+                Log.d(TAG, "OnItemClick " + coltura.toString());
 
-        mColturaAdapter = new ColturaAdapter(mColture, R.layout.coltura_small_card, getActivity().getApplication());
+                HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
+                Navigation.findNavController(view).navigate(action);
+
+            }
+        }, R.layout.coltura_small_card, getActivity().getApplication());
         mRecyclerViewHome.setAdapter(mColturaAdapter);
         Log.d(TAG, "mColture: " + mColture.toString());
 

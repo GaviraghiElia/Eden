@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Entity(tableName = NOME_DATABASE_COLTURA)
-public class Coltura {
+public class Coltura implements Serializable {
 
     @NonNull
     @PrimaryKey
