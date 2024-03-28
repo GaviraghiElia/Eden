@@ -12,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface ColturaDao {
-    @Query("SELECT * FROM " + Constants.NOME_DATABASE_COLTURA)
+    @Query("SELECT * FROM 'coltura'")
     List<Coltura> getAll();
 
     @Delete

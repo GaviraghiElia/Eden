@@ -14,6 +14,9 @@ public interface PiantaDao {
     @Query("SELECT * FROM 'pianta'")
     List<Pianta> getAll();
 
+    @Query("SELECT * FROM 'pianta' WHERE id = :piantaId")
+    Pianta getById(String piantaId);
+
     @Delete
     void delete(Pianta... pianta);
 

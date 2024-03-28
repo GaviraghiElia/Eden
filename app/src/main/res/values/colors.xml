@@ -8,4 +8,31 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="black_overlay">#FF0000</color>
+
+    <!-- Shades of Green -->
+    <color name="green_100">#FFD0F2C4</color> <!-- Light Green -->
+    <color name="green_500">#FF4CAF50</color> <!-- Main Green -->
+    <color name="green_700">#FF388E3C</color> <!-- Dark Green -->
+
+    <!-- Shades of Brown -->
+    <color name="brown_200">#FFC0A080</color> <!-- Light Brown -->
+    <color name="brown_500">#FF795548</color> <!-- Main Brown -->
+    <color name="brown_700">#FF5D4037</color> <!-- Dark Brown -->
+
+    <!-- Shades of Yellow -->
+    <color name="yellow_200">#FFFFF59D</color> <!-- Light Yellow -->
+    <color name="yellow_500">#FFFFEB3B</color> <!-- Main Yellow -->
+    <color name="yellow_700">#FFFFD600</color> <!-- Dark Yellow -->
+
+    <color name="dark_green">#046d36</color>
+    <color name="on_dark_green">#ffffff</color>
+    <color name="dark_green_variant">#9cf6b0</color>
+
+    <color name="grey">#506352</color>
+    <color name="on_grey">#ffffff</color>
+    <color name="grey_variant">#d3e8d3</color>
+
+    <color name="soft_teal">#3a656e</color>
+    <color name="on_soft_teal">#ffffff</color>
+    <color name="soft_teal_variant">#bdeaf5</color>
 </resources>

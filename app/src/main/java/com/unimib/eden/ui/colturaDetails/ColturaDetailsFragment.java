@@ -2,10 +2,20 @@ package com.unimib.eden.ui.colturaDetails;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,6 +34,8 @@ public class ColturaDetailsFragment extends Fragment implements View.OnClickList
     //private Button pianta;
 
     private ColturaDetailsViewModel colturaDetailsViewModel;
+
+    private NavController navController;
 
     public ColturaDetailsFragment() {
     }
@@ -49,10 +61,17 @@ public class ColturaDetailsFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coltura_details, container, false);
 
+        // Enable the back button in the ActionBar
+        if (getActivity() != null) {
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(colturaDetailsViewModel.getNomePianta(coltura));
+        }
+
         TextView textViewColturaPianta = view.findViewById(R.id.textViewPiantaFull);
-        textViewColturaPianta.setText(coltura.getIdPianta());
+        textViewColturaPianta.setText(colturaDetailsViewModel.getNomePianta(coltura));
         TextView textViewGiorniInnaffiamento = view.findViewById(R.id.textViewDaysNumberFull);
-        textViewGiorniInnaffiamento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
+        textViewGiorniInnaffiamento.setText(String.valueOf(colturaDetailsViewModel.getGiorniInnaffiamento(coltura)));
         TextView textViewDataInserimento = view.findViewById(R.id.textViewDateFull);
         textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
         TextView textViewNote = view.findViewById(R.id.textViewNoteFull);
@@ -62,9 +81,20 @@ public class ColturaDetailsFragment extends Fragment implements View.OnClickList
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle back button click
+        if (item.getItemId() == android.R.id.home) {
+            Log.d(TAG, "credici");
+            // Handle the back button click here
+            // For example, you can navigate back or perform any other action
+            return true; // Indicate that the click event has been handled
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
-        /*switch (v.getId()) {
-            case R.id.button_addFriend:
+            /*case R.id.button_addFriend:
                 if(loggedUser.getFriends().contains(coltura.getEmail())) {
                     buttonAddFriend.setText(getString(R.string.aggiungi_amico));
                     colturaDetailsViewModel.removeFriend(coltura);
@@ -73,7 +103,6 @@ public class ColturaDetailsFragment extends Fragment implements View.OnClickList
                     buttonAddFriend.setText(buttonAddFriend.getText() + " ✓");
                     colturaDetailsViewModel.addFriend(coltura);
                 }
-                break;
-        }*/
+                break;*/
     }
 }

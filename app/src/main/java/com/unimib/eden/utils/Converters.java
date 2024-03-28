@@ -4,6 +4,7 @@ import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unimib.eden.model.Coltura;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -49,5 +50,14 @@ public class Converters {
             SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             return sdf.format(date);
         }
+    }
+
+    public static int daysTo(Coltura coltura, int frequenzaInnaffiamento) {
+        Date currentDate = new Date();
+        Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
+        long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
+        long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+        int daysRemaining = frequenzaInnaffiamento - (int) daysDifference;
+        return daysRemaining;
     }
 }
