@@ -48,4 +48,17 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null)
+        {
+            Log.d("mAuth", "current user != null");
+        }else
+        {
+            Log.d("mAuth", "current user == null");
+        }
+    }
 }
