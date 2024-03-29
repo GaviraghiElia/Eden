@@ -48,7 +48,7 @@
     <string name="login_error">"Errore di login: "</string>
     <string name="name_not_empty">Il campo nome non può essere vuoto</string>
     <string name="invalid_password">Password not valid</string>
-    <string name="password_requirements">La password deve contenere da 6 a 15 caratteri tra cui un numero e un carattere speciale</string>
+    <string name="password_requirements">Lunghezza da 6 a 15 caratteri, con numero e carattere speciale</string>
     <string name="successfull_registration">Utente registrato con successo</string>
     <string name="registration_error">"Errore di registrazione: "</string>
     <string name="title_activity_auth">AuthActivity</string>

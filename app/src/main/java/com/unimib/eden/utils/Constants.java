@@ -34,6 +34,7 @@ public class Constants {
     public static final String ITEM_LEVEL_PRESSED_KEY = "ItemLevelPressedKey";
     public static final String FRAGMENTFORTRANSITION = "FragmentIntent";
     public static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&*+=?-]).{6,15}$";
+    public static final String EMAIL_PATTERN = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     public static final String AUTHENTICATION_TOKEN = "AUTHENTICATION_TOKEN";
     public static final String USER_ID = "USER_ID";
     public static final int DATABASE_VERSION = 1;

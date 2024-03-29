@@ -1,12 +1,12 @@
 package com.unimib.eden.ui.authentication;
 
+import static com.unimib.eden.utils.Constants.EMAIL_PATTERN;
 import static com.unimib.eden.utils.Constants.PASSWORD_PATTERN;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
@@ -28,14 +26,14 @@ import java.util.regex.Pattern;
 
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentRegisterBinding;
+import com.unimib.eden.model.FirebaseResponse;
 
 public class RegisterFragment extends Fragment
 {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase fDB;
-    private DatabaseReference reference;
     private NavController navController;
-    private FragmentRegisterBinding mBinding;
+    public FragmentRegisterBinding mBinding;
     private UtenteViewModel mUserViewModel;
 
     public RegisterFragment() {}
@@ -49,7 +47,6 @@ public class RegisterFragment extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
         navController = NavHostFragment.findNavController(this);
@@ -62,7 +59,6 @@ public class RegisterFragment extends Fragment
 
         firebaseAuth = FirebaseAuth.getInstance();
         fDB = FirebaseDatabase.getInstance();
-        reference = fDB.getReference("users");
 
         mBinding.buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,62 +67,24 @@ public class RegisterFragment extends Fragment
                 String name = mBinding.registerName.getText().toString();
                 String email = mBinding.registerEmail.getText().toString();
                 String password = mBinding.registerPassword.getText().toString();
-
-                if(name.isEmpty())
+                String response = isValidCredential(name, email, password);
+                if(response.equals("success"))
                 {
-                    mBinding.registerName.setError(getString(R.string.name_not_empty));
-                    mBinding.registerName.requestFocus();
-                }
-                else
-                if(email.isEmpty())
-                {
-                    mBinding.registerEmail.setError(getString(R.string.email_not_empty));
-                    mBinding.registerEmail.requestFocus();
-
-                }
-                else
-                if(!isValidEmail(email))
-                {
-                    mBinding.registerEmail.setError(getString(R.string.bad_email));
-                    mBinding.registerEmail.requestFocus();
-
-                }
-                else
-                if(password.isEmpty())
-                {
-                    mBinding.registerPassword.setError(getString(R.string.password_not_empty));
-                    mBinding.registerPassword.requestFocus();
-                }
-                else
-                if(!isValidPassword(password))
-                {
-                    mBinding.registerPassword.setError(getString(R.string.incorrect_password));
-                    Toast.makeText(getContext(), getString(R.string.password_requirements), Toast.LENGTH_LONG).show();
-                    mBinding.registerPassword.requestFocus();
-
-                }
-                else
-                {
-
                     mUserViewModel.clear();
-                    mUserViewModel.signUpWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
-                        if (firebaseResponse != null)
-                        {
-                            if (firebaseResponse.isSuccess())
-                            {
-                                makeMessage(getString(R.string.successfull_registration));
-                                Log.d("mAuthRegister", "registrazione effettuata");
-                                firebaseAuth = FirebaseAuth.getInstance();
-                                firebaseAuth.signOut();
-                                navController.navigate(R.id.action_registerFragment_to_loginFragment);
-                            }
-                            else
-                            {
-                                makeMessage(firebaseResponse.getMessage());
-                                Log.d("mAuthRegister", "registrazione fallita");
-                            }
-                        }
-                    });
+                    createUserWithEmailAndPassword(email, password);
+                }else{
+                    if(response.equals(getString(R.string.bad_email)))
+                    {
+                        mBinding.registerEmail.setError(getString(R.string.bad_email));
+                        mBinding.registerEmail.requestFocus();
+                    }
+                    else
+                    {
+                        mBinding.registerPassword.setError(getString(R.string.incorrect_password));
+                        Toast.makeText(getContext(), getString(R.string.password_requirements), Toast.LENGTH_LONG).show();
+                        mBinding.registerPassword.requestFocus();
+
+                    }
                 }
             }
         });
@@ -163,19 +121,57 @@ public class RegisterFragment extends Fragment
         public void afterTextChanged(Editable s) {}
     };
 
+    public void createUserWithEmailAndPassword(String email, String password)
+    {
+        mUserViewModel.createUserWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
+            if (firebaseResponse != null)
+            {
+                if (firebaseResponse.isSuccess())
+                {
+                    makeMessage(getString(R.string.successfull_registration));
+                    Log.d("mAuthRegister", "registrazione effettuata");
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    firebaseAuth.signOut();
+                    navController.navigate(R.id.action_registerFragment_to_loginFragment);
+                }
+                else
+                {
+                    makeMessage(firebaseResponse.getMessage());
+                    Log.d("mAuthRegister", "registrazione fallita");
+                }
+            }
+        });
+    }
+
+    public String isValidCredential(String name, String email, String password)
+    {
+        if(!isValidEmail(email))
+        {
+            return getString(R.string.bad_email);
+        }
+        else
+        if(!isValidPassword(password))
+        {
+            return getString(R.string.incorrect_password);
+        }
+
+        return "success";
+    }
+
     // Check pattern password
     public boolean isValidPassword(String password)
     {
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = pattern.matcher(password);
-
         return matcher.matches();
     }
 
     // Check pattern email
     public boolean isValidEmail(String email)
     {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     private void makeMessage(String message)
