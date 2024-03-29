@@ -1,6 +1,7 @@
 package com.unimib.eden.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,19 +12,19 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
@@ -65,5 +66,25 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home_menu, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Listener for the items in the custom menu
+        if (item.getItemId() == R.id.app_bar_search) {
+            Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
+            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

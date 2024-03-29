@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Eden">
         <activity
+            android:name=".ui.searchPianta.SearchPiantaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_search_pianta"
+            android:theme="@style/Theme.Eden" />
+        <activity
+            android:name=".ui.piantaDetails.PiantaDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>

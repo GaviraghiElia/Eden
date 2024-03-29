@@ -14,6 +14,9 @@ public interface PiantaDao {
     @Query("SELECT * FROM 'pianta'")
     List<Pianta> getAll();
 
+    @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%'")
+    List<Pianta> searchMatches(String query);
+
     @Delete
     void delete(Pianta... pianta);
 

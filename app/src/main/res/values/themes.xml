@@ -18,4 +18,13 @@
         <item name="android:textColor">?attr/colorOnPrimary</item>
 
     </style>
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+    <style name="Widget.AppCompat.Button.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+    </style>
 </resources>

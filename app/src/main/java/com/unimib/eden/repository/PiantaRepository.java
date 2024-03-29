@@ -20,6 +20,7 @@ import com.unimib.eden.utils.ServiceLocator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class PiantaRepository implements IPiantaRepository {
     private static final String TAG = "MatchRepository";
@@ -98,7 +99,22 @@ public class PiantaRepository implements IPiantaRepository {
 
                                     Log.d(TAG, "onComplete: TEMP_MAP" + tempMap.toString());
                                     Log.d(TAG, "onComplete: FASI " + tmpListFasi );
-                                    newPianta = new Pianta(document.getId(), String.valueOf(tempMap.get("nome")), String.valueOf(tempMap.get("descrizione")), String.valueOf(tempMap.get("famiglia_botanica")), Integer.parseInt(tempMap.get("inizio_semina").toString()), Integer.parseInt(tempMap.get("fine_semina").toString()), Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()), tmpListFasi, Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))), String.valueOf(tempMap.get("esposizione_sole")), String.valueOf(tempMap.get("tipo_terreno")), Integer.parseInt(tempMap.get("min_temperatura").toString()), Integer.parseInt(tempMap.get("max_temperatura").toString()), Integer.parseInt(tempMap.get("altezza_max_prevista").toString()));
+                                    Log.d(TAG, "onComplete: INIZIO_SEMINA: " + tempMap.get("inizio_semina"));
+                                    newPianta = new Pianta(
+                                            document.getId(),
+                                            String.valueOf(tempMap.get("nome")),
+                                            String.valueOf(tempMap.get("descrizione")),
+                                            String.valueOf(tempMap.get("famiglia_botanica")),
+                                            Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))),
+                                            Integer.parseInt(tempMap.get("fine_semina").toString()),
+                                            Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()),
+                                            tmpListFasi,
+                                            Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))),
+                                            String.valueOf(tempMap.get("esposizione_sole")),
+                                            String.valueOf(tempMap.get("tipo_terreno")),
+                                            Integer.parseInt(tempMap.get("min_temperatura").toString()),
+                                            Integer.parseInt(tempMap.get("max_temperatura").toString()),
+                                            Double.parseDouble(String.valueOf(tempMap.get("altezza_max_prevista"))));
                                     insert(newPianta);
                                 }
                                 if (isPiantaChanged) {
@@ -107,8 +123,21 @@ public class PiantaRepository implements IPiantaRepository {
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
 
-
-                                    newPianta = new Pianta(document.getId(), String.valueOf(tempMap.get("nome")), String.valueOf(tempMap.get("descrizione")), String.valueOf(tempMap.get("famiglia_botanica")), Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))), Integer.parseInt(String.valueOf(tempMap.get("fine_semina"))), Integer.parseInt(String.valueOf(tempMap.get("frequenza_innaffiamento"))), tmpListFasi, Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))), String.valueOf(tempMap.get("esposizione_sole")), String.valueOf(tempMap.get("tipo_terreno")), Integer.parseInt(String.valueOf(tempMap.get("min_temperatura"))), Integer.parseInt(String.valueOf(tempMap.get("max_temperatura"))), Integer.parseInt(String.valueOf(tempMap.get("altezza_max_prevista"))));
+                                    newPianta = new Pianta(
+                                            document.getId(),
+                                            String.valueOf(tempMap.get("nome")),
+                                            String.valueOf(tempMap.get("descrizione")),
+                                            String.valueOf(tempMap.get("famiglia_botanica")),
+                                            Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))),
+                                            Integer.parseInt(tempMap.get("fine_semina").toString()),
+                                            Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()),
+                                            tmpListFasi,
+                                            Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))),
+                                            String.valueOf(tempMap.get("esposizione_sole")),
+                                            String.valueOf(tempMap.get("tipo_terreno")),
+                                            Integer.parseInt(tempMap.get("min_temperatura").toString()),
+                                            Integer.parseInt(tempMap.get("max_temperatura").toString()),
+                                            Double.parseDouble(String.valueOf(tempMap.get("altezza_max_prevista"))));
                                     insert(newPianta);
 
 
@@ -146,6 +175,25 @@ public class PiantaRepository implements IPiantaRepository {
         protected Void doInBackground(Pianta... piante) {
             mPiantaDao.insert(piante[0]);
             return null;
+        }
+    }
+
+    public List<Pianta> SearchPiante(String query) throws ExecutionException, InterruptedException {
+        AsyncTask asyncTask = new SearchPianteAsyncTask(mPiantaDao).execute(query);
+
+        return (List<Pianta>) asyncTask.get();
+    }
+
+    private static class SearchPianteAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
+        private PiantaDao piantaDao;
+
+        private SearchPianteAsyncTask(PiantaDao piantaDao) {
+            this.piantaDao = piantaDao;
+        }
+
+        @Override
+        protected List<Pianta> doInBackground(String... strings) {
+            return piantaDao.searchMatches(strings[0]);
         }
     }
 
