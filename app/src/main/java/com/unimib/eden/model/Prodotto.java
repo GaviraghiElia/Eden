@@ -1,29 +1,25 @@
 package com.unimib.eden.model;
 
-import static android.content.ContentValues.TAG;
 import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
 import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
+import static com.unimib.eden.utils.Constants.PRODOTTO_ID;
+import static com.unimib.eden.utils.Constants.PRODOTTO_OFFERTE;
 import static com.unimib.eden.utils.Constants.PRODOTTO_PIANTA;
 import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
 import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_STORIA_OFFERTE;
+import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
 import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
 import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
-
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.unimib.eden.utils.Converters;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Entity(tableName = "prodotto")
@@ -39,7 +35,7 @@ public class Prodotto implements Serializable {
     private double prezzo;
     @ColumnInfo(name = PRODOTTO_PIANTA)
     private String pianta;
-    @ColumnInfo(name = PRODOTTO_STORIA_OFFERTE)
+    @ColumnInfo(name = PRODOTTO_OFFERTE)
     private ArrayList<String> offerte;
     @ColumnInfo(name = PRODOTTO_QUANTITA)
     private int quantita;
@@ -47,8 +43,11 @@ public class Prodotto implements Serializable {
     private int faseAttuale;
     @ColumnInfo(name = PRODOTTO_ALTRE_INFORMAZIONI)
     private String altreInformazioni;
+    @ColumnInfo(name = PRODOTTO_SCAMBIO_DISPONIBILE)
+    private Boolean scambioDisponibile;
 
-    public Prodotto(@NonNull String id, String tipo, String venditore, double prezzo, String pianta, ArrayList<String> offerte, int quantita, int faseAttuale, String altreInformazioni) {
+    //costruttore partendo dai parametri
+    public Prodotto(@NonNull String id, String tipo, String venditore, double prezzo, String pianta, ArrayList<String> offerte, int quantita, int faseAttuale, String altreInformazioni, Boolean scambioDisponibile) {
         this.id = id;
         this.tipo = tipo;
         this.venditore = venditore;
@@ -58,28 +57,46 @@ public class Prodotto implements Serializable {
         this.quantita = quantita;
         this.faseAttuale = faseAttuale;
         this.altreInformazioni = altreInformazioni;
+        this.scambioDisponibile = scambioDisponibile;
     }
 
+    //costruttore partendo dal document
     public Prodotto(QueryDocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> tempMap = document.getData();
-        this.tipo = String.valueOf(tempMap.get(PRODOTTO_TIPO));
-        this.venditore = String.valueOf(tempMap.get(PRODOTTO_VENDITORE));
-        this.prezzo = Double.parseDouble(tempMap.get(PRODOTTO_PREZZO).toString());
-        this.pianta = String.valueOf(tempMap.get(PRODOTTO_PIANTA));
-        this.quantita = Integer.parseInt(tempMap.get(PRODOTTO_QUANTITA).toString());
-        this.faseAttuale = Integer.parseInt(tempMap.get(PRODOTTO_FASE_ATTUALE).toString());
-        this.altreInformazioni = String.valueOf(tempMap.get(PRODOTTO_ALTRE_INFORMAZIONI));
-        this.offerte = (ArrayList<String>) (ArrayList) document.getData().get(PRODOTTO_STORIA_OFFERTE);
-        //TODO: aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
-        //booleano per "scambio si/no". booleano per "coltura/eccedenza"
-        //riempire offerte. altezza max prevista in Pianta è double e non int
-        //è necessario copiare tutto il lavoro fatto anche per Offerta? SI
-        //per riempire il db: mandare una stampa a chatgpt e farsi generare il codice per inserirne altre
-        //parte grafica di prodotti, guardare se Gaia ha pushato le card
-        //nella pipeline implementare anche la parte di artefatti, ovvero generare un .apk testato e funzionante
+        initFromMap(tempMap);
     }
 
+    //costruttore partendo da una map
+    public Prodotto(Map<String, Object> dataMap) {
+        this.id = String.valueOf(dataMap.get(PRODOTTO_ID));
+        initFromMap(dataMap);
+    }
+
+    private void initFromMap(Map<String, Object> dataMap) {
+        this.tipo = String.valueOf(dataMap.get(PRODOTTO_TIPO));
+        this.venditore = String.valueOf(dataMap.get(PRODOTTO_VENDITORE));
+        this.prezzo = Double.parseDouble(dataMap.get(PRODOTTO_PREZZO).toString());
+        this.pianta = String.valueOf(dataMap.get(PRODOTTO_PIANTA));
+        this.quantita = Integer.parseInt(String.valueOf(dataMap.get(PRODOTTO_QUANTITA)));
+        this.faseAttuale = Integer.parseInt(dataMap.get(PRODOTTO_FASE_ATTUALE).toString());
+        this.altreInformazioni = String.valueOf(dataMap.get(PRODOTTO_ALTRE_INFORMAZIONI));
+        this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODOTTO_SCAMBIO_DISPONIBILE)));
+        this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODOTTO_OFFERTE);
+    }
+        //TODO: unita di misura deve cambiare in base alla fase scelta (4->kg, 1...3->piante)
+        //il bottone Invia è clickabile solo dopo aver inserito tutto.
+        //dopo aver inserito un prodotto la schermata torna alla bancarella
+        //quantita potrebbe essere intero o double a seconda di eccedenza o pianta. da decidere
+        //tagliare le cifre dopo la virgola nei numeri interi in fase di inserimento
+        //prendere la ricerca delle piante da Alice. controllo sulle fasi in base alla pianta
+        //parte grafica di prodotti, guardare se Gaia ha pushato le card
+
+        //nella pipeline implementare anche la parte di artefatti, ovvero generare un .apk testato e funzionante
+        
+        //**CARD BANCARELLA** aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
+        // è necessario copiare tutto il lavoro fatto anche per Offerta? SI
+        //per riempire il db: mandare una stampa a chatgpt e farsi generare il codice per inserirne altre
     @NonNull
     public String getId() {
         return id;
@@ -153,6 +170,14 @@ public class Prodotto implements Serializable {
         this.altreInformazioni = altreInformazioni;
     }
 
+    public Boolean getScambioDisponibile() {
+        return scambioDisponibile;
+    }
+
+    public void setScambioDisponibile(Boolean scambioDisponibile) {
+        this.scambioDisponibile = scambioDisponibile;
+    }
+
     @Override
     public String toString() {
         return "Prodotto{" +
@@ -165,6 +190,7 @@ public class Prodotto implements Serializable {
                 ", quantita=" + quantita +
                 ", faseAttuale=" + faseAttuale +
                 ", altreInformazioni='" + altreInformazioni + '\'' +
+                ", scambioDisponibile=" + scambioDisponibile +
                 '}';
     }
 }

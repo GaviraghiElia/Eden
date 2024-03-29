@@ -1,5 +1,6 @@
 package com.unimib.eden.repository;
 
+import static com.unimib.eden.utils.Constants.PRODOTTO_ID;
 import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
 
 import android.app.Application;
@@ -8,19 +9,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.unimib.eden.database.PiantaDao;
-import com.unimib.eden.database.PiantaRoomDatabase;
 import com.unimib.eden.database.ProdottoDao;
 import com.unimib.eden.database.ProdottoRoomDatabase;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -59,12 +55,16 @@ public class ProdottoRepository implements IProdottoRepository {
         new ProdottoRepository.InsertProdottoAsyncTask(mProdottoDao).execute(prodotto);
     }
 
-    public void aggiungiProdotto(Prodotto prodotto) {
+    public void aggiungiProdotto(Map<String, Object> prodottoMap) {
         db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
-                .add(prodotto)
+                .add(prodottoMap)
                 .addOnSuccessListener(documentReference -> {
-                    Log.d(TAG, "Prodotto aggiunto con ID: " + documentReference.getId());
-                    // Inserisci anche localmente
+                    String prodottoId = documentReference.getId();
+                    Log.d(TAG, "Prodotto aggiunto con ID: " + prodottoId);
+                    // Aggiungi l'ID al prodottoMap
+                    prodottoMap.put(PRODOTTO_ID, prodottoId);
+                    Prodotto prodotto = new Prodotto(prodottoMap);
+                    Log.d(TAG, "prodotto: " + prodotto.toString());
                     insert(prodotto);
                 })
                 .addOnFailureListener(e -> Log.w(TAG, "Errore durante l'aggiunta del prodotto", e));
@@ -81,6 +81,7 @@ public class ProdottoRepository implements IProdottoRepository {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, "updateLocalDB: " + document.toString());
                                     insert(new Prodotto(document));
                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                 }

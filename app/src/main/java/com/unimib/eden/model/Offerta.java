@@ -3,13 +3,6 @@ package com.unimib.eden.model;
 import static com.unimib.eden.utils.Constants.OFFERTA_ACQUIRENTE;
 import static com.unimib.eden.utils.Constants.OFFERTA_PREZZO;
 import static com.unimib.eden.utils.Constants.OFFERTA_STATO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
-import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_STORIA_OFFERTE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
 
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;

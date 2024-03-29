@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quantita_unita_options">
+        <item>kg</item>
+        <item>gr</item>
+        <item>piante</item>
+    </string-array>
+
+    <string-array name="fase_attuale_options">
+        <item>1: germinazione</item>
+        <item>2: fioritura</item>
+        <item>3: fruttificazione</item>
+        <item>4: prodotto finito</item>
+    </string-array>
+</resources>

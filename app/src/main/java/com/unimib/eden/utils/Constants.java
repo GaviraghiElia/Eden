@@ -21,20 +21,22 @@ public class Constants {
     public static final String FASE_DURATA_FASE = "durata_fase";
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
-    public static final int VERSIONE_DATABASE = 5;
+    public static final int VERSIONE_DATABASE = 8;
 
     public static final String NOME_DATABASE_ORTO = "pianta";
 
     public static final String FIRESTORE_COLLECTION_PIANTE = "piante";
 
+    public static final String PRODOTTO_ID = "id";
     public static final String PRODOTTO_TIPO = "tipo";
     public static final String PRODOTTO_VENDITORE = "venditore";
     public static final String PRODOTTO_PREZZO = "prezzo";
-    public static final String PRODOTTO_STORIA_OFFERTE = "storia_offerte";
+    public static final String PRODOTTO_OFFERTE = "offerte";
     public static final String PRODOTTO_ALTRE_INFORMAZIONI = "altre_informazioni";
     public static final String PRODOTTO_QUANTITA = "quantita";
     public static final String PRODOTTO_PIANTA = "pianta";
     public static final String PRODOTTO_FASE_ATTUALE = "fase_attuale";
+    public static final String PRODOTTO_SCAMBIO_DISPONIBILE = "scambio_disponibile";
 
     public static final String OFFERTA_ACQUIRENTE = "acquirente";
     public static final String OFFERTA_PREZZO = "offerta";

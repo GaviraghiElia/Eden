@@ -19,58 +19,67 @@
         android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/editTextTipo"
+        android:id="@+id/editTextPianta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/tipo" />
-
-    <EditText
-        android:id="@+id/editTextPrezzo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextTipo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/prezzo"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/editTextPianta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextPrezzo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:hint="@string/pianta" />
+
+    <Spinner
+        android:id="@+id/spinnerFaseAttuale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/editTextPianta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:entries="@array/fase_attuale_options" />
 
     <EditText
         android:id="@+id/editTextQuantita"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextPianta"
+        app:layout_constraintTop_toBottomOf="@id/spinnerFaseAttuale"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:hint="@string/quantita"
         android:inputType="number" />
 
-    <EditText
-        android:id="@+id/editTextFaseAttuale"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/spinnerQuantitaUnita"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/editTextQuantita"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/fase_attuale"
-        android:inputType="number" />
+        android:entries="@array/quantita_unita_options" />
+
+
+    <EditText
+        android:id="@+id/editTextPrezzo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spinnerQuantitaUnita"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/prezzo"
+        android:inputType="numberDecimal" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchScambioDisponibile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disponibile_a_scambi"
+        app:layout_constraintTop_toBottomOf="@id/editTextPrezzo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editTextAltreInformazioni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextFaseAttuale"
+        app:layout_constraintTop_toBottomOf="@id/switchScambioDisponibile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:hint="@string/altre_informazioni" />
