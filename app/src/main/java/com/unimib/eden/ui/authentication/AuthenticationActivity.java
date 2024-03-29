@@ -7,6 +7,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityAuthenticationBinding;
 
 public class AuthenticationActivity extends AppCompatActivity
@@ -25,5 +27,8 @@ public class AuthenticationActivity extends AppCompatActivity
 
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(mBinding.fragmentAuthContainerView.getId());
         navController = navHostFragment.getNavController();
+
+        BottomNavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setEnabled(false);
     }
 }

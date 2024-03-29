@@ -1,6 +1,5 @@
 package com.unimib.eden.ui.main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -10,13 +9,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
+import com.unimib.eden.ui.authentication.AuthenticationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,13 +52,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+
+        if (checkSession())
+            startActivity(new Intent(this, MainActivity.class));
+        else
+            startActivity(new Intent(this, AuthenticationActivity.class));
+
+    }
+
+    private boolean checkSession()
+    {
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if(currentUser != null)
-        {
-            Log.d("mAuth", "current user != null");
-        }else
-        {
-            Log.d("mAuth", "current user == null");
-        }
+            return true;
+
+        return false;
     }
 }
