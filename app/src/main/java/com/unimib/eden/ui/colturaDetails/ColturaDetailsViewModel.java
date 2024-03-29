@@ -1,6 +1,7 @@
 package com.unimib.eden.ui.colturaDetails;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -8,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
-import com.unimib.eden.utils.Converters;
+import com.unimib.eden.utils.Transformer;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ColturaDetailsViewModel extends AndroidViewModel {
     private PiantaRepository piantaRepository;
@@ -20,10 +21,10 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
         piantaRepository = new PiantaRepository(application);
     }
 
-    public int getGiorniInnaffiamento(Coltura coltura) {
+    public String getProssimoInnaffiamento(Context context, Coltura coltura) {
         //TODO: sistemare quando scaricherà le piante nel db
         //return Converters.daysTo(coltura, getPiantaById(coltura.getIdPianta()).getFrequenzaInnaffiamento());
-        return Converters.daysTo(coltura, 2);
+        return Transformer.formatProssimoInnaffiamento(context, coltura, new Pianta("", "", "","", 2, 5, 2, new ArrayList<>(), 1.0, "", "", 0, 0, 1));
     }
 
     public String getNomePianta(Coltura coltura) {

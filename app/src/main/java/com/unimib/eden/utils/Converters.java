@@ -51,13 +51,4 @@ public class Converters {
             return sdf.format(date);
         }
     }
-
-    public static int daysTo(Coltura coltura, int frequenzaInnaffiamento) {
-        Date currentDate = new Date();
-        Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
-        long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
-        long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        int daysRemaining = frequenzaInnaffiamento - (int) daysDifference;
-        return daysRemaining;
-    }
 }

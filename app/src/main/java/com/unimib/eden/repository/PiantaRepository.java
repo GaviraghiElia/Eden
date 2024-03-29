@@ -15,6 +15,7 @@ import com.unimib.eden.database.PiantaDao;
 import com.unimib.eden.database.PiantaRoomDatabase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.utils.Constants;
+import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.ServiceLocator;
 
 import java.util.ArrayList;
@@ -44,109 +45,22 @@ public class PiantaRepository implements IPiantaRepository {
 
     @Override
     public void deletePianta(Pianta pianta) {
-        new DeleteMatchAsyncTask(mPiantaDao).execute(pianta);
+
     }
 
     @Override
     public void insert(Pianta pianta) {
-        new InsertMatchAsyncTask(mPiantaDao).execute(pianta);
+
+    }
+
+    @Override
+    public Pianta getPiantaById(String piantaId) {
+        return mPiantaDao.getById(piantaId);
     }
 
     public void updateLocalDB() {
-
-        db.collection(Constants.FIRESTORE_COLLECTION_PIANTE)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                List<Pianta> tempPiante = allPiante;
-                                boolean isPiantaPresent = false;
-                                boolean isPiantaChanged = false;
-                                Pianta oldPianta = null;
-                                Pianta newPianta = null;
-//                                Log.d(TAG, "onComplete: TEMPMATCH1 " + tempMatch.toString());
-                                assert tempPiante != null;
-                                for (Pianta p : tempPiante) {
-                                    if (p.getId().equals(document.getId())) {
-                                        isPiantaPresent = true;
-                                    }
-                                    Log.d(TAG, "onComplete: ARRAYLIST " + (p.getFasi() != (ArrayList) document.getData().get("fasi")));
-                                    if (p.getId().equals(document.getId()) && p.getFasi() != (ArrayList) document.getData().get("fasi")) {
-                                        //m.hashCode() != document.getData().hashCode()
-                                        //!m.equals(document.getData())
-                                        oldPianta = p;
-                                        isPiantaChanged = true;
-                                    }
-                                    boolean piantaFireBaseDBNotPresent = false;
-                                    for (QueryDocumentSnapshot d : task.getResult()) {
-                                        if (p.getId().equals(d.getId())) {
-                                            piantaFireBaseDBNotPresent = true;
-                                        }
-                                    }
-                                    if (!piantaFireBaseDBNotPresent) {
-                                        deletePianta(p);
-                                    }
-
-
-                                }
-                                if (!isPiantaPresent) {
-                                    Map<String, Object> tempMap = document.getData();
-                                    ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
-
-                                    Log.d(TAG, "onComplete: TEMP_MAP" + tempMap.toString());
-                                    Log.d(TAG, "onComplete: FASI " + tmpListFasi );
-                                    newPianta = new Pianta(document.getId(), String.valueOf(tempMap.get("nome")), String.valueOf(tempMap.get("descrizione")), String.valueOf(tempMap.get("famiglia_botanica")), Integer.parseInt(tempMap.get("inizio_semina").toString()), Integer.parseInt(tempMap.get("fine_semina").toString()), Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()), tmpListFasi, Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))), String.valueOf(tempMap.get("esposizione_sole")), String.valueOf(tempMap.get("tipo_terreno")), Integer.parseInt(tempMap.get("min_temperatura").toString()), Integer.parseInt(tempMap.get("max_temperatura").toString()), Integer.parseInt(tempMap.get("altezza_max_prevista").toString()));
-                                    insert(newPianta);
-                                }
-                                if (isPiantaChanged) {
-                                    deletePianta(oldPianta);
-                                    Log.d(TAG, "onComplete: DATABASE_DATA " + getAllPiante().toString());
-                                    Map<String, Object> tempMap = document.getData();
-                                    ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
-
-
-                                    newPianta = new Pianta(document.getId(), String.valueOf(tempMap.get("nome")), String.valueOf(tempMap.get("descrizione")), String.valueOf(tempMap.get("famiglia_botanica")), Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))), Integer.parseInt(String.valueOf(tempMap.get("fine_semina"))), Integer.parseInt(String.valueOf(tempMap.get("frequenza_innaffiamento"))), tmpListFasi, Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))), String.valueOf(tempMap.get("esposizione_sole")), String.valueOf(tempMap.get("tipo_terreno")), Integer.parseInt(String.valueOf(tempMap.get("min_temperatura"))), Integer.parseInt(String.valueOf(tempMap.get("max_temperatura"))), Integer.parseInt(String.valueOf(tempMap.get("altezza_max_prevista"))));
-                                    insert(newPianta);
-
-
-                                }
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-
-    private static class DeleteMatchAsyncTask extends AsyncTask<Pianta, Void, Void> {
-        private PiantaDao piantaDao;
-
-        private DeleteMatchAsyncTask(PiantaDao piantaDao) {
-            this.piantaDao = piantaDao;
-        }
-
-        @Override
-        protected Void doInBackground(Pianta... matches) {
-            piantaDao.delete(matches[0]);
-            return null;
-        }
-    }
-
-    private static class InsertMatchAsyncTask extends AsyncTask<Pianta, Void, Void> {
-        private PiantaDao mPiantaDao;
-
-        private InsertMatchAsyncTask(PiantaDao piantaDao) {
-            this.mPiantaDao = piantaDao;
-        }
-
-        @Override
-        protected Void doInBackground(Pianta... piante) {
-            mPiantaDao.insert(piante[0]);
-            return null;
-        }
+        Pianta newPianta = new Pianta("beVITqkLHWCerI1XLRxj", "Pomodoro", "Descrizione bla bla", "Latinum", 3, 4, 2, new ArrayList<>(), 1.0, "pieno sole","drenato",18, 24, 2);
+        insert(newPianta);
     }
 
 }

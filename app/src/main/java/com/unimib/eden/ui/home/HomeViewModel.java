@@ -10,6 +10,8 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.ColturaRepository;
 import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.utils.Converters;
+import com.unimib.eden.utils.Transformer;
 
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class HomeViewModel extends AndroidViewModel {
     public List<Pianta> getPiante() { return mPiante;}
 
     public List<Coltura> getColture() { return mColture;}
+
+    private Pianta getPiantaById(String piantaId) {
+        return piantaRepository.getPiantaById(piantaId);
+    }
 
     public void updateDB() {
         //piantaRepository.updateLocalDB();

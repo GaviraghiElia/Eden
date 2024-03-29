@@ -32,7 +32,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
-    private FragmentHomeBinding binding;
+    private FragmentHomeBinding mBinding;
     //FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
 
@@ -61,13 +61,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = mBinding.getRoot();
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel.updateDB();
 
-        RecyclerView mRecyclerViewHome = view.findViewById(R.id.homeRecyclerView);
-        mRecyclerViewHome.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
             @Override
@@ -79,7 +78,7 @@ public class HomeFragment extends Fragment {
 
             }
         }, R.layout.coltura_small_card, getActivity().getApplication());
-        mRecyclerViewHome.setAdapter(mColturaAdapter);
+        mBinding.homeRecyclerView.setAdapter(mColturaAdapter);
         Log.d(TAG, "mColture: " + mColture.toString());
 
         return view;
