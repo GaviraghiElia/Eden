@@ -1,6 +1,7 @@
 package com.unimib.eden.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,6 +14,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +31,7 @@ import com.unimib.eden.databinding.FragmentHomeBinding;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
@@ -56,7 +61,6 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
-        Log.d("mAuth", "mAuth success");
 
     }
 
@@ -67,22 +71,49 @@ public class HomeFragment extends Fragment {
         View view = binding.getRoot();
         homeViewModel.updateDB();
         navController = NavHostFragment.findNavController(this);
-        // Inflate the layout for this fragment
+        if(checkSession())
+        {
+            Log.d("mAuth", "home fragment - user sign in");
+            mAuth.signOut();
+        }else
+        {
+            Log.d("mAuth", "home fragment - user not auth");
+            navController.navigate(R.id.action_navigation_home_to_loginFragment);
+        }
         return view;
 
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
-            Log.d("mAuth", "current user != null");
-        }else
-        {
-            Log.d("mAuth", "current user == null");
-            navController.navigate(R.id.action_navigation_home_to_loginFragment);
-        }
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home_menu, menu);
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Listener for the items in the custom menu
+        if (item.getItemId() == R.id.app_bar_search) {
+            //startActivity(new Intent(getActivity().getApplicationContext(), SearchPiantaActivity.class));
+            return true;
+        }
+        if(item.getItemId() == R.id.action_logout){
+            mAuth.signOut();
+           startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkSession()
+    {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null)
+            return true;
+
+        return false;
+    }
+
 }

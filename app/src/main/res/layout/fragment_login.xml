@@ -14,8 +14,8 @@
         android:layout_height="280dp"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        android:src="@drawable/ic_login"
-        android:contentDescription="Login Image"/>
+        android:contentDescription="Login Image"
+        android:src="@drawable/ic_login_green" />
 
     <LinearLayout
         android:layout_width="match_parent"

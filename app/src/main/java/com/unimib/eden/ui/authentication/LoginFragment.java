@@ -1,8 +1,10 @@
 package com.unimib.eden.ui.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentLoginBinding;
+import com.unimib.eden.ui.main.MainActivity;
 
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -33,6 +37,19 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if(!checkSession())
+        {
+            Log.d("mAuth", "login fragment - user not signed");
+        }else
+        {
+            Log.d("mAuth", "login fragment - user auth");
+            startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
@@ -40,6 +57,7 @@ public class LoginFragment extends Fragment {
         mBinding.loginEmail.addTextChangedListener(loginTextWatcher);
         mBinding.loginPassword.addTextChangedListener(loginTextWatcher);
         mAuth = FirebaseAuth.getInstance();
+
 
         mBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +78,7 @@ public class LoginFragment extends Fragment {
                     mUtenteViewModel.signInWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
                         if (firebaseResponse != null) {
                             if (firebaseResponse.isSuccess()) {
-                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
+                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_navigation_home);
                                 getActivity().finish();
                             } else
                                 makeMessage(firebaseResponse.getMessage());
@@ -88,7 +106,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    // Watcher of text change
+
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,5 +131,19 @@ public class LoginFragment extends Fragment {
     private void makeMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         mUtenteViewModel.clear();
+    }
+
+    /**
+     * Controlla se l'utente è già autenticato.
+     * @return true se l'utente è autenticato, false altrimenti.
+     */
+    private boolean checkSession()
+    {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null)
+            return true;
+
+        return false;
     }
 }

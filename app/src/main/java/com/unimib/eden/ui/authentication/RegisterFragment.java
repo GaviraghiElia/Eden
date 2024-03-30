@@ -55,7 +55,6 @@ public class RegisterFragment extends Fragment
         backButtonPressed(view);
 
         // Text Watcher per abilitare il bottone di registrazione
-        mBinding.registerName.addTextChangedListener(loginTextWatcher);
         mBinding.registerEmail.addTextChangedListener(loginTextWatcher);
         mBinding.registerPassword.addTextChangedListener(loginTextWatcher);
 
@@ -66,10 +65,9 @@ public class RegisterFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                String name = mBinding.registerName.getText().toString();
                 String email = mBinding.registerEmail.getText().toString();
                 String password = mBinding.registerPassword.getText().toString();
-                String response = isValidCredential(name, email, password);
+                String response = isValidCredential(email, password);
                 if(response.equals("success"))
                 {
                     mUserViewModel.clear();
@@ -96,7 +94,7 @@ public class RegisterFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                Log.d("mAuthRegister", "onclick register");
+                Log.d("mAuth", "navigazione verso login");
                 navController.navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
@@ -113,10 +111,9 @@ public class RegisterFragment extends Fragment
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
-            String nameInput = mBinding.registerName.getText().toString();
             String emailInput = mBinding.registerEmail.getText().toString();
             String passwordInput = mBinding.registerPassword.getText().toString();
-            mBinding.buttonRegister.setEnabled((!nameInput.isEmpty()) && (!emailInput.isEmpty()) && (!passwordInput.isEmpty()) && isValidEmail(emailInput));
+            mBinding.buttonRegister.setEnabled((!emailInput.isEmpty()) && (!passwordInput.isEmpty()) && isValidEmail(emailInput) && isValidPassword(passwordInput));
         }
 
         @Override
@@ -131,7 +128,7 @@ public class RegisterFragment extends Fragment
                 if (firebaseResponse.isSuccess())
                 {
                     makeMessage(getString(R.string.successfull_registration));
-                    Log.d("mAuthRegister", "registrazione effettuata");
+                    Log.d("mAuth", "registrazione effettuata");
                     firebaseAuth = FirebaseAuth.getInstance();
                     firebaseAuth.signOut();
                     navController.navigate(R.id.action_registerFragment_to_loginFragment);
@@ -139,13 +136,13 @@ public class RegisterFragment extends Fragment
                 else
                 {
                     makeMessage(firebaseResponse.getMessage());
-                    Log.d("mAuthRegister", "registrazione fallita");
+                    Log.d("mAuth", "registrazione fallita");
                 }
             }
         });
     }
 
-    public String isValidCredential(String name, String email, String password)
+    public String isValidCredential(String email, String password)
     {
         if(!isValidEmail(email))
         {

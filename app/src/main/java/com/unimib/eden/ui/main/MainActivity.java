@@ -47,27 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth = FirebaseAuth.getInstance();
-
-        if (checkSession())
-            startActivity(new Intent(this, MainActivity.class));
-        else
-            startActivity(new Intent(this, AuthenticationActivity.class));
-
-    }
-
-    private boolean checkSession()
-    {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null)
-            return true;
-
-        return false;
+        BottomNavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setEnabled(true);
     }
 }

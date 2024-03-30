@@ -28,7 +28,5 @@ public class AuthenticationActivity extends AppCompatActivity
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(mBinding.fragmentAuthContainerView.getId());
         navController = navHostFragment.getNavController();
 
-        BottomNavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setEnabled(false);
     }
 }
