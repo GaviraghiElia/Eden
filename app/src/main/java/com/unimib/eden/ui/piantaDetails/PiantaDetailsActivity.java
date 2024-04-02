@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +66,18 @@ public class PiantaDetailsActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        binding.fasiTitleSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: button clicked");
+                if (binding.fasiConstraintLayout.getVisibility() == binding.fasiConstraintLayout.VISIBLE) {
+                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.GONE);
+                } else {
+                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.VISIBLE);
+                }
+            }
+        });
 
         binding.fasiRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         faseAdapter = new FaseAdapter(new ArrayList<>());
