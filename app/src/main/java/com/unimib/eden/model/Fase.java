@@ -24,7 +24,7 @@ public class Fase implements Serializable {
     @ColumnInfo(name = FASE_NOME_FASE)
     private String nomeFase;
     @ColumnInfo(name = FASE_INIZIO_FASE)
-    private String inizioFase;
+    private int inizioFase;
     @ColumnInfo(name = FASE_DURATA_FASE)
     private int durataFase;
     @ColumnInfo(name = FASE_DESCRIZIONE)
@@ -32,7 +32,7 @@ public class Fase implements Serializable {
     @ColumnInfo(name = FASE_IMMAGINE)
     private String immagine;
 
-    public Fase(@NonNull String id, String nomeFase, String inizioFase, int durataFase, String descrizione, String immagine) {
+    public Fase(@NonNull String id, String nomeFase, int inizioFase, int durataFase, String descrizione, String immagine) {
         this.id = id;
         this.nomeFase = nomeFase;
         this.inizioFase = inizioFase;
@@ -58,11 +58,11 @@ public class Fase implements Serializable {
         this.nomeFase = nomeFase;
     }
 
-    public String getInizioFase() {
+    public int getInizioFase() {
         return inizioFase;
     }
 
-    public void setInizioFase(String inizioFase) {
+    public void setInizioFase(int inizioFase) {
         this.inizioFase = inizioFase;
     }
 

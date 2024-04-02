@@ -23,7 +23,7 @@ public class Constants {
     public static final String FASE_IMMAGINE = "immagine";
     public static final int VERSIONE_DATABASE_PIANTA = 3;
 
-    public static final int VERSIONE_DATABASE_FASE = 1;
+    public static final int VERSIONE_DATABASE_FASE = 2;
 
     public static final String NOME_DATABASE_ORTO = "pianta";
 

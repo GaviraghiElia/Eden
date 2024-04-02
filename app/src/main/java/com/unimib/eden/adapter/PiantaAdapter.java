@@ -36,6 +36,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
         this.piantaList = piantaList;
         this.itemLayout = itemLayout;
     }
+
     @NonNull
     @Override
     public PiantaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

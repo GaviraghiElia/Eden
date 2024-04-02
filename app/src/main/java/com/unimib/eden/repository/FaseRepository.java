@@ -129,7 +129,7 @@ public class FaseRepository implements IFaseRepository {
                                     newFase = new Fase(
                                             document.getId(),
                                             String.valueOf(tempMap.get(Constants.FASE_NOME_FASE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
                                             String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));
@@ -144,7 +144,7 @@ public class FaseRepository implements IFaseRepository {
                                     newFase = new Fase(
                                             document.getId(),
                                             String.valueOf(tempMap.get(Constants.FASE_NOME_FASE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
                                             String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));

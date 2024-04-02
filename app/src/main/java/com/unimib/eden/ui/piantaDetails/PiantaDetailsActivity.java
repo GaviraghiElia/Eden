@@ -9,11 +9,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.unimib.eden.adapter.FaseAdapter;
+import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -22,6 +26,7 @@ public class PiantaDetailsActivity extends AppCompatActivity {
     private static final String TAG = "PiantaDetailsActivity";
     private ActivityPiantaDetailsBinding binding;
     private PiantaDetailsViewModel piantaDetailsViewModel;
+    private FaseAdapter faseAdapter;
     private LiveData<Pianta> game = new LiveData<Pianta>() {};
     String idNotification = null;
     Pianta pianta = null;
@@ -61,6 +66,10 @@ public class PiantaDetailsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        binding.fasiRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        faseAdapter = new FaseAdapter(new ArrayList<>());
+        binding.fasiRecyclerView.setAdapter(faseAdapter);
+        faseAdapter.update(fasi);
 
         Log.d(TAG, "onCreate: FASI_LIST " + fasi.get(0).getNomeFase());
 

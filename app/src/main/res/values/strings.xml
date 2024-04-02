@@ -25,4 +25,11 @@
     <string name="tipo_terreno">Tipo terreno</string>
     <string name="altezza_max_prevista">Altezza max</string>
     <string name="esposizione_sole">Esposizione sole</string>
+    <string name="nome_fase_label">Fase:</string>
+    <string name="nome_fase">Nome fase</string>
+    <string name="inizio_fase_label">Inizio fase:</string>
+    <string name="durata_fase_label">Durata fase:</string>
+    <string name="durata_fase">Durata fase</string>
+    <string name="descrizione_fase">Descrizione fase</string>
+    <string name="inizio_fase">Inizio fase</string>
 </resources>
