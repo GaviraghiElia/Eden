@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class PiantaRepository implements IPiantaRepository {
-    private static final String TAG = "MatchRepository";
+    private static final String TAG = "PiantaRepository";
 
     private final PiantaDao mPiantaDao;
 
@@ -45,12 +45,13 @@ public class PiantaRepository implements IPiantaRepository {
 
     @Override
     public void deletePianta(Pianta pianta) {
-        new DeleteMatchAsyncTask(mPiantaDao).execute(pianta);
+        new DeletePiantaAsyncTask(mPiantaDao).execute(pianta);
     }
 
     @Override
     public void insert(Pianta pianta) {
-        new InsertMatchAsyncTask(mPiantaDao).execute(pianta);
+
+        new InsertPiantaAsyncTask(mPiantaDao).execute(pianta);
     }
 
     public void updateLocalDB() {
@@ -150,10 +151,10 @@ public class PiantaRepository implements IPiantaRepository {
                 });
     }
 
-    private static class DeleteMatchAsyncTask extends AsyncTask<Pianta, Void, Void> {
+    private static class DeletePiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {
         private PiantaDao piantaDao;
 
-        private DeleteMatchAsyncTask(PiantaDao piantaDao) {
+        private DeletePiantaAsyncTask(PiantaDao piantaDao) {
             this.piantaDao = piantaDao;
         }
 
@@ -164,10 +165,10 @@ public class PiantaRepository implements IPiantaRepository {
         }
     }
 
-    private static class InsertMatchAsyncTask extends AsyncTask<Pianta, Void, Void> {
+    private static class InsertPiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {
         private PiantaDao mPiantaDao;
 
-        private InsertMatchAsyncTask(PiantaDao piantaDao) {
+        private InsertPiantaAsyncTask(PiantaDao piantaDao) {
             this.mPiantaDao = piantaDao;
         }
 

@@ -2,6 +2,7 @@ package com.unimib.eden.utils;
 
 import android.app.Application;
 
+import com.unimib.eden.database.FaseRoomDatabase;
 import com.unimib.eden.database.PiantaRoomDatabase;
 
 import java.io.File;
@@ -25,6 +26,10 @@ public class ServiceLocator {
 
     public PiantaRoomDatabase getPiantaDao(Application application) {
         return PiantaRoomDatabase.getDatabase(application);
+    }
+
+    public FaseRoomDatabase getFaseDao(Application application) {
+        return FaseRoomDatabase.getDatabase(application);
     }
 
 

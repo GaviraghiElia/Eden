@@ -8,4 +8,21 @@
     <string name="title_activity_search_pianta">SearchPiantaActivity</string>
     <string name="search_pianta">Search pianta</string>
     <string name="filter_pianta_button">Filter pianta</string>
+    <string name="pianta_name">Nome pianta</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="famiglia_botanica">Famiglia botanica</string>
+    <string name="frequenza_innaffiamento">Frequenza innaffiamento</string>
+    <string name="min_temperatura">Min temperatura</string>
+    <string name="max_temperatura">Max temperatura</string>
+    <string name="inizio_semina_label">Inizio Semina:</string>
+    <string name="inizio_semina">Inizio semina</string>
+    <string name="fine_semina_label">Fine Semina:</string>
+    <string name="fine_semina">Fine semina</string>
+    <string name="description_label">Descrizione:</string>
+    <string name="descrizione_pianta">Descrizione pianta</string>
+    <string name="fasi_description">Fasi</string>
+    <string name="spazio_necessario">Spazio necessario</string>
+    <string name="tipo_terreno">Tipo terreno</string>
+    <string name="altezza_max_prevista">Altezza max</string>
+    <string name="esposizione_sole">Esposizione sole</string>
 </resources>

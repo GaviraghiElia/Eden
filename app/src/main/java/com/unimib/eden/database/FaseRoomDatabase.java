@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
@@ -16,14 +17,13 @@ import com.unimib.eden.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Pianta.class}, version = Constants.VERSIONE_DATABASE_PIANTA, exportSchema = false)
+@Database(entities = {Fase.class}, version = Constants.VERSIONE_DATABASE_FASE, exportSchema = false)
 @TypeConverters({Converters.class})
-public abstract class PiantaRoomDatabase extends RoomDatabase {
-
+public abstract class FaseRoomDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile PiantaRoomDatabase INSTANCE;
+    private static volatile FaseRoomDatabase INSTANCE;
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -32,12 +32,12 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
         }
     };
 
-    public static PiantaRoomDatabase getDatabase(final Context context) {
+    public static FaseRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (PiantaRoomDatabase.class) {
+            synchronized (FaseRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    PiantaRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
+                                    FaseRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)
@@ -48,5 +48,5 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public abstract PiantaDao piantaDao();
+    public abstract FaseDao faseDao();
 }
