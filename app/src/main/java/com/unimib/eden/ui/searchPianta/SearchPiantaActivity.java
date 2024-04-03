@@ -32,6 +32,7 @@ import com.unimib.eden.ui.home.HomeFragment;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +84,9 @@ public class SearchPiantaActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(getApplicationContext(), FilterSearchActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                if (!filtriMap.isEmpty()) {
+                    intent.putExtra("filtriMap", (Serializable) filtriMap);
+                }
                 intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);

@@ -35,6 +35,9 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
     private static final String TAG = "FilterSearchActivity";
     private ActivityFilterSearchBinding binding;
     private FilterSearchViewModel filterSearchViewModel;
+
+    Map<String, String> filtriMap = new HashMap<>();
+    private boolean hasFiltri = false;
     String[] esposizioneSole = {"mezz'ombra","soleggiato","pieno sole"};
     ArrayAdapter<String> adapter;
 
@@ -60,6 +63,28 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
             }
         });
 
+        Intent intent2 = getIntent();
+        if (intent2.hasExtra("filtriMap")) {
+            filtriMap = (HashMap<String, String>) intent2.getSerializableExtra("filtriMap");
+            hasFiltri = true;
+        }
+
+        if(hasFiltri) {
+            if(filtriMap.get("frequenzaInnaffiamento") != null) {
+                binding.textInputFrequenzaInnaffiamento.setText(filtriMap.get("frequenzaInnaffiamento").toString());
+            }
+            if(filtriMap.get("esposizioneSole") != null) {
+                binding.esposizioneSoleAutoComplete.setText(filtriMap.get("esposizioneSole").toString());
+            }
+            if(filtriMap.get("inizioSemina") != null) {
+                binding.textInputEditInizioSemina.setText(filtriMap.get("inizioSemina").toString());
+            }
+            if(filtriMap.get("fineSemina") != null) {
+                binding.textInputEditFineSemina.setText(filtriMap.get("fineSemina").toString());
+            }
+
+        }
+
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, esposizioneSole);
         binding.esposizioneSoleAutoComplete.setAdapter(adapter);
@@ -83,7 +108,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         binding.confirmButton.setOnClickListener(view -> {
 
-            Map<String, String> filtriMap = new HashMap<>();
+
 
             if (binding.textInputFrequenzaInnaffiamento.getText().toString().equals("") &&
                     binding.esposizioneSoleAutoComplete.getText().toString().equals("") &&
