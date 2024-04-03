@@ -60,9 +60,9 @@ public class Pianta implements Serializable {
     @ColumnInfo(name = PIANTA_MAX_TEMPERATURA)
     private int maxTemperatura;
     @ColumnInfo(name = PIANTA_ALTEZZA_MAX_PREVISTA)
-    private int altezzaMaxPrevista;
+    private double altezzaMaxPrevista;
 
-    public Pianta(@NonNull String id, String nome, String descrizione, String famigliaBotanica, int inizioSemina, int fineSemina, int frequenzaInnaffiamento, ArrayList<String> fasi, Double spazioNecessario, String esposizioneSole, String tipoTerreno, int minTemperatura, int maxTemperatura, int altezzaMaxPrevista) {
+    public Pianta(@NonNull String id, String nome, String descrizione, String famigliaBotanica, int inizioSemina, int fineSemina, int frequenzaInnaffiamento, ArrayList<String> fasi, Double spazioNecessario, String esposizioneSole, String tipoTerreno, int minTemperatura, int maxTemperatura, double altezzaMaxPrevista) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -184,11 +184,11 @@ public class Pianta implements Serializable {
         this.maxTemperatura = maxTemperatura;
     }
 
-    public int getAltezzaMaxPrevista() {
+    public double getAltezzaMaxPrevista() {
         return altezzaMaxPrevista;
     }
 
-    public void setAltezzaMaxPrevista(int altezzaMaxPrevista) {
+    public void setAltezzaMaxPrevista(double altezzaMaxPrevista) {
         this.altezzaMaxPrevista = altezzaMaxPrevista;
     }
 }

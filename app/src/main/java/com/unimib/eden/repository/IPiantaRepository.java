@@ -11,4 +11,6 @@ public interface IPiantaRepository {
     void deletePianta(Pianta pianta);
 
     void insert(Pianta pianta);
+
+    Pianta getPiantaById(String piantaId);
 }

@@ -22,6 +22,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * classe prodotto
+ */
 @Entity(tableName = "prodotto")
 public class Prodotto implements Serializable {
     @PrimaryKey
@@ -84,19 +87,22 @@ public class Prodotto implements Serializable {
         this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODOTTO_SCAMBIO_DISPONIBILE)));
         this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODOTTO_OFFERTE);
     }
-        //TODO: unita di misura deve cambiare in base alla fase scelta (4->kg, 1...3->piante)
-        //il bottone Invia è clickabile solo dopo aver inserito tutto.
-        //dopo aver inserito un prodotto la schermata torna alla bancarella
-        //quantita potrebbe essere intero o double a seconda di eccedenza o pianta. da decidere
-        //tagliare le cifre dopo la virgola nei numeri interi in fase di inserimento
-        //prendere la ricerca delle piante da Alice. controllo sulle fasi in base alla pianta
-        //parte grafica di prodotti, guardare se Gaia ha pushato le card
+        //TODO:
+        //unirmi con la ricerca delle piante da Alice (serve Alice)
+        //scrivere tutti i test
+        //scrivere acceptance test su Drive
+        //scrivere la javadoc seguendo i pattern
+        //fare il get instance per prendere l'utente corrente (serve Elia)
+        //MAGARI aggiungere dei controlli sui campi inseriti
+        //MAGARI dopo aver inserito un prodotto la schermata torna alla bancarella
 
-        //nella pipeline implementare anche la parte di artefatti, ovvero generare un .apk testato e funzionante
+        //Creare branch pipeline oppure fare direttamente su sprint1: riga per creazione .apk
+            // inserimento file index.html e gem...qualcosa ruby.
+            // aggiungere job per generare pagina html con ruby
+            // aggiungere job (di Gaia) per runnare javadoc
         
         //**CARD BANCARELLA** aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
         // è necessario copiare tutto il lavoro fatto anche per Offerta? SI
-        //per riempire il db: mandare una stampa a chatgpt e farsi generare il codice per inserirne altre
     @NonNull
     public String getId() {
         return id;
