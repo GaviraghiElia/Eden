@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,14 +30,21 @@ import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchPiantaActivity extends AppCompatActivity {
+    private static final String TAG = "SearchPiantaActivity";
     private ActivitySearchPiantaBinding binding;
     private SearchPiantaViewModel searchPiantaViewModel;
     private Handler mHandler = new Handler();
     private PiantaAdapter piantaAdapter;
     private int operationCode;
+
+    private Map<String, String> filtriMap;
+
+    private boolean hasFiltri = false;
     private LiveData<List<Pianta>> piantaList = new LiveData<List<Pianta>>() {
     };
 
@@ -46,6 +54,13 @@ public class SearchPiantaActivity extends AppCompatActivity {
 
         binding = ActivitySearchPiantaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent intent = getIntent();
+        operationCode = (int) intent.getSerializableExtra("operationCode");
+        if (intent.hasExtra("filtriMap")) {
+            filtriMap = (HashMap<String, String>) intent.getSerializableExtra("filtriMap");
+            hasFiltri = true;
+        }
 
         binding.searchPiantaToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,9 +84,6 @@ public class SearchPiantaActivity extends AppCompatActivity {
 
         searchPiantaViewModel = new ViewModelProvider(this).get(SearchPiantaViewModel.class);
 
-        Intent intent = getIntent();
-        operationCode = (int) intent.getSerializableExtra("operationCode");
-
         binding.progressBarSearchPianta.setVisibility(View.VISIBLE);
         piantaList = searchPiantaViewModel.getPiantaList();
 
@@ -79,13 +91,25 @@ public class SearchPiantaActivity extends AppCompatActivity {
         piantaAdapter = new PiantaAdapter(new ArrayList<>());
         binding.searchPiantaRecyclerView.setAdapter(piantaAdapter);
 
-        searchPiantaViewModel.getPiantaList().observe(this, new Observer<List<Pianta>>() {
-            @Override
-            public void onChanged(List<Pianta> piante) {
-                piantaAdapter.update(piante, Constants.SEARCH_PIANTA_OPERATION_CODE);
-                binding.progressBarSearchPianta.setVisibility(View.GONE);
-            }
-        });
+        if (hasFiltri) {
+            searchPiantaViewModel.getPiantaList(filtriMap).observe(this, new Observer<List<Pianta>>() {
+                @Override
+                public void onChanged(List<Pianta> piante) {
+                    piantaAdapter.update(piante, Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    binding.progressBarSearchPianta.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            searchPiantaViewModel.getPiantaList().observe(this, new Observer<List<Pianta>>() {
+                @Override
+                public void onChanged(List<Pianta> piante) {
+                    piantaAdapter.update(piante, Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    binding.progressBarSearchPianta.setVisibility(View.GONE);
+                }
+            });
+        }
+
+
 
         binding.textInputSearchPianta.requestFocus();
         binding.textInputSearchPianta.addTextChangedListener(new TextWatcher() {
@@ -104,7 +128,12 @@ public class SearchPiantaActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         binding.progressBarSearchPianta.setVisibility(View.VISIBLE);
-                        searchPiantaViewModel.searchPianta(s.toString());
+                        if (hasFiltri) {
+                            searchPiantaViewModel.searchPianta(s.toString(), filtriMap);
+                        } else {
+                            searchPiantaViewModel.searchPianta(s.toString());
+                        }
+
                     }
                 }, Constants.API_SEARCH_DELAY);
             }

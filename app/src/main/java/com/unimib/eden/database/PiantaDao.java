@@ -15,7 +15,13 @@ public interface PiantaDao {
     List<Pianta> getAll();
 
     @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%'")
-    List<Pianta> searchMatches(String query);
+    List<Pianta> searchPiante(String query);
+
+    @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%' AND frequenza_innaffiamento >= :frequenzaInnaffiamento AND esposizione_sole = :esposizioneSole AND inizio_semina >= :inizioSemina AND fine_semina <= :fineSemina")
+    List<Pianta> searchPianteFiltriAll(String query, int frequenzaInnaffiamento, String esposizioneSole, int inizioSemina, int fineSemina);
+
+    @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%'AND frequenza_innaffiamento >= :frequenzaInnaffiamento AND inizio_semina >= :inizioSemina AND fine_semina <= :fineSemina")
+    List<Pianta> searchPianteFiltri(String query, int frequenzaInnaffiamento, int inizioSemina, int fineSemina);
 
     @Delete
     void delete(Pianta... pianta);

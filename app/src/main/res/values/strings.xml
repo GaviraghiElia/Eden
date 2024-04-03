@@ -38,6 +38,10 @@
     <string name="choose_inizio_semina">Inizio semina</string>
     <string name="choose_fine_semina">Fine semina</string>
     <string name="choose_number">Seleziona un numero</string>
+    <string name="alert_dialog_no_filter_applied_title">Non è stato selezionato un filtro di ricerca</string>
+    <string name="alert_dialog_no_filter_applied_message">Vuoi continuare senza filtri?</string>
+    <string name="alert_dialog_no_filter_applied_positive_button">SI</string>
+    <string name="alert_dialog_no_filter_applied_negative_button">NO</string>
     <string-array name="esposizione_sole_array">
         <item>mezz\'ombra</item>
         <item>soleggiato</item>

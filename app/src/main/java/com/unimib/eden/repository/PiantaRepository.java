@@ -194,7 +194,64 @@ public class PiantaRepository implements IPiantaRepository {
 
         @Override
         protected List<Pianta> doInBackground(String... strings) {
-            return piantaDao.searchMatches(strings[0]);
+            return piantaDao.searchPiante(strings[0]);
+        }
+    }
+
+    public List<Pianta> SearchPiante(String query, Map<String, String> filtriMap) throws ExecutionException, InterruptedException {
+        String frequenzaInnaffiamento = "";
+        String esposizioneSole = "";
+        String inizioSemina = "";
+        String fineSemina = "";
+
+        if(filtriMap.get("frequenzaInnaffiamento") != null) {
+            frequenzaInnaffiamento = filtriMap.get("frequenzaInnaffiamento");
+        } else {
+            frequenzaInnaffiamento = "0";
+        }
+        if(filtriMap.get("esposizioneSole") != null) {
+            esposizioneSole = filtriMap.get("esposizioneSole");
+        } else {
+            esposizioneSole = "";
+        }
+        if(filtriMap.get("inizioSemina") != null) {
+            inizioSemina = filtriMap.get("inizioSemina");
+        } else {
+            inizioSemina = "1";
+        }
+        if(filtriMap.get("fineSemina") != null) {
+            fineSemina = filtriMap.get("fineSemina");
+        } else {
+            fineSemina = "12";
+        }
+
+        AsyncTask asyncTask = new SearchPianteFiltriAsyncTask(mPiantaDao)
+                .execute(
+                        query,
+                        frequenzaInnaffiamento,
+                        esposizioneSole,
+                        inizioSemina,
+                        fineSemina);
+
+        return (List<Pianta>) asyncTask.get();
+    }
+
+    private static class SearchPianteFiltriAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
+        private PiantaDao piantaDao;
+        private Map<String, String> filtriMap;
+
+        private SearchPianteFiltriAsyncTask(PiantaDao piantaDao) {
+            this.piantaDao = piantaDao;
+        }
+
+        @Override
+        protected List<Pianta> doInBackground(String... strings) {
+            if (strings[2].equals("")) {
+                return piantaDao.searchPianteFiltri(strings[0], Integer.parseInt(strings[1]), Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+            } else {
+                return piantaDao.searchPianteFiltriAll(strings[0], Integer.parseInt(strings[1]), strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+            }
+
         }
     }
 
