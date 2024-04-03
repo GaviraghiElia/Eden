@@ -22,15 +22,48 @@ import com.unimib.eden.model.FirebaseResponse;
 import com.unimib.eden.model.Utente;
 import com.unimib.eden.utils.SharedPreferencesProvider;
 
+/**
+ * Classe per gestire l'interazione con Firebase in merito alla gestione degli utenti
+ *
+ * @author Gaviraghi Elia
+ */
 public class UtenteRepository implements IUtenteRepository{
 
+    /**
+     * Istanza di FirebaseAuth.
+     */
     private final FirebaseAuth mAuth;
+
+    /**
+     * Istanza di Application.
+     */
     private final Application mApplication;
+
+    /**
+     * Fornitore di SharedPreferences.
+     */
     private final SharedPreferencesProvider mSharedPreferencesProvider;
+
+    /**
+     * LiveData per la risposta di autenticazione da Firebase.
+     */
     private final MutableLiveData<FirebaseResponse> mAuthenticationResponseLiveData;
+
+    /**
+     * Istanza di FirebaseDatabase.
+     */
     private FirebaseDatabase fDB;
+
+    /**
+     * Riferimento al database di Firebase.
+     */
     private DatabaseReference reference;
 
+    /**
+     * Costruttore per UtenteRepository.
+     *
+     * @param application l'istanza di Application
+     */
     public UtenteRepository(Application application)
     {
         mAuth = FirebaseAuth.getInstance();
@@ -42,6 +75,14 @@ public class UtenteRepository implements IUtenteRepository{
         mAuthenticationResponseLiveData = new MutableLiveData<>();
         mSharedPreferencesProvider = new SharedPreferencesProvider(application);
     }
+
+    /**
+     * Metodo per effettuare l'accesso con email e password.
+     *
+     * @param email l'email dell'utente
+     * @param password la password dell'utente
+     * @return LiveData con la risposta di Firebase
+     */
     @Override
     public MutableLiveData<FirebaseResponse> signInWithEmail(String email, String password)
     {
@@ -72,6 +113,13 @@ public class UtenteRepository implements IUtenteRepository{
         return mAuthenticationResponseLiveData;
     }
 
+    /**
+     * Metodo per creare un utente con email e password.
+     *
+     * @param email l'email dell'utente
+     * @param password la password dell'utente
+     * @return LiveData con la risposta di Firebase
+     */
     @Override
     public MutableLiveData<FirebaseResponse> createUserWithEmail(String email, String password)
     {
@@ -98,18 +146,38 @@ public class UtenteRepository implements IUtenteRepository{
         return mAuthenticationResponseLiveData;
     }
 
+    /**
+     * Metodo per ri-autenticare un utente.
+     *
+     * @param utente l'utente da ri-autenticare
+     * @param email l'email dell'utente
+     * @param password la password dell'utente
+     * @return LiveData con la risposta di Firebase
+     */
     @Override
     public MutableLiveData<FirebaseResponse> reauthenticateUser(Utente utente, String email, String password)
     {
         return null;
     }
 
+    /**
+     * Metodo per aggiornare l'email di un utente.
+     *
+     * @param email la nuova email dell'utente
+     * @return LiveData con la risposta di Firebase
+     */
     @Override
     public MutableLiveData<FirebaseResponse> updateEmail(String email)
     {
         return null;
     }
 
+    /**
+     * Metodo per inviare un link di reset della password.
+     *
+     * @param email l'email dell'utente
+     * @return LiveData con la risposta di Firebase
+     */
     @Override
     public MutableLiveData<FirebaseResponse> resetPasswordLink(String email)
     {

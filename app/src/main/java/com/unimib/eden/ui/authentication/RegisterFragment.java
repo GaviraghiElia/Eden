@@ -30,6 +30,12 @@ import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentRegisterBinding;
 import com.unimib.eden.model.FirebaseResponse;
 
+/*
+ * RegisterFrament Classe per gestire la UI della registrazione utente
+ *
+ * @author Gaviraghi Elia
+ * @version 1.0
+ */
 public class RegisterFragment extends Fragment
 {
     private FirebaseAuth firebaseAuth;
@@ -38,8 +44,18 @@ public class RegisterFragment extends Fragment
     public FragmentRegisterBinding mBinding;
     private UtenteViewModel mUserViewModel;
 
+    /**
+     * Questa classe gestisce il fragment di registrazione
+     *
+     * @author Gaviraghi Elia
+     */
     public RegisterFragment() {}
 
+    /**
+     * Metodo chiamato alla creazione del Fragment.
+     *
+     * @param savedInstanceState lo stato salvato dell'istanza
+     */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -47,6 +63,14 @@ public class RegisterFragment extends Fragment
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
     }
 
+    /**
+     * Metodo per creare la vista del Fragment.
+     *
+     * @param inflater l'Inflater per il layout
+     * @param container il contenitore per il gruppo di viste
+     * @param savedInstanceState lo stato salvato dell'istanza
+     * @return la vista creata
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false);
@@ -102,7 +126,9 @@ public class RegisterFragment extends Fragment
         return view;
     }
 
-    // Watcher of text change
+    /**
+     * TextWatcher per abilitare il tasto di login quando i campi email e password vengono riempiti
+     */
     private TextWatcher loginTextWatcher = new TextWatcher()
     {
         @Override
@@ -120,6 +146,13 @@ public class RegisterFragment extends Fragment
         public void afterTextChanged(Editable s) {}
     };
 
+    /**
+     * Metodo per la creazione di un utente con email e password
+     *
+     * @param email la email fornita per la registrazione
+     * @param password la password inserita per la registrazione
+     *
+     */
     public void createUserWithEmailAndPassword(String email, String password)
     {
         mUserViewModel.createUserWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
@@ -142,6 +175,14 @@ public class RegisterFragment extends Fragment
         });
     }
 
+
+    /**
+     * Metodo per la validazione delle credenziali inserite
+     *
+     * @param email la email da verificare
+     * @param password la password da verificare
+     * @return stringa "success" se ha successo, "email non valida" oppure "password errata" se almeno una delle due non è valida
+     */
     public String isValidCredential(String email, String password)
     {
         if(!isValidEmail(email))
@@ -157,7 +198,12 @@ public class RegisterFragment extends Fragment
         return "success";
     }
 
-    // Check pattern password
+    /**
+     * Metodo per verificare se una password è valida.
+     *
+     * @param password la password da verificare
+     * @return true se la password rispetta il pattern password, false altrimenti
+     */
     public boolean isValidPassword(String password)
     {
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
@@ -165,7 +211,12 @@ public class RegisterFragment extends Fragment
         return matcher.matches();
     }
 
-    // Check pattern email
+    /**
+     * Metodo per verificare se un'email è valida.
+     *
+     * @param email l'email da verificare
+     * @return true se l'email rispetta il pattern email, false altrimenti
+     */
     public boolean isValidEmail(String email)
     {
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -173,12 +224,22 @@ public class RegisterFragment extends Fragment
         return matcher.matches();
     }
 
+    /**
+     * Metodo per mostrare un messaggio.
+     *
+     * @param message il messaggio da mostrare
+     */
     private void makeMessage(String message)
     {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         mUserViewModel.clear();
     }
 
+    /**
+     * Metodo per la gestione dell'evento alla pressione del tasto back
+     *
+     * @param view la view del contesto
+     */
     public void backButtonPressed(View view)
     {
         view.setFocusableInTouchMode(true);
