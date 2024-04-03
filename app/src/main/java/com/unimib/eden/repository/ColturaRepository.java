@@ -19,37 +19,64 @@ import com.unimib.eden.utils.ServiceLocator;
 
 import java.util.List;
 
+/**
+ * Classe repository per la gestione delle entità Coltura, fornendo operazioni di accesso ai dati e sincronizzazione con Firestore.
+ */
 public class ColturaRepository implements IColturaRepository {
+    // Campi della classe
     private static final String TAG = "ColturaRepository";
-
     private final ColturaDao mColturaDao;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Coltura> allColture;
 
+    /**
+     * Costruisce un'istanza di ColturaRepository.
+     *
+     * @param application il contesto dell'applicazione.
+     */
     public ColturaRepository(Application application) {
         ColturaRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getColturaDao(application);
         this.mColturaDao = colturaRoomDatabase.colturaDao();
         allColture = mColturaDao.getAll();
     }
 
+    /**
+     * Recupera tutte le entità Coltura.
+     *
+     * @return una lista di tutte le entità Coltura.
+     */
     @Override
     public List<Coltura> getAllColture() {
         return allColture;
     }
 
+    /**
+     * Elimina un'entità Coltura.
+     *
+     * @param coltura l'entità Coltura da eliminare.
+     */
     @Override
     public void deleteColtura(Coltura coltura) {
         new DeleteColturaAsyncTask(mColturaDao).execute(coltura);
     }
 
+    /**
+     * Inserisce una nuova entità Coltura.
+     *
+     * @param coltura la nuova entità Coltura da inserire.
+     */
     @Override
     public void insert(Coltura coltura) {
         new InsertColturaAsyncTask(mColturaDao).execute(coltura);
     }
 
+    /**
+     * Aggiorna il database locale con le entità Coltura da Firestore.
+     * Se il database locale è vuoto, scarica le entità Coltura da Firestore.
+     */
     public void updateLocalDB() {
         if(allColture.isEmpty()) {
-            Log.d(TAG, "Scaricamento colture personali...");
+            Log.d(TAG, "Download delle colture personali...");
             db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
                     .whereEqualTo(Constants.COLTURA_PROPRIETARIO, "g.colombo147@campus.unimib.it") //TODO: currentUser
                     .get()
@@ -62,15 +89,17 @@ public class ColturaRepository implements IColturaRepository {
                                     Log.d(TAG, document.getId() + " => " + document.getData());
                                 }
                             } else {
-                                Log.w(TAG, "Error getting documents.", task.getException());
+                                Log.w(TAG, "Errore durante il recupero dei documenti.", task.getException());
                             }
                         }
                     });
         }
         else {
-            Log.d(TAG, "Colture già presenti nel db");
+            Log.d(TAG, "Colture già presenti nel database");
         }
     }
+
+    // Classi AsyncTask interne
 
     private static class DeleteColturaAsyncTask extends AsyncTask<Coltura, Void, Void> {
         private ColturaDao colturaDao;
@@ -99,5 +128,4 @@ public class ColturaRepository implements IColturaRepository {
             return null;
         }
     }
-
 }

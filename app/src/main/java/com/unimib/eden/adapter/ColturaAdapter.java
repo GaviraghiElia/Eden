@@ -12,19 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter per la visualizzazione delle colture in una RecyclerView.
+ * Questo adapter si occupa di gestire l'interfacciamento tra i dati delle colture e la RecyclerView che li visualizza.
+ */
 public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaViewHolder> {
 
-    private static final String TAG = "GamesAdapter";
+    private static final String TAG = "ColturaAdapter";
     private View view;
 
+    /**
+     * Interfaccia per la gestione dei click sugli elementi della RecyclerView.
+     */
     public interface OnItemClickListener {
         void onItemClick(Coltura coltura);
     }
@@ -34,6 +39,14 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
     private PiantaRepository piantaRepository;
     private int layout;
 
+    /**
+     * Costruttore dell'adapter.
+     *
+     * @param coltureList       Lista delle colture da visualizzare.
+     * @param onItemClickListener Gestore dei click sugli elementi della RecyclerView.
+     * @param layout             Layout da utilizzare per ogni elemento della RecyclerView.
+     * @param application        Oggetto Application per l'accesso al repository delle piante.
+     */
     public ColturaAdapter(List<Coltura> coltureList, OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mColtureList = coltureList;
         this.onItemClickListener = onItemClickListener;
@@ -55,18 +68,22 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
 
     @Override
     public int getItemCount() {
-        if(mColtureList != null) {
+        if (mColtureList != null) {
             return mColtureList.size();
         }
         return 0;
     }
 
+    /**
+     * ViewHolder per ogni elemento della RecyclerView.
+     */
     public class ColturaViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewColturaPianta;
         private final TextView textViewGiorniInnaffiamento;
         private final TextView textViewDataInserimento;
         private final TextView textViewNote;
         private final ImageView imageViewNote;
+
         public ColturaViewHolder(@NonNull View itemView) {
             super(itemView);
             this.textViewColturaPianta = itemView.findViewById(R.id.textViewPianta);
@@ -76,20 +93,19 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.imageViewNote = itemView.findViewById(R.id.imageViewNote);
         }
 
+        /**
+         * Associa i dati della coltura al ViewHolder.
+         *
+         * @param coltura La coltura da visualizzare.
+         */
         public void bind(Coltura coltura) {
-            //Picasso.with(imageViewGamesImageUrl.getContext()).load(coltura.getImage_url()).resize(1500, 900).into(imageViewGamesImageUrl);
-            //TODO: sistemare quando scaricherà le piante nel db
-            //this.textViewColturaPianta.setText(coltura.getIdPianta());
-            this.textViewColturaPianta.setText("Pomodoro");
-            //TODO: sistemare quando scaricherà le piante nel db
-            //this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
-            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, new Pianta("", "", "","", 2, 5, 2, new ArrayList<>(), 1.0, "", "", 0, 0, 1)));
+            this.textViewColturaPianta.setText(piantaRepository.getPiantaById(coltura.getIdPianta()).getNome());
+            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
             this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
-            if(coltura.getNote().isEmpty()) {
+            if (coltura.getNote().isEmpty()) {
                 this.imageViewNote.setVisibility(View.GONE);
                 this.textViewNote.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 this.textViewNote.setText(coltura.getNote());
             }
 

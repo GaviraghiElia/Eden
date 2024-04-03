@@ -16,6 +16,10 @@ import com.unimib.eden.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Classe di database per Coltura.
+ * Questa classe definisce il database Room che contiene la tabella Coltura.
+ */
 @Database(entities = {Coltura.class}, version = Constants.VERSIONE_DATABASE, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ColturaRoomDatabase extends RoomDatabase {
@@ -32,6 +36,12 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Ottiene un'istanza del database.
+     *
+     * @param context Il contesto dell'applicazione.
+     * @return Un'istanza del database.
+     */
     public static ColturaRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (ColturaRoomDatabase.class) {
@@ -48,5 +58,10 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /**
+     * Ottiene il DAO associato al database.
+     *
+     * @return Il DAO associato al database.
+     */
     public abstract ColturaDao colturaDao();
 }

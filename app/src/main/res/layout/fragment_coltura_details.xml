@@ -9,7 +9,7 @@
         android:id="@+id/imageViewFaseFull"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/growing_plant"
+        android:src="@drawable/growing_plant_24"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"/>
 
@@ -18,7 +18,7 @@
         android:id="@+id/imageViewUltimoInnaffiamentoFull"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/watering_can_with_water_drops"
+        android:src="@drawable/watering_can_24"
         android:layout_below="@id/imageViewFaseFull"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"/>
@@ -39,7 +39,7 @@
         android:id="@+id/imageViewFaseAttualeFull"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/growing_plant"
+        android:src="@drawable/growing_plant_24"
         android:layout_below="@id/imageViewUltimoInnaffiamentoFull"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"/>
@@ -60,7 +60,7 @@
         android:id="@+id/imageViewDataInserimentoFull"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/planting"
+        android:src="@drawable/planting_24"
         android:layout_below="@id/imageViewFaseAttualeFull"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"/>
@@ -81,7 +81,7 @@
         android:id="@+id/imageViewNoteFull"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/note_sticky"
+        android:src="@drawable/note_sticky_24"
         android:layout_below="@id/imageViewDataInserimentoFull"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"/>
@@ -102,7 +102,7 @@
         android:id="@+id/imageViewQuantityFull"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/seeds"
+        android:src="@drawable/seeds_24"
         android:layout_below="@id/imageViewNoteFull"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"/>

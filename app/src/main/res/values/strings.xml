@@ -7,8 +7,8 @@
     <string name="app_bar_search">Search</string>
     <string name="oggi">Oggi</string>
     <string name="tra_giorni">Tra %1$d giorni</string>
-    <string name="ritardo_giorno">In ritardo id %1$d giorni</string>
-    <string name="giorni_fa">In ritardo id %1$d giorni</string>
+    <string name="ritardo_giorno">In ritardo di 1 giorno</string>
+    <string name="giorni_fa">In ritardo di %1$d giorni</string>
     <string name="domani">Domani</string>
     <string name="vedi_dettagli_pianta">Vedi dettagli pianta</string>
 </resources>

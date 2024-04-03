@@ -18,7 +18,7 @@
             android:id="@+id/imageViewFase"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/growing_plant"
+            android:src="@drawable/growing_plant_24"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
             android:layout_marginEnd="16dp"/>
@@ -38,7 +38,7 @@
             android:id="@+id/imageViewWater"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/watering_can_with_water_drops"
+            android:src="@drawable/watering_can_24"
             android:layout_toEndOf="@id/imageViewFase"
             android:layout_below="@id/textViewPianta"
             android:layout_marginTop="8dp"/>
@@ -78,7 +78,7 @@
             android:id="@+id/imageViewNote"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/note_sticky"
+            android:src="@drawable/note_sticky_24"
             android:layout_below="@id/imageViewCalendar"
             android:layout_toEndOf="@id/imageViewFase"
             android:layout_marginTop="8dp"/>
