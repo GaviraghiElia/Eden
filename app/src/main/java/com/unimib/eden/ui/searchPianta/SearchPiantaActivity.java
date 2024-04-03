@@ -1,6 +1,7 @@
 package com.unimib.eden.ui.searchPianta;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +28,7 @@ import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivitySearchPiantaBinding;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.filterSearch.FilterSearchActivity;
+import com.unimib.eden.ui.home.HomeFragment;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -42,7 +45,7 @@ public class SearchPiantaActivity extends AppCompatActivity {
     private PiantaAdapter piantaAdapter;
     private int operationCode;
 
-    private Map<String, String> filtriMap;
+    private Map<String, String> filtriMap = new HashMap<String, String>();
 
     private boolean hasFiltri = false;
     private LiveData<List<Pianta>> piantaList = new LiveData<List<Pianta>>() {
@@ -55,6 +58,8 @@ public class SearchPiantaActivity extends AppCompatActivity {
         binding = ActivitySearchPiantaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Log.d(TAG, "onCreate: FILTRI_MAP " + filtriMap.toString());
+
         Intent intent = getIntent();
         operationCode = (int) intent.getSerializableExtra("operationCode");
         if (intent.hasExtra("filtriMap")) {
@@ -66,6 +71,8 @@ public class SearchPiantaActivity extends AppCompatActivity {
         binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hasFiltri = false;
+                filtriMap.clear();
                 onBackPressed();
             }
         });
@@ -76,6 +83,7 @@ public class SearchPiantaActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(getApplicationContext(), FilterSearchActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
                 intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
                 return true;

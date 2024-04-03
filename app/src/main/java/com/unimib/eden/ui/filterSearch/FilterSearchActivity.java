@@ -2,6 +2,7 @@ package com.unimib.eden.ui.filterSearch;
 
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,18 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
         setContentView(binding.getRoot());
 
         filterSearchViewModel = new ViewModelProvider(this).get(FilterSearchViewModel.class);
+
+        binding.searchPiantaToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
 
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, esposizioneSole);
@@ -95,6 +108,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
             Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
             intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
             intent.putExtra("filtriMap", (Serializable) filtriMap);
+            intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
             getApplicationContext().startActivity(intent);
 

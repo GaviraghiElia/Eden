@@ -12,6 +12,7 @@
         <activity
             android:name=".ui.searchPianta.SearchPiantaActivity"
             android:exported="false"
+            android:noHistory="true"
             android:label="@string/title_activity_search_pianta"
             android:theme="@style/Theme.Eden" />
         <activity
@@ -19,6 +20,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.filterSearch.FilterSearchActivity"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".ui.main.MainActivity"
