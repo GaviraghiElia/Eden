@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.model.Coltura;
@@ -37,9 +38,9 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private List<Pianta> piante = new ArrayList<Pianta>();
     private List<Coltura> mColture;
-    private HomeViewModel homeViewModel;
+    public HomeViewModel homeViewModel;
     private ColturaAdapter mColturaAdapter;
-
+    private FirebaseAuth firebaseAuth;
     /**
      * Costruttore predefinito per HomeFragment.
      */
@@ -53,6 +54,9 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        // Inizializza l'istanza di Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
 
         // Inizializza ViewModel
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -71,7 +75,9 @@ public class HomeFragment extends Fragment {
         View view = mBinding.getRoot();
 
         // Aggiorna il database se necessario
-        homeViewModel.updateDB();
+        //TODO: aggiornare con utente attuale
+        //homeViewModel.updateDB(firebaseAuth.getCurrentUser().getUid());
+        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

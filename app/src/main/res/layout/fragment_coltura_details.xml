@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
     <!-- Plant Image -->
@@ -10,113 +10,68 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:src="@drawable/growing_plant_24"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"/>
 
     <!-- Ultimo Innaffiamento -->
-    <ImageView
-        android:id="@+id/imageViewUltimoInnaffiamentoFull"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/watering_can_24"
-        android:layout_below="@id/imageViewFaseFull"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textViewUltimoInnaffiamentoFull"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Ultimo Innaffiamento"
-        android:textSize="18dp"
-        android:layout_toEndOf="@id/imageViewUltimoInnaffiamentoFull"
-        android:layout_alignTop="@id/imageViewUltimoInnaffiamentoFull"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"/>
+        android:textSize="20dp"
+        android:drawableStart="@drawable/watering_can_24"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"/>
 
     <!-- Fase Attuale -->
-    <ImageView
-        android:id="@+id/imageViewFaseAttualeFull"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/growing_plant_24"
-        android:layout_below="@id/imageViewUltimoInnaffiamentoFull"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textViewFaseAttualeFull"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Fase Attuale"
-        android:textSize="18dp"
-        android:layout_toEndOf="@id/imageViewFaseAttualeFull"
-        android:layout_alignTop="@id/imageViewFaseAttualeFull"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"/>
+        android:textSize="20dp"
+        android:drawableStart="@drawable/growing_plant_24"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"/>
 
     <!-- Data Inserimento -->
-    <ImageView
-        android:id="@+id/imageViewDataInserimentoFull"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/planting_24"
-        android:layout_below="@id/imageViewFaseAttualeFull"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textViewDataInserimentoFull"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Data Inserimento"
-        android:textSize="18dp"
-        android:layout_toEndOf="@id/imageViewDataInserimentoFull"
-        android:layout_alignTop="@id/imageViewDataInserimentoFull"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"/>
+        android:textSize="20dp"
+        android:drawableStart="@drawable/planting_24"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"/>
 
     <!-- Note -->
-    <ImageView
-        android:id="@+id/imageViewNoteFull"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/note_sticky_24"
-        android:layout_below="@id/imageViewDataInserimentoFull"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textViewNoteFull"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Note"
-        android:textSize="18dp"
-        android:layout_toEndOf="@id/imageViewNoteFull"
-        android:layout_alignTop="@id/imageViewNoteFull"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"/>
+        android:textSize="20dp"
+        android:drawableStart="@drawable/note_sticky_24"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"/>
 
     <!-- Quantity -->
-    <ImageView
-        android:id="@+id/imageViewQuantityFull"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/seeds_24"
-        android:layout_below="@id/imageViewNoteFull"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"/>
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textViewQuantityFull"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Quantità"
-        android:textSize="18dp"
-        android:layout_toEndOf="@id/imageViewQuantityFull"
-        android:layout_alignTop="@id/imageViewQuantityFull"
-        android:layout_marginStart="12dp"
-        android:gravity="center_vertical"/>
+        android:textSize="20dp"
+        android:drawableStart="@drawable/seeds_24"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"/>
 
     <!-- Button to View All Details -->
     <Button
@@ -124,8 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vedi_dettagli_pianta"
-        android:layout_below="@id/imageViewQuantityFull"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"/>
 
-</RelativeLayout>
+</LinearLayout>

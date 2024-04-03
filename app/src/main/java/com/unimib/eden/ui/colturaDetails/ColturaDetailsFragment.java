@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.eden.databinding.FragmentColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Converters;
@@ -63,16 +66,16 @@ public class ColturaDetailsFragment extends Fragment {
 
         // Imposta il titolo nella action bar
         if (getActivity() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(colturaDetailsViewModel.getNomePianta(coltura));
+            AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+            appCompatActivity.getSupportActionBar().setTitle(colturaDetailsViewModel.getNomePianta(coltura));
+            appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
         // Popola gli elementi UI con i dettagli della coltura
         mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(getContext(), coltura));
         mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
-        //TODO: fase pianta
-        mBinding.textViewFaseAttualeFull.setText("fase fase");
+        mBinding.textViewFaseAttualeFull.setText(colturaDetailsViewModel.getFase(getContext(), coltura));
         if (coltura.getNote().isEmpty()) {
-            mBinding.imageViewNoteFull.setVisibility(View.GONE);
             mBinding.textViewNoteFull.setVisibility(View.GONE);
         } else {
             mBinding.textViewNoteFull.setText(coltura.getNote());

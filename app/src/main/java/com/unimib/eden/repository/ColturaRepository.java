@@ -74,11 +74,11 @@ public class ColturaRepository implements IColturaRepository {
      * Aggiorna il database locale con le entità Coltura da Firestore.
      * Se il database locale è vuoto, scarica le entità Coltura da Firestore.
      */
-    public void updateLocalDB() {
+    public void updateLocalDB(String currentUserId) {
         if(allColture.isEmpty()) {
             Log.d(TAG, "Download delle colture personali...");
             db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
-                    .whereEqualTo(Constants.COLTURA_PROPRIETARIO, "g.colombo147@campus.unimib.it") //TODO: currentUser
+                    .whereEqualTo(Constants.COLTURA_PROPRIETARIO, currentUserId)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Transformer;
@@ -17,6 +18,8 @@ import com.unimib.eden.utils.Transformer;
  */
 public class ColturaDetailsViewModel extends AndroidViewModel {
     private PiantaRepository piantaRepository;
+    //TODO: fase pianta
+    //private FaseRepository faseRepository;
 
     /**
      * Costruttore per ColturaDetailsViewModel.
@@ -59,6 +62,15 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
      */
     private Pianta getPiantaById(String piantaId) {
         return piantaRepository.getPiantaById(piantaId);
+    }
+
+
+    public String getFase(Context context, Coltura coltura) {
+        //TODO: fase pianta
+        /*String idFase = getPiantaById(coltura.getIdPianta()).getFasi().get(coltura.getFaseAttuale());
+        Fase fase = faseRepository.getFaseById(idFase);
+        return fase.getNomeFase();*/
+        return "Prova";
     }
 
     /**

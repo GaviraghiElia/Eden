@@ -32,16 +32,8 @@
             android:textStyle="bold"
             android:layout_toEndOf="@id/imageViewFase"
             android:layout_alignTop="@id/imageViewFase"
+            android:layout_margin="4dp"
             android:gravity="center_vertical"/>
-
-        <ImageView
-            android:id="@+id/imageViewWater"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/watering_can_24"
-            android:layout_toEndOf="@id/imageViewFase"
-            android:layout_below="@id/textViewPianta"
-            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/textViewDaysNumber"
@@ -49,19 +41,13 @@
             android:layout_height="24dp"
             android:text="X giorni"
             android:textSize="16sp"
-            android:layout_toEndOf="@id/imageViewWater"
-            android:layout_alignTop="@id/imageViewWater"
-            android:layout_marginStart="4dp"
-            android:gravity="center_vertical"/>
-
-        <ImageView
-            android:id="@+id/imageViewCalendar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/baseline_calendar_month_24"
-            android:layout_below="@id/textViewDaysNumber"
             android:layout_toEndOf="@id/imageViewFase"
-            android:layout_marginTop="8dp"/>
+            android:layout_below="@id/textViewPianta"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/watering_can_24"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/textViewDate"
@@ -69,19 +55,13 @@
             android:layout_height="24dp"
             android:text="Data"
             android:textSize="16sp"
-            android:layout_toEndOf="@id/imageViewCalendar"
-            android:layout_alignTop="@id/imageViewCalendar"
-            android:layout_marginStart="4dp"
-            android:gravity="center_vertical"/>
-
-        <ImageView
-            android:id="@+id/imageViewNote"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/note_sticky_24"
-            android:layout_below="@id/imageViewCalendar"
             android:layout_toEndOf="@id/imageViewFase"
-            android:layout_marginTop="8dp"/>
+            android:layout_below="@id/textViewDaysNumber"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/baseline_calendar_month_24"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/textViewNote"
@@ -89,9 +69,12 @@
             android:layout_height="24dp"
             android:text="Note"
             android:textSize="16sp"
-            android:layout_toEndOf="@id/imageViewNote"
-            android:layout_alignTop="@id/imageViewNote"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_below="@id/textViewDate"
             android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/note_sticky_24"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
     </RelativeLayout>

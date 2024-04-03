@@ -75,8 +75,8 @@ public class HomeViewModel extends AndroidViewModel {
     /**
      * Aggiorna il database locale.
      */
-    public void updateDB() {
+    public void updateDB(String currentUserId) {
         // Aggiorna il database locale con i dati delle colture
-        colturaRepository.updateLocalDB();
+        colturaRepository.updateLocalDB(currentUserId);
     }
 }

@@ -82,7 +82,6 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         private final TextView textViewGiorniInnaffiamento;
         private final TextView textViewDataInserimento;
         private final TextView textViewNote;
-        private final ImageView imageViewNote;
 
         public ColturaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,7 +89,6 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
             this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);
-            this.imageViewNote = itemView.findViewById(R.id.imageViewNote);
         }
 
         /**
@@ -103,7 +101,6 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
             this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
             if (coltura.getNote().isEmpty()) {
-                this.imageViewNote.setVisibility(View.GONE);
                 this.textViewNote.setVisibility(View.GONE);
             } else {
                 this.textViewNote.setText(coltura.getNote());
