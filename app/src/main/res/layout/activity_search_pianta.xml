@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/searchPiantaToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/seach_pianta_app_bar_menu"
+        app:title="@string/search_pianta_toolbar" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outlinedTextFieldPianta"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -16,7 +30,7 @@
         android:hint="@string/search_pianta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchPiantaToolbar"
         app:startIconDrawable="@drawable/ic_baseline_search_24"
         tools:ignore="MissingConstraints">
 

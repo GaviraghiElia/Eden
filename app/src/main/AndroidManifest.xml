@@ -18,6 +18,9 @@
             android:name=".ui.piantaDetails.PiantaDetailsActivity"
             android:exported="true" />
         <activity
+            android:name=".ui.filterSearch.FilterSearchActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>

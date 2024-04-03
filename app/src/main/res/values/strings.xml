@@ -32,4 +32,15 @@
     <string name="durata_fase">Durata fase</string>
     <string name="descrizione_fase">Descrizione fase</string>
     <string name="inizio_fase">Inizio fase</string>
+    <string name="search_pianta_toolbar">Cerca una pianta</string>
+    <string name="filter_search_toolbar">Filtri ricerca</string>
+    <string name="filter_button">Applica filtri</string>
+    <string name="choose_inizio_semina">Inizio semina</string>
+    <string name="choose_fine_semina">Fine semina</string>
+    <string name="choose_number">Seleziona un numero</string>
+    <string-array name="esposizione_sole_array">
+        <item>mezz\'ombra</item>
+        <item>soleggiato</item>
+        <item>pieno sole</item>
+    </string-array>
 </resources>
