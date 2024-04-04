@@ -14,6 +14,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(tableName = "fase")
 public class Fase implements Serializable {
@@ -88,5 +89,18 @@ public class Fase implements Serializable {
 
     public void setImmagine(String immagine) {
         this.immagine = immagine;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fase fase = (Fase) o;
+        return inizioFase == fase.inizioFase && durataFase == fase.durataFase && Objects.equals(id, fase.id) && Objects.equals(nomeFase, fase.nomeFase) && Objects.equals(descrizione, fase.descrizione) && Objects.equals(immagine, fase.immagine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nomeFase, inizioFase, durataFase, descrizione, immagine);
     }
 }

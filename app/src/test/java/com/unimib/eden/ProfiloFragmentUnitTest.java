@@ -53,6 +53,6 @@ public class ProfiloFragmentUnitTest {
         // Verify that the view is not null
         assertNotNull(view);
     }
-    
+
      */
 }
