@@ -71,6 +71,18 @@ public class ColturaRepository implements IColturaRepository {
     }
 
     /**
+     * Ottiene un'entità Coltura dal repository basandosi sull'ID specificato.
+     *
+     * @param colturaId L'ID dell'entità Coltura da cercare nel repository.
+     * @return L'entità Coltura corrispondente all'ID specificato, se presente nel repository, altrimenti null.
+     */
+    @Override
+    public Coltura getColturaById(String colturaId) {
+        return mColturaDao.getById(colturaId);
+    }
+
+
+    /**
      * Aggiorna il database locale con le entità Coltura da Firestore.
      * Se il database locale è vuoto, scarica le entità Coltura da Firestore.
      */

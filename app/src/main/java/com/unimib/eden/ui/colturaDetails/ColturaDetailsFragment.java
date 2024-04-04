@@ -10,9 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.eden.databinding.FragmentColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Converters;

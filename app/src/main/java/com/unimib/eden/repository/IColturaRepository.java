@@ -30,4 +30,13 @@ public interface IColturaRepository {
      * @param coltura La coltura da inserire.
      */
     void insert(Coltura coltura);
+
+    /**
+     * Ottiene una coltura dal repository in base all'ID specificato.
+     *
+     * @param colturaId L'ID della coltura da cercare nel repository.
+     * @return La coltura corrispondente all'ID specificato, se presente nel repository, altrimenti null.
+     */
+    Coltura getColturaById(String colturaId);
+
 }

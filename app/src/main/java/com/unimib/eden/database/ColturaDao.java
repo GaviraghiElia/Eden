@@ -39,4 +39,14 @@ public interface ColturaDao {
      */
     @Insert
     void insert(Coltura coltura);
+
+    /**
+     * Ottiene una coltura dal database in base all'ID specificato.
+     *
+     * @param colturaId L'ID della coltura da cercare nel database.
+     * @return La coltura corrispondente all'ID specificato, se presente nel database, altrimenti null.
+     */
+    @Query("SELECT * FROM 'coltura' WHERE id = :colturaId")
+    Coltura getById(String colturaId);
+
 }
