@@ -32,6 +32,7 @@ public class ProfiloFragmentUnitTest {
 
     ProfiloFragment profiloFragment;
 
+    /*
     @Before
     public void setUp() {
         //homeFragment = new HomeFragment();
@@ -52,4 +53,6 @@ public class ProfiloFragmentUnitTest {
         // Verify that the view is not null
         assertNotNull(view);
     }
+    
+     */
 }

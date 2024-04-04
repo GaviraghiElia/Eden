@@ -23,6 +23,7 @@ import androidx.room.TypeConverters;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gson.annotations.SerializedName;
 import com.unimib.eden.utils.Converters;
@@ -190,6 +191,39 @@ public class Pianta implements Serializable {
 
     public void setAltezzaMaxPrevista(Double altezzaMaxPrevista) {
         this.altezzaMaxPrevista = altezzaMaxPrevista;
+    }
+
+    @Override
+    public String toString() {
+        return "Pianta{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", famigliaBotanica='" + famigliaBotanica + '\'' +
+                ", inizioSemina=" + inizioSemina +
+                ", fineSemina=" + fineSemina +
+                ", frequenzaInnaffiamento=" + frequenzaInnaffiamento +
+                ", fasi=" + fasi +
+                ", spazioNecessario=" + spazioNecessario +
+                ", esposizioneSole='" + esposizioneSole + '\'' +
+                ", tipoTerreno='" + tipoTerreno + '\'' +
+                ", minTemperatura=" + minTemperatura +
+                ", maxTemperatura=" + maxTemperatura +
+                ", altezzaMaxPrevista=" + altezzaMaxPrevista +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pianta pianta = (Pianta) o;
+        return inizioSemina == pianta.inizioSemina && fineSemina == pianta.fineSemina && frequenzaInnaffiamento == pianta.frequenzaInnaffiamento && minTemperatura == pianta.minTemperatura && maxTemperatura == pianta.maxTemperatura && Objects.equals(id, pianta.id) && Objects.equals(nome, pianta.nome) && Objects.equals(descrizione, pianta.descrizione) && Objects.equals(famigliaBotanica, pianta.famigliaBotanica) && Objects.equals(fasi, pianta.fasi) && Objects.equals(spazioNecessario, pianta.spazioNecessario) && Objects.equals(esposizioneSole, pianta.esposizioneSole) && Objects.equals(tipoTerreno, pianta.tipoTerreno) && Objects.equals(altezzaMaxPrevista, pianta.altezzaMaxPrevista);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, descrizione, famigliaBotanica, inizioSemina, fineSemina, frequenzaInnaffiamento, fasi, spazioNecessario, esposizioneSole, tipoTerreno, minTemperatura, maxTemperatura, altezzaMaxPrevista);
     }
 }
 

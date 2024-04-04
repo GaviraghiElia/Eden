@@ -18,6 +18,21 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-02T09:07:18.099069Z" />
         </State>
       </entry>
+      <entry key="daoDeletePiante_deleteAllPianteFromDb()">
+        <State />
+      </entry>
+      <entry key="daoGetAllPiante_returnAllPianteFromDb()">
+        <State />
+      </entry>
+      <entry key="daoSearchPianta_returnsPiantaFromDb()">
+        <State />
+      </entry>
+      <entry key="daoSearchPianteFiltriAll_returnsPiantaFilteredFromDb()">
+        <State />
+      </entry>
+      <entry key="daoSearchPianteFiltri_returnsPiantaFilteredFromDb()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
