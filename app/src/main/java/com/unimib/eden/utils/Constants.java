@@ -72,5 +72,6 @@ public class Constants {
     public static final int SEARCH_PIANTA_OPERATION_CODE = 1;
     public static final int CREATE_COLTURA_OPERATION_CODE = 2;
     public static final int CREATE_PRODOTTO_OPERATION_CODE = 3;
+    public static final int PIANTA_DETAILS_OPERATION_CODE = 4;
 
 }

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;

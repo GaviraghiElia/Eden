@@ -90,7 +90,7 @@ public class Coltura implements Serializable {
         this.note = String.valueOf(tempMap.get(COLTURA_NOTE));
         Timestamp dataInserimento = (Timestamp) tempMap.get(COLTURA_DATA_INSERIMENTO);
         this.dataInserimento = dataInserimento.toDate();
-        this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
+        this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_FASE_ATTUALE).toString());
         Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
     }

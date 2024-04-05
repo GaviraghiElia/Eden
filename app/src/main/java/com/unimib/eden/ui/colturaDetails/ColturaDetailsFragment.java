@@ -1,19 +1,23 @@
 package com.unimib.eden.ui.colturaDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.unimib.eden.databinding.FragmentColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
+import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * Un semplice {@link Fragment} per visualizzare i dettagli di una coltura.
@@ -72,24 +76,31 @@ public class ColturaDetailsFragment extends Fragment {
         // Popola gli elementi UI con i dettagli della coltura
         mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(getContext(), coltura));
         mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
-        mBinding.textViewFaseAttualeFull.setText(colturaDetailsViewModel.getFase(getContext(), coltura));
+        try {
+            mBinding.textViewFaseAttualeFull.setText(colturaDetailsViewModel.getNomeFase(coltura));
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (coltura.getNote().isEmpty()) {
             mBinding.textViewNoteFull.setVisibility(View.GONE);
         } else {
             mBinding.textViewNoteFull.setText(coltura.getNote());
         }
         mBinding.textViewQuantityFull.setText(String.valueOf(coltura.getQuantita()));
+
+        mBinding.buttonViewAllDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PiantaDetailsActivity.class);
+                intent.putExtra("operationCode", Constants.PIANTA_DETAILS_OPERATION_CODE);
+                intent.putExtra("pianta", colturaDetailsViewModel.getPianta(coltura));
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
-
-    //TODO: aggiungere onclick del bottone per aprire dettagli pianta
-    /*@Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.buttonViewAllDetails:
-                Log.d(TAG, "onClick pianta details");
-                break;
-        }
-    }*/
 
 }

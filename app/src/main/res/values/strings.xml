@@ -51,7 +51,7 @@
     <string name="password_requirements">Lunghezza da 6 a 15 caratteri, con numero e carattere speciale</string>
     <string name="successfull_registration">Utente registrato con successo</string>
     <string name="registration_error">"Errore di registrazione: "</string>
-    <string name="title_activity_auth">AuthActivity</string>
+    <string name="title_activity_auth">Eden</string>
     <string name="bad_email">Email non valida</string>
 
     <string name="title_activity_search_pianta">SearchPiantaActivity</string>

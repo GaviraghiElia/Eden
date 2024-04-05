@@ -9,17 +9,23 @@ import androidx.lifecycle.AndroidViewModel;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Transformer;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Classe ViewModel per ColturaDetailsFragment.
  * Questa classe si occupa di gestire i dati relativi alla visualizzazione dei dettagli di una coltura.
  */
 public class ColturaDetailsViewModel extends AndroidViewModel {
+
+    private static final String TAG = "ColturaDetailsViewModel";
     private PiantaRepository piantaRepository;
-    //TODO: fase pianta
-    //private FaseRepository faseRepository;
+    private FaseRepository faseRepository;
 
     /**
      * Costruttore per ColturaDetailsViewModel.
@@ -31,6 +37,7 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
 
         // Inizializza PiantaRepository
         piantaRepository = new PiantaRepository(application);
+        faseRepository = new FaseRepository(application);
     }
 
     /**
@@ -55,6 +62,16 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
     }
 
     /**
+     * Ottieni la pianta associata alla coltura.
+     *
+     * @param coltura La coltura.
+     * @return La pianta.
+     */
+    public Pianta getPianta(Coltura coltura) {
+        return getPiantaById(coltura.getIdPianta());
+    }
+
+    /**
      * Ottieni una pianta dal suo ID.
      *
      * @param piantaId L'ID della pianta.
@@ -64,13 +81,18 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
         return piantaRepository.getPiantaById(piantaId);
     }
 
-
-    public String getFase(Context context, Coltura coltura) {
-        //TODO: fase pianta
-        /*String idFase = getPiantaById(coltura.getIdPianta()).getFasi().get(coltura.getFaseAttuale());
-        Fase fase = faseRepository.getFaseById(idFase);
-        return fase.getNomeFase();*/
-        return "Prova";
+    /**
+     * Ottieni il nome della fase in cui si trova attualmente la coltura.
+     *
+     * @param coltura La coltura.
+     * @return Il nome della fase in cui si trova la coltura.
+     */
+    public String getNomeFase(Coltura coltura) throws ExecutionException, InterruptedException {
+        String idFase = getPiantaById(coltura.getIdPianta()).getFasi().get(coltura.getFaseAttuale());
+        ArrayList<String> fasiId = new ArrayList<>();
+        fasiId.add(idFase);
+        List<Fase> fasi = faseRepository.getFasiID(fasiId);
+        return fasi.get(0).getNomeFase();
     }
 
     /**
