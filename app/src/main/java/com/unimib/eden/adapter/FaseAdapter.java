@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Fase;
+import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import java.util.List;
 
@@ -68,49 +69,6 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
         }
     }
 
-    public String getMese(int mese) {
-        String nomeMese = "";
-        switch (mese) {
-            case 1:
-                nomeMese = "Gennaio";
-                break;
-            case 2:
-                nomeMese = "Febbraio";
-                break;
-            case 3:
-                nomeMese = "Marzo";
-                break;
-            case 4:
-                nomeMese = "Aprile";
-                break;
-            case 5:
-                nomeMese = "Maggio";
-                break;
-            case 6:
-                nomeMese = "Giugno";
-                break;
-            case 7:
-                nomeMese = "Luglio";
-                break;
-            case 8:
-                nomeMese = "Agosto";
-                break;
-            case 9:
-                nomeMese = "Settembre";
-                break;
-            case 10:
-                nomeMese = "Ottobre";
-                break;
-            case 11:
-                nomeMese = "Novembre";
-                break;
-            case 12:
-                nomeMese = "Dicembre";
-                break;
-        }
-        return nomeMese;
-    }
-
     class FaseViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView getNomeFaseLabel;
@@ -132,7 +90,7 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
         public void bind(Fase fase, int pos) {
             this.getNomeFaseLabel.setText("Fase " + pos + ":");
             this.nomeFaseDetails.setText(fase.getNomeFase());
-            this.inizioFaseDetails.setText(getMese(fase.getInizioFase()));
+            this.inizioFaseDetails.setText(ConvertIntMonthToString.getMese(fase.getInizioFase()));
             this.durataFaseDetails.setText(String.valueOf(fase.getDurataFase()));
             this.descrizioneFaseDetails.setText(fase.getDescrizione());
         }

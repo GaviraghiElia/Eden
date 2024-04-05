@@ -23,6 +23,7 @@ import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
+import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class PiantaDetailsActivity extends AppCompatActivity {
     Pianta pianta = null;
     List<Fase> fasi = null;
 
+    public PiantaDetailsActivity() {}
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,8 +74,8 @@ public class PiantaDetailsActivity extends AppCompatActivity {
         binding.altezzaMaxPrevistaDetails.setText(String.valueOf(pianta.getAltezzaMaxPrevista()) + " cm");
         binding.tipoTerrenoDetails.setText(pianta.getTipoTerreno());
         binding.esposizioneSoleDetails.setText(pianta.getEsposizioneSole());
-        binding.inizioSeminaDetails.setText(getMese(pianta.getInizioSemina()));
-        binding.fineSeminaDetails.setText(getMese(pianta.getFineSemina()));
+        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMese(pianta.getInizioSemina()));
+        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMese(pianta.getFineSemina()));
         binding.descriptionDetails.setText(pianta.getDescrizione());
 
 
@@ -106,48 +108,5 @@ public class PiantaDetailsActivity extends AppCompatActivity {
 
 
 
-    }
-
-    public String getMese(int mese) {
-        String nomeMese = "";
-        switch (mese) {
-            case 1:
-                nomeMese = "Gennaio";
-                break;
-            case 2:
-                nomeMese = "Febbraio";
-                break;
-            case 3:
-                nomeMese = "Marzo";
-                break;
-            case 4:
-                nomeMese = "Aprile";
-                break;
-            case 5:
-                nomeMese = "Maggio";
-                break;
-            case 6:
-                nomeMese = "Giugno";
-                break;
-            case 7:
-                nomeMese = "Luglio";
-                break;
-            case 8:
-                nomeMese = "Agosto";
-                break;
-            case 9:
-                nomeMese = "Settembre";
-                break;
-            case 10:
-                nomeMese = "Ottobre";
-                break;
-            case 11:
-                nomeMese = "Novembre";
-                break;
-            case 12:
-                nomeMese = "Dicembre";
-                break;
-        }
-        return nomeMese;
     }
 }
