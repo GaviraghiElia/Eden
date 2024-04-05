@@ -18,7 +18,7 @@ public class RegisterFragmentUnitTest {
 
     @Test
     public void testIsValidCredential() {
-        assertEquals("success", registerFragment.isValidCredential("test", "test@example.com", "Test@1234"));
+        assertEquals("success", registerFragment.isValidCredential("test@example.com", "Test@1234"));
     }
 
     @Test
