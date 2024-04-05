@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_colturaDetailsFragment"
+            app:destination="@id/colturaDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -73,4 +76,16 @@
         android:id="@+id/mainActivity"
         android:name="com.unimib.eden.ui.main.MainActivity"
         android:label="MainActivity" />
+    <fragment
+        android:id="@+id/colturaDetailsFragment"
+        android:name="com.unimib.eden.ui.colturaDetails.ColturaDetailsFragment"
+        android:label="fragment_coltura_details"
+        tools:layout="@layout/fragment_coltura_details">
+        <action
+            android:id="@+id/action_colturaDetailsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <argument
+            android:name="coltura"
+            app:argType="com.unimib.eden.model.Coltura" />
+    </fragment>
 </navigation>

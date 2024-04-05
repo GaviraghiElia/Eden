@@ -2,6 +2,7 @@ package com.unimib.eden.utils;
 
 import android.app.Application;
 
+import com.unimib.eden.database.ColturaRoomDatabase;
 import com.unimib.eden.database.FaseRoomDatabase;
 import com.unimib.eden.database.PiantaRoomDatabase;
 
@@ -44,6 +45,15 @@ public class ServiceLocator {
         return PiantaRoomDatabase.getDatabase(application);
     }
 
+    /**
+     * Metodo getColturaDao che restituisce un'istanza del Room database di coltura.
+     *
+     * @param application   Contesto dell'applicazione
+     * @return Un'istanza del Room database di coltura.
+     */
+    public ColturaRoomDatabase getColturaDao(Application application) {
+        return ColturaRoomDatabase.getDatabase(application);
+    }
     /**
      * Metodo getFaseDao che restituisce un'istanza del Room database di fase.
      *

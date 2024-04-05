@@ -104,6 +104,16 @@ public class PiantaRepository implements IPiantaRepository {
     }
 
     /**
+     * Metodo per ottenere una pianta dall'id dall'interno del database.
+     *
+     * @param piantaId  L'id della pianta da ottenere dal database.
+     */
+    @Override
+    public Pianta getPiantaById(String piantaId) {
+        return mPiantaDao.getById(piantaId);
+    }
+
+    /**
      * Classe InsertPiantaAsyncTask  che esegue l'inserimento della pianta nel database in un AsyncTask.
      */
     private static class InsertPiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {

@@ -42,5 +42,4 @@
     <style name="TextAppearance.AppCompat.Headline.Subtitle" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="android:textColor">@color/black</item>
     </style>
-
 </resources>

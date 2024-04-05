@@ -32,4 +32,6 @@ public interface IPiantaRepository {
      * @param pianta  La pianta da inserire.
      */
     void insert(Pianta pianta);
+
+    Pianta getPiantaById(String piantaId);
 }

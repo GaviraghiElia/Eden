@@ -61,6 +61,14 @@ public interface PiantaDao {
     List<Pianta> searchPianteFiltri(String query, int frequenzaInnaffiamento, int inizioSemina, int fineSemina);
 
     /**
+     * Ottiene la pianta presente nel database con l'id.
+     *
+     * @param piantaId  L'id della pianta da cercare all'interno del database.
+     */
+    @Query("SELECT * FROM 'pianta' WHERE id = :piantaId")
+    Pianta getById(String piantaId);
+
+    /**
      * Elimina la pianta in input dal database.
      *
      * @param pianta  La pianta da eliminare all'interno del database.
