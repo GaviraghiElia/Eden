@@ -2,6 +2,11 @@ package com.unimib.eden.utils;
 
 import android.util.Log;
 
+/**
+ * Classe ConvertIntMonthToString per convertire un mese espresso sotto forma di intero con la corrispettiva stringa.
+ *
+ * @author Alice Hoa Galli
+ */
 public class ConvertIntMonthToString {
 
     public ConvertIntMonthToString() {}

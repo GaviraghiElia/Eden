@@ -20,14 +20,27 @@ import com.unimib.eden.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe PiantaAdapter che visualizza i dati delle piante in una RecyclerView.
+ *
+ * @author Alice Hoa Galli
+ */
 public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaViewHolder> {
 
     private final static String TAG = "PiantaAdapter";
     private List<Pianta> piantaList;
     private int itemLayout = R.layout.search_pianta_item;;
 
+    /**
+     * Intero per gestire la destinazione corretta in seguito al onClick di una pianta
+     */
     private int  operationCode;
 
+    /**
+     * Costruttore dell'adapter PiantaAdapter.
+     *
+     * @param piantaList    Lista di piante da visualizzare.
+     */
     public PiantaAdapter(List<Pianta> piantaList) {
         this.piantaList = piantaList;
     }
@@ -104,6 +117,9 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
         }
     }
 
+    /**
+     * Classe PiantaViewHolder per il ViewHolder di ogni elemento della RecyclerView.
+     */
     class PiantaViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewPiantaName;
         private ImageView imageViewPianta;
@@ -115,6 +131,10 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
 
         }
 
+        /**
+         * Metodo bind che associa i dati della pianta al ViewHolder.
+         * @param pianta    La pianta da visualizzare.
+         */
         public void bind(Pianta pianta) {
             this.textViewPiantaName.setText(pianta.getNome());
         }

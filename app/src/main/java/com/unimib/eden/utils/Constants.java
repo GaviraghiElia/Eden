@@ -1,5 +1,13 @@
 package com.unimib.eden.utils;
 
+/**
+ * Classe Constants contenente tutte le costanti utilizzate all'interno dell'applicazione.
+ *
+ * @author Gaia Colombo
+ * @author Sandro Erba
+ * @author Alice Hoa Galli
+ * @author Elia Gaviraghi
+ */
 public class Constants {
 
     public static final String PIANTA_NOME = "nome";

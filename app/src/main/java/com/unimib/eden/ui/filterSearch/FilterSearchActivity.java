@@ -28,7 +28,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Activity FilterSearchActivity per impostare i filtri di ricerca da applicare durante la ricerca delle piante.
+ *
+ * @author Alice Hoa Galli
+ */
 public class FilterSearchActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
     // filtra per inizio e fine semina, tipo di sole (mezz'ombra, soleggiato, pieno sole), frequenza innaffiamento
 
@@ -185,6 +189,12 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
     }
 
+    /**
+     * Metodo showNumberPicker per mostrare correttamente il numberPicker per i campi di inizioSemina e fineSemina.
+     *
+     * @param view  La view selezionata sulla quale bisognerà impostare le stringhe del nome del campo correttamente.
+     * @param idSemina  L'Id che determina se il campo selezionato è quello di inizioSemina o fineSemina.
+     */
     public void showNumberPicker(View view, int idSemina) {
        NumberPickerDialog newFragment = null;
 

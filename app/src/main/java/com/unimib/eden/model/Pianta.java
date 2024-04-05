@@ -28,6 +28,11 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import com.unimib.eden.utils.Converters;
 
+/**
+ * Classe Pianta è il modello che rappresenta una pianta.
+ *
+ * @author Alice Hoa Galli
+ */
 @Entity(tableName = "pianta")
 public class Pianta implements Serializable {
 
@@ -40,7 +45,6 @@ public class Pianta implements Serializable {
     private String descrizione;
     @ColumnInfo(name = PIANTA_FAMIGLIA_BOTANICA)
     private String famigliaBotanica;
-
     @ColumnInfo(name = PIANTA_INIZIO_SEMINA)
     private int inizioSemina;
     @ColumnInfo(name = PIANTA_FINE_SEMINA)
@@ -63,6 +67,24 @@ public class Pianta implements Serializable {
     @ColumnInfo(name = PIANTA_ALTEZZA_MAX_PREVISTA)
     private Double altezzaMaxPrevista;
 
+    /**
+     * Il costruttore per la classe Pianta.
+     *
+     * @param id    L'Id della pianta.
+     * @param nome  Il nome della pianta.
+     * @param descrizione   La descrizione della pianta.
+     * @param famigliaBotanica  La famiglia botanica alla quale appartiene la pianta.
+     * @param inizioSemina  Il mese di inizio semina della pianta.
+     * @param fineSemina    Il mese di fine semina della pianta.
+     * @param frequenzaInnaffiamento    La frequenza di innaffiamento giornaliera della pianta.
+     * @param fasi  La lista con gli Id delle fasi della pianta.
+     * @param spazioNecessario  Lo spazio necessario alla pianta per poter crescere.
+     * @param esposizioneSole   L'esposizione al sole richiesta dalla piata.
+     * @param tipoTerreno   Il tipo di terreno necessario per la pianta.
+     * @param minTemperatura    La temperatura minima alla quale può essere esposta la pianta.
+     * @param maxTemperatura    La temperatura massima alla quale può essere esposta la pianta.
+     * @param altezzaMaxPrevista    L'altezza massima che la pianta può raggiungere
+     */
     public Pianta(@NonNull String id, String nome, String descrizione, String famigliaBotanica, int inizioSemina, int fineSemina, int frequenzaInnaffiamento, ArrayList<String> fasi, Double spazioNecessario, String esposizioneSole, String tipoTerreno, int minTemperatura, int maxTemperatura, Double altezzaMaxPrevista) {
         this.id = id;
         this.nome = nome;

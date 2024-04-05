@@ -11,6 +11,11 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.unimib.eden.R;
 
+/**
+ * Classe NumberPickerDialog per creare un Number Picker da mostrare nella FilterSearchActivity per i campi inizioSemina e fineSemia.
+ *
+ * @author Alice Hoa Galli
+ */
 public class NumberPickerDialog extends DialogFragment {
     private NumberPicker.OnValueChangeListener valueChangeListener;
     private int inizioSemina;

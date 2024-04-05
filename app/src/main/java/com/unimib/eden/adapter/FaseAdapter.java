@@ -15,12 +15,22 @@ import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import java.util.List;
 
+/**
+ * Classe FaseAdapter che visualizza i dati delle fasi in una RecyclerView.
+ *
+ * @author Alice Hoa Galli
+ */
 public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder> {
     private int itemLayout = R.layout.fase_details_item;;
 
     private int  operationCode;
     List<Fase> fasiList;
 
+    /**
+     * Costruttore dell'adapter FaseAdapter.
+     *
+     * @param fasiList  Lista delle fasi da visualizzare.
+     */
     public FaseAdapter(List<Fase> fasiList) {
         this.fasiList = fasiList;
     }
@@ -69,6 +79,9 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
         }
     }
 
+    /**
+     * Classe FaseViewHolder per il ViewHolder di ogni elemento della RecyclerView.
+     */
     class FaseViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView getNomeFaseLabel;
@@ -87,6 +100,11 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
 
         }
 
+        /**
+         * Metodo bind che associa i dati della fase al ViewHolder.
+         * @param fase  La fase da visualizzare.
+         * @param pos   La posizione della fase da visualizzare all'interno della lista delle fasi.
+         */
         public void bind(Fase fase, int pos) {
             this.getNomeFaseLabel.setText("Fase " + pos + ":");
             this.nomeFaseDetails.setText(fase.getNomeFase());

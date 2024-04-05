@@ -16,6 +16,11 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Classe Fase è il modello che rappresenta una fase.
+ *
+ * @author Alice Hoa Galli
+ */
 @Entity(tableName = "fase")
 public class Fase implements Serializable {
 
@@ -33,6 +38,16 @@ public class Fase implements Serializable {
     @ColumnInfo(name = FASE_IMMAGINE)
     private String immagine;
 
+    /**
+     * Costruttore per la classe Fase.
+     *
+     * @param id    L'Id della fase.
+     * @param nomeFase  Il nome della fase.
+     * @param inizioFase    Il mese dell'inizio della fase.
+     * @param durataFase    Il numero di giorni rappresentante la durata della fase.
+     * @param descrizione   La descrizione della fase.
+     * @param immagine  La stringa rappresentante l'URL dell'immagine della fase.
+     */
     public Fase(@NonNull String id, String nomeFase, int inizioFase, int durataFase, String descrizione, String immagine) {
         this.id = id;
         this.nomeFase = nomeFase;

@@ -38,6 +38,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Activity SearchPiantaActivity che consente di ricercare le piante nel database.
+ *
+ * @author Alice Hoa Galli
+ */
 public class SearchPiantaActivity extends AppCompatActivity {
     private static final String TAG = "SearchPiantaActivity";
     private ActivitySearchPiantaBinding binding;

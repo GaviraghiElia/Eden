@@ -17,6 +17,12 @@ import com.unimib.eden.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Classe FaseRoomDatabase per il database di Fase.
+ * Questa classe definisce il database Room che contiene la tabella Fase.
+ *
+ * @author Alice Hoa Galli
+ */
 @Database(entities = {Fase.class}, version = Constants.VERSIONE_DATABASE_FASE, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class FaseRoomDatabase extends RoomDatabase {
@@ -32,6 +38,12 @@ public abstract class FaseRoomDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Metodo getDatabase che ottiene un'istanza del database.
+     *
+     * @param context   Il contesto dell'applicazione
+     * @return Un'istanza del database.
+     */
     public static FaseRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (FaseRoomDatabase.class) {
@@ -48,5 +60,10 @@ public abstract class FaseRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /**
+     * Metodo faseDao che ottiene il Dao associato al database.
+     *
+     * @return Il Dao associato al database.
+     */
     public abstract FaseDao faseDao();
 }

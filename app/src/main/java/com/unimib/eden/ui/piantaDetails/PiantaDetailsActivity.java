@@ -29,6 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Activity PiantaDetailsActivity che mostra tutti dati di una pianta.
+ *
+ * @author Alice Hoa Galli
+ */
 public class PiantaDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "PiantaDetailsActivity";
@@ -40,6 +45,9 @@ public class PiantaDetailsActivity extends AppCompatActivity {
     Pianta pianta = null;
     List<Fase> fasi = null;
 
+    /**
+     * Costrutture che restituisce un'istanza dell'activity.
+     */
     public PiantaDetailsActivity() {}
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
