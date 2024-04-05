@@ -17,6 +17,7 @@
             android:theme="@style/Theme.Eden" />
         <activity
             android:name=".ui.piantaDetails.PiantaDetailsActivity"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".ui.filterSearch.FilterSearchActivity"

@@ -1,5 +1,8 @@
 package com.unimib.eden.ui.piantaDetails;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -12,11 +15,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.unimib.eden.R;
 import com.unimib.eden.adapter.FaseAdapter;
 import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,18 @@ public class PiantaDetailsActivity extends AppCompatActivity {
 
         binding = ActivityPiantaDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.topAppBar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
 
         piantaDetailsViewModel = new ViewModelProvider(this).get(PiantaDetailsViewModel.class);
 
