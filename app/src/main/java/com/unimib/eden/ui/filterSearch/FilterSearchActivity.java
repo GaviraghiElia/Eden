@@ -37,7 +37,9 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
     private FilterSearchViewModel filterSearchViewModel;
 
     Map<String, String> filtriMap = new HashMap<>();
-    private boolean hasFiltri = false;
+    private boolean hasPreviousFiltri = false;
+
+    private boolean hasSelectedZeroFiltri = false;
     String[] esposizioneSole = {"mezz'ombra","soleggiato","pieno sole"};
     ArrayAdapter<String> adapter;
 
@@ -66,10 +68,10 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
         Intent intent2 = getIntent();
         if (intent2.hasExtra("filtriMap")) {
             filtriMap = (HashMap<String, String>) intent2.getSerializableExtra("filtriMap");
-            hasFiltri = true;
+            hasPreviousFiltri = true;
         }
 
-        if(hasFiltri) {
+        if(hasPreviousFiltri) {
             if(filtriMap.get("frequenzaInnaffiamento") != null) {
                 binding.textInputFrequenzaInnaffiamento.setText(filtriMap.get("frequenzaInnaffiamento").toString());
             }
@@ -108,13 +110,33 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         binding.confirmButton.setOnClickListener(view -> {
 
-
-
             if (binding.textInputFrequenzaInnaffiamento.getText().toString().equals("") &&
                     binding.esposizioneSoleAutoComplete.getText().toString().equals("") &&
                     binding.textInputEditInizioSemina.getText().toString().equals("") &&
                     binding.textInputEditFineSemina.getText().toString().equals("")) {
-                noFilterSelected();
+                // noFilterSelected();
+                hasSelectedZeroFiltri = true;
+                new MaterialAlertDialogBuilder(FilterSearchActivity.this)
+                        .setTitle(R.string.alert_dialog_no_filter_applied_title)
+                        .setMessage(R.string.alert_dialog_no_filter_applied_message)
+                        .setPositiveButton(R.string.alert_dialog_no_filter_applied_positive_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
+                                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                                getApplicationContext().startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(R.string.alert_dialog_no_filter_applied_negative_button, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //dialog.cancel();
+                            }
+                        }).show();
+
+
             } else {
                 if (!binding.textInputFrequenzaInnaffiamento.getText().toString().equals("")) {
                     filtriMap.put("frequenzaInnaffiamento", binding.textInputFrequenzaInnaffiamento.getText().toString());
@@ -128,65 +150,21 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                 if (!binding.textInputEditFineSemina.getText().toString().equals("")) {
                     filtriMap.put("fineSemina", binding.textInputEditFineSemina.getText().toString());
                 }
+                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.putExtra("filtriMap", (Serializable) filtriMap);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
-
-            Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
-            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
-            intent.putExtra("filtriMap", (Serializable) filtriMap);
-            intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
-            intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-            getApplicationContext().startActivity(intent);
-
 
         });
 
     }
 
-    public String getMese(int mese) {
-        String nomeMese = "";
-        switch (mese) {
-            case 1:
-                nomeMese = "Gennaio";
-                break;
-            case 2:
-                nomeMese = "Febbraio";
-                break;
-            case 3:
-                nomeMese = "Marzo";
-                break;
-            case 4:
-                nomeMese = "Aprile";
-                break;
-            case 5:
-                nomeMese = "Maggio";
-                break;
-            case 6:
-                nomeMese = "Giugno";
-                break;
-            case 7:
-                nomeMese = "Luglio";
-                break;
-            case 8:
-                nomeMese = "Agosto";
-                break;
-            case 9:
-                nomeMese = "Settembre";
-                break;
-            case 10:
-                nomeMese = "Ottobre";
-                break;
-            case 11:
-                nomeMese = "Novembre";
-                break;
-            case 12:
-                nomeMese = "Dicembre";
-                break;
-        }
-        return nomeMese;
-    }
-
-
     public void noFilterSelected() {
+        // Da capire perchè da activity leak
+        /*
         new MaterialAlertDialogBuilder(FilterSearchActivity.this)
                 .setTitle(R.string.alert_dialog_no_filter_applied_title)
                 .setMessage(R.string.alert_dialog_no_filter_applied_message)
@@ -202,6 +180,9 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                         //dialog.cancel();
                     }
                 }).show();
+
+         */
+
     }
 
     public void showNumberPicker(View view, int idSemina) {
