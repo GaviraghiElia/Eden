@@ -3,6 +3,7 @@ package com.unimib.eden.ui.authentication;
 import static com.unimib.eden.utils.Constants.EMAIL_PATTERN;
 import static com.unimib.eden.utils.Constants.PASSWORD_PATTERN;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,21 +15,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentRegisterBinding;
-import com.unimib.eden.model.FirebaseResponse;
+import com.unimib.eden.ui.main.MainActivity;
 
 /*
  * RegisterFrament Classe per gestire la UI della registrazione utente
@@ -76,11 +76,11 @@ public class RegisterFragment extends Fragment
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
         navController = NavHostFragment.findNavController(this);
-        backButtonPressed(view);
+        Log.d("mAuth", "register fragment - this activity is" + requireActivity());
 
         // Text Watcher per abilitare il bottone di registrazione
-        mBinding.registerEmail.addTextChangedListener(loginTextWatcher);
-        mBinding.registerPassword.addTextChangedListener(loginTextWatcher);
+        mBinding.registerEmail.addTextChangedListener(registerTextWatcher);
+        mBinding.registerPassword.addTextChangedListener(registerTextWatcher);
 
         firebaseAuth = FirebaseAuth.getInstance();
         fDB = FirebaseDatabase.getInstance();
@@ -118,7 +118,7 @@ public class RegisterFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                Log.d("mAuth", "navigazione verso login");
+                Log.d("mAuth", "register fragment - navigazione verso login");
                 navController.navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
@@ -129,7 +129,7 @@ public class RegisterFragment extends Fragment
     /**
      * TextWatcher per abilitare il tasto di login quando i campi email e password vengono riempiti
      */
-    private TextWatcher loginTextWatcher = new TextWatcher()
+    private TextWatcher registerTextWatcher = new TextWatcher()
     {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -163,8 +163,10 @@ public class RegisterFragment extends Fragment
                     makeMessage(getString(R.string.successfull_registration));
                     Log.d("mAuth", "registrazione effettuata");
                     firebaseAuth = FirebaseAuth.getInstance();
-                    firebaseAuth.signOut();
-                    navController.navigate(R.id.action_registerFragment_to_loginFragment);
+
+                    Log.d("mAuth", "register fragment - activity " + requireActivity());
+                    navController.navigate(R.id.action_registerFragment_to_mainActivity);
+                    //startActivity(new Intent(requireContext(), MainActivity.class));
                 }
                 else
                 {
@@ -240,24 +242,5 @@ public class RegisterFragment extends Fragment
      *
      * @param view la view del contesto
      */
-    public void backButtonPressed(View view)
-    {
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener()
-        {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event)
-            {
-                if (keyCode == KeyEvent.KEYCODE_BACK)
-                {
-                    navController.navigate(R.id.action_registerFragment_to_loginFragment);
 
-                    return true;
-                }
-
-                return false;
-            }
-        });
-    }
 }

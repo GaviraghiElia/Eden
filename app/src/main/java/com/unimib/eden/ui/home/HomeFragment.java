@@ -74,11 +74,13 @@ public class HomeFragment extends Fragment {
         if(checkSession())
         {
             Log.d("mAuth", "home fragment - user sign in");
-            mAuth.signOut();
+            Log.d("mAuth", "home fragment " + requireActivity());
+
         }else
         {
             Log.d("mAuth", "home fragment - user not auth");
-            navController.navigate(R.id.action_navigation_home_to_loginFragment);
+            Log.d("mAuth", "home fragment - this activity is" + requireActivity());
+            navController.navigate(R.id.action_navigation_home_to_registerFragment);
         }
         return view;
 

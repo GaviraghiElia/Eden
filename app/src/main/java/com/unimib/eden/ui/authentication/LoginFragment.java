@@ -78,8 +78,7 @@ public class LoginFragment extends Fragment {
                     mUtenteViewModel.signInWithEmail(email, password).observe(getViewLifecycleOwner(), firebaseResponse -> {
                         if (firebaseResponse != null) {
                             if (firebaseResponse.isSuccess()) {
-                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_navigation_home);
-                                getActivity().finish();
+                                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_mainActivity);
                             } else
                                 makeMessage(firebaseResponse.getMessage());
                         }
