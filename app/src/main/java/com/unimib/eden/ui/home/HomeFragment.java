@@ -32,6 +32,7 @@ import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
@@ -97,12 +99,14 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Listener for the items in the custom menu
         if (item.getItemId() == R.id.app_bar_search) {
-            //startActivity(new Intent(getActivity().getApplicationContext(), SearchPiantaActivity.class));
+            Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
+            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+            startActivity(intent);
             return true;
         }
         if(item.getItemId() == R.id.action_logout){
             mAuth.signOut();
-           startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
+            startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -117,5 +121,4 @@ public class HomeFragment extends Fragment {
 
         return false;
     }
-
 }

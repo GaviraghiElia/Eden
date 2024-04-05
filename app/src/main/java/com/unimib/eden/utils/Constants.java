@@ -1,5 +1,13 @@
 package com.unimib.eden.utils;
 
+/**
+ * Classe Constants contenente tutte le costanti utilizzate all'interno dell'applicazione.
+ *
+ * @author Gaia Colombo
+ * @author Sandro Erba
+ * @author Alice Hoa Galli
+ * @author Elia Gaviraghi
+ */
 public class Constants {
 
     public static final String PIANTA_NOME = "nome";
@@ -41,4 +49,16 @@ public class Constants {
     public static final String NEWS_DATABASE_NAME = "recipes_db";
     public static final long FRESH_TIMEOUT = 60*1000;
     public static final String LAST_UPDATE = "last_update";
+
+    public static final int VERSIONE_DATABASE_PIANTA = 3;
+
+    public static final int VERSIONE_DATABASE_FASE = 2;
+
+    public static final String FIRESTORE_COLLECTION_FASI = "fasi";
+
+    public static final int API_SEARCH_DELAY = 500;
+    public static final int SEARCH_PIANTA_OPERATION_CODE = 1;
+    public static final int CREATE_COLTURA_OPERATION_CODE = 2;
+    public static final int CREATE_PRODOTTO_OPERATION_CODE = 3;
+
 }

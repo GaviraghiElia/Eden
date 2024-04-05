@@ -12,6 +12,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Classe Converters per le entità Fase e Pianta.
+ *
+ * @author Alice Hoa Galli
+ */
 public class Converters {
 
     @TypeConverter
