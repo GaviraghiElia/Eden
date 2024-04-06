@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -52,9 +53,10 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
+    private List<Coltura> colture = new ArrayList<>();
     private NavController navController;
 
-    private List<Coltura> mColture;
+    private List<Coltura> mColture = new ArrayList<>();
     public HomeViewModel homeViewModel;
     private ColturaAdapter mColturaAdapter;
     private FirebaseAuth firebaseAuth;
@@ -76,9 +78,23 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
 
+        final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
+            @Override
+            public void onChanged(List<Coltura> coltura) {
+
+                Log.d(TAG, "onChanged: ");
+                mColture = coltura;
+
+                mColturaAdapter.update(mColture);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        homeViewModel.getColture().observe(this, allColtureObserver);
+
 
         // Recupera le colture dal ViewModel
-        mColture = homeViewModel.getColture();
+        //mColture = homeViewModel.getColture();
     }
 
     @Nullable
@@ -105,7 +121,7 @@ public class HomeFragment extends Fragment {
         // Aggiorna il database se necessario
         //TODO: aggiornare con utente attuale
         //homeViewModel.updateDB(mAuth.getCurrentUser().getUid());
-        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -125,8 +141,12 @@ public class HomeFragment extends Fragment {
 
         // Imposta l'adapter su RecyclerView
         mBinding.homeRecyclerView.setAdapter(mColturaAdapter);
-        Log.d(TAG, "mColture: " + mColture.toString());
 
+        Log.d(TAG, "onCreateView: mFasi " + homeViewModel.getFasi().toString());
+        Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
+        Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
+
+        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
         return view;
 
     }

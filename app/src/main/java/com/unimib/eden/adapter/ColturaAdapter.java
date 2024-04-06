@@ -74,6 +74,14 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         return 0;
     }
 
+    public void update(List<Coltura> colturaList) {
+        if (this.mColtureList != null) {
+            this.mColtureList.clear();
+            this.mColtureList.addAll(colturaList);
+            notifyDataSetChanged();
+        }
+    }
+
     /**
      * ViewHolder per ogni elemento della RecyclerView.
      */

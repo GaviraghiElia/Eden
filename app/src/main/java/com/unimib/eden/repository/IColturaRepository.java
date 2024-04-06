@@ -1,5 +1,7 @@
 package com.unimib.eden.repository;
 
+import androidx.lifecycle.LiveData;
+
 import com.unimib.eden.model.Coltura;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public interface IColturaRepository {
      *
      * @return Una lista di tutte le colture.
      */
-    List<Coltura> getAllColture();
+    LiveData<List<Coltura>> getAllColture();
 
     /**
      * Elimina una coltura.

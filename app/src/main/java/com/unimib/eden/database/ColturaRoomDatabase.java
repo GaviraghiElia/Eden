@@ -47,7 +47,7 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
             synchronized (ColturaRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ColturaRoomDatabase.class, Constants.NOME_DATABASE_COLTURA)
+                                    ColturaRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)

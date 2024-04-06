@@ -1,5 +1,6 @@
 package com.unimib.eden.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,7 +23,7 @@ public interface ColturaDao {
      * @return Una lista di tutte le colture presenti nel database.
      */
     @Query("SELECT * FROM 'coltura'")
-    List<Coltura> getAll();
+    LiveData<List<Coltura>> getAll();
 
     /**
      * Elimina le colture specificate dal database.

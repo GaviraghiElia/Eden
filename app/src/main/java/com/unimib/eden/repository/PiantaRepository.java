@@ -152,19 +152,18 @@ public class PiantaRepository implements IPiantaRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                // Log.d(TAG, document.getId() + " => " + document.getData());
                                 List<Pianta> tempPiante = allPiante;
                                 boolean isPiantaPresent = false;
                                 boolean isPiantaChanged = false;
                                 Pianta oldPianta = null;
                                 Pianta newPianta = null;
-//                                Log.d(TAG, "onComplete: TEMPMATCH1 " + tempMatch.toString());
                                 assert tempPiante != null;
                                 for (Pianta p : tempPiante) {
                                     if (p.getId().equals(document.getId())) {
                                         isPiantaPresent = true;
                                     }
-                                    Log.d(TAG, "onComplete: ARRAYLIST " + (p.getFasi() != (ArrayList) document.getData().get("fasi")));
+                                    //Log.d(TAG, "onComplete: ARRAYLIST " + (p.getFasi() != (ArrayList) document.getData().get("fasi")));
                                     if (p.getId().equals(document.getId()) && p.getFasi() != (ArrayList) document.getData().get("fasi")) {
                                         //m.hashCode() != document.getData().hashCode()
                                         //!m.equals(document.getData())
@@ -186,10 +185,12 @@ public class PiantaRepository implements IPiantaRepository {
                                 if (!isPiantaPresent) {
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
-
+                                    /*
                                     Log.d(TAG, "onComplete: TEMP_MAP" + tempMap.toString());
                                     Log.d(TAG, "onComplete: FASI " + tmpListFasi );
                                     Log.d(TAG, "onComplete: INIZIO_SEMINA: " + tempMap.get("inizio_semina"));
+
+                                     */
                                     newPianta = new Pianta(
                                             document.getId(),
                                             String.valueOf(tempMap.get("nome")),

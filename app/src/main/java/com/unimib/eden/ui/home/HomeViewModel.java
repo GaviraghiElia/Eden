@@ -28,7 +28,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private List<Fase> mFasi;
 
-    private List<Coltura> mColture;
+    private LiveData<List<Coltura>> mColture;
     private PiantaRepository piantaRepository;
     private ColturaRepository colturaRepository;
 
@@ -64,12 +64,14 @@ public class HomeViewModel extends AndroidViewModel {
         return mPiante;
     }
 
+    public List<Fase> getFasi() {return mFasi;}
+
     /**
      * Ottieni una lista di colture.
      *
      * @return Una lista di colture.
      */
-    public List<Coltura> getColture() {
+    public LiveData<List<Coltura>> getColture() {
         return mColture;
     }
 

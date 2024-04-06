@@ -39,9 +39,11 @@ public class Constants {
     public static final String FASE_DURATA_FASE = "durata_fase";
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
-    public static final int VERSIONE_DATABASE = 2;
+    public static final int VERSIONE_DATABASE = 6;
+    public static final int VERSIONE_DATABASE_PIANTA = 6;
+    public static final int VERSIONE_DATABASE_FASE =5;
 
-    public static final String NOME_DATABASE_ORTO = "pianta";
+    public static final String NOME_DATABASE_ORTO = "orto";
     public static final String NOME_DATABASE_COLTURA = "coltura";
 
     public static final String FIRESTORE_COLLECTION_PIANTE = "piante";
@@ -62,9 +64,7 @@ public class Constants {
     public static final long FRESH_TIMEOUT = 60*1000;
     public static final String LAST_UPDATE = "last_update";
 
-    public static final int VERSIONE_DATABASE_PIANTA = 3;
 
-    public static final int VERSIONE_DATABASE_FASE = 2;
 
     public static final String FIRESTORE_COLLECTION_FASI = "fasi";
 

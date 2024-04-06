@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,7 +18,10 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe repository per la gestione delle entità Coltura, fornendo operazioni di accesso ai dati e sincronizzazione con Firestore.
@@ -27,7 +31,7 @@ public class ColturaRepository implements IColturaRepository {
     private static final String TAG = "ColturaRepository";
     private final ColturaDao mColturaDao;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private List<Coltura> allColture;
+    private LiveData<List<Coltura>> allColture;
 
     /**
      * Costruisce un'istanza di ColturaRepository.
@@ -38,6 +42,7 @@ public class ColturaRepository implements IColturaRepository {
         ColturaRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getColturaDao(application);
         this.mColturaDao = colturaRoomDatabase.colturaDao();
         allColture = mColturaDao.getAll();
+        Log.d(TAG, "ColturaRepository: allColture " + allColture.getValue());
     }
 
     /**
@@ -46,7 +51,7 @@ public class ColturaRepository implements IColturaRepository {
      * @return una lista di tutte le entità Coltura.
      */
     @Override
-    public List<Coltura> getAllColture() {
+    public LiveData<List<Coltura>> getAllColture() {
         return allColture;
     }
 
@@ -87,6 +92,64 @@ public class ColturaRepository implements IColturaRepository {
      * Se il database locale è vuoto, scarica le entità Coltura da Firestore.
      */
     public void updateLocalDB(String currentUserId) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .whereEqualTo(Constants.COLTURA_PROPRIETARIO, currentUserId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document: task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.d(TAG, "onComplete: allColture " + allColture.getValue());
+                                Log.d(TAG, "onComplete: allColture2 " + mColturaDao.getAll().getValue());
+                                List<Coltura> tempColtura = allColture.getValue();
+                                boolean isColturaPresent = false;
+                                boolean isColturaChanged = false;
+                                Coltura oldColtura = null;
+                                Coltura newColtura = null;
+                                //assert tempColtura != null;
+                                if (tempColtura != null) {
+                                    for (Coltura c : tempColtura) {
+                                        if (c.getId().equals(document.getId())) {
+                                            isColturaPresent = true;
+                                        }
+                                        if (c.getId().equals(document.getId()) && c.getFaseAttuale() != Math.toIntExact(Long.valueOf(String.valueOf(document.getData().get("fase_attuale"))))) {
+                                            oldColtura = c;
+                                            isColturaChanged = true;
+                                        }
+
+                                        boolean colturaFireBaseDBNotPresent = false;
+                                        for (QueryDocumentSnapshot d : task.getResult()) {
+                                            if (c.getId().equals(d.getId())) {
+                                                colturaFireBaseDBNotPresent = true;
+                                            }
+                                        }
+                                        if (!colturaFireBaseDBNotPresent) {
+                                            deleteColtura(c);
+                                        }
+                                    }
+                                    if (!isColturaPresent) {
+                                        newColtura = new Coltura(document);
+                                        insert(newColtura);
+                                    }
+                                    if (isColturaChanged) {
+                                        deleteColtura(oldColtura);
+                                        newColtura = new Coltura(document);
+                                        insert(newColtura);
+
+                                    }
+                                } else { //db locale vuoto
+                                    newColtura = new Coltura(document);
+                                    insert(newColtura);
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        /*
         if(allColture.isEmpty()) {
             Log.d(TAG, "Download delle colture personali...");
             db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
@@ -109,6 +172,8 @@ public class ColturaRepository implements IColturaRepository {
         else {
             Log.d(TAG, "Colture già presenti nel database");
         }
+
+         */
     }
 
     // Classi AsyncTask interne
