@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
-    //id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
 
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    namespace = "com.unimib.eden"
     compileSdk 34
+    namespace "com.unimib.eden"
 
     defaultConfig {
         applicationId "com.unimib.eden"
@@ -17,7 +18,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -43,21 +48,38 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation 'com.google.code.gson:gson:2.8.9'
+
+    implementation 'androidx.arch.core:core-testing:2.1.0'
+    implementation 'androidx.room:room-runtime:2.6.1'
+
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:+'
-
+    implementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
 
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    implementation 'com.google.firebase:firebase-auth:22.3.1'
+    implementation 'com.google.firebase:firebase-firestore:24.11.0'
+    implementation 'com.google.firebase:firebase-database:20.3.1'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.firebase:geofire-android-common:3.1.0'
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+
     testImplementation 'org.mockito:mockito-core:3.11.2'
+    testImplementation 'org.robolectric:robolectric:4.12'
 
     def room_version = "2.4.0"
+
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
@@ -66,11 +88,23 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.firebase:geofire-android-common:3.1.0'
+
     implementation 'com.google.android.gms:play-services-auth:20.0.0'
     implementation 'com.google.android.gms:play-services-location:19.0.0'
 
-    //implementation 'com.google.firebase:firebase-auth:22.3.1'
-    //implementation 'com.google.auth:google-auth-library-oauth2-http:0.26.0'
-    //implementation 'com.google.firebase:firebase-core:9.6.1'
-    //implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+
+    def nav_version = "2.7.7"
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 }

@@ -1,46 +1,70 @@
 package com.unimib.eden.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
-
-
-import com.unimib.eden.R;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.R;
+import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Una semplice sottoclasse di {@link Fragment} per la schermata Home.
+ * Questo frammento visualizza un elenco di colture.
+ */
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
-    private FragmentHomeBinding binding;
-    //FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FragmentHomeBinding mBinding;
+    private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
+    private List<Coltura> colture = new ArrayList<>();
+    private NavController navController;
 
-    private HomeViewModel homeViewModel;
-
+    private List<Coltura> mColture = new ArrayList<>();
+    public HomeViewModel homeViewModel;
+    private ColturaAdapter mColturaAdapter;
+    private FirebaseAuth firebaseAuth;
+    /**
+     * Costruttore predefinito per HomeFragment.
+     */
     public HomeFragment() {
-        // Required empty public constructor
+        // Costruttore pubblico vuoto richiesto
     }
 
     @SuppressLint("MissingPermission")
@@ -52,18 +76,112 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
+        mAuth = FirebaseAuth.getInstance();
 
+        final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
+            @Override
+            public void onChanged(List<Coltura> coltura) {
+
+                Log.d(TAG, "onChanged: ");
+                mColture = coltura;
+
+                mColturaAdapter.update(mColture);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        homeViewModel.getColture().observe(this, allColtureObserver);
+
+
+        // Recupera le colture dal ViewModel
+        //mColture = homeViewModel.getColture();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Inflate il layout per questo frammento
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = mBinding.getRoot();
+
+        navController = NavHostFragment.findNavController(this);
+        if(checkSession())
+        {
+            Log.d("mAuth", "home fragment - user sign in");
+            Log.d("mAuth", "home fragment " + requireActivity());
+
+        }else
+        {
+            Log.d("mAuth", "home fragment - user not auth");
+            Log.d("mAuth", "home fragment - this activity is" + requireActivity());
+            navController.navigate(R.id.action_navigation_home_to_registerFragment);
+        }
+
+        // Aggiorna il database se necessario
+        //TODO: aggiornare con utente attuale
+        //homeViewModel.updateDB(mAuth.getCurrentUser().getUid());
+        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+
+        // Imposta RecyclerView con LinearLayoutManager
+        mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
+        mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Coltura coltura) {
+                // Gestisce l'evento di clic sull'elemento
+                Log.d(TAG, "OnItemClick " + coltura.toString());
+
+                // Naviga verso ColturaDetailsFragment con la coltura selezionata
+                HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
+                Navigation.findNavController(view).navigate(action);
+            }
+        }, R.layout.coltura_small_card, getActivity().getApplication());
+
+        // Imposta l'adapter su RecyclerView
+        mBinding.homeRecyclerView.setAdapter(mColturaAdapter);
+
+        Log.d(TAG, "onCreateView: mFasi " + homeViewModel.getFasi().toString());
+        Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
+        Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
+
+        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+        return view;
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        homeViewModel.updateDB();
-        // Inflate the layout for this fragment
-        return view;
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home_menu, menu);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Listener for the items in the custom menu
+        if (item.getItemId() == R.id.app_bar_search) {
+            Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
+            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+            startActivity(intent);
+            return true;
+        }
+        if(item.getItemId() == R.id.action_logout){
+            mAuth.signOut();
+            startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkSession()
+    {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null)
+            return true;
+
+        return false;
     }
 }

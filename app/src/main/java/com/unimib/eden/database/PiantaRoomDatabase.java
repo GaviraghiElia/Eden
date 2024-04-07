@@ -16,7 +16,13 @@ import com.unimib.eden.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Pianta.class}, version = Constants.VERSIONE_DATABASE, exportSchema = false)
+/**
+ * Classe PiantaRoomDatabase per il database di Pianta.
+ * Questa classe definisce il database Room che contiene la tabella Pianta.
+ *
+ * @author Alice Hoa Galli
+ */
+@Database(entities = {Pianta.class}, version = Constants.VERSIONE_DATABASE_PIANTA, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class PiantaRoomDatabase extends RoomDatabase {
 
@@ -32,6 +38,12 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * Metodo getDatabase che ottiene un'istanza del database.
+     *
+     * @param context   Il contesto dell'applicazione
+     * @return Un'istanza del database.
+     */
     public static PiantaRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (PiantaRoomDatabase.class) {
@@ -48,5 +60,10 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /**
+     * Metodo piantaDao che ottiene il Dao associato al database.
+     *
+     * @return Il Dao associato al database.
+     */
     public abstract PiantaDao piantaDao();
 }

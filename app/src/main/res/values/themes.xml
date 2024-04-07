@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Eden" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryVariant">@color/green_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -16,6 +16,30 @@
 
     <style name="TextAppearance.App.CollapsingToolbar.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="TextAppearance.App.CollapsingToolbar.Expanded" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+    <style name="Widget.AppCompat.Button.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+    </style>
 
+    <style name="TextAppearance.AppCompat.Title" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Headline.Title2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">@color/black</item>
+        <item name="drawableTint">@color/black</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Headline.Subtitle" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>
