@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Pianta> piante = new ArrayList<Pianta>();
 
     private HomeViewModel homeViewModel;

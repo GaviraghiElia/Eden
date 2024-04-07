@@ -21,9 +21,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
+
 
 /**
- * classe prodotto
+ * Classe modello che rappresenta un prodotto.
  */
 @Entity(tableName = "prodotto")
 public class Prodotto implements Serializable {
@@ -43,14 +45,27 @@ public class Prodotto implements Serializable {
     @ColumnInfo(name = PRODOTTO_QUANTITA)
     private int quantita;
     @ColumnInfo(name = PRODOTTO_FASE_ATTUALE)
-    private int faseAttuale;
+    private String faseAttuale;
     @ColumnInfo(name = PRODOTTO_ALTRE_INFORMAZIONI)
     private String altreInformazioni;
     @ColumnInfo(name = PRODOTTO_SCAMBIO_DISPONIBILE)
     private Boolean scambioDisponibile;
 
-    //costruttore partendo dai parametri
-    public Prodotto(@NonNull String id, String tipo, String venditore, double prezzo, String pianta, ArrayList<String> offerte, int quantita, int faseAttuale, String altreInformazioni, Boolean scambioDisponibile) {
+    /**
+     * Costruttore per la classe Prodotto.
+     *
+     * @param id                ID del prodotto.
+     * @param tipo              Tipo del prodotto.
+     * @param venditore         Venditore del prodotto.
+     * @param prezzo            Prezzo del prodotto.
+     * @param pianta            Pianta associata al prodotto.
+     * @param offerte           Lista delle offerte associate al prodotto.
+     * @param quantita          Quantità del prodotto.
+     * @param faseAttuale       Fase attuale del prodotto.
+     * @param altreInformazioni Altre informazioni sul prodotto.
+     * @param scambioDisponibile Indica se il prodotto è disponibile per lo scambio.
+     */
+    public Prodotto(@NonNull String id, String tipo, String venditore, double prezzo, String pianta, ArrayList<String> offerte, int quantita, String faseAttuale, String altreInformazioni, Boolean scambioDisponibile) {
         this.id = id;
         this.tipo = tipo;
         this.venditore = venditore;
@@ -63,14 +78,22 @@ public class Prodotto implements Serializable {
         this.scambioDisponibile = scambioDisponibile;
     }
 
-    //costruttore partendo dal document
+    /**
+     * Costruttore per la classe Prodotto partendo da un documento Firestore.
+     *
+     * @param document Il documento Firestore che rappresenta il prodotto.
+     */
     public Prodotto(QueryDocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> tempMap = document.getData();
         initFromMap(tempMap);
     }
 
-    //costruttore partendo da una map
+    /**
+     * Costruttore per la classe Prodotto partendo da una mappa di dati.
+     *
+     * @param dataMap La mappa di dati che rappresenta il prodotto.
+     */
     public Prodotto(Map<String, Object> dataMap) {
         this.id = String.valueOf(dataMap.get(PRODOTTO_ID));
         initFromMap(dataMap);
@@ -82,15 +105,15 @@ public class Prodotto implements Serializable {
         this.prezzo = Double.parseDouble(dataMap.get(PRODOTTO_PREZZO).toString());
         this.pianta = String.valueOf(dataMap.get(PRODOTTO_PIANTA));
         this.quantita = Integer.parseInt(String.valueOf(dataMap.get(PRODOTTO_QUANTITA)));
-        this.faseAttuale = Integer.parseInt(dataMap.get(PRODOTTO_FASE_ATTUALE).toString());
+        this.faseAttuale = String.valueOf(dataMap.get(PRODOTTO_FASE_ATTUALE));
         this.altreInformazioni = String.valueOf(dataMap.get(PRODOTTO_ALTRE_INFORMAZIONI));
         this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODOTTO_SCAMBIO_DISPONIBILE)));
         this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODOTTO_OFFERTE);
     }
         //TODO:
-        //unirmi con la ricerca delle piante da Alice (serve Alice)
+        //unirmi con la ricerca delle piante da Alice, la trovo nel pianta adapter (serve Alice)
         //scrivere tutti i test
-        //scrivere acceptance test su Drive
+        //far controllare da qualcuno acceptance test su Drive
         //scrivere la javadoc seguendo i pattern
         //fare il get instance per prendere l'utente corrente (serve Elia)
         //MAGARI aggiungere dei controlli sui campi inseriti
@@ -104,6 +127,8 @@ public class Prodotto implements Serializable {
         //**CARD BANCARELLA** aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
         // è necessario copiare tutto il lavoro fatto anche per Offerta? SI
     @NonNull
+    //metodi getter e setter
+
     public String getId() {
         return id;
     }
@@ -160,11 +185,11 @@ public class Prodotto implements Serializable {
         this.quantita = quantita;
     }
 
-    public int getFaseAttuale() {
+    public String getFaseAttuale() {
         return faseAttuale;
     }
 
-    public void setFaseAttuale(int faseAttuale) {
+    public void setFaseAttuale(String faseAttuale) {
         this.faseAttuale = faseAttuale;
     }
 
@@ -198,5 +223,19 @@ public class Prodotto implements Serializable {
                 ", altreInformazioni='" + altreInformazioni + '\'' +
                 ", scambioDisponibile=" + scambioDisponibile +
                 '}';
+    }
+
+    // Metodi equals e hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prodotto prodotto = (Prodotto) o;
+        return Double.compare(prezzo, prodotto.prezzo) == 0 && quantita == prodotto.quantita && Objects.equals(id, prodotto.id) && Objects.equals(tipo, prodotto.tipo) && Objects.equals(venditore, prodotto.venditore) && Objects.equals(pianta, prodotto.pianta) && Objects.equals(offerte, prodotto.offerte) && Objects.equals(faseAttuale, prodotto.faseAttuale) && Objects.equals(altreInformazioni, prodotto.altreInformazioni) && Objects.equals(scambioDisponibile, prodotto.scambioDisponibile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, tipo, venditore, prezzo, pianta, offerte, quantita, faseAttuale, altreInformazioni, scambioDisponibile);
     }
 }

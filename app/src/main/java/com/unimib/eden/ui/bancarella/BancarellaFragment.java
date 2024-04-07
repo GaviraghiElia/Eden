@@ -25,17 +25,27 @@ import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Un semplice {@link Fragment} per la visualizzazione della bancarella, con possibilità di aggiunta di nuovi prodotti.
+ */
 public class BancarellaFragment extends Fragment {
     private static final String TAG = "BancarellaFragment";
     private FragmentStandBinding binding;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Prodotto> prodotti = new ArrayList<Prodotto>();
     private BancarellaViewModel bancarellaViewModel;
 
+    /**
+     * Costruttore predefinito per BancarellaFragment.
+     */
     public BancarellaFragment() {
-        // Required empty public constructor
+        // Costruttore pubblico vuoto richiesto
     }
 
+    /**
+     * Metodo richiamato al momento della creazione del fragment.
+     *
+     * @param savedInstanceState lo stato precedente dell'istanza, se presente.
+     */
     @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -46,18 +56,25 @@ public class BancarellaFragment extends Fragment {
         bancarellaViewModel = new ViewModelProvider(this).get(BancarellaViewModel.class);
     }
 
+    /**
+     * Metodo richiamato per creare e visualizzare l'interfaccia utente del fragment.
+     *
+     * @param inflater           il layout inflater che può essere utilizzato per inflare qualsiasi layout XML.
+     * @param container          il parent view che il fragment UI dovrebbe essere agganciato, se presente.
+     * @param savedInstanceState lo stato precedente dell'istanza, se presente.
+     * @return la vista radice del layout del fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStandBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        //codice per spostarsi in "InserimentoProdottoActivity"
+        // Codice per gestire il click del pulsante per aggiungere un nuovo prodotto
         Button addButton = view.findViewById(R.id.buttonAddProduct);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "sei dentro onClick");
                 if (v.getId() == R.id.buttonAddProduct) {
                     Intent intent = new Intent(requireContext(), InserimentoProdottoActivity.class);
                     startActivity(intent);
@@ -65,9 +82,10 @@ public class BancarellaFragment extends Fragment {
             }
         });
 
+        // Aggiornamento del database locale e recupero dei prodotti
         bancarellaViewModel.updateDB();
         Log.d(TAG, "onCreate: " + bancarellaViewModel.getProdotti());
-        // Inflate the layout for this fragment
+        // Ritorna la vista del fragment
         return view;
     }
 }

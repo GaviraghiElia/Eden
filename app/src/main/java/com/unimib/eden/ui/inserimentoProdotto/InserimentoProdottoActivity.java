@@ -32,6 +32,10 @@ import java.util.HashMap;
 import java.util.Map;
 import com.unimib.eden.R;
 
+/**
+ * Activity per l'inserimento di un nuovo prodotto.
+ * Questa activity consente all'utente di inserire i dettagli di un nuovo prodotto e di aggiungerlo al database.
+ */
 public class InserimentoProdottoActivity extends AppCompatActivity {
     private static final String TAG = "InserimentoProdotto";
     private InserimentoProdottoViewModel inserimentoProdottoViewModel;
@@ -46,6 +50,13 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
 
+    /**
+     * Metodo chiamato quando l'activity viene creata. Qui vengono inizializzati i componenti
+     * dell'interfaccia utente, impostati i listener e ottenuti i dati necessari dal ViewModel.
+     *
+     * @param savedInstanceState Oggetto Bundle contenente lo stato precedente dell'activity,
+     *                           se disponibile.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +68,6 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         binding.prezzo.addTextChangedListener(prodottoTextWatcher);
         binding.quantita.addTextChangedListener(prodottoTextWatcher);
 
-        //TODO: in base all'id della pianta (trovata nella ricerca) mostro le sue fasi
-
         pomodoroFasi = inserimentoProdottoViewModel.getFasiDaId(pomodoroId).toArray(new String[0]);
         ultimaFase = pomodoroFasi[pomodoroFasi.length-1];
 
@@ -69,12 +78,6 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
 
         binding.buttonSubmit.setOnClickListener(v -> {
             aggiungiProdotto();
-            //TODO: chatgpt dice di mettere if (getArguments() != null && getArguments().getBoolean("mostraFragment", false))
-            //nell'on createView del fragmentBancarella
-            //Intent intent = new Intent(this, BancarellaFragment.class);
-            //intent.putExtra("mostraFragment", true); // Passa un extra per indicare al fragment di mostrarsi
-            //startActivity(intent);
-            //finish();
         });
 
         //codice per aggiornare l'unità di misura
@@ -82,12 +85,9 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         binding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Aggiorna l'unità di misura in base alla fase selezionata
                 if (position == pomodoroFasi.length - 1) {
-                    // Aggiorna l'unità di misura a "piante"
                     textViewQuantitaUnita.setText("grammi");
                 } else {
-                    // Aggiorna l'unità di misura a "grammi"
                     textViewQuantitaUnita.setText("piante");
                 }
             }
@@ -97,7 +97,6 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     private TextWatcher prodottoTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
@@ -118,13 +117,18 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    /**
+     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere un nuovo prodotto.
+     * Raccoglie i dati inseriti dall'utente dall'interfaccia utente e li invia al ViewModel
+     * per l'aggiunta del prodotto al database.
+     */
     private void aggiungiProdotto() {
         double prezzo = Double.parseDouble(binding.prezzo.getText().toString());
         int quantita = Integer.parseInt(binding.quantita.getText().toString());
         String altreInformazioni = binding.altreInformazioni.getText().toString();
         Boolean scambioDisponibile = binding.checkBoxDisponibileAScambi.isChecked();
         //String pianta = binding.pianta.getText().toString();
-        AutoCompleteTextView faseAttuale = binding.autoCompleteTextViewFasi;
+        String faseAttuale = binding.autoCompleteTextViewFasi.getText().toString();
 
         String tipo;
         //controllo se ultima fase .equals() quella scelta
@@ -141,10 +145,12 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_QUANTITA, quantita);
         prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
-        String utente = firebaseAuth.getCurrentUser().getUid();
+        //String utente = firebaseAuth.getCurrentUser().getUid();
         prodotto.put(PRODOTTO_VENDITORE, "s.erba9@campus.unimib.it"); //TODO: prendere id venditore
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
+        Log.d(TAG, "1: " + prodotto.toString());
         inserimentoProdottoViewModel.aggiungiProdotto(prodotto);
+        Log.d(TAG, "2: " + prodotto.toString());
     }
 }
