@@ -21,6 +21,7 @@ import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.colturaDetails.ColturaDetailsFragment;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ConvertIntMonthToString;
@@ -42,6 +43,8 @@ public class PiantaDetailsActivity extends AppCompatActivity {
     private FaseAdapter faseAdapter;
     private LiveData<Pianta> game = new LiveData<Pianta>() {};
     String idNotification = null;
+
+    private int operationCode;
     Pianta pianta = null;
     List<Fase> fasi = null;
 
@@ -56,15 +59,25 @@ public class PiantaDetailsActivity extends AppCompatActivity {
         binding = ActivityPiantaDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Intent i = getIntent();
+        operationCode = (int) i.getSerializableExtra("operationCode");
+
         binding.topAppBar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
-                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
-                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);
+                Intent intent;
+                if (operationCode == Constants.SEARCH_PIANTA_OPERATION_CODE) {// nella details da ricerca pianta
+                    intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                    intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
+                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(intent);
+                } else { // nella details da coltura details
+                    onBackPressed();
+                }
+
+
             }
         });
 

@@ -80,6 +80,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                     case Constants.SEARCH_PIANTA_OPERATION_CODE:
                         intent = new Intent(v.getContext(), PiantaDetailsActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
+                        intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
                         v.getContext().startActivity(intent);
                         break;
                     case Constants.CREATE_COLTURA_OPERATION_CODE:
