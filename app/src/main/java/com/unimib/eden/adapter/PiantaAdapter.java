@@ -1,6 +1,7 @@
 package com.unimib.eden.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +90,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                         intent = new Intent(v.getContext(), PiantaDetailsActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                        //setResult(Activity.RESULT_OK, intent);
                         v.getContext().startActivity(intent);
                         break;
                 }

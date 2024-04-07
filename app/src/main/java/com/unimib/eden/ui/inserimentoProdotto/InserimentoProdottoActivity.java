@@ -10,6 +10,8 @@ import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
 import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
 import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +23,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -31,6 +38,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import com.unimib.eden.R;
+import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.utils.Constants;
 
 /**
  * Activity per l'inserimento di un nuovo prodotto.
@@ -41,6 +51,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     private InserimentoProdottoViewModel inserimentoProdottoViewModel;
     private ActivityInserimentoProdottoBinding binding;
     private String pomodoroId = "beVITqkLHWCerI1XLRxj";
+    private Pianta pianta;
     private String ultimaFase = "";
 
     //per prendere current user
@@ -67,6 +78,31 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.prezzo.addTextChangedListener(prodottoTextWatcher);
         binding.quantita.addTextChangedListener(prodottoTextWatcher);
+
+        ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+
+                    @Override
+                    public void onActivityResult(ActivityResult o) {
+                        if(o.getResultCode()== Activity.RESULT_OK){
+                            Intent data = o.getData();
+                            pianta = (Pianta) data.getSerializableExtra("pianta");
+                            binding.pianta.setText(pianta.getNome());
+                        }
+                    }
+                });
+        binding.pianta.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                    intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                    searchPiantaActivityResultLauncher.launch(intent);
+                    binding.pianta.clearFocus();
+                }
+            }
+        });
 
         pomodoroFasi = inserimentoProdottoViewModel.getFasiDaId(pomodoroId).toArray(new String[0]);
         ultimaFase = pomodoroFasi[pomodoroFasi.length-1];
@@ -146,6 +182,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
         //String utente = firebaseAuth.getCurrentUser().getUid();
+        //Log.d(TAG, "utente corrente: " + utente.toString());
         prodotto.put(PRODOTTO_VENDITORE, "s.erba9@campus.unimib.it"); //TODO: prendere id venditore
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
