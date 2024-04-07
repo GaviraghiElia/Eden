@@ -19,14 +19,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,8 +33,12 @@ import com.unimib.eden.databinding.ActivityInserimentoProdottoBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import com.unimib.eden.R;
+import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
@@ -57,7 +58,9 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     //per prendere current user
     private FirebaseAuth firebaseAuth;
 
-    String[] pomodoroFasi = {};
+    ArrayList<String> nomeFasi = new ArrayList<String>();
+
+    List<Fase> fasiList;
     ArrayAdapter<String> adapter;
 
 
@@ -88,7 +91,21 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                         if(o.getResultCode()== Activity.RESULT_OK){
                             Intent data = o.getData();
                             pianta = (Pianta) data.getSerializableExtra("pianta");
+                            Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
                             binding.pianta.setText(pianta.getNome());
+                            try {
+                                fasiList = inserimentoProdottoViewModel.getFasiList(pianta.getFasi());
+                                for(Fase f: fasiList) {
+                                    nomeFasi.add(f.getNomeFase());
+                                }
+
+                            } catch (ExecutionException e) {
+                                throw new RuntimeException(e);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            ultimaFase = nomeFasi.get(nomeFasi.size()-1);
+                            adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nomeFasi);
                         }
                     }
                 });
@@ -104,13 +121,12 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
             }
         });
 
-        pomodoroFasi = inserimentoProdottoViewModel.getFasiDaId(pomodoroId).toArray(new String[0]);
-        ultimaFase = pomodoroFasi[pomodoroFasi.length-1];
+
 
         //TODO: forse android.R.layout è da cambiare
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pomodoroFasi);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
         binding.autoCompleteTextViewFasi.setAdapter(adapter);
-        binding.autoCompleteTextViewFasi.setText(pomodoroFasi[0], false);
+        //binding.autoCompleteTextViewFasi.setText(nomeFasi.get(0), false);
 
         binding.buttonSubmit.setOnClickListener(v -> {
             aggiungiProdotto();
@@ -121,7 +137,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         binding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == pomodoroFasi.length - 1) {
+                if (position == nomeFasi.size() - 1) {
                     textViewQuantitaUnita.setText("grammi");
                 } else {
                     textViewQuantitaUnita.setText("piante");

@@ -5,11 +5,15 @@ import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 
+import com.unimib.eden.model.Fase;
+import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.repository.ProdottoRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * ViewModel per l'inserimento di un nuovo prodotto.
@@ -18,6 +22,8 @@ import java.util.Map;
 public class InserimentoProdottoViewModel extends AndroidViewModel {
     private static final String TAG = "InserimentoProdotto";
     private ProdottoRepository prodottoRepository;
+
+    private FaseRepository faseRepository;
     private PiantaRepository piantaRepository;
 
     /**
@@ -29,6 +35,7 @@ public class InserimentoProdottoViewModel extends AndroidViewModel {
         super(application);
         prodottoRepository = new ProdottoRepository(this.getApplication());
         piantaRepository = new PiantaRepository(this.getApplication());
+        faseRepository = new FaseRepository(this.getApplication());
     }
 
     /**
@@ -48,5 +55,15 @@ public class InserimentoProdottoViewModel extends AndroidViewModel {
      */
     public ArrayList<String> getFasiDaId(String piantaId) {
         return piantaRepository.getPiantaById(piantaId).getFasi();
+    }
+
+    public List<Fase> getFasiList(List<String> fasiID) throws ExecutionException, InterruptedException {
+        try {
+            return faseRepository.getFasiID(fasiID);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

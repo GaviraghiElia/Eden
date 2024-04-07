@@ -112,7 +112,7 @@ public class SearchPiantaActivity extends AppCompatActivity {
             searchPiantaViewModel.getPiantaList(filtriMap).observe(this, new Observer<List<Pianta>>() {
                 @Override
                 public void onChanged(List<Pianta> piante) {
-                    piantaAdapter.update(piante, Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    piantaAdapter.update(piante, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }
             });
@@ -120,7 +120,7 @@ public class SearchPiantaActivity extends AppCompatActivity {
             searchPiantaViewModel.getPiantaList().observe(this, new Observer<List<Pianta>>() {
                 @Override
                 public void onChanged(List<Pianta> piante) {
-                    piantaAdapter.update(piante, Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    piantaAdapter.update(piante, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }
             });

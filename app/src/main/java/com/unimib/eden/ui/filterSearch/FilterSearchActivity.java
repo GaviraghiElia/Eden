@@ -94,7 +94,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, esposizioneSole);
         binding.esposizioneSoleAutoComplete.setAdapter(adapter);
-        Log.d(TAG, "onCreate: ESPOSIZIONE_SOLE: " + binding.esposizioneSoleAutoComplete.getText());
+        //Log.d(TAG, "onCreate: ESPOSIZIONE_SOLE: " + binding.esposizioneSoleAutoComplete.getText());
 
         // InizioSeminaNumberPicker
         binding.textInputEditInizioSemina.setOnFocusChangeListener(((v, hasFocus) -> {

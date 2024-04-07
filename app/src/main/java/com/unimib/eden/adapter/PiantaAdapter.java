@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
@@ -87,11 +89,11 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                         v.getContext().startActivity(intent);
                         break;
                     case Constants.CREATE_PRODOTTO_OPERATION_CODE:
-                        intent = new Intent(v.getContext(), PiantaDetailsActivity.class);
+                        intent = new Intent(v.getContext(), InserimentoProdottoActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
-                        //setResult(Activity.RESULT_OK, intent);
-                        v.getContext().startActivity(intent);
+                        ((SearchPiantaActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
+                        ((SearchPiantaActivity) v.getContext()).finish();
                         break;
                 }
 
