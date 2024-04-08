@@ -25,6 +25,9 @@ public interface ColturaDao {
     @Query("SELECT * FROM 'coltura'")
     LiveData<List<Coltura>> getAll();
 
+    @Query("SELECT * FROM 'coltura'")
+    List<Coltura> getAllTest();
+
     /**
      * Elimina le colture specificate dal database.
      *

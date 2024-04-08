@@ -48,7 +48,7 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
      * @return La data del prossimo innaffiamento formattata come stringa.
      */
     public String getProssimoInnaffiamento(Context context, Coltura coltura) {
-        return Transformer.formatProssimoInnaffiamento(context, coltura, getPiantaById(coltura.getIdPianta()));
+        return Transformer.formatProssimoInnaffiamento(context, coltura);
     }
 
     /**

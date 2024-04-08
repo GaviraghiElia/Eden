@@ -95,6 +95,8 @@ public class HomeFragment extends Fragment {
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
+
+        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
     }
 
     @Nullable
@@ -146,7 +148,6 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
         Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
 
-        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
         return view;
 
     }

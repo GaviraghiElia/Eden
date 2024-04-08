@@ -105,8 +105,10 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
          * @param coltura La coltura da visualizzare.
          */
         public void bind(Coltura coltura) {
-            this.textViewColturaPianta.setText(piantaRepository.getPiantaById(coltura.getIdPianta()).getNome());
-            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
+            //this.textViewColturaPianta.setText(piantaRepository.getPiantaById(coltura.getIdPianta()).getNome());
+            //this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
+            this.textViewColturaPianta.setText(coltura.getNomePianta());
+            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura));
             this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
             if (coltura.getNote().isEmpty()) {
                 this.textViewNote.setVisibility(View.GONE);

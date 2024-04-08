@@ -21,6 +21,8 @@ import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
 import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
 import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
 import static com.unimib.eden.utils.Constants.NOME_DATABASE_COLTURA;
+import static com.unimib.eden.utils.Constants.PIANTA_FREQUENZA_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.PIANTA_NOME;
 
 /**
  * Classe modello che rappresenta una coltura.
@@ -52,6 +54,10 @@ public class Coltura implements Serializable {
 
     @ColumnInfo(name = COLTURA_ULTIMO_INNAFFIAMENTO)
     private Date ultimoInnaffiamento;
+    @ColumnInfo(name = PIANTA_NOME)
+    private String nomePianta;
+    @ColumnInfo(name = PIANTA_FREQUENZA_INNAFFIAMENTO)
+    private int frequenzaInnaffiamento;
 
     /**
      * Costruttore per la classe Coltura.
@@ -64,8 +70,10 @@ public class Coltura implements Serializable {
      * @param dataInserimento    Data di inserimento della coltura.
      * @param faseAttuale        Fase attuale della coltura.
      * @param ultimoInnaffiamento Data dell'ultimo innaffiamento.
+     * @param nomePianta         Nome della pianta associata alla coltura.
+     * @param frequenzaInnaffiamento Frequenza di innaffiamento della pianta.
      */
-    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento) {
+    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento, String nomePianta, int frequenzaInnaffiamento) {
         this.id = id;
         this.idPianta = idPianta;
         this.proprietario = proprietario;
@@ -74,6 +82,8 @@ public class Coltura implements Serializable {
         this.dataInserimento = dataInserimento;
         this.faseAttuale = faseAttuale;
         this.ultimoInnaffiamento = ultimoInnaffiamento;
+        this.nomePianta = nomePianta;
+        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
     }
 
     /**
@@ -93,6 +103,8 @@ public class Coltura implements Serializable {
         this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_FASE_ATTUALE).toString());
         Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
+        this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
+        this.frequenzaInnaffiamento = Integer.parseInt(tempMap.get(PIANTA_FREQUENZA_INNAFFIAMENTO).toString());
     }
 
     // Metodi getter e setter
@@ -162,26 +174,37 @@ public class Coltura implements Serializable {
         this.ultimoInnaffiamento = ultimoInnaffiamento;
     }
 
-    // Metodi equals e hashCode
+    public String getNomePianta() {
+        return nomePianta;
+    }
 
+    public void setNomePianta(String nomePianta) {
+        this.nomePianta = nomePianta;
+    }
+
+    public int getFrequenzaInnaffiamento() {
+        return frequenzaInnaffiamento;
+    }
+
+    public void setFrequenzaInnaffiamento(int frequenzaInnaffiamento) {
+        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
+    }
+
+    // Metodi equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coltura coltura = (Coltura) o;
-        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento());
+        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && getFrequenzaInnaffiamento() == coltura.getFrequenzaInnaffiamento() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento()) && Objects.equals(getNomePianta(), coltura.getNomePianta());
     }
 
     public boolean equals(QueryDocumentSnapshot document) {
-        Coltura o = new Coltura(document);
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Coltura coltura = (Coltura) o;
-        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento());
+        return equals(new Coltura(document));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getIdPianta(), getProprietario(), getQuantita(), getNote(), getDataInserimento(), getFaseAttuale(), getUltimoInnaffiamento());
+        return Objects.hash(getId(), getIdPianta(), getProprietario(), getQuantita(), getNote(), getDataInserimento(), getFaseAttuale(), getUltimoInnaffiamento(), getNomePianta(), getFrequenzaInnaffiamento());
     }
 }

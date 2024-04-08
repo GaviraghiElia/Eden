@@ -36,7 +36,7 @@ public class ProdottoDaoTest {
             "pomodoro",
             offerte,
             8,
-            4,
+            "mtqfP931yhNDQzFRN8RU",
             "dovrebbe salvarla come eccedenza",
             true
     );
@@ -48,7 +48,7 @@ public class ProdottoDaoTest {
             "aglio",
             offerte,
             3,
-            4,
+            "QhhUcsLVFpDppyxen9tM",
             "pesce d'aprile!",
             true
     );
