@@ -66,7 +66,7 @@
         <TextView
             android:id="@+id/textViewNote"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="fill_parent"
             android:text="Note"
             android:textSize="16sp"
             android:layout_toEndOf="@id/imageViewFase"
