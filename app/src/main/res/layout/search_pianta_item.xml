@@ -20,6 +20,7 @@
             android:id="@+id/imageViewPianta"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:src="@drawable/growing_plant_24"
             android:padding="4dp" />
 
         <TextView

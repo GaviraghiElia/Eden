@@ -55,7 +55,7 @@
                             android:contentDescription="@string/pianta_name"
                             android:fitsSystemWindows="true"
                             android:scaleType="centerInside"
-                            android:src="@drawable/ic_baseline_search_24" />
+                            android:src="@drawable/growing_plant_24" />
 
                         <!--- style="@style/Widget.MaterialComponents.Toolbar.Primary" -->
 
