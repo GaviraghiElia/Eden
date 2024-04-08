@@ -8,20 +8,21 @@
     android:background="@android:color/white">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/inserisci_prodotto"
-        android:textSize="24sp"
-        android:drawablePadding="8dp"
-        android:layout_gravity="center_horizontal"/>
+        android:text="@string/inserisci_un_prodotto"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-condensed-medium"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/piantaBox"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="cerca la pianta"
-        app:startIconDrawable="@drawable/delivery"
+        android:layout_marginTop="16dp"
+        android:hint="@string/search_pianta_toolbar"
+        app:startIconDrawable="@drawable/ic_baseline_search_24"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -32,7 +33,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextFieldEsposizioneSole"
+        android:id="@+id/outlinedTextFieldFasi"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,22 +83,38 @@
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/prezzo"
-        app:startIconDrawable="@drawable/euro_circle"
-        app:endIconMode="clear_text"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_marginTop="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/prezzo"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:hint="@string/prezzo"
+            app:startIconDrawable="@drawable/euro_circle"
+            app:endIconMode="clear_text">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/prezzo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/euro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/euro"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/checkBoxDisponibileAScambi"
@@ -133,6 +150,15 @@
         android:text="@string/invia"
         android:enabled="false"
         android:layout_marginTop="16dp"
-        android:drawablePadding="8dp"/>
+        android:drawablePadding="8dp"
+
+        android:background="@drawable/button_ripple_background"
+        android:elevation="8dp"
+        android:minHeight="42dp"
+        android:minWidth="98dp"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </LinearLayout>
