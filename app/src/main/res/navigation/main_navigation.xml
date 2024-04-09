@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -91,6 +91,7 @@
     <fragment
         android:id="@+id/navigation_stand"
         android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
-        android:label="bancarella"
+        android:label="fragment_stand"
         tools:layout="@layout/fragment_stand" />
+
 </navigation>

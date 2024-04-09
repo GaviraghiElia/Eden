@@ -18,15 +18,14 @@ public class Transformer {
      * Calcola il numero di giorni fino al prossimo innaffiamento per una coltura.
      *
      * @param coltura La coltura.
-     * @param pianta  La pianta associata alla coltura.
      * @return Il numero di giorni fino al prossimo innaffiamento.
      */
-    public static int daysToProssimoInnaffiamento(Coltura coltura, Pianta pianta) {
+    public static int daysToProssimoInnaffiamento(Coltura coltura) {
         Date currentDate = new Date();
         Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
         long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
         long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        int frequenzaInnaffiamento = pianta.getFrequenzaInnaffiamento();
+        int frequenzaInnaffiamento = coltura.getFrequenzaInnaffiamento();
         int daysRemaining = frequenzaInnaffiamento - (int) daysDifference;
         return daysRemaining;
     }
@@ -36,11 +35,10 @@ public class Transformer {
      *
      * @param context Il contesto.
      * @param coltura La coltura.
-     * @param pianta  La pianta associata alla coltura.
      * @return La stringa formattata rappresentante la data del prossimo innaffiamento.
      */
-    public static String formatProssimoInnaffiamento(Context context, Coltura coltura, Pianta pianta) {
-        int days = daysToProssimoInnaffiamento(coltura, pianta);
+    public static String formatProssimoInnaffiamento(Context context, Coltura coltura) {
+        int days = daysToProssimoInnaffiamento(coltura);
         if (days == 0) {
             return context.getString(R.string.oggi);
         } else if (days == 1) {

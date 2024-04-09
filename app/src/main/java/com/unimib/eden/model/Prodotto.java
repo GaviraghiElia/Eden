@@ -110,22 +110,7 @@ public class Prodotto implements Serializable {
         this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODOTTO_SCAMBIO_DISPONIBILE)));
         this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODOTTO_OFFERTE);
     }
-        //TODO:
-        //unirmi con la ricerca delle piante da Alice, la trovo nel pianta adapter (serve Alice)
-        //scrivere tutti i test
-        //far controllare da qualcuno acceptance test su Drive
-        //scrivere la javadoc seguendo i pattern
-        //fare il get instance per prendere l'utente corrente (serve Elia)
-        //MAGARI aggiungere dei controlli sui campi inseriti
-        //MAGARI dopo aver inserito un prodotto la schermata torna alla bancarella
 
-        //Creare branch pipeline oppure fare direttamente su sprint1: riga per creazione .apk
-            // inserimento file index.html e gem...qualcosa ruby.
-            // aggiungere job per generare pagina html con ruby
-            // aggiungere job (di Gaia) per runnare javadoc
-        
-        //**CARD BANCARELLA** aggiungere Adapter tipo meeple e tipo gaia per fare la lista recycler che scorre
-        // è necessario copiare tutto il lavoro fatto anche per Offerta? SI
     @NonNull
     //metodi getter e setter
 

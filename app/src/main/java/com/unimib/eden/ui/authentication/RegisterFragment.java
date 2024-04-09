@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -61,6 +62,13 @@ public class RegisterFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         mUserViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     /**
@@ -146,6 +154,7 @@ public class RegisterFragment extends Fragment
         public void afterTextChanged(Editable s) {}
     };
 
+
     /**
      * Metodo per la creazione di un utente con email e password
      *
@@ -166,6 +175,7 @@ public class RegisterFragment extends Fragment
 
                     Log.d("mAuth", "register fragment - activity " + requireActivity());
                     navController.navigate(R.id.action_registerFragment_to_mainActivity);
+                    requireActivity().finish();
                     //startActivity(new Intent(requireContext(), MainActivity.class));
                 }
                 else

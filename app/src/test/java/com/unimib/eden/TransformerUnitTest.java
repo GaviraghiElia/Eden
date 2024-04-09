@@ -34,10 +34,11 @@ public class TransformerUnitTest {
         Date currentDate = new Date();
         Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
         when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(7);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
 
         // Calling the method to test
-        int daysRemaining = Transformer.daysToProssimoInnaffiamento(coltura, pianta);
+        int daysRemaining = Transformer.daysToProssimoInnaffiamento(coltura);
 
         // Asserting the result
         assertEquals(2, daysRemaining); // Giorni rimanenti fino al prossimo innaffiamento
@@ -61,10 +62,11 @@ public class TransformerUnitTest {
         Date currentDate = new Date();
         Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
         when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(5); // La frequenza di innaffiamento è ogni giorno
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(5);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(5); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura, pianta);
+        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Oggi", formattedString); // Ci si aspetta "Oggi" per oggi
@@ -86,10 +88,11 @@ public class TransformerUnitTest {
         // Stubbing methods
         when(context.getString(R.string.tra_giorni)).thenReturn("Tra %d giorni");
         when(coltura.getUltimoInnaffiamento()).thenReturn(new Date());
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(7);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura, pianta);
+        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Tra 7 giorni", formattedString); // Ci si aspetta "Tra 7 giorni" per il prossimo innaffiamento fra 7 giorni
@@ -111,10 +114,11 @@ public class TransformerUnitTest {
         // Stubbing methods
         when(context.getString(R.string.domani)).thenReturn("Domani");
         when(coltura.getUltimoInnaffiamento()).thenReturn(new Date());
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(1); // La frequenza di innaffiamento è ogni giorno
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(1);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(1); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura, pianta);
+        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Domani", formattedString); // Ci si aspetta "Domani" per il prossimo innaffiamento
@@ -138,10 +142,11 @@ public class TransformerUnitTest {
         Date currentDate = new Date();
         Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 giorni fa
         when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(3); // La frequenza di innaffiamento è ogni giorno
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(3);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(3); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura, pianta);
+        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("In ritardo di 2 giorni", formattedString); // Ci si aspetta "Ritardo di un giorno" per i giorni di ritardo
@@ -165,10 +170,11 @@ public class TransformerUnitTest {
         Date currentDate = new Date();
         Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 giorni fa
         when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(pianta.getFrequenzaInnaffiamento()).thenReturn(4); // La frequenza di innaffiamento è ogni giorno
+        when(coltura.getFrequenzaInnaffiamento()).thenReturn(4);
+        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(4); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura, pianta);
+        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("In ritardo di 1 giorno", formattedString); // Ci si aspetta "Ritardo di un giorno" per il giorno di ritardo

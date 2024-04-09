@@ -3,17 +3,18 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/title_home" />
-
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/title_profile" />
+        android:icon="@drawable/garden_watering_can_24"
+        android:title="@string/orto" />
 
     <item
         android:id="@+id/navigation_stand"
         android:icon="@drawable/food_stand"
         android:title="@string/title_stand" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:enabled="false"
+        android:title="@string/title_profile" />
 
 </menu>

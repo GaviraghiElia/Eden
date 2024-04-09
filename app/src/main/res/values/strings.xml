@@ -106,7 +106,7 @@
     <string name="vedi_dettagli_pianta">Vedi dettagli pianta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aggiungi_prodotto">Aggiungi un prodotto</string>
-    <string name="inserisci_prodotto">Inserisci prodotto</string>
+    <string name="inserisci_prodotto">INSERISCI PRODOTTO</string>
     <string name="tipo">Tipo</string>
     <string name="prezzo">Prezzo</string>
     <string name="pianta">Pianta (menu di ricerca)</string>
@@ -118,4 +118,8 @@
     <string name="inserisci_fase">inserisci la fase</string>
     <string name="fasi">Inserisci la fase attuale</string>
     <string name="piante">piante</string>
+    <string name="orto">Orto</string>
+
+    <string name="inserisci_un_prodotto">Inserisci un nuovo prodotto</string>
+    <string name="euro">euro</string>
 </resources>

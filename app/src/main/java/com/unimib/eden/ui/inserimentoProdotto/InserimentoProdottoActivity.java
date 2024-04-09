@@ -197,13 +197,12 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_QUANTITA, quantita);
         prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
-        //String utente = firebaseAuth.getCurrentUser().getUid();
-        //Log.d(TAG, "utente corrente: " + utente.toString());
-        prodotto.put(PRODOTTO_VENDITORE, "s.erba9@campus.unimib.it"); //TODO: prendere id venditore
+
+        String utente = firebaseAuth.getCurrentUser().getUid();
+        prodotto.put(PRODOTTO_VENDITORE, utente);
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
-        Log.d(TAG, "1: " + prodotto.toString());
         inserimentoProdottoViewModel.aggiungiProdotto(prodotto);
-        Log.d(TAG, "2: " + prodotto.toString());
+        finish();
     }
 }

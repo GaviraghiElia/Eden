@@ -1,13 +1,16 @@
 package com.unimib.eden.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,6 +39,7 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.main.MainActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -74,6 +78,33 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Chiudi l'applicazione")
+                        .setMessage("Vuoi veramente uscire dall'applicazione?")
+                        .setPositiveButton("SI",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        requireActivity().finish();
+                                    }
+                                })
+                        .setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                    }
+                                }).show();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
@@ -95,6 +126,8 @@ public class HomeFragment extends Fragment {
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
+
+        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
     }
 
     @Nullable
@@ -146,7 +179,6 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
         Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
 
-        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
         return view;
 
     }

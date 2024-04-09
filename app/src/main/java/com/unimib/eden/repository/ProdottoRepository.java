@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,6 +30,8 @@ public class ProdottoRepository implements IProdottoRepository {
     private final ProdottoDao mProdottoDao;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Prodotto> allProdotti;
+
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     /**
      * Costruisce un'istanza di ProdottoRepository.
@@ -99,8 +102,10 @@ public class ProdottoRepository implements IProdottoRepository {
     public void updateLocalDB() {
         if(allProdotti.isEmpty()){
             Log.d(TAG, "Scaricamento prodotti personali...");
+            String utente = firebaseAuth.getCurrentUser().getUid();
+
             db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
-                    .whereEqualTo(Constants.PRODOTTO_VENDITORE, "s.erba9@campus.unimib.it") //TODO: currentUser
+                    .whereEqualTo(Constants.PRODOTTO_VENDITORE, utente)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

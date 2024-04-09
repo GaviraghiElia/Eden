@@ -38,7 +38,9 @@ public class ColturaDaoTest {
             "Coltivazione in vaso sul balcone",
             Date.from(java.time.LocalDateTime.of(2024, 3, 20, 9, 14, 18).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
             2,
-            Date.from(LocalDateTime.of(2024, 3, 22, 16, 43, 8).atZone(java.time.ZoneId.systemDefault()).toInstant())
+            Date.from(LocalDateTime.of(2024, 3, 22, 16, 43, 8).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            "Pomodori",
+            2
     );
     private Coltura coltura2 = new Coltura(
             "RJWeOugwpBBo4bbZE95C",
@@ -49,7 +51,9 @@ public class ColturaDaoTest {
             "",
             Date.from(java.time.LocalDateTime.of(2024, 3, 29, 0, 0, 0).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
             0,
-            Date.from(java.time.LocalDateTime.of(2024, 3, 29, 18, 13, 11).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant())
+            Date.from(java.time.LocalDateTime.of(2024, 3, 29, 18, 13, 11).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            "Zucchine",
+            3
     );
 
     @Before
@@ -78,14 +82,14 @@ public class ColturaDaoTest {
     @Test
     public void daoInsert_insertsColtureIntoDb() {
         addOneColturaToDb();
-        List<Coltura> allColture = colturaDao.getAll();
+        List<Coltura> allColture = colturaDao.getAllTest();
         assertEquals(allColture.get(0), coltura1);
     }
 
     @Test
     public void daoGetAllColture_returnAllColtureFromDb() {
         addTwoColtureToDb();
-        List<Coltura> allColture = colturaDao.getAll();
+        List<Coltura> allColture = colturaDao.getAllTest();
         assertEquals(allColture.get(0), coltura1);
         assertEquals(allColture.get(1), coltura2);
     }
@@ -95,7 +99,7 @@ public class ColturaDaoTest {
         addTwoColtureToDb();
         colturaDao.delete(coltura1);
         colturaDao.delete(coltura2);
-        List<Coltura> allColture = colturaDao.getAll();
+        List<Coltura> allColture = colturaDao.getAllTest();
         assertTrue(allColture.isEmpty());
     }
 

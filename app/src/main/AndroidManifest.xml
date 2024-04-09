@@ -11,15 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Eden">
         <activity
-            android:name=".ui.authentication.AuthenticationActivity"
-            android:exported="true"
-            android:label="@string/title_activity_auth"
-            android:theme="@style/Theme.Eden" >
+            android:name=".ui.authentication.EntryActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.authentication.AuthenticationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_auth"
+            android:theme="@style/Theme.Eden" >
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
