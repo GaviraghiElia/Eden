@@ -57,8 +57,8 @@
     <string name="bad_email">Email non valida</string>
 
     <string name="title_activity_search_pianta">SearchPiantaActivity</string>
-    <string name="search_pianta">Search pianta</string>
-    <string name="filter_pianta_button">Filter pianta</string>
+    <string name="search_pianta">Cerca una pianta</string>
+    <string name="filter_pianta_button">Filtra le piante</string>
     <string name="pianta_name">Nome pianta</string>
     <string name="title_favorites">Favorites</string>
     <string name="famiglia_botanica">Famiglia botanica</string>

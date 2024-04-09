@@ -91,6 +91,6 @@
     <fragment
         android:id="@+id/navigation_stand"
         android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
-        android:label="bancarella"
+        android:label="Bancarella"
         tools:layout="@layout/fragment_stand" />
 </navigation>
