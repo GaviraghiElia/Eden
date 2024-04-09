@@ -95,6 +95,9 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                             binding.pianta.setText(pianta.getNome());
                             try {
                                 fasiList = inserimentoProdottoViewModel.getFasiList(pianta.getFasi());
+                                if(!nomeFasi.isEmpty()) {
+                                    nomeFasi.clear();
+                                }
                                 for(Fase f: fasiList) {
                                     nomeFasi.add(f.getNomeFase());
                                 }
