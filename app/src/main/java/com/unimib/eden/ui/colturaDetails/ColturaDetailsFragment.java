@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
@@ -72,6 +74,9 @@ public class ColturaDetailsFragment extends Fragment {
             appCompatActivity.getSupportActionBar().setTitle(colturaDetailsViewModel.getNomePianta(coltura));
             appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+
+        BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+        navBar.setVisibility(View.GONE);
 
         // Popola gli elementi UI con i dettagli della coltura
         mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(getContext(), coltura));

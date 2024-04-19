@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -151,10 +152,8 @@ public class HomeFragment extends Fragment {
             navController.navigate(R.id.action_navigation_home_to_registerFragment);
         }
 
-        // Aggiorna il database se necessario
-        //TODO: aggiornare con utente attuale
-        //homeViewModel.updateDB(mAuth.getCurrentUser().getUid());
-        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+        BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+        navBar.setVisibility(View.VISIBLE);
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
