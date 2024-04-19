@@ -1,5 +1,8 @@
 package com.unimib.eden.ui.main;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +34,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,5 +70,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         BottomNavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setEnabled(true);
+
     }
+
+
 }

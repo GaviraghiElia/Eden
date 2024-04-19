@@ -40,7 +40,9 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
 import com.unimib.eden.ui.main.MainActivity;
+import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -166,8 +168,11 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "OnItemClick " + coltura.toString());
 
                 // Naviga verso ColturaDetailsFragment con la coltura selezionata
-                HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
-                Navigation.findNavController(view).navigate(action);
+                //HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
+                //Navigation.findNavController(view).navigate(action);
+                Intent intent = new Intent(getActivity(), ColturaDetailsActivity.class);
+                intent.putExtra("coltura", coltura);
+                startActivity(intent);
             }
         }, R.layout.coltura_small_card, getActivity().getApplication());
 
