@@ -1,9 +1,5 @@
 package com.unimib.eden.ui.main;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -13,29 +9,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
-import com.unimib.eden.ui.authentication.AuthenticationActivity;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
-import com.unimib.eden.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
 
         // For the Toolbar
-        setSupportActionBar(findViewById(R.id.toolbar));
-        ((Toolbar) findViewById(R.id.toolbar)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
+        setSupportActionBar(findViewById(R.id.toolbarColturaDetails));
+        ((Toolbar) findViewById(R.id.toolbarColturaDetails)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
 
         navController.getCurrentDestination().setLabel(getString(R.string.app_name));
 

@@ -50,7 +50,7 @@ import com.unimib.eden.utils.Constants;
 public class InserimentoProdottoActivity extends AppCompatActivity {
     private static final String TAG = "InserimentoProdotto";
     private InserimentoProdottoViewModel inserimentoProdottoViewModel;
-    private ActivityInserimentoProdottoBinding binding;
+    private ActivityInserimentoProdottoBinding mBinding;
     private String pomodoroId = "beVITqkLHWCerI1XLRxj";
     private Pianta pianta;
     private String ultimaFase = "";
@@ -77,10 +77,21 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         inserimentoProdottoViewModel = new ViewModelProvider(this).get(InserimentoProdottoViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        binding = ActivityInserimentoProdottoBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        binding.prezzo.addTextChangedListener(prodottoTextWatcher);
-        binding.quantita.addTextChangedListener(prodottoTextWatcher);
+        mBinding = ActivityInserimentoProdottoBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
+        mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
+        mBinding.toolbarInsProd.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        mBinding.prezzo.addTextChangedListener(prodottoTextWatcher);
+        mBinding.quantita.addTextChangedListener(prodottoTextWatcher);
+        mBinding.pianta.addTextChangedListener(prodottoTextWatcher);
+        mBinding.autoCompleteTextViewFasi.addTextChangedListener(prodottoTextWatcher);
+
 
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -92,7 +103,8 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                             Intent data = o.getData();
                             pianta = (Pianta) data.getSerializableExtra("pianta");
                             Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
-                            binding.pianta.setText(pianta.getNome());
+                            mBinding.pianta.setText(pianta.getNome());
+                            mBinding.toolbarInsProd.setTitle("Inserisci " + pianta.getNome());
                             try {
                                 fasiList = inserimentoProdottoViewModel.getFasiList(pianta.getFasi());
                                 if(!nomeFasi.isEmpty()) {
@@ -112,14 +124,14 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                         }
                     }
                 });
-        binding.pianta.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        mBinding.pianta.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
                     intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
-                    binding.pianta.clearFocus();
+                    mBinding.pianta.clearFocus();
                 }
             }
         });
@@ -128,22 +140,23 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
 
         //TODO: forse android.R.layout è da cambiare
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
-        binding.autoCompleteTextViewFasi.setAdapter(adapter);
+        mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
         //binding.autoCompleteTextViewFasi.setText(nomeFasi.get(0), false);
 
-        binding.buttonSubmit.setOnClickListener(v -> {
+        mBinding.buttonSubmit.setOnClickListener(v -> {
             aggiungiProdotto();
         });
 
-        //codice per aggiornare l'unità di misura
-        TextView textViewQuantitaUnita = findViewById(R.id.textViewQuantitaUnita);
-        binding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == nomeFasi.size() - 1) {
-                    textViewQuantitaUnita.setText("grammi");
+                    mBinding.textViewQuantitaUnita.setText("grammi");
+                    //textViewQuantitaUnita.setText("grammi");
                 } else {
-                    textViewQuantitaUnita.setText("piante");
+                    mBinding.textViewQuantitaUnita.setText("piante");
+                    //textViewQuantitaUnita.setText("piante");
                 }
             }
         });
@@ -156,9 +169,11 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String prezzo = binding.prezzo.getText().toString();
-            String quantita = binding.quantita.getText().toString();
-            binding.buttonSubmit.setEnabled(!prezzo.isEmpty() && !quantita.isEmpty());
+            String prezzo = mBinding.prezzo.getText().toString();
+            String quantita = mBinding.quantita.getText().toString();
+            String piantaText = mBinding.pianta.getText().toString();
+            String fasiText = mBinding.autoCompleteTextViewFasi.getText().toString();
+            mBinding.buttonSubmit.setEnabled(!prezzo.isEmpty() && !quantita.isEmpty() && !piantaText.isEmpty() && !fasiText.isEmpty());
         }
 
         @Override
@@ -178,12 +193,12 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
      * per l'aggiunta del prodotto al database.
      */
     private void aggiungiProdotto() {
-        double prezzo = Double.parseDouble(binding.prezzo.getText().toString());
-        int quantita = Integer.parseInt(binding.quantita.getText().toString());
-        String altreInformazioni = binding.altreInformazioni.getText().toString();
-        Boolean scambioDisponibile = binding.checkBoxDisponibileAScambi.isChecked();
+        double prezzo = Double.parseDouble(mBinding.prezzo.getText().toString());
+        int quantita = Integer.parseInt(mBinding.quantita.getText().toString());
+        String altreInformazioni = mBinding.altreInformazioni.getText().toString();
+        Boolean scambioDisponibile = mBinding.checkBoxDisponibileAScambi.isChecked();
         //String pianta = binding.pianta.getText().toString();
-        String faseAttuale = binding.autoCompleteTextViewFasi.getText().toString();
+        String faseAttuale = mBinding.autoCompleteTextViewFasi.getText().toString();
 
         String tipo;
         //controllo se ultima fase .equals() quella scelta

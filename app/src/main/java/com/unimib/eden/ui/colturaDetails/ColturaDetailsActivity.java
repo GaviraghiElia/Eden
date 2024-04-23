@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
@@ -47,8 +46,8 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         // settare l'app bar
-        mBinding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
-        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.toolbarColturaDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
+        mBinding.toolbarColturaDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     onBackPressed();
@@ -62,9 +61,9 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "dopo il get della coltura");
         colturaDetailsViewModel.initialize(coltura);
         Log.d(TAG, "dopo initialize");
-        mBinding.toolbar.setTitle(coltura.getNomePianta());
+        mBinding.toolbarColturaDetails.setTitle(coltura.getNomePianta());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBinding.toolbar.setTitleTextColor(getColor(R.color.white));
+            mBinding.toolbarColturaDetails.setTitleTextColor(getColor(R.color.white));
         }
         mBinding.textViewDataInserimentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(this, coltura));
         mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));

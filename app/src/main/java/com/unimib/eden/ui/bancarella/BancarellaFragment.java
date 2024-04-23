@@ -82,6 +82,27 @@ public class BancarellaFragment extends Fragment {
             }
         });
 
+
+        /* TODO
+        da implementare con la scrollview
+         */
+        /*
+        binding.scrollViewInfo.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY > oldScrollY + 5 && binding.addToListExtButton.isShown())
+                    binding.addToListExtButton.shrink();
+                else
+                if (scrollY < oldScrollY - 20)
+                    binding.addToListExtButton.extend();
+                else
+                if (scrollY == 0)
+                    binding.addToListExtButton.extend();
+            }
+        });
+        */
+
         // Aggiornamento del database locale e recupero dei prodotti
         bancarellaViewModel.updateDB();
         Log.d(TAG, "onCreate: " + bancarellaViewModel.getProdotti());

@@ -5,7 +5,7 @@
         android:id="@+id/filter_pianta"
         android:contentDescription="@string/filter_pianta_button"
 
-        android:icon="@drawable/baseline_filter_alt_24"
+        android:icon="@drawable/baseline_filter_alt_24_white"
         app:showAsAction="ifRoom"
         android:title="@string/filter_pianta_button" />
 </menu>
