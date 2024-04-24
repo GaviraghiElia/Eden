@@ -18,8 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,9 +34,9 @@ public class ColturaDaoTest {
             "g.colombo147@campus.unimib.it",
             20,
             "Coltivazione in vaso sul balcone",
-            Date.from(java.time.LocalDateTime.of(2024, 3, 20, 9, 14, 18).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            new Date(124 - 1900, 2, 29, 19, 13, 11),
             2,
-            Date.from(LocalDateTime.of(2024, 3, 22, 16, 43, 8).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            new Date(124 - 1900, 2, 22, 16, 43, 8),
             "Pomodori",
             2
     );
@@ -49,9 +47,9 @@ public class ColturaDaoTest {
             "g.colombo147@campus.unimib.it",
             5,
             "",
-            Date.from(java.time.LocalDateTime.of(2024, 3, 29, 0, 0, 0).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            new Date(124 - 1900, 2, 29, 1, 0, 0),
             0,
-            Date.from(java.time.LocalDateTime.of(2024, 3, 29, 18, 13, 11).plusHours(1).atZone(java.time.ZoneId.systemDefault()).toInstant()),
+            new Date(124 - 1900, 2, 29, 19, 13, 11),
             "Zucchine",
             3
     );
