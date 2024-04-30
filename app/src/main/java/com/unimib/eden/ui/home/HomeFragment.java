@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,7 +40,9 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
 import com.unimib.eden.ui.main.MainActivity;
+import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -106,7 +109,6 @@ public class HomeFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
 
         final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
@@ -151,10 +153,8 @@ public class HomeFragment extends Fragment {
             navController.navigate(R.id.action_navigation_home_to_registerFragment);
         }
 
-        // Aggiorna il database se necessario
-        //TODO: aggiornare con utente attuale
-        //homeViewModel.updateDB(mAuth.getCurrentUser().getUid());
-        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+        BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
+        navBar.setVisibility(View.VISIBLE);
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -167,8 +167,11 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "OnItemClick " + coltura.toString());
 
                 // Naviga verso ColturaDetailsFragment con la coltura selezionata
-                HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
-                Navigation.findNavController(view).navigate(action);
+                //HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
+                //Navigation.findNavController(view).navigate(action);
+                Intent intent = new Intent(getActivity(), ColturaDetailsActivity.class);
+                intent.putExtra("coltura", coltura);
+                startActivity(intent);
             }
         }, R.layout.coltura_small_card, getActivity().getApplication());
 

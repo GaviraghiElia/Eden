@@ -12,24 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
 
         // For the Toolbar
-        setSupportActionBar(findViewById(R.id.toolbar));
-        ((Toolbar) findViewById(R.id.toolbar)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
+        setSupportActionBar(findViewById(R.id.toolbarMain));
+        ((Toolbar) findViewById(R.id.toolbarMain)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
 
         navController.getCurrentDestination().setLabel(getString(R.string.app_name));
 
@@ -65,4 +54,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setEnabled(true);
     }
+
+
 }

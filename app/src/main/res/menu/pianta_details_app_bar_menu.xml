@@ -7,7 +7,7 @@
         android:id="@+id/favorite_match"
         android:contentDescription="@string/title_favorites"
         android:icon="@drawable/ic_baseline_favorite_border_24"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:title="@string/title_favorites"
         android:visible="false"
         app:showAsAction="ifRoom" />

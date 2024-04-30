@@ -25,6 +25,11 @@
             android:theme="@style/Theme.Eden" >
         </activity>
         <activity
+            android:name=".ui.colturaDetails.ColturaDetailsActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
             android:name=".ui.main.MainActivity"
             android:exported="false">
         </activity>

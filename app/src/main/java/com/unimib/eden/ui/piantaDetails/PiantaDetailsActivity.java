@@ -21,7 +21,7 @@ import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.ui.colturaDetails.ColturaDetailsFragment;
+import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ConvertIntMonthToString;
@@ -76,8 +76,6 @@ public class PiantaDetailsActivity extends AppCompatActivity {
                 } else { // nella details da coltura details
                     onBackPressed();
                 }
-
-
             }
         });
 

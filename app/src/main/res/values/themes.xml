@@ -22,16 +22,16 @@
     </style>
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
-        <item name="colorControlNormal">@color/black</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="titleTextColor">@color/black</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
     <style name="Widget.AppCompat.Button.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:backgroundTint">?attr/colorPrimary</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Title" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextAppearance.AppCompat.Headline.Title2" parent="TextAppearance.MaterialComponents.Headline2">
