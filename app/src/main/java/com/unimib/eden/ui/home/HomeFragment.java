@@ -109,7 +109,6 @@ public class HomeFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        Log.d(TAG, "onCreate: " + homeViewModel.getPiante());
         mAuth = FirebaseAuth.getInstance();
 
         final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
@@ -154,7 +153,7 @@ public class HomeFragment extends Fragment {
             navController.navigate(R.id.action_navigation_home_to_registerFragment);
         }
 
-        BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+        BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
         navBar.setVisibility(View.VISIBLE);
 
         // Imposta RecyclerView con LinearLayoutManager

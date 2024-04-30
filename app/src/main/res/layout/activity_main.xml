@@ -8,7 +8,7 @@
     android:theme="@style/Theme.Eden">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarColturaDetails"
+        android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
