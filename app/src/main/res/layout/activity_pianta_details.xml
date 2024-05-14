@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:theme="@style/Theme.Eden">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="205dp"
+                    android:backgroundTint="@color/white"
+                    android:fitsSystemWindows="true">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/collapsingToolbarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+                        app:contentScrim="?attr/colorPrimary"
+                        app:expandedTitleMarginBottom="28dp"
+                        app:expandedTitleMarginStart="72dp"
+                        app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                        app:statusBarScrim="?attr/colorPrimaryVariant">
+
+                        <ImageView
+                            android:id="@+id/piantaImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="?attr/actionBarSize"
+                            android:contentDescription="@string/pianta_name"
+                            android:fitsSystemWindows="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/growing_plant_24" />
+
+                        <!--- style="@style/Widget.MaterialComponents.Toolbar.Primary" -->
+
+                        <com.google.android.material.appbar.MaterialToolbar
+                            android:id="@+id/topAppBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:elevation="0dp"
+                            android:theme="@style/ToolbarTheme"
+                            app:titleTextColor="@color/black"
+                            app:layout_collapseMode="pin"
+                            app:layout_scrollFlags="scroll|enterAlways|snap"
+                            app:menu="@menu/pianta_details_app_bar_menu" />
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/editDeleteConstraint"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/piantaConstraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="MissingConstraints">
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline1_center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.5" />
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline2_left"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.40" />
+
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline3_right"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.66" />
+
+                            <TextView
+                                android:id="@+id/piantaNomeDetails"
+                                android:textStyle="bold"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="12dp"
+                                style="@style/TextAppearance.AppCompat.Title"
+                                android:text="@string/pianta_name"
+                                android:textSize="24sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/famigliaBotanicaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:drawableStart="@drawable/forest_24px"
+                                android:text="@string/famiglia_botanica"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/piantaNomeDetails" />
+
+                            <TextView
+                                android:id="@+id/frequenzaInnaffiamentoDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="4dp"
+                                android:drawableStart="@drawable/water_drop_24px"
+                                android:text="@string/frequenza_innaffiamento"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline2_left"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/famigliaBotanicaDetails" />
+
+                            <TextView
+                                android:id="@+id/minTemperaturaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="4dp"
+                                android:drawableStart="@drawable/min_temperature"
+                                android:text="@string/min_temperatura"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline3_right"
+                                app:layout_constraintStart_toStartOf="@+id/guideline2_left"
+                                app:layout_constraintTop_toBottomOf="@+id/famigliaBotanicaDetails" />
+
+                            <TextView
+                                android:id="@+id/maxTemperaturaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:drawableStart="@drawable/max_temperature"
+                                android:text="@string/max_temperatura"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/guideline3_right"
+                                app:layout_constraintTop_toBottomOf="@+id/famigliaBotanicaDetails" />
+
+                            <TextView
+                                android:id="@+id/spazioNecessarioDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="4dp"
+                                android:text="@string/spazio_necessario"
+                                android:drawableStart="@drawable/measure"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline2_left"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+
+                            <TextView
+                                android:id="@+id/altezzaMaxPrevistaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="4dp"
+                                android:drawableStart="@drawable/height_measure"
+                                android:text="@string/altezza_max_prevista"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline3_right"
+                                app:layout_constraintStart_toStartOf="@+id/guideline2_left"
+                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+
+                            <TextView
+                                android:id="@+id/tipoTerrenoDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/tipo_terreno"
+                                android:drawableStart="@drawable/soil_type"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/spazioNecessarioDetails" />
+
+
+                            <TextView
+                                android:id="@+id/esposizioneSoleDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:drawableStart="@drawable/sunny_24px"
+                                android:text="@string/esposizione_sole"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="@+id/guideline3_right"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+
+
+
+                            <TextView
+                                android:id="@+id/inizioSeminaLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/inizio_semina_label"
+                                style="@style/TextAppearance.AppCompat.Headline.Subtitle"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tipoTerrenoDetails" />
+
+                            <TextView
+                                android:id="@+id/inizioSeminaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:text="@string/inizio_semina"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toStartOf="@+id/guideline1_center"
+                                app:layout_constraintStart_toEndOf="@+id/inizioSeminaLabel"
+                                app:layout_constraintTop_toBottomOf="@+id/tipoTerrenoDetails" />
+
+                            <TextView
+                                android:id="@+id/fineSeminaLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/fine_semina_label"
+                                style="@style/TextAppearance.AppCompat.Headline.Subtitle"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="@+id/guideline1_center"
+                                app:layout_constraintTop_toBottomOf="@+id/tipoTerrenoDetails" />
+
+                            <TextView
+                                android:id="@+id/fineSeminaDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/fine_semina"
+                                android:textSize="16sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/fineSeminaLabel"
+                                app:layout_constraintTop_toBottomOf="@+id/tipoTerrenoDetails" />
+
+                            <TextView
+                                android:id="@+id/descriptionLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/description_label"
+                                style="@style/TextAppearance.AppCompat.Headline.Subtitle"
+                                android:textSize="16sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/inizioSeminaLabel" />
+
+                            <TextView
+                                android:id="@+id/descriptionDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="8dp"
+                                android:text="@string/descrizione_pianta"
+                                android:textSize="16sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/fasiTitleSection"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            android:text="@string/fasi_description"
+                            style="@style/TextAppearance.AppCompat.Headline.Title2"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/piantaConstraintLayout" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/fasiConstraintLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/editDeleteConstraint"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/fasiTitleSection"
+                            app:layout_constraintVertical_bias="0.0">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/fasiRecyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            </androidx.recyclerview.widget.RecyclerView>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
