@@ -38,7 +38,8 @@ public class FaseDaoTest {
             4,
             30,
             "I fiori sono impollinati e si formano i primi frutti.",
-            "URL_immagine_formazione_frutti"
+            "URL_immagine_formazione_frutti",
+            3
     );
     private Fase fase2 = new Fase(
             "mtqfP931yhNDQzFRN8RU",
@@ -46,7 +47,8 @@ public class FaseDaoTest {
             4,
             15,
             "La pianta produce fiori.",
-            "URL_immagine_fioritura"
+            "URL_immagine_fioritura",
+            3
     );
 
     @Before

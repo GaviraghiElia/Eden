@@ -122,4 +122,6 @@
 
     <string name="inserisci_un_prodotto">Inserisci un nuovo prodotto</string>
     <string name="euro">euro</string>
+    <string name="frequenza_innaffiamento_fase_label">Frequenza innaffiamento:</string>
+    <string name="frequenza_innaffiamento_fase">Frequenza innaffiamento</string>
 </resources>

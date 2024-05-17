@@ -14,7 +14,6 @@ public class Constants {
     public static final String PIANTA_DESCRIZIONE = "descrizione";
     public static final String PIANTA_FAMIGLIA_BOTANICA = "famiglia_botanica";
     public static final String PIANTA_FASE = "fasi";
-    public static final String PIANTA_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
     public static final String PIANTA_INIZIO_SEMINA = "inizio_semina";
     public static final String PIANTA_FINE_SEMINA = "fine_semina";
     public static final String PIANTA_SPAZIO_NECESSARIO = "spazio_necessario";
@@ -33,15 +32,18 @@ public class Constants {
     public static final String COLTURA_FASE_ATTUALE = "fase_attuale";
     public static final String COLTURA_ULTIMO_INNAFFIAMENTO = "ultimo_innaffiamento";
 
+    public static final String COLTURA_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
+
 
     public static final String FASE_NOME_FASE = "nome_fase";
     public static final String FASE_INIZIO_FASE = "inizio_fase";
     public static final String FASE_DURATA_FASE = "durata_fase";
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
-    public static final int VERSIONE_DATABASE = 11;
-    public static final int VERSIONE_DATABASE_PIANTA = 7;
-    public static final int VERSIONE_DATABASE_FASE = 6;
+    public static final String FASE_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
+    public static final int VERSIONE_DATABASE = 17;
+    public static final int VERSIONE_DATABASE_PIANTA = 13;
+    public static final int VERSIONE_DATABASE_FASE = 12;
 
     public static final String NOME_DATABASE_ORTO = "orto";
     public static final String NOME_DATABASE_COLTURA = "coltura";

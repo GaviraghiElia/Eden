@@ -149,20 +149,6 @@
                                 app:layout_constraintTop_toBottomOf="@+id/piantaNomeDetails" />
 
                             <TextView
-                                android:id="@+id/frequenzaInnaffiamentoDetails"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="4dp"
-                                android:drawableStart="@drawable/water_drop_24px"
-                                android:text="@string/frequenza_innaffiamento"
-                                android:textSize="16sp"
-                                app:layout_constraintEnd_toStartOf="@+id/guideline2_left"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/famigliaBotanicaDetails" />
-
-                            <TextView
                                 android:id="@+id/minTemperaturaDetails"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -202,7 +188,7 @@
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toStartOf="@+id/guideline2_left"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+                                app:layout_constraintTop_toBottomOf="@+id/minTemperaturaDetails" />
 
                             <TextView
                                 android:id="@+id/altezzaMaxPrevistaDetails"
@@ -216,7 +202,7 @@
                                 android:textSize="16sp"
                                 app:layout_constraintEnd_toStartOf="@+id/guideline3_right"
                                 app:layout_constraintStart_toStartOf="@+id/guideline2_left"
-                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+                                app:layout_constraintTop_toBottomOf="@+id/minTemperaturaDetails" />
 
                             <TextView
                                 android:id="@+id/tipoTerrenoDetails"
@@ -245,7 +231,7 @@
                                 android:textSize="16sp"
                                 app:layout_constraintStart_toStartOf="@+id/guideline3_right"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/frequenzaInnaffiamentoDetails" />
+                                app:layout_constraintTop_toBottomOf="@+id/minTemperaturaDetails" />
 
 
 

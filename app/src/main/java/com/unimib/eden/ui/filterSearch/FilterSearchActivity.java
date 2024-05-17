@@ -76,9 +76,9 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
         }
 
         if(hasPreviousFiltri) {
-            if(filtriMap.get("frequenzaInnaffiamento") != null) {
+            /*if(filtriMap.get("frequenzaInnaffiamento") != null) {
                 binding.textInputFrequenzaInnaffiamento.setText(filtriMap.get("frequenzaInnaffiamento").toString());
-            }
+            }*/
             if(filtriMap.get("esposizioneSole") != null) {
                 binding.esposizioneSoleAutoComplete.setText(filtriMap.get("esposizioneSole").toString());
             }
@@ -114,7 +114,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         binding.confirmButton.setOnClickListener(view -> {
 
-            if (binding.textInputFrequenzaInnaffiamento.getText().toString().equals("") &&
+            if (/*binding.textInputFrequenzaInnaffiamento.getText().toString().equals("") &&*/
                     binding.esposizioneSoleAutoComplete.getText().toString().equals("") &&
                     binding.textInputEditInizioSemina.getText().toString().equals("") &&
                     binding.textInputEditFineSemina.getText().toString().equals("")) {
@@ -142,9 +142,9 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
 
             } else {
-                if (!binding.textInputFrequenzaInnaffiamento.getText().toString().equals("")) {
+                /*if (!binding.textInputFrequenzaInnaffiamento.getText().toString().equals("")) {
                     filtriMap.put("frequenzaInnaffiamento", binding.textInputFrequenzaInnaffiamento.getText().toString());
-                }
+                }*/
                 if (!binding.esposizioneSoleAutoComplete.getText().toString().equals("")) {
                     filtriMap.put("esposizioneSole", binding.esposizioneSoleAutoComplete.getText().toString());
                 }

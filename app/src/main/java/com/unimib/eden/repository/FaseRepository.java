@@ -182,7 +182,8 @@ public class FaseRepository implements IFaseRepository {
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));
+                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
                                     insert(newFase);
                                 }
                                 if (isFaseChanged) {
@@ -197,7 +198,8 @@ public class FaseRepository implements IFaseRepository {
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));
+                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
                                     insert(newFase);
 
 
