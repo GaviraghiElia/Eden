@@ -2,6 +2,7 @@ package com.unimib.eden.model;
 
 import static com.unimib.eden.utils.Constants.FASE_DESCRIZIONE;
 import static com.unimib.eden.utils.Constants.FASE_DURATA_FASE;
+import static com.unimib.eden.utils.Constants.FASE_FREQUENZA_INNAFFIAMENTO;
 import static com.unimib.eden.utils.Constants.FASE_IMMAGINE;
 import static com.unimib.eden.utils.Constants.FASE_INIZIO_FASE;
 import static com.unimib.eden.utils.Constants.FASE_NOME_FASE;
@@ -38,6 +39,9 @@ public class Fase implements Serializable {
     @ColumnInfo(name = FASE_IMMAGINE)
     private String immagine;
 
+    @ColumnInfo(name = FASE_FREQUENZA_INNAFFIAMENTO)
+    private int frequenzaInnaffiamento;
+
     /**
      * Costruttore per la classe Fase.
      *
@@ -47,14 +51,16 @@ public class Fase implements Serializable {
      * @param durataFase    Il numero di giorni rappresentante la durata della fase.
      * @param descrizione   La descrizione della fase.
      * @param immagine  La stringa rappresentante l'URL dell'immagine della fase.
+     * @param frequenzaInnaffiamento  Il numero di giorni che intercorrono tra un innaffiamento e l'altro.
      */
-    public Fase(@NonNull String id, String nomeFase, int inizioFase, int durataFase, String descrizione, String immagine) {
+    public Fase(@NonNull String id, String nomeFase, int inizioFase, int durataFase, String descrizione, String immagine, int frequenzaInnaffiamento) {
         this.id = id;
         this.nomeFase = nomeFase;
         this.inizioFase = inizioFase;
         this.durataFase = durataFase;
         this.descrizione = descrizione;
         this.immagine = immagine;
+        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
     }
 
     @NonNull
@@ -105,17 +111,24 @@ public class Fase implements Serializable {
     public void setImmagine(String immagine) {
         this.immagine = immagine;
     }
+    public int getFrequenzaInnaffiamento() {
+        return frequenzaInnaffiamento;
+    }
+
+    public void setFrequenzaInnaffiamento(int frequenzaInnaffiamento) {
+        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fase fase = (Fase) o;
-        return inizioFase == fase.inizioFase && durataFase == fase.durataFase && Objects.equals(id, fase.id) && Objects.equals(nomeFase, fase.nomeFase) && Objects.equals(descrizione, fase.descrizione) && Objects.equals(immagine, fase.immagine);
+        return getInizioFase() == fase.getInizioFase() && getDurataFase() == fase.getDurataFase() && getFrequenzaInnaffiamento() == fase.getFrequenzaInnaffiamento() && Objects.equals(getId(), fase.getId()) && Objects.equals(getNomeFase(), fase.getNomeFase()) && Objects.equals(getDescrizione(), fase.getDescrizione()) && Objects.equals(getImmagine(), fase.getImmagine());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeFase, inizioFase, durataFase, descrizione, immagine);
+        return Objects.hash(getId(), getNomeFase(), getInizioFase(), getDurataFase(), getDescrizione(), getImmagine(), getFrequenzaInnaffiamento());
     }
 }

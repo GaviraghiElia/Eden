@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.unimib.eden.utils.Converters;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
@@ -21,7 +24,7 @@ import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
 import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
 import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
 import static com.unimib.eden.utils.Constants.NOME_DATABASE_COLTURA;
-import static com.unimib.eden.utils.Constants.PIANTA_FREQUENZA_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
 import static com.unimib.eden.utils.Constants.PIANTA_NOME;
 
 /**
@@ -56,8 +59,9 @@ public class Coltura implements Serializable {
     private Date ultimoInnaffiamento;
     @ColumnInfo(name = PIANTA_NOME)
     private String nomePianta;
-    @ColumnInfo(name = PIANTA_FREQUENZA_INNAFFIAMENTO)
-    private int frequenzaInnaffiamento;
+    @TypeConverters(Converters.class)
+    @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO)
+    private ArrayList<Integer> frequenzaInnaffiamento;
 
     /**
      * Costruttore per la classe Coltura.
@@ -71,9 +75,9 @@ public class Coltura implements Serializable {
      * @param faseAttuale        Fase attuale della coltura.
      * @param ultimoInnaffiamento Data dell'ultimo innaffiamento.
      * @param nomePianta         Nome della pianta associata alla coltura.
-     * @param frequenzaInnaffiamento Frequenza di innaffiamento della pianta.
+     * @param frequenzaInnaffiamento Frequenze di innaffiamento della pianta in base alla fase.
      */
-    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento, String nomePianta, int frequenzaInnaffiamento) {
+    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento, String nomePianta, ArrayList<Integer> frequenzaInnaffiamento) {
         this.id = id;
         this.idPianta = idPianta;
         this.proprietario = proprietario;
@@ -104,7 +108,7 @@ public class Coltura implements Serializable {
         Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
         this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
-        this.frequenzaInnaffiamento = Integer.parseInt(tempMap.get(PIANTA_FREQUENZA_INNAFFIAMENTO).toString());
+        this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
     }
 
     // Metodi getter e setter
@@ -182,11 +186,11 @@ public class Coltura implements Serializable {
         this.nomePianta = nomePianta;
     }
 
-    public int getFrequenzaInnaffiamento() {
+    public ArrayList<Integer> getFrequenzaInnaffiamento() {
         return frequenzaInnaffiamento;
     }
 
-    public void setFrequenzaInnaffiamento(int frequenzaInnaffiamento) {
+    public void setFrequenzaInnaffiamento(ArrayList<Integer> frequenzaInnaffiamento) {
         this.frequenzaInnaffiamento = frequenzaInnaffiamento;
     }
 
@@ -196,7 +200,7 @@ public class Coltura implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coltura coltura = (Coltura) o;
-        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && getFrequenzaInnaffiamento() == coltura.getFrequenzaInnaffiamento() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento()) && Objects.equals(getNomePianta(), coltura.getNomePianta());
+        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento()) && Objects.equals(getNomePianta(), coltura.getNomePianta()) && Objects.equals(getFrequenzaInnaffiamento(), coltura.getFrequenzaInnaffiamento());
     }
 
     public boolean equals(QueryDocumentSnapshot document) {

@@ -25,7 +25,8 @@ public class Transformer {
         Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
         long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
         long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        int frequenzaInnaffiamento = coltura.getFrequenzaInnaffiamento();
+        int faseAttuale = coltura.getFaseAttuale();
+        int frequenzaInnaffiamento = coltura.getFrequenzaInnaffiamento().get(faseAttuale);
         int daysRemaining = frequenzaInnaffiamento - (int) daysDifference;
         return daysRemaining;
     }

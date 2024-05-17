@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class ColturaDaoTest {
             2,
             new Date(124 - 1900, 2, 22, 16, 43, 8),
             "Pomodori",
-            2
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
     );
     private Coltura coltura2 = new Coltura(
             "RJWeOugwpBBo4bbZE95C",
@@ -51,7 +53,7 @@ public class ColturaDaoTest {
             0,
             new Date(124 - 1900, 2, 29, 19, 13, 11),
             "Zucchine",
-            3
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
     );
 
     @Before

@@ -89,6 +89,7 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
         private final TextView inizioFaseDetails;
         private final TextView durataFaseDetails;
         private final TextView descrizioneFaseDetails;
+        private final TextView frequenzaInnaffiamentoFaseDetails;
         public FaseViewHolder(View view) {
             super(view);
             this.getNomeFaseLabel = view.findViewById(R.id.nomeFaseLabel);
@@ -96,7 +97,7 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
             this.inizioFaseDetails = view.findViewById(R.id.inizioFaseDetails);
             this.durataFaseDetails = view.findViewById(R.id.durataFaseDetails);
             this.descrizioneFaseDetails = view.findViewById(R.id.descrizioneFaseDetails);
-
+            this.frequenzaInnaffiamentoFaseDetails = view.findViewById(R.id.frequenzaInnaffiamentoFaseDetails);
 
         }
 
@@ -106,11 +107,13 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
          * @param pos   La posizione della fase da visualizzare all'interno della lista delle fasi.
          */
         public void bind(Fase fase, int pos) {
+            pos = pos + 1;
             this.getNomeFaseLabel.setText("Fase " + pos + ":");
             this.nomeFaseDetails.setText(fase.getNomeFase());
             this.inizioFaseDetails.setText(ConvertIntMonthToString.getMese(fase.getInizioFase()));
             this.durataFaseDetails.setText(String.valueOf(fase.getDurataFase()));
             this.descrizioneFaseDetails.setText(fase.getDescrizione());
+            this.frequenzaInnaffiamentoFaseDetails.setText(String.valueOf(fase.getFrequenzaInnaffiamento()));
         }
     }
 

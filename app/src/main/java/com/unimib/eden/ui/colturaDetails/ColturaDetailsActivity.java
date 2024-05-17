@@ -55,12 +55,9 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         });
 
         colturaDetailsViewModel = new ViewModelProvider(this).get(ColturaDetailsViewModel.class);
-        Log.d(TAG, "siamo prima dell'intent");
         Intent intent = getIntent();
         coltura = (Coltura) intent.getSerializableExtra("coltura");
-        Log.d(TAG, "dopo il get della coltura");
         colturaDetailsViewModel.initialize(coltura);
-        Log.d(TAG, "dopo initialize");
         mBinding.toolbarColturaDetails.setTitle(coltura.getNomePianta());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mBinding.toolbarColturaDetails.setTitleTextColor(getColor(R.color.white));

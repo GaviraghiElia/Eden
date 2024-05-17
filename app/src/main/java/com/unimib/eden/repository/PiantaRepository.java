@@ -198,7 +198,6 @@ public class PiantaRepository implements IPiantaRepository {
                                             String.valueOf(tempMap.get("famiglia_botanica")),
                                             Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))),
                                             Integer.parseInt(tempMap.get("fine_semina").toString()),
-                                            Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()),
                                             tmpListFasi,
                                             Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))),
                                             String.valueOf(tempMap.get("esposizione_sole")),
@@ -213,7 +212,6 @@ public class PiantaRepository implements IPiantaRepository {
                                     Log.d(TAG, "onComplete: DATABASE_DATA " + getAllPiante().toString());
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
-
                                     newPianta = new Pianta(
                                             document.getId(),
                                             String.valueOf(tempMap.get("nome")),
@@ -221,7 +219,6 @@ public class PiantaRepository implements IPiantaRepository {
                                             String.valueOf(tempMap.get("famiglia_botanica")),
                                             Integer.parseInt(String.valueOf(tempMap.get("inizio_semina"))),
                                             Integer.parseInt(tempMap.get("fine_semina").toString()),
-                                            Integer.parseInt(tempMap.get("frequenza_innaffiamento").toString()),
                                             tmpListFasi,
                                             Double.parseDouble(String.valueOf(tempMap.get("spazio_necessario"))),
                                             String.valueOf(tempMap.get("esposizione_sole")),
@@ -343,9 +340,9 @@ public class PiantaRepository implements IPiantaRepository {
         @Override
         protected List<Pianta> doInBackground(String... strings) {
             if (strings[2].equals("")) {
-                return piantaDao.searchPianteFiltri(strings[0], Integer.parseInt(strings[1]), Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+                return piantaDao.searchPianteFiltri(strings[0], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
             } else {
-                return piantaDao.searchPianteFiltriAll(strings[0], Integer.parseInt(strings[1]), strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+                return piantaDao.searchPianteFiltriAll(strings[0], strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
             }
 
         }

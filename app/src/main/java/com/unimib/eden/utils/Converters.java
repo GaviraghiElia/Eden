@@ -31,6 +31,19 @@ public class Converters {
         return gson.toJson(list);
     }
 
+    @TypeConverter
+    public static ArrayList<Integer> fromStringToArrayInt(String value) {
+        Type listType = new TypeToken<ArrayList<Integer>>() {
+        }.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayListInteger(ArrayList<Integer> list) {
+        Gson gson = new Gson();
+        return gson.toJson(list);
+    }
+
 
     @TypeConverter
     public Date fromTimestamp(Long value) {

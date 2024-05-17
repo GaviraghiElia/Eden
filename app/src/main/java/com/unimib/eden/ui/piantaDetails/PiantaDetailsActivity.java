@@ -86,7 +86,6 @@ public class PiantaDetailsActivity extends AppCompatActivity {
 
         binding.piantaNomeDetails.setText(pianta.getNome());
         binding.famigliaBotanicaDetails.setText(pianta.getFamigliaBotanica());
-        binding.frequenzaInnaffiamentoDetails.setText(String.valueOf(pianta.getFrequenzaInnaffiamento()) + " al giorno");
         binding.minTemperaturaDetails.setText(String.valueOf(pianta.getMinTemperatura()) + "°");
         binding.maxTemperaturaDetails.setText(String.valueOf(pianta.getMaxTemperatura())+ "°");
         binding.spazioNecessarioDetails.setText(String.valueOf(pianta.getSpazioNecessario()) + " cm");

@@ -9,7 +9,6 @@ import static com.unimib.eden.utils.Constants.PIANTA_NOME;
 import static com.unimib.eden.utils.Constants.PIANTA_DESCRIZIONE;
 import static com.unimib.eden.utils.Constants.PIANTA_FAMIGLIA_BOTANICA;
 import static com.unimib.eden.utils.Constants.PIANTA_FASE;
-import static com.unimib.eden.utils.Constants.PIANTA_FREQUENZA_INNAFFIAMENTO;
 import static com.unimib.eden.utils.Constants.PIANTA_SPAZIO_NECESSARIO;
 import static com.unimib.eden.utils.Constants.PIANTA_ESPOSIZIONE_SOLE;
 import static com.unimib.eden.utils.Constants.PIANTA_TIPO_TERRENO;
@@ -49,8 +48,6 @@ public class Pianta implements Serializable {
     private int inizioSemina;
     @ColumnInfo(name = PIANTA_FINE_SEMINA)
     private int fineSemina;
-    @ColumnInfo(name = PIANTA_FREQUENZA_INNAFFIAMENTO)
-    private int frequenzaInnaffiamento;
     @TypeConverters(Converters.class)
     @ColumnInfo(name = PIANTA_FASE)
     private ArrayList<String> fasi;
@@ -76,7 +73,6 @@ public class Pianta implements Serializable {
      * @param famigliaBotanica  La famiglia botanica alla quale appartiene la pianta.
      * @param inizioSemina  Il mese di inizio semina della pianta.
      * @param fineSemina    Il mese di fine semina della pianta.
-     * @param frequenzaInnaffiamento    La frequenza di innaffiamento giornaliera della pianta.
      * @param fasi  La lista con gli Id delle fasi della pianta.
      * @param spazioNecessario  Lo spazio necessario alla pianta per poter crescere.
      * @param esposizioneSole   L'esposizione al sole richiesta dalla piata.
@@ -85,14 +81,13 @@ public class Pianta implements Serializable {
      * @param maxTemperatura    La temperatura massima alla quale può essere esposta la pianta.
      * @param altezzaMaxPrevista    L'altezza massima che la pianta può raggiungere
      */
-    public Pianta(@NonNull String id, String nome, String descrizione, String famigliaBotanica, int inizioSemina, int fineSemina, int frequenzaInnaffiamento, ArrayList<String> fasi, Double spazioNecessario, String esposizioneSole, String tipoTerreno, int minTemperatura, int maxTemperatura, Double altezzaMaxPrevista) {
+    public Pianta(@NonNull String id, String nome, String descrizione, String famigliaBotanica, int inizioSemina, int fineSemina, ArrayList<String> fasi, Double spazioNecessario, String esposizioneSole, String tipoTerreno, int minTemperatura, int maxTemperatura, Double altezzaMaxPrevista) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.famigliaBotanica = famigliaBotanica;
         this.inizioSemina = inizioSemina;
         this.fineSemina = fineSemina;
-        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
         this.fasi = fasi;
         this.spazioNecessario = spazioNecessario;
         this.esposizioneSole = esposizioneSole;
@@ -149,14 +144,6 @@ public class Pianta implements Serializable {
 
     public void setFineSemina(int fineSemina) {
         this.fineSemina = fineSemina;
-    }
-
-    public int getFrequenzaInnaffiamento() {
-        return frequenzaInnaffiamento;
-    }
-
-    public void setFrequenzaInnaffiamento(int frequenzaInnaffiamento) {
-        this.frequenzaInnaffiamento = frequenzaInnaffiamento;
     }
 
     public ArrayList<String> getFasi() {
@@ -224,7 +211,6 @@ public class Pianta implements Serializable {
                 ", famigliaBotanica='" + famigliaBotanica + '\'' +
                 ", inizioSemina=" + inizioSemina +
                 ", fineSemina=" + fineSemina +
-                ", frequenzaInnaffiamento=" + frequenzaInnaffiamento +
                 ", fasi=" + fasi +
                 ", spazioNecessario=" + spazioNecessario +
                 ", esposizioneSole='" + esposizioneSole + '\'' +
@@ -240,12 +226,12 @@ public class Pianta implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pianta pianta = (Pianta) o;
-        return inizioSemina == pianta.inizioSemina && fineSemina == pianta.fineSemina && frequenzaInnaffiamento == pianta.frequenzaInnaffiamento && minTemperatura == pianta.minTemperatura && maxTemperatura == pianta.maxTemperatura && Objects.equals(id, pianta.id) && Objects.equals(nome, pianta.nome) && Objects.equals(descrizione, pianta.descrizione) && Objects.equals(famigliaBotanica, pianta.famigliaBotanica) && Objects.equals(fasi, pianta.fasi) && Objects.equals(spazioNecessario, pianta.spazioNecessario) && Objects.equals(esposizioneSole, pianta.esposizioneSole) && Objects.equals(tipoTerreno, pianta.tipoTerreno) && Objects.equals(altezzaMaxPrevista, pianta.altezzaMaxPrevista);
+        return getInizioSemina() == pianta.getInizioSemina() && getFineSemina() == pianta.getFineSemina() && getMinTemperatura() == pianta.getMinTemperatura() && getMaxTemperatura() == pianta.getMaxTemperatura() && Objects.equals(getId(), pianta.getId()) && Objects.equals(getNome(), pianta.getNome()) && Objects.equals(getDescrizione(), pianta.getDescrizione()) && Objects.equals(getFamigliaBotanica(), pianta.getFamigliaBotanica()) && Objects.equals(getFasi(), pianta.getFasi()) && Objects.equals(getSpazioNecessario(), pianta.getSpazioNecessario()) && Objects.equals(getEsposizioneSole(), pianta.getEsposizioneSole()) && Objects.equals(getTipoTerreno(), pianta.getTipoTerreno()) && Objects.equals(getAltezzaMaxPrevista(), pianta.getAltezzaMaxPrevista());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descrizione, famigliaBotanica, inizioSemina, fineSemina, frequenzaInnaffiamento, fasi, spazioNecessario, esposizioneSole, tipoTerreno, minTemperatura, maxTemperatura, altezzaMaxPrevista);
+        return Objects.hash(getId(), getNome(), getDescrizione(), getFamigliaBotanica(), getInizioSemina(), getFineSemina(), getFasi(), getSpazioNecessario(), getEsposizioneSole(), getTipoTerreno(), getMinTemperatura(), getMaxTemperatura(), getAltezzaMaxPrevista());
     }
 }
 
