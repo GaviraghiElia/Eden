@@ -51,5 +51,9 @@
             android:name=".ui.inserimentoProdotto.InserimentoProdottoActivity"
             android:label="InserimentoProdottoActivity">
         </activity>
+        <activity
+            android:name=".ui.prodottoDetails.ProdottoDetailsActivity"
+            android:label="ProdottoDetailsActivity">
+        </activity>
     </application>
 </manifest>

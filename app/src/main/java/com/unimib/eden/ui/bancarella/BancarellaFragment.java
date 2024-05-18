@@ -26,14 +26,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 
-import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.adapter.ProdottoAdapter;
 import com.unimib.eden.databinding.FragmentStandBinding;
-import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
-import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
 import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
+import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -130,12 +128,12 @@ public class BancarellaFragment extends Fragment {
                 // Gestisce l'evento di clic sull'elemento
                 Log.d(TAG, "OnItemClick " + prodotto.toString());
 
-                // Naviga verso ColturaDetailsFragment con la coltura selezionata
-                Intent intent = new Intent(getActivity(), ColturaDetailsActivity.class);
+                // Naviga verso ProdottoDetailsFragment con la prodotto selezionata
+                Intent intent = new Intent(getActivity(), ProdottoDetailsActivity.class);
                 intent.putExtra("prodotto", prodotto);
                 startActivity(intent);
             }
-        }, R.layout.prodotto_small_card);
+        }, R.layout.prodotto_small_card, getActivity().getApplication());
 
         // Imposta l'adapter su RecyclerView
         binding.bancarellaRecyclerView.setAdapter(mProdottoAdapter);

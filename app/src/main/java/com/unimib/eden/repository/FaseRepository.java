@@ -13,6 +13,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.FaseDao;
 import com.unimib.eden.database.FaseRoomDatabase;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -125,6 +126,18 @@ public class FaseRepository implements IFaseRepository {
             return null;
         }
     }
+
+    /**
+     * Ottiene un'entità Coltura dal repository basandosi sull'ID specificato.
+     *
+     * @param faseId L'ID dell'entità Fase da cercare nel repository.
+     * @return L'entità Fase corrispondente all'ID specificato, se presente nel repository, altrimenti null.
+     */
+    @Override
+    public Fase getFaseById(String faseId) {
+        return mFaseDao.getById(faseId);
+    }
+
 
     /**
      * Metodo updateLocalDB che esegue l'aggiornamento del Room database per allinearlo a quello di Firebase.

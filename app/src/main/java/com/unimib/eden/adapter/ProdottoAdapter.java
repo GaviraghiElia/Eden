@@ -1,5 +1,6 @@
 package com.unimib.eden.adapter;
 
+import android.app.Application;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.repository.FaseRepository;
+import com.unimib.eden.repository.PiantaRepository;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
 
     private static final String TAG = "ProdottoAdapter";
     private View view;
+    private PiantaRepository piantaRepository;
+    private FaseRepository faseRepository;
 
     /**
      * Interfaccia per la gestione dei click sugli elementi della RecyclerView.
@@ -37,10 +42,12 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
      * @param onItemClickListener Gestore dei click sugli elementi della RecyclerView.
      * @param layout             Layout da utilizzare per ogni elemento della RecyclerView.
      */
-    public ProdottoAdapter(List<Prodotto> prodottiList, ProdottoAdapter.OnItemClickListener onItemClickListener, int layout) {
+    public ProdottoAdapter(List<Prodotto> prodottiList, ProdottoAdapter.OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mProdottiList = prodottiList;
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
+        this.piantaRepository = new PiantaRepository(application);
+        this.faseRepository = new FaseRepository(application);
     }
 
     @NonNull
@@ -98,15 +105,15 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
          * @param prodotto Il prodotto da visualizzare.
          */
         public void bind(Prodotto prodotto) {
-            this.textViewPiantaProdotto.setText(prodotto.getPianta());
-            this.textViewFaseProdotto.setText(prodotto.getFaseAttuale());
+            this.textViewPiantaProdotto.setText(piantaRepository.getPiantaById(prodotto.getPianta()).getNome());
+            this.textViewFaseProdotto.setText(faseRepository.getFaseById(prodotto.getFaseAttuale()).getNomeFase());
             this.textViewQuantitaProdotto.setText(String.valueOf(prodotto.getQuantita()));
             this.textViewPrezzoProdotto.setText(String.valueOf(prodotto.getPrezzo()) + " €");
             if (!prodotto.getScambioDisponibile()) {
                 this.textViewScambiProdotto.setPaintFlags(this.textViewScambiProdotto.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }
             if (prodotto.getAltreInformazioni().isEmpty()) {
-                this.textViewScambiProdotto.setVisibility(View.GONE);
+                this.textViewInformazioniProdotto.setVisibility(View.GONE);
             } else {
                 this.textViewInformazioniProdotto.setText(prodotto.getAltreInformazioni());
             }

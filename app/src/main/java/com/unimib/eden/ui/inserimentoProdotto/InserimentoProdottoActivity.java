@@ -216,7 +216,8 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
 
-        String utente = firebaseAuth.getCurrentUser().getUid();
+        //TODO: RIMETTERE VERO ID
+        String utente = "g.colombo147@campus.unimib.it";//firebaseAuth.getCurrentUser().getUid();
         prodotto.put(PRODOTTO_VENDITORE, utente);
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
