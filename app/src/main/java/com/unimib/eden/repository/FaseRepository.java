@@ -220,11 +220,11 @@ public class FaseRepository implements IFaseRepository {
      * @throws InterruptedException
      */
     @Override
-    public List<Fase> getFasiID(List<String> ids) throws ExecutionException, InterruptedException {
+    public ArrayList<Fase> getFasiID(List<String> ids) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new GetFasiAsyncTask(mFaseDao).execute(ids);
 
         Log.d(TAG, "getFasiID: ASYNKTASK " + asyncTask.get().toString());
-        return (List<Fase>) asyncTask.get();
+        return (ArrayList<Fase>) asyncTask.get();
     }
 
     /**

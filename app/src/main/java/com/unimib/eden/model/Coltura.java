@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
 import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
+import static com.unimib.eden.utils.Constants.COLTURA_ID;
 import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
 import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
 import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
@@ -98,6 +99,20 @@ public class Coltura implements Serializable {
     public Coltura(QueryDocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> tempMap = document.getData();
+        initFromMap(tempMap);
+    }
+
+    /**
+     * Costruttore per la classe Coltura partendo da una mappa di dati.
+     *
+     * @param dataMap La mappa di dati che rappresenta la coltura.
+     */
+    public Coltura(Map<String, Object> dataMap) {
+        this.id = String.valueOf(dataMap.get(COLTURA_ID));
+        initFromMap(dataMap);
+    }
+
+    private void initFromMap(Map<String, Object> tempMap) {
         this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
         this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
         this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
@@ -108,8 +123,11 @@ public class Coltura implements Serializable {
         Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
         this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
-        this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
+        //this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
+        //TODO: la prossima riga potrebbe generare errori
+        this.frequenzaInnaffiamento = (ArrayList<Integer>) (ArrayList) tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO);
     }
+
 
     // Metodi getter e setter
 

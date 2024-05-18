@@ -27,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,8 @@ import com.unimib.eden.model.Pianta;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
+import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaActivity;
+import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import com.unimib.eden.ui.main.MainActivity;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
@@ -139,6 +142,18 @@ public class HomeFragment extends Fragment {
         // Inflate il layout per questo frammento
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
+
+        // Codice per gestire il click del pulsante per aggiungere una nuova coltura
+        Button addButton = view.findViewById(R.id.buttonAddColtura);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.buttonAddColtura) {
+                    Intent intent = new Intent(requireContext(), InserimentoColturaActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         navController = NavHostFragment.findNavController(this);
         if(checkSession())
