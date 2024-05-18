@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/imageViewFaseProdotto"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/growing_plant_24"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/textViewPiantaProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome pianta"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_alignTop="@id/imageViewFaseProdotto"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewFaseProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="Fase pianta"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_below="@id/textViewPiantaProdotto"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/growing_plant_24"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewQuantitaProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="Quantità"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_below="@id/textViewFaseProdotto"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/delivery"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewPrezzoProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="Prezzo"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_below="@id/textViewQuantitaProdotto"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/euro_circle"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewScambiProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/disponibile_a_scambi"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_below="@id/textViewPrezzoProdotto"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/swap_24"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewInformazioniProdotto"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="Altre informazioni"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/imageViewFaseProdotto"
+            android:layout_below="@id/textViewScambiProdotto"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/notes"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

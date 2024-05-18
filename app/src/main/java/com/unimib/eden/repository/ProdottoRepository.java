@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,11 +15,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.ProdottoDao;
 import com.unimib.eden.database.ProdottoRoomDatabase;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class ProdottoRepository implements IProdottoRepository {
     private static final String TAG = "ProdottoRepository";
     private final ProdottoDao mProdottoDao;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private List<Prodotto> allProdotti;
+    private LiveData<List<Prodotto>> allProdotti;
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -50,8 +51,7 @@ public class ProdottoRepository implements IProdottoRepository {
      * @return una lista di tutti gli oggetti Prodotto.
      */
     @Override
-    public List<Prodotto> getAllProdotti() {
-        Log.d(TAG, "lunghezza allProdotti: " + allProdotti.size());
+    public LiveData<List<Prodotto>> getAllProdotti() {
         return allProdotti;
     }
 
@@ -99,13 +99,68 @@ public class ProdottoRepository implements IProdottoRepository {
      * Aggiorna il database locale con i prodotti da Firestore.
      * Se il database locale è vuoto, scarica i prodotti da Firestore.
      */
-    public void updateLocalDB() {
-        if(allProdotti.isEmpty()){
-            Log.d(TAG, "Scaricamento prodotti personali...");
-            String utente = firebaseAuth.getCurrentUser().getUid();
+    public void updateLocalDB(String currentUserId) {
+        db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
+                .whereEqualTo(Constants.PRODOTTO_VENDITORE, currentUserId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document: task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.d(TAG, "onComplete: allProdotti " + allProdotti.getValue());
+                                Log.d(TAG, "onComplete: allProdotti2 " + mProdottoDao.getAll().getValue());
+                                List<Prodotto> tempProdotto = allProdotti.getValue();
+                                boolean isProdottoPresent = false;
+                                boolean isProdottoChanged = false;
+                                Prodotto oldProdotto = null;
+                                Prodotto newProdotto = null;
+                                //assert tempProdotto != null;
+                                if (tempProdotto != null) {
+                                    for (Prodotto p : tempProdotto) {
+                                        if (p.getId().equals(document.getId())) {
+                                            isProdottoPresent = true;
+                                        }
+                                        if (p.getId().equals(document.getId())) {
+                                            oldProdotto = p;
+                                            isProdottoChanged = true;
+                                        }
 
+                                        boolean prodottoFireBaseDBNotPresent = false;
+                                        for (QueryDocumentSnapshot d : task.getResult()) {
+                                            if (p.getId().equals(d.getId())) {
+                                                prodottoFireBaseDBNotPresent = true;
+                                            }
+                                        }
+                                        if (!prodottoFireBaseDBNotPresent) {
+                                            deleteProdotto(p);
+                                        }
+                                    }
+                                    if (!isProdottoPresent) {
+                                        newProdotto = new Prodotto(document);
+                                        insert(newProdotto);
+                                    }
+                                    if (isProdottoPresent) {
+                                        deleteProdotto(oldProdotto);
+                                        newProdotto = new Prodotto(document);
+                                        insert(newProdotto);
+
+                                    }
+                                } else { //db locale vuoto
+                                    newProdotto = new Prodotto(document);
+                                    insert(newProdotto);
+                                }
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        /*if(allProdotti.isEmpty()){
+            Log.d(TAG, "Scaricamento prodotti personali...");
             db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
-                    .whereEqualTo(Constants.PRODOTTO_VENDITORE, utente)
+                    .whereEqualTo(Constants.PRODOTTO_VENDITORE, currentUserId)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -123,7 +178,8 @@ public class ProdottoRepository implements IProdottoRepository {
                     });
         } else {
             Log.d(TAG, "Prodotti già presenti nel db");
-        }
+        }*/
+
     }
 
     // Classi AsyncTask interne
