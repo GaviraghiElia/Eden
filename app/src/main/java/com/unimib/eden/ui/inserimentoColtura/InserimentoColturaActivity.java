@@ -49,8 +49,8 @@ import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 /**
- * Activity per l'inserimento di un nuovo prodotto.
- * Questa activity consente all'utente di inserire i dettagli di un nuovo prodotto e di aggiungerlo al database.
+ * Activity per l'inserimento di una nuova coltura.
+ * Questa activity consente all'utente di inserire i dettagli di una nuova coltura e di aggiungerla al database.
  */
 public class InserimentoColturaActivity extends AppCompatActivity {
     private static final String TAG = "InserimentoColtura";
@@ -60,9 +60,6 @@ public class InserimentoColturaActivity extends AppCompatActivity {
     private String piantaNome = "";
     private Pianta pianta;
     private int fase = -1;
-    private String ultimaFase = "";
-
-    //per prendere current user
     private FirebaseAuth firebaseAuth;
 
     ArrayList<String> nomeFasi = new ArrayList<String>();
@@ -99,7 +96,6 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         mBinding.pianta.addTextChangedListener(colturaTextWatcher);
         mBinding.autoCompleteTextViewFasi.addTextChangedListener(colturaTextWatcher);
 
-
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -123,13 +119,11 @@ public class InserimentoColturaActivity extends AppCompatActivity {
                                 for(Fase f: fasiList) {
                                     nomeFasi.add(f.getNomeFase());
                                 }
-
                             } catch (ExecutionException e) {
                                 throw new RuntimeException(e);
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
-                            ultimaFase = nomeFasi.get(nomeFasi.size()-1);
                             adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nomeFasi);
                         }
                     }
@@ -140,7 +134,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
                     //TODO: aggiungere CREATE_COLTURA_OPERATION_CODE
-                    intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                    intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();
                 }
@@ -149,22 +143,14 @@ public class InserimentoColturaActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
         mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
-        //binding.autoCompleteTextViewFasi.setText(nomeFasi.get(0), false);
-
         mBinding.buttonSubmit.setOnClickListener(v -> {
             aggiungiColtura();
         });
-
 
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 fase=position;
-                /*if (position == nomeFasi.size() - 1) {
-                    //mBinding.textViewQuantitaUnita.setText("grammi");
-                } else {
-                    //mBinding.textViewQuantitaUnita.setText("piante");
-                }*/
             }
         });
     }
@@ -193,16 +179,14 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    //TODO: da cambiare tutti i commenti
     /**
-     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere un nuovo prodotto.
+     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere una nuova coltura.
      * Raccoglie i dati inseriti dall'utente dall'interfaccia utente e li invia al ViewModel
-     * per l'aggiunta del prodotto al database.
+     * per l'aggiunta della coltura al database.
      */
     private void aggiungiColtura() {
         int quantita = Integer.parseInt(mBinding.quantita.getText().toString());
         String note = mBinding.note.getText().toString();
-        Log.d(TAG, frequenze.toString());
 
         Map<String, Object> coltura = new HashMap<>();
         String utente = firebaseAuth.getCurrentUser().getUid();
@@ -212,17 +196,13 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         coltura.put(COLTURA_NOTE, note);
 
         Date now = new Date();
-        Log.d(TAG, "ora attuale:" + now.toString());
         Timestamp timestamp = new Timestamp(now);
         coltura.put(COLTURA_DATA_INSERIMENTO, timestamp);
         coltura.put(COLTURA_ULTIMO_INNAFFIAMENTO, timestamp);
 
         coltura.put(COLTURA_FASE_ATTUALE, fase);
         coltura.put(PIANTA_NOME, piantaNome);
-
-        //TODO: da sistemare l'ordinamento
         coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenze);
-
         Log.d(TAG, "coltura creata: " + coltura.toString());
         //inserimentoColturaViewModel.aggiungiColtura(coltura);
         finish();

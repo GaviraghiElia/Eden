@@ -10,7 +10,7 @@
         android:id="@+id/toolbarInsProd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Inserisci COLTURA"
+        app:title="Inserisci coltura"
         app:titleTextColor="@color/white"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="@string/quantita"
-                app:startIconDrawable="@drawable/delivery"
+                app:startIconDrawable="@drawable/seeds_24"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
