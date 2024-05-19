@@ -62,7 +62,7 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mBinding.toolbarColturaDetails.setTitleTextColor(getColor(R.color.white));
         }
-        mBinding.textViewDataInserimentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(this, coltura));
+        mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(this, coltura));
         mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
         try{
             mBinding.textViewFaseAttualeFull.setText(colturaDetailsViewModel.getNomeFase(coltura));

@@ -51,9 +51,10 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     private static final String TAG = "InserimentoProdotto";
     private InserimentoProdottoViewModel inserimentoProdottoViewModel;
     private ActivityInserimentoProdottoBinding mBinding;
-    private String pomodoroId = "beVITqkLHWCerI1XLRxj";
+    private String piantaId = "";
     private Pianta pianta;
     private String ultimaFase = "";
+    private int fasePosition;
 
     //per prendere current user
     private FirebaseAuth firebaseAuth;
@@ -103,6 +104,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                             Intent data = o.getData();
                             pianta = (Pianta) data.getSerializableExtra("pianta");
                             Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
+                            piantaId = pianta.getId();
                             mBinding.pianta.setText(pianta.getNome());
                             mBinding.toolbarInsProd.setTitle("Inserisci " + pianta.getNome());
                             try {
@@ -151,6 +153,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fasePosition = position;
                 if (position == nomeFasi.size() - 1) {
                     mBinding.textViewQuantitaUnita.setText("grammi");
                     //textViewQuantitaUnita.setText("grammi");
@@ -199,6 +202,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         Boolean scambioDisponibile = mBinding.checkBoxDisponibileAScambi.isChecked();
         //String pianta = binding.pianta.getText().toString();
         String faseAttuale = mBinding.autoCompleteTextViewFasi.getText().toString();
+        String faseId = fasiList.get(fasePosition).getId();
 
         String tipo;
         //controllo se ultima fase .equals() quella scelta
@@ -211,9 +215,9 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         Map<String, Object> prodotto = new HashMap<>();
         prodotto.put(PRODOTTO_TIPO, tipo);
         prodotto.put(PRODOTTO_PREZZO, prezzo);
-        prodotto.put(PRODOTTO_PIANTA, pomodoroId);
+        prodotto.put(PRODOTTO_PIANTA, piantaId);
         prodotto.put(PRODOTTO_QUANTITA, quantita);
-        prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
+        prodotto.put(PRODOTTO_FASE_ATTUALE, faseId);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
 
         //TODO: RIMETTERE VERO ID
