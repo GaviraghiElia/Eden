@@ -26,6 +26,9 @@ public interface ProdottoDao {
     @Query("SELECT * FROM 'prodotto'")
     LiveData<List<Prodotto>> getAll();
 
+    @Query("SELECT * FROM 'prodotto'")
+    List<Prodotto> getAllTest();
+
     /**
      * Elimina i prodotti specificati dal database.
      *
