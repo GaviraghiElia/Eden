@@ -52,8 +52,6 @@ public class Constants {
     public static final String FIRESTORE_COLLECTION_COLTURE = "colture";
 
     public static final String SHARED_PREFERENCES_FILE_NAME = "com.unimib.eden.preferences";
-
-    public static final String FIREBASE_DATABASE_URL = "https://ginlemons-6adb3-default-rtdb.europe-west1.firebasedatabase.app/";
     public static final String ITEM_ID_PRESSED_KEY = "ItemIdPressedKey";
     public static final String ITEM_LEVEL_PRESSED_KEY = "ItemLevelPressedKey";
     public static final String FRAGMENTFORTRANSITION = "FragmentIntent";
@@ -93,4 +91,9 @@ public class Constants {
     public static final String FIRESTORE_COLLECTION_PRODOTTI = "prodotti";
 
     public static final String NOME_DATABASE_PRODOTTO = "prodotto";
+
+
+    // API
+    public static final String apiKey = "27a201b9171e48f5bc8130304240705";
+    public static final String BASE_URL = "https://api.weatherapi.com/v1/";
 }
