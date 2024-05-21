@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/garden_watering_can_24"
+        android:icon="@drawable/garden_watering_can_24_delay"
 
         android:title="@string/orto" />
 

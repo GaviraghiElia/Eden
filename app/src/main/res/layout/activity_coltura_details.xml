@@ -7,112 +7,384 @@
     android:orientation="vertical"
     android:padding="0dp">
 
-    <!-- Plant Image -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarColturaDetails"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:menu="@menu/pianta_details_app_bar_menu"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarColturaDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ToolbarTheme"
+            app:menu="@menu/pianta_details_app_bar_menu"
+            app:navigationIcon="@drawable/ic_close_24dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp">
 
-        <ImageView
-            android:id="@+id/imageViewFaseFull"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:src="@drawable/growing_plant_24"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Ultimo Innaffiamento -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textViewUltimoInnaffiamentoFull"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ultimo Innaffiamento"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/watering_can_24"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Fase Attuale -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textViewFaseAttualeFull"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fase Attuale"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/growing_plant_24"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Data Inserimento -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textViewDataInserimentoFull"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Data Inserimento"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/planting_24"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Note -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textViewNoteFull"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Note"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/note_sticky_24"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Quantity -->
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textViewQuantityFull"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quantità"
-            android:textSize="20dp"
-            android:drawableStart="@drawable/seeds_24"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Button to View All Details -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:orientation="horizontal">
 
-            <!-- Button to View All Details -->
-            <Button
-                android:id="@+id/buttonViewAllDetails"
-                android:layout_width="match_parent"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardInnaffiamento"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/vedi_dettagli_pianta"
-                android:background="@drawable/button_ripple_background"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
-                android:elevation="8dp"
-                android:minHeight="48dp"
-                android:focusable="true"/>
+                android:layout_weight="1"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="left">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:scaleType="centerCrop"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/can_watering_illustration"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ultimo innaffiamento"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            />
+                        <TextView
+                            android:id="@+id/textViewUltimoInnaffiamentoFull"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ultimo innaffiamento"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            app:icon="@drawable/watering_can_24"
+                            android:layout_margin="5dp"
+                            android:paddingHorizontal="20dp"
+                            app:iconSize="16dp"
+                            app:iconPadding="8dp"
+                            android:text="Innaffia"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_gravity="right">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:scaleType="centerCrop"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/fase_illustration"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fase Attuale"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            />
+                        <TextView
+                            android:id="@+id/textViewFaseAttualeFull"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fase Attuale"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            app:icon="@drawable/watering_can_24"
+                            android:layout_margin="5dp"
+                            android:paddingHorizontal="20dp"
+                            app:iconSize="16dp"
+                            app:iconPadding="8dp"
+                            android:text="Modifica"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDataInserimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_marginRight="8dp"
+                android:layout_gravity="left">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:scaleType="centerCrop"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/inserimento_illustration"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data inserimento"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            />
+                        <TextView
+                            android:id="@+id/textViewDataInserimentoFull"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data inserimento"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            />
+
+                    </LinearLayout>
+
+                    <!--
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <com.google.android.material.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            app:icon="@drawable/watering_can_24"
+                            android:layout_margin="5dp"
+                            app:iconSize="16dp"
+                            app:iconPadding="8dp"
+                            android:text="Innaffia"
+                            />
+                    </LinearLayout>
+                    -->
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQuantita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_gravity="right">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Media -->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:scaleType="centerCrop"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/quantita_illustration"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantità"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            />
+                        <TextView
+                            android:id="@+id/textViewQuantityFull"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Quantità"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardInnaffiamento2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Title, secondary and supporting text -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Note"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleSmall"
+                            />
+                        <TextView
+                            android:id="@+id/textViewNoteFull"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Note"
+                            android:layout_gravity="center"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Button to View All Details -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center|bottom"
+        android:orientation="vertical" >
+
+        <!-- Button to View All Details -->
+        <Button
+            android:id="@+id/buttonViewAllDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vedi_dettagli_pianta"
+            android:layout_gravity="center_horizontal"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:focusable="true"/>
     </LinearLayout>
 </LinearLayout>

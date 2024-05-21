@@ -17,7 +17,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
         android:text="@string/want_reset_password"
-        android:textColor="@color/black"
+        android:textColor="@color/md_theme_onPrimaryContainer"
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -42,17 +42,17 @@
         android:hint="@string/your_mail"
         app:boxStrokeWidthFocused="2dp"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/black"
+        app:endIconTint="@color/md_theme_onPrimaryContainer"
         app:hintTextColor="@color/black_secondary"
         app:startIconDrawable="@drawable/ic_baseline_mail_24"
-        app:startIconTint="@color/purple_personal_dark">
+        app:startIconTint="@color/md_theme_primary">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/resetInputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="@color/black" />
+            android:textColor="@color/md_theme_onPrimaryContainer" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

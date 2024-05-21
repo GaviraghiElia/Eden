@@ -2,15 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="MainActivity">
-        <State />
-      </entry>
-      <entry key="ProdottoDaoTest">
-        <State />
-      </entry>
-      <entry key="Tests in 'com.unimib.eden'">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -19,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="$USER_HOME$/.android/avd/Pixel_4_API_30_-_EDEN.avd" />
+                  <value value="C:\Users\Eliag\.android\avd\Pixel_8_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-06T11:32:39.099785Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-20T12:48:41.269051400Z" />
         </State>
       </entry>
     </value>
