@@ -127,15 +127,4 @@ public class BancarellaFragment extends Fragment {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Listener for the items in the custom menu
-        if(item.getItemId() == R.id.action_logout){
-            mAuth.signOut();
-            startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }

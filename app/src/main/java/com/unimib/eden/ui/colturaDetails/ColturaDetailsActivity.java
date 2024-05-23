@@ -46,7 +46,7 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         // settare l'app bar
-        mBinding.toolbarColturaDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
+        mBinding.toolbarColturaDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarColturaDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +59,8 @@ public class ColturaDetailsActivity extends AppCompatActivity {
         coltura = (Coltura) intent.getSerializableExtra("coltura");
         colturaDetailsViewModel.initialize(coltura);
         mBinding.toolbarColturaDetails.setTitle(coltura.getNomePianta());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBinding.toolbarColturaDetails.setTitleTextColor(getColor(R.color.white));
-        }
-        mBinding.textViewDataInserimentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(this, coltura));
+
+        mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(this, coltura));
         mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
         try{
             mBinding.textViewFaseAttualeFull.setText(colturaDetailsViewModel.getNomeFase(coltura));
@@ -72,8 +70,9 @@ public class ColturaDetailsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         if (coltura.getNote().isEmpty()) {
-            mBinding.textViewNoteFull.setVisibility(View.GONE);
+            mBinding.cardNote.setVisibility(View.GONE);
         } else {
+            mBinding.cardNote.setVisibility(View.VISIBLE);
             mBinding.textViewNoteFull.setText(coltura.getNote());
         }
         mBinding.textViewQuantityFull.setText(String.valueOf(coltura.getQuantita()));

@@ -109,10 +109,10 @@ public class PiantaDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: button clicked");
-                if (binding.fasiConstraintLayout.getVisibility() == binding.fasiConstraintLayout.VISIBLE) {
-                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.GONE);
+                if (binding.linearLayoutFasiView.getVisibility() == binding.fasiRecyclerView.VISIBLE) {
+                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.GONE);
                 } else {
-                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.VISIBLE);
+                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.VISIBLE);
                 }
             }
         });

@@ -3,7 +3,7 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24"
-    android:tint="@color/lime_900">
+    android:tint="@color/md_theme_secondary">
   <path
       android:fillColor="#FF000000"
       android:pathData="M20.354,2.646l2.851,2.852 -2.82,2.854 -0.712,-0.704L21.303,6L16,6L16,5h5.293l-1.647,-1.646zM0.794,5.502l2.852,2.852 0.707,-0.707L2.707,6L8,6L8,5L2.697,5l1.63,-1.648 -0.711,-0.704zM1,12h22v8L1,20zM2,19h2v-3h1v3h1v-2h1v2h1v-5h1v5h1v-2h1v2h1v-3h1v3h1v-2h1v2h1v-5h1v5h1v-2h1v2h1v-3h1v3h1v-6L2,13z"/>
