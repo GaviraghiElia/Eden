@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/garden_watering_can_24"
+        android:icon="@drawable/garden_watering_can_24_delay"
 
         android:title="@string/orto" />
 
@@ -11,11 +11,5 @@
         android:id="@+id/navigation_stand"
         android:icon="@drawable/food_stand"
         android:title="@string/title_stand" />
-
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_baseline_person_24"
-        android:enabled="false"
-        android:title="@string/title_profile" />
 
 </menu>
