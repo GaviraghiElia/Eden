@@ -70,8 +70,9 @@ public class ColturaDetailsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         if (coltura.getNote().isEmpty()) {
-            mBinding.textViewNoteFull.setVisibility(View.GONE);
+            mBinding.cardNote.setVisibility(View.GONE);
         } else {
+            mBinding.cardNote.setVisibility(View.VISIBLE);
             mBinding.textViewNoteFull.setText(coltura.getNote());
         }
         mBinding.textViewQuantityFull.setText(String.valueOf(coltura.getQuantita()));

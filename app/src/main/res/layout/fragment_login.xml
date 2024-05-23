@@ -110,12 +110,12 @@
             android:layout_marginTop="15dp"
             style="@style/Widget.Material3.Button.Icon"
             app:icon="@drawable/ic_baseline_login_24"
+            app:iconGravity="textEnd"
             android:elevation="8dp"
             android:textSize="18sp"
             android:minHeight="58dp"
             android:text="@string/login"
             android:enabled="false"
-            android:backgroundTint="@drawable/button_color_selector"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
