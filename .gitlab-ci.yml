@@ -93,6 +93,6 @@ debugTests:
   artifacts:
     paths:
       - app/build/outputs/apk/debug/app-debug.apk
-      - app/build/reports/androidTests/connected/
+      #- app/build/reports/androidTests/connected/
       - app/build/reports/coverage/androidTest/
-      - app/build/reports/tests/testDebugUnitTest
+      #- app/build/reports/tests/testDebugUnitTest
