@@ -31,7 +31,7 @@ android {
         }
         debug {
             // for instrumented test
-            testCoverageEnabled = false
+            testCoverageEnabled = true
             // for unit test
             // testCoverageEnabled = false
         }
