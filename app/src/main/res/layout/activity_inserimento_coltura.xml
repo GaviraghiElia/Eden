@@ -6,16 +6,22 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarInsProd"
+
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Inserisci coltura"
-        app:titleTextColor="@color/white"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:menu="@menu/pianta_details_app_bar_menu"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarInsColt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ToolbarTheme"
+            app:title="Inserisci coltura"
+            app:navigationIcon="@drawable/ic_close_24dp" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +51,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/piantaBox"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -62,7 +68,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldFasi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -84,8 +90,9 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
+
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -104,11 +111,11 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/note"
-            app:startIconDrawable="@drawable/notes"
+            app:startIconDrawable="@drawable/baseline_edit_note_24"
             app:endIconMode="clear_text"
             android:layout_marginTop="16dp">
 
@@ -132,7 +139,7 @@
                 android:id="@+id/buttonSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/invia"
+                android:text="@string/inserisci_coltura"
                 android:enabled="false"
                 android:background="@drawable/button_ripple_background"
                 android:layout_gravity="center_horizontal"

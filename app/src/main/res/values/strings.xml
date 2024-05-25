@@ -106,7 +106,7 @@
     <string name="vedi_dettagli_pianta">Vedi dettagli pianta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aggiungi_prodotto">Aggiungi un prodotto</string>
-    <string name="inserisci_prodotto_CAPS">INSERISCI PRODOTTO</string>
+    <string name="inserisci_prodotto_CAPS">Inserisci prodotto</string>
     <string name="tipo">Tipo</string>
     <string name="prezzo">Prezzo</string>
     <string name="pianta">Pianta (menu di ricerca)</string>
@@ -133,4 +133,5 @@
     <string name="exitApp">Vuoi uscire dall\'applicazione?</string>
     <string name="exitAppInfo">Uscendo dall\'applicazione, la tua sessione utente rimarrà comunque attiva.</string>
     <string name="inserisci_coltura">Inserisci coltura</string>
+    <string name="quantita">Quantita</string>
 </resources>

@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -32,19 +31,15 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.eden.databinding.ActivityInserimentoColturaBinding;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaViewModel;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -84,8 +79,8 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         mBinding = ActivityInserimentoColturaBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-        mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
-        mBinding.toolbarInsProd.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.toolbarInsColt.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mBinding.toolbarInsColt.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -109,7 +104,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
                             piantaId = pianta.getId();
                             piantaNome = pianta.getNome();
                             mBinding.pianta.setText(pianta.getNome());
-                            mBinding.toolbarInsProd.setTitle("Inserisci " + pianta.getNome());
+                            mBinding.toolbarInsColt.setTitle("Inserisci " + pianta.getNome());
                             try {
                                 fasiList = inserimentoColturaViewModel.getFasiList(pianta.getFasi());
                                 frequenze = inserimentoColturaViewModel.getFrequenzeInnaffiamento(pianta.getFasi());
@@ -204,7 +199,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         coltura.put(PIANTA_NOME, piantaNome);
         coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenze);
         Log.d(TAG, "coltura creata: " + coltura.toString());
-        //inserimentoColturaViewModel.aggiungiColtura(coltura);
+        inserimentoColturaViewModel.aggiungiColtura(coltura);
         finish();
     }
 }
