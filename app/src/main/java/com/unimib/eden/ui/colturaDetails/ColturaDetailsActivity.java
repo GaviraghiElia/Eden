@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityColturaDetailsBinding;
 import com.unimib.eden.model.Coltura;
@@ -25,6 +26,7 @@ import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class ColturaDetailsActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class ColturaDetailsActivity extends AppCompatActivity {
     private Coltura coltura;
     private ColturaDetailsViewModel colturaDetailsViewModel;
     private ActivityColturaDetailsBinding mBinding;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private static final String TAG = "coltura_activity";
 
@@ -84,6 +87,16 @@ public class ColturaDetailsActivity extends AppCompatActivity {
                 intent.putExtra("operationCode", Constants.PIANTA_DETAILS_OPERATION_CODE);
                 intent.putExtra("pianta", colturaDetailsViewModel.getPianta(coltura));
                 startActivity(intent);
+            }
+        });
+
+        mBinding.buttonInnaffiaColtura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                colturaDetailsViewModel.updateDataInnaffiamentoColtura(coltura);
+                coltura.setUltimoInnaffiamento(new Date());
+                mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(getApplicationContext(), coltura));
+                mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
             }
         });
 

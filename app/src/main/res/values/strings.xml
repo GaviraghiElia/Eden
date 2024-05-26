@@ -132,4 +132,5 @@
     <string name="exitApp">Vuoi uscire dall\'applicazione?</string>
     <string name="exitAppInfo">Uscendo dall\'applicazione, la tua sessione utente rimarrà comunque attiva.</string>
     <string name="inserisci_coltura">Inserisci coltura</string>
+    <string name="title_irrigazioni">Irrrigazioni</string>
 </resources>

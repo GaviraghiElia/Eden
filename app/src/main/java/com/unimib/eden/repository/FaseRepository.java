@@ -142,7 +142,7 @@ public class FaseRepository implements IFaseRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
                                 List<Fase> tempPiante = allFasi;
                                 boolean isFasePresent = false;
                                 boolean isFaseChanged = false;
@@ -175,7 +175,7 @@ public class FaseRepository implements IFaseRepository {
                                 if (!isFasePresent) {
                                     Map<String, Object> tempMap = document.getData();
 
-                                    Log.d(TAG, "onComplete: FASE" + tempMap.toString());
+                                    //Log.d(TAG, "onComplete: FASE" + tempMap.toString());
                                     newFase = new Fase(
                                             document.getId(),
                                             String.valueOf(tempMap.get(Constants.FASE_NOME_FASE)),
@@ -188,7 +188,7 @@ public class FaseRepository implements IFaseRepository {
                                 }
                                 if (isFaseChanged) {
                                     deleteFase(oldFase);
-                                    Log.d(TAG, "onComplete: DATABASE_DATA " + getAllFasi().toString());
+                                    //Log.d(TAG, "onComplete: DATABASE_DATA " + getAllFasi().toString());
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListFasi = (ArrayList) document.getData().get("fasi");
 
@@ -223,7 +223,7 @@ public class FaseRepository implements IFaseRepository {
     public List<Fase> getFasiID(List<String> ids) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new GetFasiAsyncTask(mFaseDao).execute(ids);
 
-        Log.d(TAG, "getFasiID: ASYNKTASK " + asyncTask.get().toString());
+        //Log.d(TAG, "getFasiID: ASYNKTASK " + asyncTask.get().toString());
         return (List<Fase>) asyncTask.get();
     }
 

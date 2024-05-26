@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.unimib.eden.model.Coltura;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Interfaccia per ColturaRepository.
@@ -40,5 +41,7 @@ public interface IColturaRepository {
      * @return La coltura corrispondente all'ID specificato, se presente nel repository, altrimenti null.
      */
     Coltura getColturaById(String colturaId);
+
+    void updateDataInnaffiamentoColtura(Coltura coltura);
 
 }

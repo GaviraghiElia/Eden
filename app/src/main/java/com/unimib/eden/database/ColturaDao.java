@@ -53,4 +53,6 @@ public interface ColturaDao {
     @Query("SELECT * FROM 'coltura' WHERE id = :colturaId")
     Coltura getById(String colturaId);
 
+    @Query("SELECT * FROM 'coltura' WHERE id IN (:ids)")
+    List<Coltura> getByIds(List<String> ids);
 }

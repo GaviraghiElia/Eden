@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.repository.ColturaRepository;
 import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Transformer;
@@ -26,6 +27,7 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
     private static final String TAG = "ColturaDetailsViewModel";
     private PiantaRepository piantaRepository;
     private FaseRepository faseRepository;
+    private ColturaRepository colturaRepository;
 
     /**
      * Costruttore per ColturaDetailsViewModel.
@@ -38,6 +40,7 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
         // Inizializza PiantaRepository
         piantaRepository = new PiantaRepository(application);
         faseRepository = new FaseRepository(application);
+        colturaRepository = new ColturaRepository(application);
     }
 
     /**
@@ -102,5 +105,9 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
      */
     public void initialize(Coltura coltura) {
         // Inizializzazione aggiuntiva se necessario
+    }
+
+    public void updateDataInnaffiamentoColtura(Coltura coltura) {
+        colturaRepository.updateDataInnaffiamentoColtura(coltura);
     }
 }

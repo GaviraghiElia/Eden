@@ -76,6 +76,7 @@
         android:id="@+id/mainActivity"
         android:name="com.unimib.eden.ui.main.MainActivity"
         android:label="MainActivity" />
+    <!--
     <fragment
         android:id="@+id/colturaDetailsFragment"
         android:name="com.unimib.eden.ui.colturaDetails.ColturaDetailsFragment"
@@ -87,10 +88,11 @@
         <argument
             android:name="coltura"
             app:argType="com.unimib.eden.model.Coltura" />
-    </fragment>
+    </fragment> -->
     <fragment
         android:id="@+id/navigation_stand"
         android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
         android:label="Bancarella"
         tools:layout="@layout/fragment_stand" />
+
 </navigation>

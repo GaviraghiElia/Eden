@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Classe repository per la gestione delle entità Coltura, fornendo operazioni di accesso ai dati e sincronizzazione con Firestore.
@@ -84,6 +85,16 @@ public class ColturaRepository implements IColturaRepository {
     @Override
     public Coltura getColturaById(String colturaId) {
         return mColturaDao.getById(colturaId);
+    }
+
+    @Override
+    public void updateDataInnaffiamentoColtura(Coltura coltura) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .document(coltura.getId())
+                .update("ultimo_innaffiamento", new Date());
+        deleteColtura(coltura);
+        coltura.setUltimoInnaffiamento(new Date());
+        insert(coltura);
     }
 
 

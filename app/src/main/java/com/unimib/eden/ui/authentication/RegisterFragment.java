@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentRegisterBinding;
 import com.unimib.eden.ui.main.MainActivity;
+import com.unimib.eden.utils.AuthenticationFieldValidator;
 
 /*
  * RegisterFrament Classe per gestire la UI della registrazione utente
@@ -44,6 +45,8 @@ public class RegisterFragment extends Fragment
     private NavController navController;
     public FragmentRegisterBinding mBinding;
     private UtenteViewModel mUserViewModel;
+
+    private AuthenticationFieldValidator authenticationFieldValidator;
 
     /**
      * Questa classe gestisce il fragment di registrazione
@@ -86,6 +89,8 @@ public class RegisterFragment extends Fragment
         navController = NavHostFragment.findNavController(this);
         Log.d("mAuth", "register fragment - this activity is" + requireActivity());
 
+        authenticationFieldValidator = new AuthenticationFieldValidator();
+
         // Text Watcher per abilitare il bottone di registrazione
         mBinding.registerEmail.addTextChangedListener(registerTextWatcher);
         mBinding.registerPassword.addTextChangedListener(registerTextWatcher);
@@ -99,7 +104,7 @@ public class RegisterFragment extends Fragment
             {
                 String email = mBinding.registerEmail.getText().toString();
                 String password = mBinding.registerPassword.getText().toString();
-                String response = isValidCredential(email, password);
+                String response = authenticationFieldValidator.isValidCredential(email, password);
                 if(response.equals("success"))
                 {
                     mUserViewModel.clear();
@@ -147,7 +152,11 @@ public class RegisterFragment extends Fragment
         {
             String emailInput = mBinding.registerEmail.getText().toString();
             String passwordInput = mBinding.registerPassword.getText().toString();
-            mBinding.buttonRegister.setEnabled((!emailInput.isEmpty()) && (!passwordInput.isEmpty()) && isValidEmail(emailInput) && isValidPassword(passwordInput));
+            mBinding.buttonRegister.setEnabled(
+                    (!emailInput.isEmpty()) &&
+                    (!passwordInput.isEmpty()) &&
+                    authenticationFieldValidator.isValidEmail(emailInput) &&
+                    authenticationFieldValidator.isValidPassword(passwordInput));
         }
 
         @Override
@@ -185,55 +194,6 @@ public class RegisterFragment extends Fragment
                 }
             }
         });
-    }
-
-
-    /**
-     * Metodo per la validazione delle credenziali inserite
-     *
-     * @param email la email da verificare
-     * @param password la password da verificare
-     * @return stringa "success" se ha successo, "email non valida" oppure "password errata" se almeno una delle due non è valida
-     */
-    public String isValidCredential(String email, String password)
-    {
-        if(!isValidEmail(email))
-        {
-            return getString(R.string.bad_email);
-        }
-        else
-        if(!isValidPassword(password))
-        {
-            return getString(R.string.incorrect_password);
-        }
-
-        return "success";
-    }
-
-    /**
-     * Metodo per verificare se una password è valida.
-     *
-     * @param password la password da verificare
-     * @return true se la password rispetta il pattern password, false altrimenti
-     */
-    public boolean isValidPassword(String password)
-    {
-        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
-    }
-
-    /**
-     * Metodo per verificare se un'email è valida.
-     *
-     * @param email l'email da verificare
-     * @return true se l'email rispetta il pattern email, false altrimenti
-     */
-    public boolean isValidEmail(String email)
-    {
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     /**
