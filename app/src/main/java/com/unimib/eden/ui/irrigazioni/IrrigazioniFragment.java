@@ -56,6 +56,7 @@ public class IrrigazioniFragment extends Fragment {
     private NavController navController;
 
     private List<Coltura> mColture = new ArrayList<>();
+    private List<Coltura> coltureDaAggiornare = new ArrayList<>();
     public IrrigazioniViewModel irrigazioniViewModel;
     //private IrrigazioniAdapter mColturaAdapter;
     private ColturaAdapter mColturaAdapter;
@@ -160,6 +161,7 @@ public class IrrigazioniFragment extends Fragment {
         mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Coltura coltura) {
+                /*
                 materialDateBuilder = MaterialDatePicker.Builder.datePicker();
                 materialDateBuilder.setTitleText(R.string.date_picker_title);
                 materialDateBuilder.build();
@@ -173,6 +175,13 @@ public class IrrigazioniFragment extends Fragment {
                     irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura, new Date(materialDatePicker.getHeaderText()));
 
                 });
+
+                 */
+                if (coltureDaAggiornare.contains(coltura)) {
+                    coltureDaAggiornare.remove(coltura);
+                } else {
+                    coltureDaAggiornare.add(coltura);
+                }
             }
         }, R.layout.irrigazioni_item, getActivity().getApplication());
 
@@ -182,6 +191,18 @@ public class IrrigazioniFragment extends Fragment {
         Log.d(TAG, "onCreateView: mFasi " + irrigazioniViewModel.getFasi().toString());
         Log.d(TAG, "onCreateView: mPiante " + irrigazioniViewModel.getPiante().toString());
         Log.d(TAG, "onCreateView: mColture " + irrigazioniViewModel.getColture().getValue());
+
+        mBinding.buttonUpdateIrrigazioni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!coltureDaAggiornare.isEmpty()) {
+                    for (Coltura coltura: coltureDaAggiornare) {
+                        irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
+                    }
+                    coltureDaAggiornare.clear();
+                }
+            }
+        });
 
         //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
 

@@ -16,13 +16,21 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
+        <CheckBox
+            android:id="@+id/irrigazioniChecbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/imageViewFase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="50dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
+            android:layout_toEndOf="@+id/irrigazioniChecbox"
             android:layout_marginEnd="16dp"
             app:cardPreventCornerOverlap="false">
             <ImageView

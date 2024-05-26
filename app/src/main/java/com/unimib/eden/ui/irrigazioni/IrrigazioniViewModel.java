@@ -1,6 +1,7 @@
 package com.unimib.eden.ui.irrigazioni;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -13,12 +14,13 @@ import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.ColturaRepository;
 import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.utils.Transformer;
 
 import java.util.Date;
 import java.util.List;
 
 public class IrrigazioniViewModel extends AndroidViewModel {
-    private static final String TAG = "HomeViewModel";
+    private static final String TAG = "IrrigazioniViewModel";
 
     private List<Pianta> mPiante;
 
@@ -49,6 +51,7 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         mPiante = piantaRepository.getAllPiante();
         mFasi = faseRepository.getAllFasi();
         mColture = colturaRepository.getAllColture();
+
     }
 
     /**

@@ -92,6 +92,8 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         private final TextView textViewDataInserimento;
         private final TextView textViewNote;
 
+        private final CheckBox checkBox;
+
 
         public ColturaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +101,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
             this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);
+            this.checkBox = itemView.findViewById(R.id.irrigazioniChecbox);
         }
 
         /**
@@ -125,18 +128,30 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                 } else {
                     this.textViewNote.setText(coltura.getNote());
                 }
-            } else {
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemClick(coltura);
+                    }
+                });
+            }
+            if (layout == R.layout.irrigazioni_item)  {
                 this.textViewDataInserimento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
-
+                if (Transformer.daysDifference(coltura) == 0) {
+                    checkBox.setChecked(true);
+                } else {
+                    checkBox.setChecked(false);
+                }
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onItemClickListener.onItemClick(coltura);
+                    }
+                });
             }
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(coltura);
-                }
-            });
+
         }
     }
 }
