@@ -93,4 +93,5 @@ public class Constants {
     public static final String FIRESTORE_COLLECTION_PRODOTTI = "prodotti";
 
     public static final String NOME_DATABASE_PRODOTTO = "prodotto";
+    public static final String DATE_STAMP_FORMAT = "MMM dd, yyyy HH:mm";
 }

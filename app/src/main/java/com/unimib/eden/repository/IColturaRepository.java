@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.unimib.eden.model.Coltura;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,5 +44,6 @@ public interface IColturaRepository {
     Coltura getColturaById(String colturaId);
 
     void updateDataInnaffiamentoColtura(Coltura coltura);
+    void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate);
 
 }

@@ -94,5 +94,10 @@
         android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
         android:label="Bancarella"
         tools:layout="@layout/fragment_stand" />
+    <fragment
+        android:id="@+id/navigation_irrigazioni"
+        android:name="com.unimib.eden.ui.irrigazioni.IrrigazioniFragment"
+        android:label="fragment_irrigazioni"
+        tools:layout="@layout/fragment_irrigazioni" />
 
 </navigation>

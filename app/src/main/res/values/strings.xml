@@ -133,4 +133,5 @@
     <string name="exitAppInfo">Uscendo dall\'applicazione, la tua sessione utente rimarrà comunque attiva.</string>
     <string name="inserisci_coltura">Inserisci coltura</string>
     <string name="title_irrigazioni">Irrrigazioni</string>
+    <string name="date_picker_title">Seleziona data ultima irrigazione</string>
 </resources>

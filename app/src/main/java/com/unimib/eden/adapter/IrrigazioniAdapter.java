@@ -10,22 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
 
+import java.util.Date;
 import java.util.List;
 
-/**
- * Adapter per la visualizzazione delle colture in una RecyclerView.
- * Questo adapter si occupa di gestire l'interfacciamento tra i dati delle colture e la RecyclerView che li visualizza.
- */
-public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaViewHolder> {
+public class IrrigazioniAdapter extends RecyclerView.Adapter<IrrigazioniAdapter.IrrigazioniViewHolder> {
 
     private static final String TAG = "ColturaAdapter";
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private View view;
 
     /**
@@ -36,7 +36,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
     }
 
     private List<Coltura> mColtureList;
-    private OnItemClickListener onItemClickListener;
+    private IrrigazioniAdapter.OnItemClickListener onItemClickListener;
     private PiantaRepository piantaRepository;
     private int layout;
 
@@ -48,7 +48,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
      * @param layout             Layout da utilizzare per ogni elemento della RecyclerView.
      * @param application        Oggetto Application per l'accesso al repository delle piante.
      */
-    public ColturaAdapter(List<Coltura> coltureList, OnItemClickListener onItemClickListener, int layout, Application application) {
+    public IrrigazioniAdapter(List<Coltura> coltureList, IrrigazioniAdapter.OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mColtureList = coltureList;
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
@@ -57,14 +57,26 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
 
     @NonNull
     @Override
-    public ColturaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public IrrigazioniAdapter.IrrigazioniViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         view = LayoutInflater.from(viewGroup.getContext()).inflate(layout, viewGroup, false);
-        return new ColturaViewHolder(view);
+        return new IrrigazioniAdapter.IrrigazioniViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ColturaViewHolder colturaViewHolder, int i) {
+    public void onBindViewHolder(@NonNull IrrigazioniAdapter.IrrigazioniViewHolder colturaViewHolder, int i) {
         colturaViewHolder.bind(mColtureList.get(i));
+        /*
+        colturaViewHolder.itemView.findViewById(R.id.irrigazioniCheckbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                        .document(mColtureList.get(colturaViewHolder.getAdapterPosition()).getId())
+                        .update("ultimo_innaffiamento", new Date());
+                update(mColtureList.get(colturaViewHolder.getAdapterPosition()));
+            }
+        });
+
+         */
     }
 
     @Override
@@ -74,6 +86,14 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         }
         return 0;
     }
+
+    public void update(Coltura coltura){
+        mColtureList.remove(coltura);
+        coltura.setUltimoInnaffiamento(new Date());
+        mColtureList.add(coltura);
+        notifyDataSetChanged();
+    }
+
 
     public void update(List<Coltura> colturaList) {
         if (this.mColtureList != null) {
@@ -86,19 +106,17 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
     /**
      * ViewHolder per ogni elemento della RecyclerView.
      */
-    public class ColturaViewHolder extends RecyclerView.ViewHolder {
+    public class IrrigazioniViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewColturaPianta;
         private final TextView textViewGiorniInnaffiamento;
-        private final TextView textViewDataInserimento;
-        private final TextView textViewNote;
+        private final TextView textViewDataUltimaIrrigazione;
 
-
-        public ColturaViewHolder(@NonNull View itemView) {
+        public IrrigazioniViewHolder(@NonNull View itemView) {
             super(itemView);
+
             this.textViewColturaPianta = itemView.findViewById(R.id.textViewPianta);
             this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
-            this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
-            this.textViewNote = itemView.findViewById(R.id.textViewNote);
+            this.textViewDataUltimaIrrigazione = itemView.findViewById(R.id.textViewDate);
         }
 
         /**
@@ -118,25 +136,11 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                 this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_delay, 0, 0, 0);
             }
 
-            if (layout == R.layout.coltura_item) {
-                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
-                if (coltura.getNote().isEmpty()) {
-                    this.textViewNote.setVisibility(View.GONE);
-                } else {
-                    this.textViewNote.setText(coltura.getNote());
-                }
-            } else {
-                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
-
-            }
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(coltura);
-                }
-            });
+            this.textViewDataUltimaIrrigazione.setText(Converters.dateToString(coltura.getDataInserimento()));
+
+
         }
     }
 }

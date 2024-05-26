@@ -97,6 +97,16 @@ public class ColturaRepository implements IColturaRepository {
         insert(coltura);
     }
 
+    @Override
+    public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .document(coltura.getId())
+                .update("ultimo_innaffiamento", newDate);
+        deleteColtura(coltura);
+        coltura.setUltimoInnaffiamento(newDate);
+        insert(coltura);
+    }
+
 
     /**
      * Aggiorna il database locale con le entità Coltura da Firestore.
