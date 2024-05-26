@@ -44,6 +44,8 @@ public class ColturaRepository implements IColturaRepository {
         this.mColturaDao = colturaRoomDatabase.colturaDao();
         allColture = mColturaDao.getAll();
         Log.d(TAG, "ColturaRepository: allColture " + allColture.getValue());
+
+
     }
 
     /**
@@ -54,6 +56,11 @@ public class ColturaRepository implements IColturaRepository {
     @Override
     public LiveData<List<Coltura>> getAllColture() {
         return allColture;
+    }
+
+    @Override
+    public LiveData<List<Coltura>> getAllColtureDaInnaffiare(long date) {
+        return mColturaDao.getAllDaIrrigare(date);
     }
 
     /**
@@ -106,6 +113,7 @@ public class ColturaRepository implements IColturaRepository {
         coltura.setUltimoInnaffiamento(newDate);
         insert(coltura);
     }
+
 
 
     /**

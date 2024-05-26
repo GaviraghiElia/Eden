@@ -27,6 +27,7 @@ public class IrrigazioniViewModel extends AndroidViewModel {
     private List<Fase> mFasi;
 
     private LiveData<List<Coltura>> mColture;
+    private LiveData<List<Coltura>> mColtureDaIrrigare;
     private PiantaRepository piantaRepository;
     private ColturaRepository colturaRepository;
 
@@ -51,6 +52,9 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         mPiante = piantaRepository.getAllPiante();
         mFasi = faseRepository.getAllFasi();
         mColture = colturaRepository.getAllColture();
+        mColtureDaIrrigare = colturaRepository.getAllColtureDaInnaffiare((new Date()).getTime()/ (1000 * 60 * 60 * 24));
+        Log.d(TAG, "IrrigazioniViewModel: " + (1716210570396L/ (1000 * 60 * 60 * 24)));
+        Log.d(TAG, "IrrigazioniViewModel: " + (new Date()).getTime()/ (1000 * 60 * 60 * 24));
 
     }
 
@@ -73,7 +77,10 @@ public class IrrigazioniViewModel extends AndroidViewModel {
     public LiveData<List<Coltura>> getColture() {
         return mColture;
     }
-
+    public LiveData<List<Coltura>> getColtureDaIrrigare() {
+        Log.d(TAG, "getColtureDaIrrigare: " + mColtureDaIrrigare.getValue());
+        return mColtureDaIrrigare;
+    }
     /**
      * Ottieni una pianta dal suo ID.
      *

@@ -46,4 +46,6 @@ public interface IColturaRepository {
     void updateDataInnaffiamentoColtura(Coltura coltura);
     void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate);
 
+    LiveData<List<Coltura>> getAllColtureDaInnaffiare(long date);
+
 }

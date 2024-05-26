@@ -40,6 +40,7 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
+import com.unimib.eden.utils.Transformer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +48,7 @@ import java.util.List;
 
 public class IrrigazioniFragment extends Fragment {
 
-    private static final String TAG = "HomeFragment";
+    private static final String TAG = "IrrigazioniFragment";
     private FragmentIrrigazioniBinding mBinding;
     private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -110,23 +111,22 @@ public class IrrigazioniFragment extends Fragment {
 
         final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
             @Override
-            public void onChanged(List<Coltura> coltura) {
+            public void onChanged(List<Coltura> colture) {
 
-                Log.d(TAG, "onChanged: ");
-                mColture = coltura;
+                mColture = colture;
 
                 mColturaAdapter.update(mColture);
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        irrigazioniViewModel.getColture().observe(this, allColtureObserver);
+        irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
 
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
 
-        irrigazioniViewModel.updateDB("g.colombo147@campus.unimib.it");
+        //irrigazioniViewModel.updateDB("g.colombo147@campus.unimib.it");
         Log.d(TAG, "onCreate: IRRIGAZIONI: " + mColture.toString());
     }
 
@@ -198,8 +198,11 @@ public class IrrigazioniFragment extends Fragment {
                 if (!coltureDaAggiornare.isEmpty()) {
                     for (Coltura coltura: coltureDaAggiornare) {
                         irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
+
                     }
+                    mColture.removeAll(coltureDaAggiornare);
                     coltureDaAggiornare.clear();
+                    mColturaAdapter.update(mColture);
                 }
             }
         });

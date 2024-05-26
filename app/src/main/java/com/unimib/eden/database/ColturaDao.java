@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import com.unimib.eden.model.Coltura;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,4 +56,7 @@ public interface ColturaDao {
 
     @Query("SELECT * FROM 'coltura' WHERE id IN (:ids)")
     List<Coltura> getByIds(List<String> ids);
+
+    @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")
+    LiveData<List<Coltura>> getAllDaIrrigare(long date);
 }
