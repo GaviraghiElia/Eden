@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
 import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
+import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
 import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
 import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
 import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
@@ -63,6 +64,9 @@ public class Coltura implements Serializable {
     @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO)
     private ArrayList<Integer> frequenzaInnaffiamento;
 
+    @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE)
+    private int frequenzaInnaffiamentoAttuale;
+
     /**
      * Costruttore per la classe Coltura.
      *
@@ -77,7 +81,7 @@ public class Coltura implements Serializable {
      * @param nomePianta         Nome della pianta associata alla coltura.
      * @param frequenzaInnaffiamento Frequenze di innaffiamento della pianta in base alla fase.
      */
-    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento, String nomePianta, ArrayList<Integer> frequenzaInnaffiamento) {
+    public Coltura(@NonNull String id, String idPianta, String proprietario, int quantita, String note, Date dataInserimento, int faseAttuale, Date ultimoInnaffiamento, String nomePianta, ArrayList<Integer> frequenzaInnaffiamento, int frequenzaInnaffiamentoAttuale) {
         this.id = id;
         this.idPianta = idPianta;
         this.proprietario = proprietario;
@@ -88,6 +92,7 @@ public class Coltura implements Serializable {
         this.ultimoInnaffiamento = ultimoInnaffiamento;
         this.nomePianta = nomePianta;
         this.frequenzaInnaffiamento = frequenzaInnaffiamento;
+        this.frequenzaInnaffiamentoAttuale = frequenzaInnaffiamentoAttuale;
     }
 
     /**
@@ -109,6 +114,7 @@ public class Coltura implements Serializable {
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
         this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
         this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
+        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
     }
 
     // Metodi getter e setter
@@ -194,21 +200,29 @@ public class Coltura implements Serializable {
         this.frequenzaInnaffiamento = frequenzaInnaffiamento;
     }
 
-    // Metodi equals e hashCode
+    public int getFrequenzaInnaffiamentoAttuale() {
+        return frequenzaInnaffiamentoAttuale;
+    }
+
+    public void setFrequenzaInnaffiamentoAttuale(int frequenzaInnaffiamentoAttuale) {
+        this.frequenzaInnaffiamentoAttuale = frequenzaInnaffiamentoAttuale;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coltura coltura = (Coltura) o;
-        return getQuantita() == coltura.getQuantita() && getFaseAttuale() == coltura.getFaseAttuale() && Objects.equals(getId(), coltura.getId()) && Objects.equals(getIdPianta(), coltura.getIdPianta()) && Objects.equals(getProprietario(), coltura.getProprietario()) && Objects.equals(getNote(), coltura.getNote()) && Objects.equals(getDataInserimento(), coltura.getDataInserimento()) && Objects.equals(getUltimoInnaffiamento(), coltura.getUltimoInnaffiamento()) && Objects.equals(getNomePianta(), coltura.getNomePianta()) && Objects.equals(getFrequenzaInnaffiamento(), coltura.getFrequenzaInnaffiamento());
+        return quantita == coltura.quantita && faseAttuale == coltura.faseAttuale && frequenzaInnaffiamentoAttuale == coltura.frequenzaInnaffiamentoAttuale && Objects.equals(id, coltura.id) && Objects.equals(idPianta, coltura.idPianta) && Objects.equals(proprietario, coltura.proprietario) && Objects.equals(note, coltura.note) && Objects.equals(dataInserimento, coltura.dataInserimento) && Objects.equals(ultimoInnaffiamento, coltura.ultimoInnaffiamento) && Objects.equals(nomePianta, coltura.nomePianta) && Objects.equals(frequenzaInnaffiamento, coltura.frequenzaInnaffiamento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
     }
 
     public boolean equals(QueryDocumentSnapshot document) {
         return equals(new Coltura(document));
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getIdPianta(), getProprietario(), getQuantita(), getNote(), getDataInserimento(), getFaseAttuale(), getUltimoInnaffiamento(), getNomePianta(), getFrequenzaInnaffiamento());
-    }
 }

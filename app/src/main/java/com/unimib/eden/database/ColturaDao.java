@@ -66,7 +66,7 @@ public interface ColturaDao {
      * @return La lista con le colture da irrigare il giorno corrente
      */
 
-    @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")
+    @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24)) ORDER BY :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24)) - frequenza_innaffiamento_attuale DESC")
     LiveData<List<Coltura>> getAllDaIrrigare(long date);
 
     @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")

@@ -178,6 +178,7 @@ public class ColturaRepository implements IColturaRepository {
                                         }
                                     }
                                     if (!isColturaPresent) {
+                                        Log.d(TAG, "onComplete: DOCUMENT " + document.getData());
                                         newColtura = new Coltura(document);
                                         insert(newColtura);
                                     }

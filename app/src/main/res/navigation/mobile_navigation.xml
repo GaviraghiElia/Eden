@@ -97,7 +97,7 @@
     <fragment
         android:id="@+id/navigation_irrigazioni"
         android:name="com.unimib.eden.ui.irrigazioni.IrrigazioniFragment"
-        android:label="fragment_irrigazioni"
+        android:label="Irrigazioni"
         tools:layout="@layout/fragment_irrigazioni" />
 
 </navigation>

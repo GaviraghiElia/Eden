@@ -222,18 +222,24 @@ public class IrrigazioniFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.home_menu, menu);
+        menu.getItem(0).setVisible(false);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Listener for the items in the custom menu
+        /*
         if (item.getItemId() == R.id.app_bar_search) {
             Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
             intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
             startActivity(intent);
             return true;
         }
+
+         */
+
+
         return super.onOptionsItemSelected(item);
     }
 

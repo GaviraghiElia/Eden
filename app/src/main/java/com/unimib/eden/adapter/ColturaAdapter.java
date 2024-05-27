@@ -137,11 +137,8 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             }
             if (layout == R.layout.irrigazioni_item)  {
                 this.textViewDataInserimento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
-                if (Transformer.daysDifference(coltura) == 0) {
-                    checkBox.setChecked(true);
-                } else {
-                    checkBox.setChecked(false);
-                }
+                checkBox.setChecked(false);
+
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

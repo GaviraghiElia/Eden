@@ -15,6 +15,7 @@ import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Transformer;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -109,5 +110,9 @@ public class ColturaDetailsViewModel extends AndroidViewModel {
 
     public void updateDataInnaffiamentoColtura(Coltura coltura) {
         colturaRepository.updateDataInnaffiamentoColtura(coltura);
+    }
+
+    public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
+        colturaRepository.updateDataInnaffiamentoColtura(coltura, newDate);
     }
 }

@@ -40,7 +40,8 @@ public class ColturaDaoTest {
             2,
             new Date(124 - 1900, 2, 22, 16, 43, 8),
             "Pomodori",
-            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)),
+            4
     );
     private Coltura coltura2 = new Coltura(
             "RJWeOugwpBBo4bbZE95C",
@@ -53,7 +54,8 @@ public class ColturaDaoTest {
             0,
             new Date(124 - 1900, 2, 29, 19, 13, 11),
             "Zucchine",
-            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)),
+            5
     );
 
     @Before
