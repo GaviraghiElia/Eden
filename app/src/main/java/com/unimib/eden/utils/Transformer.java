@@ -52,12 +52,4 @@ public class Transformer {
             return String.format(context.getString(R.string.giorni_fa), Math.abs(days));
         }
     }
-
-    public static int daysDifference(Coltura coltura) {
-        Date currentDate = new Date();
-        Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
-        long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
-        long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        return (int) daysDifference;
-    }
 }

@@ -131,7 +131,6 @@ public class HomeFragment extends Fragment {
         //mColture = homeViewModel.getColture();
 
         homeViewModel.updateDB("g.colombo147@campus.unimib.it");
-        Log.d(TAG, "onCreate: COLTURE: " + mColture.toString());
     }
 
     @Nullable
@@ -209,7 +208,6 @@ public class HomeFragment extends Fragment {
                 }
             });
         }
-        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
 
         return view;
 
