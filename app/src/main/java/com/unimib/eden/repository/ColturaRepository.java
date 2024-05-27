@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.ColturaDao;
 import com.unimib.eden.database.ColturaRoomDatabase;
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -72,7 +73,27 @@ public class ColturaRepository implements IColturaRepository {
      */
     @Override
     public void insert(Coltura coltura) {
-        new InsertColturaAsyncTask(mColturaDao).execute(coltura);
+        new ColturaRepository.InsertColturaAsyncTask(mColturaDao).execute(coltura);
+    }
+
+    /**
+     * Aggiunge una nuova coltura a Firestore e al database locale.
+     *
+     * @param colturaMap mappa contenente i dati della coltura da aggiungere.
+     */
+    public void aggiungiColtura(Map<String, Object> colturaMap) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .add(colturaMap)
+                .addOnSuccessListener(documentReference -> {
+                    String colturaId = documentReference.getId();
+                    Log.d(TAG, "Coltura aggiunta con ID: " + colturaId);
+                    // Aggiungi l'ID al colturaMap
+                    colturaMap.put(Constants.PRODOTTO_ID, colturaId);
+                    Coltura coltura = new Coltura(colturaMap);
+                    Log.d(TAG, "coltura: " + coltura.toString());
+                    insert(coltura);
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Errore durante l'aggiunta della coltura", e));
     }
 
     /**

@@ -71,11 +71,11 @@
     <string name="fine_semina">Fine semina</string>
     <string name="description_label">Descrizione:</string>
     <string name="descrizione_pianta">Descrizione pianta</string>
-    <string name="fasi_description">Fasi</string>
+    <string name="fasi_description">Vedi fasi</string>
     <string name="spazio_necessario">Spazio necessario</string>
     <string name="tipo_terreno">Tipo terreno</string>
     <string name="altezza_max_prevista">Altezza max</string>
-    <string name="esposizione_sole">Esposizione sole</string>
+    <string name="esposizione">Esposizione</string>
     <string name="nome_fase_label">Fase:</string>
     <string name="nome_fase">Nome fase</string>
     <string name="inizio_fase_label">Inizio fase:</string>
@@ -106,14 +106,16 @@
     <string name="vedi_dettagli_pianta">Vedi dettagli pianta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aggiungi_prodotto">Aggiungi un prodotto</string>
-    <string name="inserisci_prodotto">INSERISCI PRODOTTO</string>
+    <string name="inserisci_prodotto_CAPS">Inserisci prodotto</string>
     <string name="tipo">Tipo</string>
     <string name="prezzo">Prezzo</string>
     <string name="pianta">Pianta (menu di ricerca)</string>
-    <string name="quantita">Quantita</string>
+    <string name="quantita_piante">Numero piante</string>
+    <string name="quantita_grammi">Grammi</string>
     <string name="fase_attuale">Fase Attuale</string>
     <string name="altre_informazioni">Altre informazioni</string>
     <string name="invia">Invia</string>
+    <string name="inserisci_prodotto">Inserisci prodotto</string>
     <string name="disponibile_a_scambi">Disponibile a scambi</string>
     <string name="inserisci_fase">inserisci la fase</string>
     <string name="fasi">Inserisci la fase attuale</string>
@@ -124,4 +126,12 @@
     <string name="euro">euro</string>
     <string name="frequenza_innaffiamento_fase_label">Frequenza innaffiamento:</string>
     <string name="frequenza_innaffiamento_fase">Frequenza innaffiamento</string>
+    <string name="note">Note</string>
+    <string name="cancel">Cancel</string>
+    <string name="wantLogout">Vuoi effettuare il logout?</string>
+    <string name="logoutInfo">Verrai disconnesso dal tuo account e dovrai effettuare l\'accesso per riaccedervi.</string>
+    <string name="exitApp">Vuoi uscire dall\'applicazione?</string>
+    <string name="exitAppInfo">Uscendo dall\'applicazione, la tua sessione utente rimarrà comunque attiva.</string>
+    <string name="inserisci_coltura">Inserisci coltura</string>
+    <string name="quantita">Quantita</string>
 </resources>
