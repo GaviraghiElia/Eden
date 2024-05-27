@@ -46,6 +46,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Un Fragment per la schermata Irrigazioni.
+ * Questo Fragment visualizza un elenco delle colture da innaffiare nel giorno corrente.
+ *
+ * @author Alice Hoa Galli
+ */
 public class IrrigazioniFragment extends Fragment {
 
     private static final String TAG = "IrrigazioniFragment";
@@ -59,7 +65,6 @@ public class IrrigazioniFragment extends Fragment {
     private List<Coltura> mColture = new ArrayList<>();
     private List<Coltura> coltureDaAggiornare = new ArrayList<>();
     public IrrigazioniViewModel irrigazioniViewModel;
-    //private IrrigazioniAdapter mColturaAdapter;
     private ColturaAdapter mColturaAdapter;
     private FirebaseAuth firebaseAuth;
     private MaterialDatePicker.Builder materialDateBuilder;

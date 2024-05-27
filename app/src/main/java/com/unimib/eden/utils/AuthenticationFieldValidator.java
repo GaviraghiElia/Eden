@@ -10,6 +10,11 @@ import com.unimib.eden.R;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe AuthenticationFieldValidator per validare i campi di testo per l'autenticazione nell'applicazione
+ *
+ * @author Elia Gaviraghi
+ */
 public class AuthenticationFieldValidator {
 
     public AuthenticationFieldValidator() {}

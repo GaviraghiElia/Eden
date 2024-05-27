@@ -110,4 +110,25 @@ public class ColturaDaoTest {
         assertEquals(coltura, coltura2);
     }
 
+    @Test
+    public void daoGetAllDaIrrigare_returnsAllColtureDaIrrigareFromDb() {
+        addTwoColtureToDb();
+        List<Coltura> allColtureDaIrrigare = new ArrayList<>();
+        allColtureDaIrrigare = colturaDao.getAllDaIrrigareTest((new Date()).getTime()/ (1000 * 60 * 60 * 24));
+
+        assertTrue(allColtureDaIrrigare.contains(coltura1));
+        assertTrue(allColtureDaIrrigare.contains(coltura2));
+    }
+
+    @Test
+    public void daoGetColtureByIds_returnsAllColtureFromDb() {
+        addTwoColtureToDb();
+        List<String> idsList = new ArrayList<>();
+        idsList.add(coltura1.getId());
+        idsList.add(coltura2.getId());
+        List<Coltura> colture = colturaDao.getByIds(idsList);
+        assertTrue(colture.contains(coltura1));
+        assertTrue(colture.contains(coltura2));
+    }
+
 }

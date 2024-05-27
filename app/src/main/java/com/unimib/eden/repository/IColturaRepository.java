@@ -43,9 +43,25 @@ public interface IColturaRepository {
      */
     Coltura getColturaById(String colturaId);
 
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento a quella corrente per la coltura passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento  alla data corrente
+     */
     void updateDataInnaffiamentoColtura(Coltura coltura);
+
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento per la coltura passata come parametro alla data passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento alla data indicata
+     * @param newDate  La data a cui bisogna aggiornare il valore di ultimo innaffiamento della coltura passata come parametro
+     */
     void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate);
 
+    /**
+     * Ottiene tutte le colture da irrigazione nella data indicata.
+     *
+     * @param date La data per cui filtrare le colture da irrigare
+     * @return Una lista di tutte le colture da irrigare nella data indicata.
+     */
     LiveData<List<Coltura>> getAllColtureDaInnaffiare(long date);
 
 }

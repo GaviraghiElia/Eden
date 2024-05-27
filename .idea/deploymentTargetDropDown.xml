@@ -5,6 +5,15 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="daoGetAllDaIrrigare_returnsAllColtureDaIrrigareFromDb()">
+        <State />
+      </entry>
+      <entry key="daoGetColtureByIds_returnsAllColtureFromDb()">
+        <State />
+      </entry>
+      <entry key="daoGetPiantaById_returnsPiantaFromDb()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

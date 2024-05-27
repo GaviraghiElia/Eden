@@ -5,8 +5,10 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverters;
 
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.utils.Converters;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
  * Questa interfaccia definisce le operazioni di accesso ai dati per la tabella Coltura nel database Room.
  */
 @Dao
+@TypeConverters(Converters.class)
 public interface ColturaDao {
 
     /**
@@ -57,6 +60,15 @@ public interface ColturaDao {
     @Query("SELECT * FROM 'coltura' WHERE id IN (:ids)")
     List<Coltura> getByIds(List<String> ids);
 
+    /**
+     * Ottiene una lista delle colture da irrigare il giorno corrente
+     * @param date La data corrente convertita in timestamp
+     * @return La lista con le colture da irrigare il giorno corrente
+     */
+
     @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")
     LiveData<List<Coltura>> getAllDaIrrigare(long date);
+
+    @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")
+    List<Coltura> getAllDaIrrigareTest(long date);
 }

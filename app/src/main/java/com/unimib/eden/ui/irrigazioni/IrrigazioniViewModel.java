@@ -19,6 +19,12 @@ import com.unimib.eden.utils.Transformer;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Classe ViewModel per IrrigazioniFragment.
+ * Questa classe si occupa di gestire i dati correlati a IrrigazioniFragment.
+ *
+ * @author Alice Hoa Galli
+ */
 public class IrrigazioniViewModel extends AndroidViewModel {
     private static final String TAG = "IrrigazioniViewModel";
 
@@ -67,6 +73,11 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         return mPiante;
     }
 
+    /**
+     * Ottieni una lista di fasi.
+     *
+     * @return Una lista di fasi.
+     */
     public List<Fase> getFasi() {return mFasi;}
 
     /**
@@ -77,6 +88,12 @@ public class IrrigazioniViewModel extends AndroidViewModel {
     public LiveData<List<Coltura>> getColture() {
         return mColture;
     }
+
+    /**
+     * Ottiene tutte le colture da irrigazione nella data corrente.
+     *
+     * @return Una lista di tutte le colture da irrigare nella data corrente.
+     */
     public LiveData<List<Coltura>> getColtureDaIrrigare() {
         Log.d(TAG, "getColtureDaIrrigare: " + mColtureDaIrrigare.getValue());
         return mColtureDaIrrigare;
@@ -101,10 +118,19 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         colturaRepository.updateLocalDB(currentUserId);
     }
 
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento a quella corrente per la coltura passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento  alla data corrente
+     */
     public void updateDataInnaffiamentoColtura(Coltura coltura) {
         colturaRepository.updateDataInnaffiamentoColtura(coltura);
     }
 
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento per la coltura passata come parametro alla data passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento alla data indicata
+     * @param newDate  La data a cui bisogna aggiornare il valore di ultimo innaffiamento della coltura passata come parametro
+     */
     public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
         colturaRepository.updateDataInnaffiamentoColtura(coltura, newDate);
     }

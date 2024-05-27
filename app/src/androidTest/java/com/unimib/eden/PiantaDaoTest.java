@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.unimib.eden.database.PiantaDao;
 import com.unimib.eden.database.PiantaRoomDatabase;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 
 import org.junit.After;
@@ -136,5 +137,12 @@ public class PiantaDaoTest {
        List<Pianta> allPiante = piantaDao.searchPianteFiltriAll("Spi",  "mezz'ombra", 3, 5);
        assertEquals(allPiante.get(0), pianta2);
    }
+
+    @Test
+    public void daoGetPiantaById_returnsPiantaFromDb() {
+        addTwoPianteToDb();
+        Pianta pianta = piantaDao.getById(pianta2.getId());
+        assertEquals(pianta, pianta2);
+    }
 
 }
