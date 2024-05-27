@@ -76,7 +76,7 @@ public class ProdottoRepository implements IProdottoRepository {
     }
 
     /**
-     * Aggiunge un nuovo prodotto al Firestore e al database locale.
+     * Aggiunge un nuovo prodotto a Firestore e al database locale.
      *
      * @param prodottoMap mappa contenente i dati del prodotto da aggiungere.
      */

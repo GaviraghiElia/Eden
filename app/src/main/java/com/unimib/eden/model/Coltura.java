@@ -19,6 +19,7 @@ import java.util.Objects;
 import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
 import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
 import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
+import static com.unimib.eden.utils.Constants.COLTURA_ID;
 import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
 import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
 import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;

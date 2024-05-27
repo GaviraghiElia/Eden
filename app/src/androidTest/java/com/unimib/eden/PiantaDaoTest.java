@@ -27,6 +27,7 @@ import java.util.List;
 
 import kotlin.jvm.Throws;
 
+//instrumented test
 @RunWith(AndroidJUnit4.class)
 public class PiantaDaoTest {
     private static final String TAG = "PiantaDaoTest";

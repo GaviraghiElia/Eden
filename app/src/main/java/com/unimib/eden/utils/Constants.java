@@ -24,6 +24,7 @@ public class Constants {
     public static final String PIANTA_ESPOSIZIONE_SOLE = "esposizione_sole";
 
 
+    public static final String COLTURA_ID = "id";
     public static final String COLTURA_PIANTA = "pianta";
     public static final String COLTURA_PROPRIETARIO = "proprietario";
     public static final String COLTURA_QUANTITA = "quantita";

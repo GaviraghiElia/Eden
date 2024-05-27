@@ -106,7 +106,7 @@
     <string name="vedi_dettagli_pianta">Vedi dettagli pianta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="aggiungi_prodotto">Aggiungi un prodotto</string>
-    <string name="inserisci_prodotto_CAPS">INSERISCI PRODOTTO</string>
+    <string name="inserisci_prodotto_CAPS">Inserisci prodotto</string>
     <string name="tipo">Tipo</string>
     <string name="prezzo">Prezzo</string>
     <string name="pianta">Pianta (menu di ricerca)</string>
@@ -126,6 +126,7 @@
     <string name="euro">euro</string>
     <string name="frequenza_innaffiamento_fase_label">Frequenza innaffiamento:</string>
     <string name="frequenza_innaffiamento_fase">Frequenza innaffiamento</string>
+    <string name="note">Note</string>
     <string name="cancel">Cancel</string>
     <string name="wantLogout">Vuoi effettuare il logout?</string>
     <string name="logoutInfo">Verrai disconnesso dal tuo account e dovrai effettuare l\'accesso per riaccedervi.</string>
@@ -134,4 +135,5 @@
     <string name="inserisci_coltura">Inserisci coltura</string>
     <string name="title_irrigazioni">Irrrigazioni</string>
     <string name="date_picker_title">Seleziona data ultima irrigazione</string>
+    <string name="quantita">Quantita</string>
 </resources>

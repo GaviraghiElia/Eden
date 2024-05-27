@@ -1,14 +1,14 @@
-package com.unimib.eden.ui.inserimentoProdotto;
+package com.unimib.eden.ui.inserimentoColtura;
 
-import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
-import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_OFFERTE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PIANTA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
+import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
+import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
+import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
+import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
+import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
+import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
+import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.PIANTA_NOME;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -28,12 +27,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.unimib.eden.databinding.ActivityInserimentoProdottoBinding;
+import com.unimib.eden.databinding.ActivityInserimentoColturaBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -44,23 +44,23 @@ import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 /**
- * Activity per l'inserimento di un nuovo prodotto.
- * Questa activity consente all'utente di inserire i dettagli di un nuovo prodotto e di aggiungerlo al database.
+ * Activity per l'inserimento di una nuova coltura.
+ * Questa activity consente all'utente di inserire i dettagli di una nuova coltura e di aggiungerla al database.
  */
-public class InserimentoProdottoActivity extends AppCompatActivity {
-    private static final String TAG = "InserimentoProdotto";
-    private InserimentoProdottoViewModel inserimentoProdottoViewModel;
-    private ActivityInserimentoProdottoBinding mBinding;
+public class InserimentoColturaActivity extends AppCompatActivity {
+    private static final String TAG = "InserimentoColtura";
+    private InserimentoColturaViewModel inserimentoColturaViewModel;
+    private ActivityInserimentoColturaBinding mBinding;
     private String piantaId = "";
+    private String piantaNome = "";
     private Pianta pianta;
-    private String ultimaFase = "";
-
-    //per prendere current user
+    private int fase = -1;
     private FirebaseAuth firebaseAuth;
 
     ArrayList<String> nomeFasi = new ArrayList<String>();
 
-    List<Fase> fasiList;
+    ArrayList<Fase> fasiList;
+    ArrayList<Integer> frequenze;
     ArrayAdapter<String> adapter;
 
 
@@ -74,24 +74,22 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inserimentoProdottoViewModel = new ViewModelProvider(this).get(InserimentoProdottoViewModel.class);
+        inserimentoColturaViewModel = new ViewModelProvider(this).get(InserimentoColturaViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        mBinding = ActivityInserimentoProdottoBinding.inflate(getLayoutInflater());
+        mBinding = ActivityInserimentoColturaBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-        mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        mBinding.toolbarInsProd.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.toolbarInsColt.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mBinding.toolbarInsColt.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-        mBinding.prezzo.addTextChangedListener(prodottoTextWatcher);
-        mBinding.quantita.addTextChangedListener(prodottoTextWatcher);
-        mBinding.pianta.addTextChangedListener(prodottoTextWatcher);
-        mBinding.autoCompleteTextViewFasi.addTextChangedListener(prodottoTextWatcher);
-
+        mBinding.quantita.addTextChangedListener(colturaTextWatcher);
+        mBinding.pianta.addTextChangedListener(colturaTextWatcher);
+        mBinding.autoCompleteTextViewFasi.addTextChangedListener(colturaTextWatcher);
 
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -104,26 +102,24 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                             pianta = (Pianta) data.getSerializableExtra("pianta");
                             Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
                             piantaId = pianta.getId();
+                            piantaNome = pianta.getNome();
                             mBinding.pianta.setText(pianta.getNome());
-                            mBinding.toolbarInsProd.setTitle("Inserisci " + pianta.getNome());
+                            mBinding.toolbarInsColt.setTitle("Inserisci " + pianta.getNome());
                             try {
-                                fasiList = inserimentoProdottoViewModel.getFasiList(pianta.getFasi());
-                                //TODO: anche qui sono in disordine (ordine alfabetico per ID)
-                                Log.d(TAG, fasiList.get(0).getId().toString());
+                                fasiList = inserimentoColturaViewModel.getFasiList(pianta.getFasi());
+                                frequenze = inserimentoColturaViewModel.getFrequenzeInnaffiamento(pianta.getFasi());
                                 if(!nomeFasi.isEmpty()) {
                                     nomeFasi.clear();
                                 }
                                 for(Fase f: fasiList) {
                                     nomeFasi.add(f.getNomeFase());
                                 }
-
                             } catch (ExecutionException e) {
                                 throw new RuntimeException(e);
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
-                            ultimaFase = nomeFasi.get(nomeFasi.size()-1);
-                            adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_menu_item, nomeFasi);
+                            adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nomeFasi);
                         }
                     }
                 });
@@ -132,48 +128,39 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
-                    intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                    //TODO: aggiungere CREATE_COLTURA_OPERATION_CODE
+                    intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();
                 }
             }
         });
 
-
-        adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, nomeFasi);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
         mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
-        //binding.autoCompleteTextViewFasi.setText(nomeFasi.get(0), false);
-
         mBinding.buttonSubmit.setOnClickListener(v -> {
-            aggiungiProdotto();
+            aggiungiColtura();
         });
-
 
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == nomeFasi.size() - 1) {
-                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_grammi));
-                    //mBinding.textViewQuantitaUnita.setText("grammi");
-                } else {
-                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_piante));
-                }
+                fase=position;
             }
         });
     }
 
-    private TextWatcher prodottoTextWatcher = new TextWatcher() {
+    private TextWatcher colturaTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String prezzo = mBinding.prezzo.getText().toString();
             String quantita = mBinding.quantita.getText().toString();
             String piantaText = mBinding.pianta.getText().toString();
             String fasiText = mBinding.autoCompleteTextViewFasi.getText().toString();
-            mBinding.buttonSubmit.setEnabled(!prezzo.isEmpty() && !quantita.isEmpty() && !piantaText.isEmpty() && !fasiText.isEmpty());
+            mBinding.buttonSubmit.setEnabled(!quantita.isEmpty() && !piantaText.isEmpty() && !fasiText.isEmpty());
         }
 
         @Override
@@ -188,40 +175,31 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere un nuovo prodotto.
+     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere una nuova coltura.
      * Raccoglie i dati inseriti dall'utente dall'interfaccia utente e li invia al ViewModel
-     * per l'aggiunta del prodotto al database.
+     * per l'aggiunta della coltura al database.
      */
-    private void aggiungiProdotto() {
-        double prezzo = Double.parseDouble(mBinding.prezzo.getText().toString());
+    private void aggiungiColtura() {
         int quantita = Integer.parseInt(mBinding.quantita.getText().toString());
-        String altreInformazioni = mBinding.altreInformazioni.getText().toString();
-        Boolean scambioDisponibile = mBinding.checkBoxDisponibileAScambi.isChecked();
-        String faseAttuale = mBinding.autoCompleteTextViewFasi.getText().toString();
+        String note = mBinding.note.getText().toString();
 
-        String tipo;
-        //controllo se ultima fase .equals() quella scelta
-        if(faseAttuale.equals(ultimaFase)){
-            tipo="eccedenza";
-        }else{
-            tipo="coltura";
-        }
-        Log.d(TAG, "tipo:" + tipo);
-
-        Map<String, Object> prodotto = new HashMap<>();
-        prodotto.put(PRODOTTO_TIPO, tipo);
-        prodotto.put(PRODOTTO_PREZZO, prezzo);
-        prodotto.put(PRODOTTO_PIANTA, piantaId);
-        prodotto.put(PRODOTTO_QUANTITA, quantita);
-        prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
-        prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
-
+        Map<String, Object> coltura = new HashMap<>();
         String utente = firebaseAuth.getCurrentUser().getUid();
-        prodotto.put(PRODOTTO_VENDITORE, utente);
-        prodotto.put(PRODOTTO_OFFERTE, null);
-        prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
+        coltura.put(COLTURA_PROPRIETARIO, utente);
+        coltura.put(COLTURA_PIANTA, piantaId);
+        coltura.put(COLTURA_QUANTITA, quantita);
+        coltura.put(COLTURA_NOTE, note);
 
-        inserimentoProdottoViewModel.aggiungiProdotto(prodotto);
+        Date now = new Date();
+        Timestamp timestamp = new Timestamp(now);
+        coltura.put(COLTURA_DATA_INSERIMENTO, timestamp);
+        coltura.put(COLTURA_ULTIMO_INNAFFIAMENTO, timestamp);
+
+        coltura.put(COLTURA_FASE_ATTUALE, fase);
+        coltura.put(PIANTA_NOME, piantaNome);
+        coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenze);
+        Log.d(TAG, "coltura creata: " + coltura.toString());
+        inserimentoColturaViewModel.aggiungiColtura(coltura);
         finish();
     }
 }
