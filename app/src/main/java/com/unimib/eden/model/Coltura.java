@@ -118,6 +118,33 @@ public class Coltura implements Serializable {
         this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
     }
 
+    /**
+     * Costruttore per la classe Coltura partendo da una mappa di dati.
+     *
+     * @param dataMap La mappa di dati che rappresenta la coltura.
+     */
+    public Coltura(Map<String, Object> dataMap) {
+        this.id = String.valueOf(dataMap.get(COLTURA_ID));
+        initFromMap(dataMap);
+    }
+
+    private void initFromMap(Map<String, Object> tempMap) {
+        this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
+        this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
+        this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
+        this.note = String.valueOf(tempMap.get(COLTURA_NOTE));
+        Timestamp dataInserimento = (Timestamp) tempMap.get(COLTURA_DATA_INSERIMENTO);
+        this.dataInserimento = dataInserimento.toDate();
+        this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_FASE_ATTUALE).toString());
+        Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
+        this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
+        this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
+        //this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
+        //TODO: la prossima riga potrebbe generare errori
+        this.frequenzaInnaffiamento = (ArrayList<Integer>) (ArrayList) tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO);
+        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
+    }
+
     // Metodi getter e setter
 
     @NonNull
