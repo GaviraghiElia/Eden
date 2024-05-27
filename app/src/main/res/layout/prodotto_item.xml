@@ -100,7 +100,7 @@
             android:layout_toEndOf="@id/imageViewFaseProdotto"
             android:layout_below="@id/textViewScambiProdotto"
             android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/notes"
+            android:drawableStart="@drawable/baseline_edit_note_24"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>

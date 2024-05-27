@@ -23,7 +23,6 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 
 import com.unimib.eden.adapter.ProdottoAdapter;
@@ -32,8 +31,6 @@ import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
-import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +130,7 @@ public class BancarellaFragment extends Fragment {
                 intent.putExtra("prodotto", prodotto);
                 startActivity(intent);
             }
-        }, R.layout.prodotto_small_card, getActivity().getApplication());
+        }, R.layout.prodotto_item, getActivity().getApplication());
 
         // Imposta l'adapter su RecyclerView
         binding.bancarellaRecyclerView.setAdapter(mProdottoAdapter);

@@ -17,6 +17,10 @@ import com.unimib.eden.repository.PiantaRepository;
 
 import java.util.List;
 
+/**
+ * Adapter per la visualizzazione dei prodotti in una RecyclerView.
+ * Questo adapter si occupa di gestire l'interfacciamento tra i dati dei prodotti e la RecyclerView che li visualizza.
+ */
 public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.ProdottoViewHolder> {
 
     private static final String TAG = "ProdottoAdapter";

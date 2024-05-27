@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:text="Altre informazioni"
             android:textSize="20dp"
-            android:drawableStart="@drawable/notes"
+            android:drawableStart="@drawable/baseline_edit_note_24"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:layout_marginTop="16dp"/>

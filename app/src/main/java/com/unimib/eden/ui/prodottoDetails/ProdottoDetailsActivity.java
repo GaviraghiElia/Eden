@@ -38,7 +38,7 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         // settare l'app bar
-        mBinding.toolbarProdottoDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
+        mBinding.toolbarProdottoDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarProdottoDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,9 +51,6 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
         prodotto = (Prodotto) intent.getSerializableExtra("prodotto");
         prodottoDetailsViewModel.initialize(prodotto);
         mBinding.toolbarProdottoDetails.setTitle(prodottoDetailsViewModel.getNomePianta(prodotto));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mBinding.toolbarProdottoDetails.setTitleTextColor(getColor(R.color.white));
-        }
         try {
             mBinding.textViewFaseFull.setText(prodottoDetailsViewModel.getNomeFase(prodotto));
         } catch (ExecutionException e) {
