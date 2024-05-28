@@ -2,10 +2,12 @@ package com.unimib.eden.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,7 +17,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.ColturaDao;
 import com.unimib.eden.database.ColturaRoomDatabase;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * Classe repository per la gestione delle entità Coltura, fornendo operazioni di accesso ai dati e sincronizzazione con Firestore.
@@ -44,6 +47,8 @@ public class ColturaRepository implements IColturaRepository {
         this.mColturaDao = colturaRoomDatabase.colturaDao();
         allColture = mColturaDao.getAll();
         Log.d(TAG, "ColturaRepository: allColture " + allColture.getValue());
+
+
     }
 
     /**
@@ -54,6 +59,18 @@ public class ColturaRepository implements IColturaRepository {
     @Override
     public LiveData<List<Coltura>> getAllColture() {
         return allColture;
+    }
+
+    /**
+     * Ottiene tutte le colture da irrigazione nella data indicata.
+     *
+     * @param date La data per cui filtrare le colture da irrigare
+     * @return Una lista di tutte le colture da irrigare nella data indicata.
+     */
+    @Override
+    public LiveData<List<Coltura>> getAllColtureDaInnaffiare(long date) {
+        return mColturaDao.getAllDaIrrigare(date);
+
     }
 
     /**
@@ -73,7 +90,47 @@ public class ColturaRepository implements IColturaRepository {
      */
     @Override
     public void insert(Coltura coltura) {
-        new ColturaRepository.InsertColturaAsyncTask(mColturaDao).execute(coltura);
+        new InsertColturaAsyncTask(mColturaDao).execute(coltura);
+    }
+
+    /**
+     * Ottiene un'entità Coltura dal repository basandosi sull'ID specificato.
+     *
+     * @param colturaId L'ID dell'entità Coltura da cercare nel repository.
+     * @return L'entità Coltura corrispondente all'ID specificato, se presente nel repository, altrimenti null.
+     */
+    @Override
+    public Coltura getColturaById(String colturaId) {
+        return mColturaDao.getById(colturaId);
+    }
+
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento a quella corrente per la coltura passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento  alla data corrente
+     */
+    @Override
+    public void updateDataInnaffiamentoColtura(Coltura coltura) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .document(coltura.getId())
+                .update("ultimo_innaffiamento", new Date());
+        deleteColtura(coltura);
+        coltura.setUltimoInnaffiamento(new Date());
+        insert(coltura);
+    }
+
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento per la coltura passata come parametro alla data passata come parametro
+     * @param coltura La coltura a cui bisogna aggiornare la data di ultimo innaffiamento alla data indicata
+     * @param newDate  La data a cui bisogna aggiornare il valore di ultimo innaffiamento della coltura passata come parametro
+     */
+    @Override
+    public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
+        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                .document(coltura.getId())
+                .update("ultimo_innaffiamento", newDate);
+        deleteColtura(coltura);
+        coltura.setUltimoInnaffiamento(newDate);
+        insert(coltura);
     }
 
     /**
@@ -96,16 +153,7 @@ public class ColturaRepository implements IColturaRepository {
                 .addOnFailureListener(e -> Log.w(TAG, "Errore durante l'aggiunta della coltura", e));
     }
 
-    /**
-     * Ottiene un'entità Coltura dal repository basandosi sull'ID specificato.
-     *
-     * @param colturaId L'ID dell'entità Coltura da cercare nel repository.
-     * @return L'entità Coltura corrispondente all'ID specificato, se presente nel repository, altrimenti null.
-     */
-    @Override
-    public Coltura getColturaById(String colturaId) {
-        return mColturaDao.getById(colturaId);
-    }
+
 
 
     /**
@@ -151,6 +199,7 @@ public class ColturaRepository implements IColturaRepository {
                                         }
                                     }
                                     if (!isColturaPresent) {
+                                        Log.d(TAG, "onComplete: DOCUMENT " + document.getData());
                                         newColtura = new Coltura(document);
                                         insert(newColtura);
                                     }

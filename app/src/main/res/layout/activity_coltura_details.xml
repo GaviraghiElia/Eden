@@ -74,7 +74,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Ultimo innaffiamento"
+                                android:text="Innaffiamento"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
@@ -96,6 +96,7 @@
                             android:orientation="horizontal" >
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonInnaffiaColtura"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -166,6 +167,7 @@
                             android:orientation="horizontal" >
 
                             <com.google.android.material.button.MaterialButton
+                                android:id="@+id/buttonModificaFase"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Filled"
