@@ -54,6 +54,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     private String piantaId = "";
     private Pianta pianta;
     private String ultimaFase = "";
+    private int fasePosition;
 
     //per prendere current user
     private FirebaseAuth firebaseAuth;
@@ -152,6 +153,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fasePosition = position;
                 if (position == nomeFasi.size() - 1) {
                     mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_grammi));
                     //mBinding.textViewQuantitaUnita.setText("grammi");
@@ -198,6 +200,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         String altreInformazioni = mBinding.altreInformazioni.getText().toString();
         Boolean scambioDisponibile = mBinding.checkBoxDisponibileAScambi.isChecked();
         String faseAttuale = mBinding.autoCompleteTextViewFasi.getText().toString();
+        String faseId = fasiList.get(fasePosition).getId();
 
         String tipo;
         //controllo se ultima fase .equals() quella scelta
@@ -213,10 +216,11 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_PREZZO, prezzo);
         prodotto.put(PRODOTTO_PIANTA, piantaId);
         prodotto.put(PRODOTTO_QUANTITA, quantita);
-        prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
+        prodotto.put(PRODOTTO_FASE_ATTUALE, faseId);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
 
-        String utente = firebaseAuth.getCurrentUser().getUid();
+        //TODO: RIMETTERE VERO ID
+        String utente = "g.colombo147@campus.unimib.it";//firebaseAuth.getCurrentUser().getUid();
         prodotto.put(PRODOTTO_VENDITORE, utente);
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);

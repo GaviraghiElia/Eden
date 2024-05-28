@@ -13,6 +13,7 @@ import com.unimib.eden.database.FaseDao;
 import com.unimib.eden.database.FaseRoomDatabase;
 import com.unimib.eden.database.PiantaDao;
 import com.unimib.eden.database.PiantaRoomDatabase;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 
@@ -73,6 +74,15 @@ public class FaseDaoTest {
         faseDao.insert(fase1);
         faseDao.insert(fase2);
     }
+
+    @Test
+    public void daoGetFaseById_returnsFaseFromDb() {
+        addTwoFasiToDb();
+        Fase fase = faseDao.getById(fase2.getId());
+        assertEquals(fase, fase2);
+    }
+
+
 
     @Test
     public void daoInsert_insertsFaseIntoDb() {

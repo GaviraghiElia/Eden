@@ -8,7 +8,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,15 +22,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 
+import com.unimib.eden.adapter.ProdottoAdapter;
 import com.unimib.eden.databinding.FragmentStandBinding;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
-import com.unimib.eden.utils.Constants;
+import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +41,9 @@ import java.util.List;
 public class BancarellaFragment extends Fragment {
     private static final String TAG = "BancarellaFragment";
     private FragmentStandBinding binding;
-    private List<Prodotto> prodotti = new ArrayList<Prodotto>();
+    private List<Prodotto> mProdotti = new ArrayList<Prodotto>();
     private BancarellaViewModel bancarellaViewModel;
+    private ProdottoAdapter mProdottoAdapter;
     private FirebaseAuth mAuth;
 
     /**
@@ -64,6 +67,26 @@ public class BancarellaFragment extends Fragment {
 
         bancarellaViewModel = new ViewModelProvider(this).get(BancarellaViewModel.class);
         mAuth = FirebaseAuth.getInstance();
+
+        final Observer<List<Prodotto>> allProdottiObserver = new Observer<List<Prodotto>>() {
+            @Override
+            public void onChanged(List<Prodotto> prodotti) {
+
+                Log.d(TAG, "onChanged: ");
+                mProdotti = prodotti;
+
+                mProdottoAdapter.update(mProdotti);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        bancarellaViewModel.getProdotti().observe(this, allProdottiObserver);
+
+
+        // Recupera le colture dal ViewModel
+        //mColture = homeViewModel.getColture();
+        //TODO: CAMBIARE CURRENT USER
+        bancarellaViewModel.updateDB("g.colombo147@campus.unimib.it");
     }
 
     /**
@@ -92,6 +115,26 @@ public class BancarellaFragment extends Fragment {
             }
         });
 
+        // Imposta RecyclerView con LinearLayoutManager
+        binding.bancarellaRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
+        mProdottoAdapter = new ProdottoAdapter(mProdotti, new ProdottoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Prodotto prodotto) {
+                // Gestisce l'evento di clic sull'elemento
+                Log.d(TAG, "OnItemClick " + prodotto.toString());
+
+                // Naviga verso ProdottoDetailsFragment con la prodotto selezionata
+                Intent intent = new Intent(getActivity(), ProdottoDetailsActivity.class);
+                intent.putExtra("prodotto", prodotto);
+                startActivity(intent);
+            }
+        }, R.layout.prodotto_item, getActivity().getApplication());
+
+        // Imposta l'adapter su RecyclerView
+        binding.bancarellaRecyclerView.setAdapter(mProdottoAdapter);
+
 
         /* TODO
         da implementare con la scrollview
@@ -113,9 +156,24 @@ public class BancarellaFragment extends Fragment {
         });
         */
 
-        // Aggiornamento del database locale e recupero dei prodotti
-        bancarellaViewModel.updateDB();
-        Log.d(TAG, "onCreate: " + bancarellaViewModel.getProdotti());
+        Log.d(TAG, "onCreateView: " + bancarellaViewModel.getProdotti());
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.bancarellaRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY > oldScrollY + 5 && binding.buttonAddProduct.isShown())
+                        binding.buttonAddProduct.shrink();
+                    else if (scrollY < oldScrollY - 20)
+                        binding.buttonAddProduct.extend();
+                    else if (scrollY == 0)
+                        binding.buttonAddProduct.extend();
+                }
+            });
+        }
+
+
         // Ritorna la vista del fragment
         return view;
     }
@@ -127,4 +185,24 @@ public class BancarellaFragment extends Fragment {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Listener for the items in the custom menu
+        if(item.getItemId() == R.id.action_logout){
+            mAuth.signOut();
+            startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean checkSession()
+    {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser != null)
+            return true;
+
+        return false;
+    }
 }

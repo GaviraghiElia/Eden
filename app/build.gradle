@@ -33,7 +33,7 @@ android {
             // for instrumented test
             testCoverageEnabled = true
             // for unit test
-            //testCoverageEnabled = false
+            // testCoverageEnabled = false
         }
     }
     compileOptions {

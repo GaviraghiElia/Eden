@@ -136,4 +136,6 @@
     <string name="title_irrigazioni">Irrrigazioni</string>
     <string name="date_picker_title">Seleziona data ultima irrigazione</string>
     <string name="quantita">Quantita</string>
+    <string name="si">Sì :)</string>
+    <string name="no">No :(</string>
 </resources>

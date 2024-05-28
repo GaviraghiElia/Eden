@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 
@@ -51,4 +52,13 @@ public interface FaseDao {
      */
     @Insert
     void insert(Fase fase);
+
+    /**
+     * Ottiene una fase dal database in base all'ID specificato.
+     *
+     * @param faseId L'ID della fase da cercare nel database.
+     * @return La fase corrispondente all'ID specificato, se presente nel database, altrimenti null.
+     */
+    @Query("SELECT * FROM 'fase' WHERE id = :faseId")
+    Fase getById(String faseId);
 }
