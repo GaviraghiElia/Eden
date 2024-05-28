@@ -36,6 +36,11 @@ public class WeatherRepository {
         service = retrofit.create(WeatherService.class);
     }
 
+    public WeatherRepository(WeatherService service) {
+        this.service = service;
+    }
+
+
     public LiveData<WeatherHistory> getHistory(String location, LocalDate date) {
         MutableLiveData<WeatherHistory> data = new MutableLiveData<>();
         Call<WeatherHistory> call = service.getHistory(apiKey, location, date.toString());
@@ -43,22 +48,21 @@ public class WeatherRepository {
         call.enqueue(new Callback<WeatherHistory>() {
             @Override
             public void onResponse(Call<WeatherHistory> call, Response<WeatherHistory> response) {
-                Log.d("WeatherApp", "History - repository - onResponse");
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    Log.d("WeatherAppLog", "History - repository - onResponse success");
+                    //Log.d("WeatherAppLog", "History - repository - onResponse success");
                 }else{
-                    Log.d("WeatherAppLog", "History - repository - onResponse not success");
-                    Log.d("WeatherAppLog", "History - " + response.toString());
+                    //Log.d("WeatherAppLog", "History - repository - onResponse not success");
+                    //Log.d("WeatherAppLog", "History - " + response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<WeatherHistory> call, Throwable throwable) {
-                Log.d("WeatherAppLog", "History - " + call.toString());
-                Log.d("WeatherAppLog", "History - repository - onFailure");
-                Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getMessage()));
-                Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
+                //Log.d("WeatherAppLog", "History - " + call.toString());
+                //Log.d("WeatherAppLog", "History - repository - onFailure");
+                //Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getMessage()));
+                //Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
             }
         });
 
@@ -74,17 +78,17 @@ public class WeatherRepository {
                 // ...
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse success");
+                    //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse success");
                 }else{
-                    Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse not success");
-                    Log.d("WeatherAppLogSearch", "SearchLocation - " + response.toString());
+                    //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse not success");
+                    //Log.d("WeatherAppLogSearch", "SearchLocation - " + response.toString());
                 }
             }
             @Override
             public void onFailure(Call<List<WeatherSearchLocation>> call, Throwable throwable) {
-                Log.d("WeatherAppLogSearch", "SearchLocation - repository - onFailure");
-                Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getMessage()));
-                Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
+                //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onFailure");
+                //Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getMessage()));
+                //Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
             }
         });
         return data;
@@ -97,22 +101,22 @@ public class WeatherRepository {
         call.enqueue(new Callback<WeatherForecast>() {
             @Override
             public void onResponse(Call<WeatherForecast> call, Response<WeatherForecast> response) {
-                Log.d("WeatherApp", "repository - onResponse");
+                //Log.d("WeatherApp", "repository - onResponse");
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    Log.d("WeatherAppLog", "repository - onResponse success");
+                    //Log.d("WeatherAppLog", "repository - onResponse success");
                 }else{
-                    Log.d("WeatherAppLog", "repository - onResponse not success");
-                    Log.d("WeatherAppLog", response.toString());
+                    //Log.d("WeatherAppLog", "repository - onResponse not success");
+                    //Log.d("WeatherAppLog", response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<WeatherForecast> call, Throwable throwable) {
-                Log.d("WeatherAppLog", call.toString());
-                Log.d("WeatherAppLog", "repository - onFailure");
-                Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getMessage()));
-                Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getLocalizedMessage()));
+                //Log.d("WeatherAppLog", call.toString());
+                //Log.d("WeatherAppLog", "repository - onFailure");
+                //Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getMessage()));
+                //Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getLocalizedMessage()));
             }
         });
 

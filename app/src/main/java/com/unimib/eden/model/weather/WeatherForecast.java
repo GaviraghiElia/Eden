@@ -11,6 +11,9 @@ public class WeatherForecast {
         this.current = current;
     }
 
+    public WeatherForecast() {
+    }
+
     @Override
     public String toString() {
         return "\n" + location +
