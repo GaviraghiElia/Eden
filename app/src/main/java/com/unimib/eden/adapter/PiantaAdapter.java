@@ -33,7 +33,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
 
     private final static String TAG = "PiantaAdapter";
     private List<Pianta> piantaList;
-    private int itemLayout = R.layout.search_pianta_item;;
+    private int itemLayout = R.layout.search_pianta_item;
 
     /**
      * Intero per gestire la destinazione corretta in seguito al onClick di una pianta

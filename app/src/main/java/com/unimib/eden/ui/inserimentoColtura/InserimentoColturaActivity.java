@@ -3,6 +3,7 @@ package com.unimib.eden.ui.inserimentoColtura;
 import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
 import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
 import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
+import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
 import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
 import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
 import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
@@ -198,6 +199,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
         coltura.put(COLTURA_FASE_ATTUALE, fase);
         coltura.put(PIANTA_NOME, piantaNome);
         coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenze);
+        coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE,frequenze.get(fase));
         Log.d(TAG, "coltura creata: " + coltura.toString());
         inserimentoColturaViewModel.aggiungiColtura(coltura);
         finish();

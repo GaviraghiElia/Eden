@@ -31,6 +31,7 @@ public class Constants {
     public static final String COLTURA_NOTE = "note";
     public static final String COLTURA_DATA_INSERIMENTO = "data_inserimento";
     public static final String COLTURA_FASE_ATTUALE = "fase_attuale";
+    public static final String COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE = "frequenza_innaffiamento_attuale";
     public static final String COLTURA_ULTIMO_INNAFFIAMENTO = "ultimo_innaffiamento";
 
     public static final String COLTURA_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
@@ -42,7 +43,7 @@ public class Constants {
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
     public static final String FASE_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
-    public static final int VERSIONE_DATABASE = 17;
+    public static final int VERSIONE_DATABASE = 18;
     public static final int VERSIONE_DATABASE_PIANTA = 13;
     public static final int VERSIONE_DATABASE_FASE = 12;
 
@@ -94,4 +95,5 @@ public class Constants {
     public static final String FIRESTORE_COLLECTION_PRODOTTI = "prodotti";
 
     public static final String NOME_DATABASE_PRODOTTO = "prodotto";
+    public static final String DATE_STAMP_FORMAT = "MMM dd, yyyy HH:mm";
 }
