@@ -1,5 +1,6 @@
 package com.unimib.eden.ui.prodottoDetails;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.card.MaterialCardView;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityProdottoDetailsBinding;
 import com.unimib.eden.model.Prodotto;
@@ -30,6 +32,7 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
 
     public ProdottoDetailsActivity() {}
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +62,17 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(prodotto.getQuantita()));
-        mBinding.textViewPrezzoProdottoFull.setText(String.valueOf(prodotto.getPrezzo()) + " €");
-        if (!prodotto.getScambioDisponibile()) {
-            mBinding.textViewScambiProdottoFull.setPaintFlags(mBinding.textViewScambiProdottoFull.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");
+        if (prodotto.getScambioDisponibile()) {
+            mBinding.textViewScambiProdottoFull.setText(R.string.si);
+            mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
+        }
+        else {
+            mBinding.textViewScambiProdottoFull.setText(R.string.no);
+            mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_redContainer));
         }
         if (prodotto.getAltreInformazioni().isEmpty()) {
-            mBinding.textViewInformazioniProdottoFull.setVisibility(View.GONE);
+            mBinding.cardProdottoNote.setVisibility(View.GONE);
         } else {
             mBinding.textViewInformazioniProdottoFull.setText(prodotto.getAltreInformazioni());
         }

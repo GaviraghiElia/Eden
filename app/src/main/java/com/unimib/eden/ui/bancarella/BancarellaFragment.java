@@ -157,6 +157,23 @@ public class BancarellaFragment extends Fragment {
         */
 
         Log.d(TAG, "onCreateView: " + bancarellaViewModel.getProdotti());
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.bancarellaRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY > oldScrollY + 5 && binding.buttonAddProduct.isShown())
+                        binding.buttonAddProduct.shrink();
+                    else if (scrollY < oldScrollY - 20)
+                        binding.buttonAddProduct.extend();
+                    else if (scrollY == 0)
+                        binding.buttonAddProduct.extend();
+                }
+            });
+        }
+
+
         // Ritorna la vista del fragment
         return view;
     }

@@ -134,4 +134,6 @@
     <string name="exitAppInfo">Uscendo dall\'applicazione, la tua sessione utente rimarrà comunque attiva.</string>
     <string name="inserisci_coltura">Inserisci coltura</string>
     <string name="quantita">Quantita</string>
+    <string name="si">Sì :)</string>
+    <string name="no">No :(</string>
 </resources>

@@ -90,8 +90,6 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
         private final TextView textViewFaseProdotto;
         private final TextView textViewQuantitaProdotto;
         private final TextView textViewPrezzoProdotto;
-        private final TextView textViewScambiProdotto;
-        private final TextView textViewInformazioniProdotto;
 
         public ProdottoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,8 +97,6 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
             this.textViewFaseProdotto = itemView.findViewById(R.id.textViewFaseProdotto);
             this.textViewQuantitaProdotto = itemView.findViewById(R.id.textViewQuantitaProdotto);
             this.textViewPrezzoProdotto = itemView.findViewById(R.id.textViewPrezzoProdotto);
-            this.textViewScambiProdotto = itemView.findViewById(R.id.textViewScambiProdotto);
-            this.textViewInformazioniProdotto = itemView.findViewById(R.id.textViewInformazioniProdotto);
         }
 
         /**
@@ -112,15 +108,7 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
             this.textViewPiantaProdotto.setText(piantaRepository.getPiantaById(prodotto.getPianta()).getNome());
             this.textViewFaseProdotto.setText(faseRepository.getFaseById(prodotto.getFaseAttuale()).getNomeFase());
             this.textViewQuantitaProdotto.setText(String.valueOf(prodotto.getQuantita()));
-            this.textViewPrezzoProdotto.setText(String.valueOf(prodotto.getPrezzo()) + " €");
-            if (!prodotto.getScambioDisponibile()) {
-                this.textViewScambiProdotto.setPaintFlags(this.textViewScambiProdotto.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-            if (prodotto.getAltreInformazioni().isEmpty()) {
-                this.textViewInformazioniProdotto.setVisibility(View.GONE);
-            } else {
-                this.textViewInformazioniProdotto.setText(prodotto.getAltreInformazioni());
-            }
+            this.textViewPrezzoProdotto.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
