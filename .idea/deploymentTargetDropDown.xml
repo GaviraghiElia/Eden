@@ -2,13 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ColturaDaoTest">
+        <State />
+      </entry>
+      <entry key="EntryActivity">
+        <State />
+      </entry>
       <entry key="MainActivity">
         <State />
       </entry>
       <entry key="ProdottoDaoTest">
-        <State />
-      </entry>
-      <entry key="Tests in 'com.unimib.eden'">
         <State />
       </entry>
       <entry key="app">
@@ -26,6 +29,15 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-06T11:32:39.099785Z" />
         </State>
+      </entry>
+      <entry key="daoGetAllDaIrrigare_returnsAllColtureDaIrrigareFromDb()">
+        <State />
+      </entry>
+      <entry key="daoGetColtureByIds_returnsAllColtureFromDb()">
+        <State />
+      </entry>
+      <entry key="daoGetPiantaById_returnsPiantaFromDb()">
+        <State />
       </entry>
     </value>
   </component>

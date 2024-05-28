@@ -1,7 +1,5 @@
 package com.unimib.eden.repository;
 
-import static com.unimib.eden.utils.Constants.FIREBASE_DATABASE_URL;
-
 import android.app.Application;
 import android.util.Log;
 

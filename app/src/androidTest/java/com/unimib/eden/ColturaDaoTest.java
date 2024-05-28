@@ -40,7 +40,8 @@ public class ColturaDaoTest {
             2,
             new Date(124 - 1900, 2, 22, 16, 43, 8),
             "Pomodori",
-            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)),
+            4
     );
     private Coltura coltura2 = new Coltura(
             "RJWeOugwpBBo4bbZE95C",
@@ -53,7 +54,8 @@ public class ColturaDaoTest {
             0,
             new Date(124 - 1900, 2, 29, 19, 13, 11),
             "Zucchine",
-            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7))
+            new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)),
+            5
     );
 
     @Before
@@ -108,6 +110,27 @@ public class ColturaDaoTest {
         addTwoColtureToDb();
         Coltura coltura = colturaDao.getById(coltura2.getId());
         assertEquals(coltura, coltura2);
+    }
+
+    @Test
+    public void daoGetAllDaIrrigare_returnsAllColtureDaIrrigareFromDb() {
+        addTwoColtureToDb();
+        List<Coltura> allColtureDaIrrigare = new ArrayList<>();
+        allColtureDaIrrigare = colturaDao.getAllDaIrrigareTest((new Date()).getTime()/ (1000 * 60 * 60 * 24));
+
+        assertTrue(allColtureDaIrrigare.contains(coltura1));
+        assertTrue(allColtureDaIrrigare.contains(coltura2));
+    }
+
+    @Test
+    public void daoGetColtureByIds_returnsAllColtureFromDb() {
+        addTwoColtureToDb();
+        List<String> idsList = new ArrayList<>();
+        idsList.add(coltura1.getId());
+        idsList.add(coltura2.getId());
+        List<Coltura> colture = colturaDao.getByIds(idsList);
+        assertTrue(colture.contains(coltura1));
+        assertTrue(colture.contains(coltura2));
     }
 
 }
