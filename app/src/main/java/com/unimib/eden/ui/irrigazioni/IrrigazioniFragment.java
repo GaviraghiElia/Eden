@@ -35,9 +35,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.ColturaAdapter;
+import com.unimib.eden.adapter.WeatherForecastAdapter;
 import com.unimib.eden.databinding.FragmentIrrigazioniBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Transformer;
@@ -63,9 +65,11 @@ public class IrrigazioniFragment extends Fragment {
     private NavController navController;
 
     private List<Coltura> mColture = new ArrayList<>();
+    private List<WeatherForecast> mWeatherForecast = new ArrayList<>();
     private List<Coltura> coltureDaAggiornare = new ArrayList<>();
     public IrrigazioniViewModel irrigazioniViewModel;
     private ColturaAdapter mColturaAdapter;
+    private WeatherForecastAdapter mWeatherForecastAdapter;
     private FirebaseAuth firebaseAuth;
     private MaterialDatePicker.Builder materialDateBuilder;
     private MaterialDatePicker materialDatePicker;
@@ -124,9 +128,21 @@ public class IrrigazioniFragment extends Fragment {
             }
         };
 
+        final Observer<List<WeatherForecast>> allWeatherForecastObserver = new Observer<List<WeatherForecast>>() {
+            @Override
+            public void onChanged(List<WeatherForecast> weatherForecast) {
+
+                mWeatherForecast = weatherForecast;
+
+                mWeatherForecastAdapter.update(mWeatherForecast);
+            }
+        };
+
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
 
+
+        //Log.d(TAG, "prove weather: " + mWeatherForecast.toString());
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
@@ -161,6 +177,13 @@ public class IrrigazioniFragment extends Fragment {
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.irrigazioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //mBinding.previsioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        WeatherForecast p = new WeatherForecast(null, null, null);
+        mWeatherForecast.add(p);
+        mWeatherForecast.add(p);
+        mWeatherForecast.add(p);
+        mWeatherForecastAdapter = new WeatherForecastAdapter(mWeatherForecast, R.layout.weather_forecast_item, getActivity().getApplication());
 
         // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
         mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
@@ -189,6 +212,9 @@ public class IrrigazioniFragment extends Fragment {
                 }
             }
         }, R.layout.irrigazioni_item, getActivity().getApplication());
+
+        //copiato da sotto, per le previsioni
+        mBinding.previsioniRecyclerView.setAdapter(mWeatherForecastAdapter);
 
         // Imposta l'adapter su RecyclerView
         mBinding.irrigazioniRecyclerView.setAdapter(mColturaAdapter);
