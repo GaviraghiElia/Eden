@@ -140,4 +140,37 @@ public class ColturaUnitTest {
         assertNotNull(coltura.getUltimoInnaffiamento());
     }
 
+    @Test
+    public void testConstructorFromMap() {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put(COLTURA_ID, id);
+        dataMap.put(COLTURA_PIANTA, idPianta);
+        dataMap.put(COLTURA_PROPRIETARIO, proprietario);
+        dataMap.put(COLTURA_QUANTITA, quantita);
+        dataMap.put(COLTURA_NOTE, note);
+        dataMap.put(COLTURA_DATA_INSERIMENTO, new Timestamp(new Date()));
+        dataMap.put(COLTURA_FASE_ATTUALE, faseAttuale);
+        dataMap.put(COLTURA_ULTIMO_INNAFFIAMENTO, new Timestamp(new Date()));
+        dataMap.put(PIANTA_NOME, nomePianta);
+        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenzaInnaffiamento);
+        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE, frequenzaInnaffiamentoAttuale);
+
+        // Initialize Coltura from the data map
+        Coltura newColtura =  new Coltura(dataMap);
+
+        // Check if Coltura fields are correctly initialized
+        assertEquals(id, newColtura.getId());
+        assertEquals(idPianta, newColtura.getIdPianta());
+        assertEquals(proprietario, newColtura.getProprietario());
+        assertEquals(quantita, newColtura.getQuantita());
+        assertEquals(note, newColtura.getNote());
+        assertEquals(faseAttuale, newColtura.getFaseAttuale());
+        assertEquals(nomePianta, newColtura.getNomePianta());
+        assertEquals(frequenzaInnaffiamento, newColtura.getFrequenzaInnaffiamento());
+        assertEquals(frequenzaInnaffiamentoAttuale, newColtura.getFrequenzaInnaffiamentoAttuale());
+        // Check if Date fields are not null
+        assertNotNull(newColtura.getDataInserimento());
+        assertNotNull(newColtura.getUltimoInnaffiamento());
+    }
+
 }
