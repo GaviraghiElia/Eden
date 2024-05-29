@@ -34,6 +34,13 @@ public class Offerta {
         this.statoPropostaEnum = Enum.StatoProposta.valueOf(statoPropostaString);
     }
 
+    public Offerta(String id, String acquirente, double prezzo, Enum.StatoProposta statoPropostaEnum) {
+        this.id = id;
+        this.acquirente = acquirente;
+        this.prezzo = prezzo;
+        this.statoPropostaEnum = statoPropostaEnum;
+    }
+
     public String getId() {
         return id;
     }
