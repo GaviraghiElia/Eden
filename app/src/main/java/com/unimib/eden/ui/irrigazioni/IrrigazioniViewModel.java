@@ -84,29 +84,13 @@ public class IrrigazioniViewModel extends AndroidViewModel {
 
         //qui devo prendere le previsioni e riempire il LiveData
         repository = new WeatherRepository();
-        forecastLiveData = repository.getForecast("Agrate Brianza", 2, "no", "no");
-        //TODO: prendere i dati in forecastLiveData e metterli in forecastDayLiveData
-        forecastDayLiveData = null;
+        forecastLiveData = repository.getForecast("Agrate Brianza", 1, "no", "no");
     }
 
     //operazioni di Elia
-    public LiveData<List<ForecastDay>> getForecast(String location, int days, String aqi, String alerts) {
+    public LiveData<WeatherForecast> getForecast(String location, int days, String aqi, String alerts) {
         forecastLiveData = repository.getForecast(location, days, aqi, alerts);
-        //TODO: prendere i dati in forecastLiveData e metterli in forecastDayLiveData, scommentare return.
-        forecastDayLiveData = null;
-        //return forecastDayLiveData;
-        MutableLiveData<List<ForecastDay>> forecastDayLiveData = new MutableLiveData<>();
-        List<ForecastDay> forecastDays = new ArrayList<>();
-        Condition condition1 = new Condition("Patchy rain nearby", "//cdn.weatherapi.com/weather/64x64/day/176.png");
-        Day day1 = new Day(22.5, 14.9, 18.4, 3.32, 76, 1, 87, condition1);
-        ForecastDay forecastDay1 = new ForecastDay("2024-05-29", day1);
-        Condition condition2 = new Condition("Moderate rain", "//cdn.weatherapi.com/weather/64x64/day/302.png");
-        Day day2 = new Day(19.8, 14.7, 16.9, 17.75, 91, 1, 91, condition2);
-        ForecastDay forecastDay2 = new ForecastDay("2024-05-30", day2);
-        forecastDays.add(forecastDay1);
-        forecastDays.add(forecastDay2);
-        forecastDayLiveData.setValue(forecastDays);
-        return forecastDayLiveData;
+        return forecastLiveData;
     }
 
     public LiveData<WeatherHistory> getHistory(String location, LocalDate localDate){

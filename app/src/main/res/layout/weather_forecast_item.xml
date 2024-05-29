@@ -12,19 +12,110 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:padding="12dp">
 
-        <TextView
-            android:id="@+id/textViewProva"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imageViewFase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROVAXML"
+            app:cardCornerRadius="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"
+            app:cardPreventCornerOverlap="false">
+            <ImageView
+
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/note_illustration"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/textViewGiorno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giorno"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_alignTop="@id/imageViewFase"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewGiorno"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_alignTop="@id/textViewGiorno"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textViewTemperatura"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="Temperatura"
+            android:textSize="16sp"
+            android:textColor="@color/md_theme_primary"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_below="@id/textViewGiorno"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/max_temperature"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewChanceOfRain"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="Possibilita di pioggia"
+            android:textSize="16sp"
+            android:textColor="@color/md_theme_primary"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_below="@id/textViewTemperatura"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/garden_watering_can_24_ok"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewTotalPrec"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="Totale precipitazioni"
+            android:textSize="16sp"
+            android:textColor="@color/md_theme_primary"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_below="@id/textViewChanceOfRain"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/height_measure"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/textViewUmidita"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="Umidita"
+            android:textSize="16sp"
+            android:textColor="@color/md_theme_primary"
+            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_below="@id/textViewTotalPrec"
+            android:layout_marginStart="4dp"
+            android:drawableStart="@drawable/forest_24px"
+            android:drawablePadding="8dp"
+            android:layout_margin="4dp"
+            android:gravity="center_vertical"/>
+        </GridLayout>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

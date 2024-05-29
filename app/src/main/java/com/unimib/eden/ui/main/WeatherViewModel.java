@@ -24,11 +24,6 @@ public class WeatherViewModel extends ViewModel {
     public LiveData<WeatherForecast> getForecast(String location, int days, String aqi, String alerts) {
         forecastLiveData = repository.getForecast(location, days, aqi, alerts);
         return forecastLiveData;
-        /*if (forecast == null) {
-            forecast = repository.getForecast(location, days, aqi, alerts);
-        }
-        return forecast;
-         */
     }
 
     public LiveData<WeatherHistory> getHistory(String location, LocalDate localDate){

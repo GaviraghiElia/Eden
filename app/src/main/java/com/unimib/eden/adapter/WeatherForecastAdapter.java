@@ -92,8 +92,11 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         private final TextView textViewNote;
 
         private final CheckBox checkBox;*/
-        private final TextView textViewProva;
-
+        private final TextView textViewTemperatura;
+        private final TextView textViewChanceOfRain;
+        private final TextView textViewTotalPrec;
+        private final TextView textViewUmidita;
+        private final TextView textViewGiorno;
 
         public ForecastDayViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,7 +105,13 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
             this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);
             this.checkBox = itemView.findViewById(R.id.irrigazioniChecbox);*/
-            this.textViewProva = itemView.findViewById(R.id.textViewProva);
+
+            this.textViewGiorno = itemView.findViewById(R.id.textViewGiorno);
+            this.textViewTemperatura = itemView.findViewById(R.id.textViewTemperatura);
+            this.textViewChanceOfRain = itemView.findViewById(R.id.textViewChanceOfRain);
+            this.textViewTotalPrec = itemView.findViewById(R.id.textViewTotalPrec);
+            this.textViewUmidita = itemView.findViewById(R.id.textViewUmidita);
+
         }
 
         /**
@@ -148,8 +157,12 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
                 });
             }*/
 
-            this.textViewProva.setText("PROVA");
-
+            //TODO: qui settare tutti i dati
+            this.textViewGiorno.setText(weatherForecast.getDate());
+            this.textViewChanceOfRain.setText(String.valueOf(weatherForecast.getDay().getDaily_chance_of_rain()) + " %");
+            this.textViewTotalPrec.setText(String.valueOf(weatherForecast.getDay().getTotalprecip_mm()) + " mm");
+            this.textViewTemperatura.setText(String.valueOf(weatherForecast.getDay().getAvgtemp_c()) + " °C");
+            this.textViewUmidita.setText(String.valueOf(weatherForecast.getDay().getAvghumidity()) + " %");
         }
     }
 }

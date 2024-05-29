@@ -69,8 +69,8 @@ public class IrrigazioniFragment extends Fragment {
     private NavController navController;
 
     private List<Coltura> mColture = new ArrayList<>();
-    //private List<WeatherForecast> mWeatherForecast = new ArrayList<>();
-    private List<ForecastDay> mWeatherForecast = new ArrayList<>();
+    private WeatherForecast mWeatherForecast;
+    private List<ForecastDay> mWeatherForecastList = new ArrayList<>();
     private List<Coltura> coltureDaAggiornare = new ArrayList<>();
     public IrrigazioniViewModel irrigazioniViewModel;
     private ColturaAdapter mColturaAdapter;
@@ -132,11 +132,14 @@ public class IrrigazioniFragment extends Fragment {
             }
         };
 
-        final Observer<List<ForecastDay>> allWeatherForecastObserver = new Observer<List<ForecastDay>>() {
+        final Observer<WeatherForecast> allWeatherForecastObserver = new Observer<WeatherForecast>() {
             @Override
-            public void onChanged(List<ForecastDay> weatherForecast) {
+            public void onChanged(WeatherForecast weatherForecast) {
                 if (weatherForecast != null) {
                     Log.d(TAG, "weatherForecast: " + weatherForecast.toString());
+                    mWeatherForecast = weatherForecast;
+                    mWeatherForecastAdapter.update(mWeatherForecast.getForecast().getForecastday());
+
                     //mentre di là fa update, qui dovrò fare cosa simile
 
                 } else {
@@ -147,12 +150,11 @@ public class IrrigazioniFragment extends Fragment {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
-        //aggiunta riga qui, chiede meteo ad Agrate
-        irrigazioniViewModel.getForecast("Agrate Brianza", 2, "no", "no").observe(this, allWeatherForecastObserver);
+        //TODO: chiedere posizione
+        irrigazioniViewModel.getForecast("Agrate Brianza", 3, "no", "no").observe(this, allWeatherForecastObserver);
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
-
         //irrigazioniViewModel.updateDB("g.colombo147@campus.unimib.it");
         Log.d(TAG, "onCreate: IRRIGAZIONI: " + mColture.toString());
     }
@@ -185,13 +187,7 @@ public class IrrigazioniFragment extends Fragment {
         mBinding.irrigazioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //mBinding.previsioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Condition condition1 = new Condition("Patchy rain nearby", "//cdn.weatherapi.com/weather/64x64/day/176.png");
-        Day day1 = new Day(22.5, 14.9, 18.4, 3.32, 76, 1, 87, condition1);
-        ForecastDay p = new ForecastDay("2024-05-29", day1);
-        mWeatherForecast.add(p);
-        mWeatherForecast.add(p);
-        mWeatherForecast.add(p);
-        mWeatherForecastAdapter = new WeatherForecastAdapter(mWeatherForecast, R.layout.weather_forecast_item, getActivity().getApplication());
+        mWeatherForecastAdapter = new WeatherForecastAdapter(mWeatherForecastList, R.layout.weather_forecast_item, getActivity().getApplication());
 
         // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
         mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
