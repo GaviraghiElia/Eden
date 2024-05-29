@@ -134,6 +134,21 @@ public class ColturaRepository implements IColturaRepository {
     }
 
     /**
+     * Aggiorna la data dell'ultimo innaffiamento a quella corrente per tutte le colture dell'orto
+     */
+    public void updateDataInnaffiamentoColture(List<Coltura> colture) {
+        Log.d(TAG, "updateDataInnaffiamentoAllColture"+colture.toString());
+        for (Coltura coltura: colture) {
+            db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                    .document(coltura.getId())
+                    .update("ultimo_innaffiamento", new Date());
+            deleteColtura(coltura);
+            coltura.setUltimoInnaffiamento(new Date());
+            insert(coltura);
+        }
+    }
+
+    /**
      * Aggiunge una nuova coltura a Firestore e al database locale.
      *
      * @param colturaMap mappa contenente i dati della coltura da aggiungere.
