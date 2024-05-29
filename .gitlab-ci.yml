@@ -88,9 +88,9 @@ debugTests:
     - android-sdk-linux/platform-tools/adb shell input keyevent 82
     - ./gradlew connectedDebugAndroidTest --info
     - ./gradlew createDebugCoverageReport # Generate code coverage report
-    #- ./gradlew test  --info # For unit tests
+    - ./gradlew test --info # For unit tests
     #- ./gradlew testDebug --info
-    - ./gradlew testDebugUnitTest
+    #- ./gradlew testDebugUnitTest
     - ./gradlew jacocoTestReport
   artifacts:
     paths:
