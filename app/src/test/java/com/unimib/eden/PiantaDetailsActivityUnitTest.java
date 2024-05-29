@@ -2,19 +2,13 @@ package com.unimib.eden;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import androidx.fragment.app.FragmentActivity;
-
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
-import com.unimib.eden.utils.AuthenticationFieldValidator;
 import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-public class PiantaDetailsActivityTest {
+public class PiantaDetailsActivityUnitTest {
 
 
     private ConvertIntMonthToString convertIntMonthToString;
