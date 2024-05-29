@@ -30,10 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            // for instrumented test
             testCoverageEnabled = true
-            // for unit test
-            //testCoverageEnabled = false
         }
     }
     compileOptions {
@@ -71,8 +68,8 @@ task jacocoTestReport(type: JacocoReport) {
     }
 
     def fileFilter = [
-            '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-            '**/*Test*.*', 'android/**/*.*'
+            '*/R.class', '/R$.class', '*/BuildConfig.', '*/Manifest.*',
+            '*/*Test.', 'android//.*'
     ]
 
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
@@ -85,7 +82,7 @@ task jacocoTestReport(type: JacocoReport) {
     sourceDirectories = files([mainSrc])
     classDirectories = files([javaTree])
     executionData = fileTree(dir: project.buildDir, includes: [
-            'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/*coverage.ec'
+            'jacoco/testReleaseUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/*coverage.ec'
     ])
 }
 tasks.withType(Test) {
@@ -163,5 +160,8 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+
+    //for parsing API
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.+'
 
 }

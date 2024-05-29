@@ -1,6 +1,7 @@
 package com.unimib.eden.adapter;
 
 import android.app.Application;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
      */
     public ColturaAdapter(List<Coltura> coltureList, OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mColtureList = coltureList;
+        Log.d(TAG, "mColtureList:" + mColtureList.toString());
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
         piantaRepository = new PiantaRepository(application);
@@ -80,6 +82,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.mColtureList.clear();
             this.mColtureList.addAll(colturaList);
             notifyDataSetChanged();
+            Log.d(TAG, "mColtureList UPDATE:" + mColtureList.toString());
         }
     }
 

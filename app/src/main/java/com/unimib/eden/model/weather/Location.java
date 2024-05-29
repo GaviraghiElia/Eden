@@ -6,19 +6,16 @@ public class Location {
     private String country;
     private double lat;
     private double lon;
-    private String tz_id;
+    /*private String tz_id;
     private long localtime_epoch;
-    private String localtime;
+    private String localtime;*/
 
-    public Location(String name, String region, String country, double lat, double lon, String tz_id, long localtime_epoch, String localtime) {
+    public Location(String name, String region, String country, double lat, double lon) {
         this.name = name;
         this.region = region;
         this.country = country;
         this.lat = lat;
         this.lon = lon;
-        this.tz_id = tz_id;
-        this.localtime_epoch = localtime_epoch;
-        this.localtime = localtime;
     }
 
     @Override
@@ -70,29 +67,5 @@ public class Location {
 
     public void setLon(double lon) {
         this.lon = lon;
-    }
-
-    public String getTz_id() {
-        return tz_id;
-    }
-
-    public void setTz_id(String tz_id) {
-        this.tz_id = tz_id;
-    }
-
-    public long getLocaltime_epoch() {
-        return localtime_epoch;
-    }
-
-    public void setLocaltime_epoch(long localtime_epoch) {
-        this.localtime_epoch = localtime_epoch;
-    }
-
-    public String getLocaltime() {
-        return localtime;
-    }
-
-    public void setLocaltime(String localtime) {
-        this.localtime = localtime;
     }
 }

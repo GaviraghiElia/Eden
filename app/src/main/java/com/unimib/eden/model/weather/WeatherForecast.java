@@ -5,7 +5,7 @@ public class WeatherForecast {
     private Forecast forecast;
     private Current current;
 
-    public WeatherForecast(Location location, Forecast forecast, Current current){
+    public WeatherForecast(Location location, Current current, Forecast forecast){
         this.location = location;
         this.forecast = forecast;
         this.current = current;
@@ -26,4 +26,6 @@ public class WeatherForecast {
     public Forecast getForecast() {
         return forecast;
     }
+
+    public Current getCurrent() {return current;}
 }

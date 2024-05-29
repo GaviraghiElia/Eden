@@ -14,6 +14,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.unimib.eden.model.weather.Current;
+import com.unimib.eden.model.weather.Forecast;
+import com.unimib.eden.model.weather.Location;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
@@ -25,6 +28,10 @@ import java.util.Objects;
 
 //TODO: è il weather repository c he fa le richieste all API e riempie i dati.
 // poi li passa al IrrigazioniFragment, con quelle di oggi, domani, dopodomani
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class WeatherRepository {
@@ -118,6 +125,7 @@ public class WeatherRepository {
                 Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getLocalizedMessage()));
             }
         });
+
 
         return data;
     }
