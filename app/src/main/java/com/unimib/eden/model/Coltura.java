@@ -249,8 +249,4 @@ public class Coltura implements Serializable {
         return Objects.hash(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
     }
 
-    public boolean equals(QueryDocumentSnapshot document) {
-        return equals(new Coltura(document));
-    }
-
 }

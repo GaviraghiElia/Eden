@@ -1,9 +1,10 @@
 package com.unimib.eden;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.unimib.eden.model.Offerta;
@@ -53,5 +54,25 @@ public class OffertaUnitTest {
         assertEquals("Alice", offerta.getAcquirente());
         assertEquals(200, offerta.getPrezzo(), 0.01);
         assertEquals(Enum.StatoProposta.RIFIUTATA, offerta.getStatoPropostaEnum());
+    }
+
+    @Test
+    public void testEqualsAndHashCode() {
+        Offerta sameOfferta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCETTATA);
+        Offerta differentOfferta = new Offerta("idOfferta2", "Alice", 200, Enum.StatoProposta.RIFIUTATA);
+
+        Offerta newOfferta = null;
+        assertEquals(offerta, sameOfferta);
+        assertNotEquals(offerta, differentOfferta);
+        assertEquals(offerta.hashCode(), sameOfferta.hashCode());
+        assertNotEquals(offerta.hashCode(), differentOfferta.hashCode());
+        assertFalse(offerta.equals(newOfferta));
+        assertTrue(offerta.equals(offerta));
+    }
+
+    @Test
+    public void testToString() {
+        String expectedString = "Offerta{id='idOfferta', acquirente='Sandro', prezzo=150.0, statoPropostaEnum=ACCETTATA}";
+        assertEquals(expectedString, offerta.toString());
     }
 }
