@@ -26,14 +26,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-//TODO: è il weather repository c he fa le richieste all API e riempie i dati.
-// poi li passa al IrrigazioniFragment, con quelle di oggi, domani, dopodomani
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 public class WeatherRepository {
     private WeatherService service;
 

@@ -1,15 +1,18 @@
 package com.unimib.eden.adapter;
 
 import android.app.Application;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
@@ -37,8 +40,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
 
     private List<ForecastDay> mWeatherForecastList;
-
-    private WeatherRepository weatherRepository;
     private int layout;
 
     /**
@@ -97,6 +98,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         private final TextView textViewTotalPrec;
         private final TextView textViewUmidita;
         private final TextView textViewGiorno;
+        private final ImageView imageViewMeteo;
 
         public ForecastDayViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +113,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
             this.textViewChanceOfRain = itemView.findViewById(R.id.textViewChanceOfRain);
             this.textViewTotalPrec = itemView.findViewById(R.id.textViewTotalPrec);
             this.textViewUmidita = itemView.findViewById(R.id.textViewUmidita);
+            this.imageViewMeteo = itemView.findViewById(R.id.imageViewMeteo2);
 
         }
 
@@ -163,6 +166,9 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
             this.textViewTotalPrec.setText(String.valueOf(weatherForecast.getDay().getTotalprecip_mm()) + " mm");
             this.textViewTemperatura.setText(String.valueOf(weatherForecast.getDay().getAvgtemp_c()) + " °C");
             this.textViewUmidita.setText(String.valueOf(weatherForecast.getDay().getAvghumidity()) + " %");
+            String imageURL = "https:" + weatherForecast.getDay().getCondition().getIcon();
+            Log.d(TAG, imageURL);
+            Picasso.get().load(imageURL).into(imageViewMeteo);
         }
     }
 }

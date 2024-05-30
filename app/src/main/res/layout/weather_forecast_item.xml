@@ -12,24 +12,23 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:padding="12dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageViewFase"
+            android:id="@+id/imageViewMeteo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="50dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:layout_marginEnd="16dp"
-            app:cardPreventCornerOverlap="false">
+            android:layout_marginEnd="16dp">
             <ImageView
 
+                android:id="@+id/imageViewMeteo2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/note_illustration"
+                android:src="@drawable/sunny_24px"
                 />
         </com.google.android.material.card.MaterialCardView>
 
@@ -41,8 +40,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
-            android:layout_toEndOf="@id/imageViewFase"
-            android:layout_alignTop="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
+            android:layout_alignTop="@id/imageViewMeteo"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewGiorno"
             android:layout_marginTop="30dp"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_alignTop="@id/textViewGiorno"
             android:rowCount="2"
             android:columnCount="2"
@@ -64,10 +63,10 @@
             android:text="Temperatura"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewGiorno"
             android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/max_temperature"
+            android:drawableStart="@drawable/thermometer"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
@@ -79,10 +78,10 @@
             android:text="Possibilita di pioggia"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTemperatura"
             android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/garden_watering_can_24_ok"
+            android:drawableStart="@drawable/icon_rain"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
@@ -94,7 +93,7 @@
             android:text="Totale precipitazioni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewChanceOfRain"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/height_measure"
@@ -109,10 +108,10 @@
             android:text="Umidita"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTotalPrec"
             android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/forest_24px"
+            android:drawableStart="@drawable/fog"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
