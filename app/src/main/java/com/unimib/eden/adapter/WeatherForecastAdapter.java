@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,13 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.unimib.eden.R;
-import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.weather.ForecastDay;
-import com.unimib.eden.model.weather.WeatherForecast;
-import com.unimib.eden.repository.PiantaRepository;
-import com.unimib.eden.repository.WeatherRepository;
-import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
 
 import java.util.List;
@@ -52,7 +45,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     public WeatherForecastAdapter(List<ForecastDay> weatherForecastList, int layout, Application application) {
         this.mWeatherForecastList = weatherForecastList;
         this.layout = layout;
-        //piantaRepository = new PiantaRepository(application);
     }
 
     @NonNull
@@ -87,12 +79,7 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
      * ViewHolder per ogni elemento della RecyclerView.
      */
     public class ForecastDayViewHolder extends RecyclerView.ViewHolder {
-        /*private final TextView textViewColturaPianta;
-        private final TextView textViewGiorniInnaffiamento;
-        private final TextView textViewDataInserimento;
-        private final TextView textViewNote;
 
-        private final CheckBox checkBox;*/
         private final TextView textViewTemperatura;
         private final TextView textViewChanceOfRain;
         private final TextView textViewTotalPrec;
@@ -102,11 +89,6 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
 
         public ForecastDayViewHolder(@NonNull View itemView) {
             super(itemView);
-            /*this.textViewColturaPianta = itemView.findViewById(R.id.textViewPianta);
-            this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
-            this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
-            this.textViewNote = itemView.findViewById(R.id.textViewNote);
-            this.checkBox = itemView.findViewById(R.id.irrigazioniChecbox);*/
 
             this.textViewGiorno = itemView.findViewById(R.id.textViewGiorno);
             this.textViewTemperatura = itemView.findViewById(R.id.textViewTemperatura);
@@ -123,49 +105,14 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
          * @param weatherForecast La coltura da visualizzare.
          */
         public void bind(ForecastDay weatherForecast) {
-            //this.textViewColturaPianta.setText(piantaRepository.getPiantaById(coltura.getIdPianta()).getNome());
-            //this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
-            /*this.textViewColturaPianta.setText(coltura.getNomePianta());
-
-            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura));
-            if(Transformer.daysToProssimoInnaffiamento(coltura) >= 0){
-                this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_ok, 0, 0, 0);
-            }else{
-                this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_delay, 0, 0, 0);
-            }
-
-            if (layout == R.layout.coltura_item) {
-                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
-                if (coltura.getNote().isEmpty()) {
-                    this.textViewNote.setVisibility(View.GONE);
-                } else {
-                    this.textViewNote.setText(coltura.getNote());
-                }
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onItemClickListener.onItemClick(coltura);
-                    }
-                });
-            }
-            if (layout == R.layout.irrigazioni_item)  {
-                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
-                checkBox.setChecked(false);
-
-                checkBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onItemClickListener.onItemClick(coltura);
-                    }
-                });
-            }*/
-
-            //TODO: qui settare tutti i dati
-            this.textViewGiorno.setText(weatherForecast.getDate());
+            String relativeDate = Transformer.getRelativeDate(weatherForecast.getDate());
+            this.textViewGiorno.setText(relativeDate);
             this.textViewChanceOfRain.setText(String.valueOf(weatherForecast.getDay().getDaily_chance_of_rain()) + " %");
             this.textViewTotalPrec.setText(String.valueOf(weatherForecast.getDay().getTotalprecip_mm()) + " mm");
             this.textViewTemperatura.setText(String.valueOf(weatherForecast.getDay().getAvgtemp_c()) + " °C");
             this.textViewUmidita.setText(String.valueOf(weatherForecast.getDay().getAvghumidity()) + " %");
+
+
             String imageURL = "https:" + weatherForecast.getDay().getCondition().getIcon();
             Log.d(TAG, imageURL);
             Picasso.get().load(imageURL).into(imageViewMeteo);

@@ -84,7 +84,6 @@ public class IrrigazioniViewModel extends AndroidViewModel {
 
         //qui devo prendere le previsioni e riempire il LiveData
         repository = new WeatherRepository();
-        forecastLiveData = repository.getForecast("Agrate Brianza", 1, "no", "no");
     }
 
     //operazioni di Elia
