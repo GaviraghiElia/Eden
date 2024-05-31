@@ -1,7 +1,6 @@
 package com.unimib.eden.adapter;
 
 import android.app.Application;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,9 +129,6 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                 // add imageViewPianta
                 String nomePianta = coltura.getNomePianta().toLowerCase();
                 int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
-                Log.d("PiantaImageViewId", nomePianta);
-                Log.d("PiantaImageViewId", itemView.getContext().getPackageName());
-                Log.d("PiantaImageViewId", String.valueOf(resID));
 
                 if(resID != 0) { // Se l'immagine esiste nel drawable
                     this.imageViewColtura.setImageResource(resID);
@@ -159,9 +155,6 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                 // add imageViewPianta
                 String nomePianta = coltura.getNomePianta().toLowerCase();
                 int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
-                Log.d("PiantaImageViewId", nomePianta);
-                Log.d("PiantaImageViewId", itemView.getContext().getPackageName());
-                Log.d("PiantaImageViewId", String.valueOf(resID));
 
                 if(resID != 0) { // Se l'immagine esiste nel drawable
                     this.imageViewColtura.setImageResource(resID);

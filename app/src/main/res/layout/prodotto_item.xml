@@ -26,10 +26,10 @@
             android:layout_marginEnd="16dp"
             app:cardPreventCornerOverlap="false">
             <ImageView
-
+                android:id="@+id/imageViewProdottoBancarella"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:src="@drawable/note_illustration"
                 />
         </com.google.android.material.card.MaterialCardView>
