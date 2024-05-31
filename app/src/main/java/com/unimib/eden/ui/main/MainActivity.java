@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private FirebaseAuth mAuth;
-    private WeatherViewModel viewModel;
 
     NavHostFragment navHostFragment;
     NavController navController;
@@ -67,46 +66,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setEnabled(true);
 
 
-        // Crea un'istanza del ViewModel
-        viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
-        /*
-        viewModel.getForecast("Agrate Brianza", 2, "no", "no").observe(this, new Observer<WeatherForecast>() {
-            @Override
-            public void onChanged(WeatherForecast weatherForecast) {
-                if (weatherForecast != null) {
-                    Log.d("WeatherAppLog", "weatherForecast: " + weatherForecast.toString());
-                } else {
-                    Log.d("WeatherAppLog", "null");
-                }
-            }
-        });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            viewModel.getHistory("Agrate Brianza", LocalDate.now()).observe(this, new Observer<WeatherHistory>() {
-                @Override
-                public void onChanged(WeatherHistory weatherHistory) {
-                    if(weatherHistory != null){
-                        Log.d("WeatherAppLog", "weatherHistory: " + weatherHistory.toString());
-                    }else{
-                        Log.d("WeatherAppLog", "weatherHistory - null");
-                    }
-                }
-            });
-        }
-
-        viewModel.getSearchLocation("Carugo").observe(this, new Observer<List<WeatherSearchLocation>>() {
-            @Override
-            public void onChanged(List<WeatherSearchLocation> weatherSearchLocation) {
-                if(weatherSearchLocation != null){
-                    for (WeatherSearchLocation location : weatherSearchLocation) {
-                        Log.d("WeatherAppLogSearch", "weatherSearch: " + location.toString());
-                    }
-                }else{
-                    Log.d("WeatherAppLogSearch", "weatherSearch - null");
-                }
-            }
-        });
-         */
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

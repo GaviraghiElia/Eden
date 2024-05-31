@@ -40,24 +40,14 @@ public class IrrigazioniViewModel extends AndroidViewModel {
     private static final String TAG = "IrrigazioniViewModel";
 
     private List<Pianta> mPiante;
-
     private List<Fase> mFasi;
-
     private LiveData<List<Coltura>> mColture;
     private LiveData<List<Coltura>> mColtureDaIrrigare;
-    private LiveData<List<ForecastDay>> forecastDayLiveData;
     private PiantaRepository piantaRepository;
     private ColturaRepository colturaRepository;
-
     private FaseRepository faseRepository;
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    //parte del weatherviewmodel
     private WeatherRepository repository;
-
-    private LiveData<WeatherHistory> historyLiveData;
-    private LiveData<List<WeatherSearchLocation>> searchLocationLiveData;
     private LiveData<WeatherForecast> forecastLiveData;
 
 
@@ -73,7 +63,7 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         piantaRepository = new PiantaRepository(application);
         faseRepository = new FaseRepository(application);
         colturaRepository = new ColturaRepository(application);
-
+        repository = new WeatherRepository();
         // Recupera i dati dai repository
         mPiante = piantaRepository.getAllPiante();
         mFasi = faseRepository.getAllFasi();
@@ -81,25 +71,24 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         mColtureDaIrrigare = colturaRepository.getAllColtureDaInnaffiare((new Date()).getTime()/ (1000 * 60 * 60 * 24));
         //Log.d(TAG, "IrrigazioniViewModel: " + (1716210570396L/ (1000 * 60 * 60 * 24)));
         //Log.d(TAG, "IrrigazioniViewModel: " + (new Date()).getTime()/ (1000 * 60 * 60 * 24));
-
-        //qui devo prendere le previsioni e riempire il LiveData
-        repository = new WeatherRepository();
     }
 
-    //operazioni di Elia
+    /**
+     * Recupera le previsioni meteo per una località specificata.
+     *
+     * @param location la località per cui devono essere recuperate le previsioni meteo.
+     *                 Può essere un nome di città, un codice postale o coordinate geografiche.
+     * @param days     il numero di giorni per cui sono richieste le previsioni meteo.
+     * @param aqi      indica se i dati dell'Indice di Qualità dell'Aria (AQI) devono essere inclusi.
+     *                 I valori possibili possono essere "yes" o "no".
+     * @param alerts   indica se gli avvisi meteorologici devono essere inclusi.
+     *                 I valori possibili possono essere "yes" o "no".
+     * @return un oggetto LiveData contenente i dati delle previsioni meteo.
+     *         Gli osservatori possono utilizzare questo LiveData per ricevere aggiornamenti quando i dati delle previsioni cambiano.
+     */
     public LiveData<WeatherForecast> getForecast(String location, int days, String aqi, String alerts) {
         forecastLiveData = repository.getForecast(location, days, aqi, alerts);
         return forecastLiveData;
-    }
-
-    public LiveData<WeatherHistory> getHistory(String location, LocalDate localDate){
-        historyLiveData = repository.getHistory(location, localDate);
-        return historyLiveData;
-    }
-
-    public LiveData<List<WeatherSearchLocation>> getSearchLocation(String searchLocation){
-        searchLocationLiveData = repository.getSearchlocation(searchLocation);
-        return searchLocationLiveData;
     }
 
     /**

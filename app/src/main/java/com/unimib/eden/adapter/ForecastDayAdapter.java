@@ -1,6 +1,5 @@
 package com.unimib.eden.adapter;
 
-import android.app.Application;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,31 +18,24 @@ import com.unimib.eden.utils.Transformer;
 import java.util.List;
 
 /**
- * Adapter per la visualizzazione delle colture in una RecyclerView.
- * Questo adapter si occupa di gestire l'interfacciamento tra i dati delle colture e la RecyclerView che li visualizza.
+ * Adapter per la visualizzazione delle previsioni in una RecyclerView.
+ * Questo adapter si occupa di gestire l'interfacciamento tra i dati delle previsioni meteo e la RecyclerView che li visualizza.
  */
-public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecastAdapter.ForecastDayViewHolder> {
+public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.ForecastDayViewHolder> {
 
-    private static final String TAG = "WeatherForecastAdapter";
+    private static final String TAG = "ForecastDayAdapter";
     private View view;
-
-    /**
-     * Interfaccia per la gestione dei click sugli elementi della RecyclerView.
-     */
-
-
-    private List<ForecastDay> mWeatherForecastList;
+    private List<ForecastDay> mForecastDayList;
     private int layout;
 
     /**
      * Costruttore dell'adapter.
      *
-     * @param weatherForecastList       Lista delle colture da visualizzare.
+     * @param forecastDayList       Lista delle previsioni da visualizzare.
      * @param layout             Layout da utilizzare per ogni elemento della RecyclerView.
-     * @param application        Oggetto Application per l'accesso al repository delle piante.
      */
-    public WeatherForecastAdapter(List<ForecastDay> weatherForecastList, int layout, Application application) {
-        this.mWeatherForecastList = weatherForecastList;
+    public ForecastDayAdapter(List<ForecastDay> forecastDayList, int layout) {
+        this.mForecastDayList = forecastDayList;
         this.layout = layout;
     }
 
@@ -55,22 +47,22 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ForecastDayViewHolder weatherForecastViewHolder, int i) {
-        weatherForecastViewHolder.bind(mWeatherForecastList.get(i));
+    public void onBindViewHolder(@NonNull ForecastDayViewHolder forecastDayViewHolder, int i) {
+        forecastDayViewHolder.bind(mForecastDayList.get(i));
     }
 
     @Override
     public int getItemCount() {
-        if (mWeatherForecastList != null) {
-            return mWeatherForecastList.size();
+        if (mForecastDayList != null) {
+            return mForecastDayList.size();
         }
         return 0;
     }
 
-    public void update(List<ForecastDay> weatherForecastList) {
-        if (this.mWeatherForecastList != null) {
-            this.mWeatherForecastList.clear();
-            this.mWeatherForecastList.addAll(weatherForecastList);
+    public void update(List<ForecastDay> forecastDayList) {
+        if (this.mForecastDayList != null) {
+            this.mForecastDayList.clear();
+            this.mForecastDayList.addAll(forecastDayList);
             notifyDataSetChanged();
         }
     }
@@ -100,20 +92,18 @@ public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecast
         }
 
         /**
-         * Associa i dati della coltura al ViewHolder.
+         * Associa i dati della previsione al ViewHolder.
          *
-         * @param weatherForecast La coltura da visualizzare.
+         * @param forecastDay La previsione da visualizzare.
          */
-        public void bind(ForecastDay weatherForecast) {
-            String relativeDate = Transformer.getRelativeDate(weatherForecast.getDate());
+        public void bind(ForecastDay forecastDay) {
+            String relativeDate = Transformer.getRelativeDate(forecastDay.getDate());
             this.textViewGiorno.setText(relativeDate);
-            this.textViewChanceOfRain.setText(String.valueOf(weatherForecast.getDay().getDaily_chance_of_rain()) + " %");
-            this.textViewTotalPrec.setText(String.valueOf(weatherForecast.getDay().getTotalprecip_mm()) + " mm");
-            this.textViewTemperatura.setText(String.valueOf(weatherForecast.getDay().getAvgtemp_c()) + " °C");
-            this.textViewUmidita.setText(String.valueOf(weatherForecast.getDay().getAvghumidity()) + " %");
-
-
-            String imageURL = "https:" + weatherForecast.getDay().getCondition().getIcon();
+            this.textViewChanceOfRain.setText(String.valueOf(forecastDay.getDay().getDaily_chance_of_rain()) + " %");
+            this.textViewTotalPrec.setText(String.valueOf(forecastDay.getDay().getTotalprecip_mm()) + " mm");
+            this.textViewTemperatura.setText(String.valueOf(forecastDay.getDay().getAvgtemp_c()) + " °C");
+            this.textViewUmidita.setText(String.valueOf(forecastDay.getDay().getAvghumidity()) + " %");
+            String imageURL = "https:" + forecastDay.getDay().getCondition().getIcon();
             Log.d(TAG, imageURL);
             Picasso.get().load(imageURL).into(imageViewMeteo);
         }
