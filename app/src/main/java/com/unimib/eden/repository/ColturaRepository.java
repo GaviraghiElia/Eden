@@ -125,12 +125,25 @@ public class ColturaRepository implements IColturaRepository {
      */
     @Override
     public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
-        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
-                .document(coltura.getId())
-                .update("ultimo_innaffiamento", newDate);
         deleteColtura(coltura);
-        coltura.setUltimoInnaffiamento(newDate);
+        if(newDate != null) {
+            db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+                    .document(coltura.getId())
+                    .update("ultimo_innaffiamento", newDate);
+            coltura.setUltimoInnaffiamento(newDate);
+        }
+        coltura.setUltimoAggiornamento(new Date());
         insert(coltura);
+    }
+
+    /**
+     * Aggiorna la data dell'ultimo innaffiamento a quella indicata per la coltura relativa della mappa
+     * @param updates La mappa che contiene le coppie coltura-data
+     */
+    public void updateDataInnaffiamentoColture(Map<Coltura, Date> updates) {
+        for (Map.Entry<Coltura, Date> current : updates.entrySet()) {
+            updateDataInnaffiamentoColtura(current.getKey(), current.getValue());
+        }
     }
 
     /**
@@ -144,6 +157,7 @@ public class ColturaRepository implements IColturaRepository {
                     .update("ultimo_innaffiamento", new Date());
             deleteColtura(coltura);
             coltura.setUltimoInnaffiamento(new Date());
+            coltura.setUltimoAggiornamento(new Date());
             insert(coltura);
         }
     }

@@ -29,8 +29,8 @@ import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.home.HomeViewModel;
@@ -88,20 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onChanged: ");
                 mColture = coltura;
                 Log.d(TAG, "firstOpening"+firstOpening);
-                if(firstOpening) {
-                    viewModel.getHistory("Agrate Brianza", LocalDate.now()).observe(lifecycleOwner, new Observer<WeatherHistory>() {
+                viewModel.getHistory("Agrate Brianza", new Date()).observe(lifecycleOwner, new Observer<WeatherHistory>() {
                         @Override
                         public void onChanged(WeatherHistory weatherHistory) {
                             if (weatherHistory != null) {
                                 Log.d("WeatherAppLog", "weatherHistory: " + weatherHistory.toString());
-                                firstOpening = viewModel.updateInnaffiamenti(weatherHistory.getForecast().getForecastday().get(0).getDay().getTotalprecip_mm(), coltura);
+                                viewModel.updateInnaffiamenti(weatherHistory.getForecast().getForecastday().get(0).getDay(), coltura);
                                 Log.d("WeatherAppLog", "updateInnaffiamenti: " + weatherHistory.getForecast().getForecastday().get(0).getDay().getTotalprecip_mm());
                             } else {
                                 Log.d("WeatherAppLog", "weatherHistory - null");
                             }
                         }
                     });
-                }
             }
         };
 

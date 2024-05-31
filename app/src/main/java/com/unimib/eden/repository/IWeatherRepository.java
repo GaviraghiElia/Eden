@@ -6,7 +6,7 @@ import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public interface IWeatherRepository {
      * @param date La data per la quale ottenere la storia.
      * @return LiveData contenente i dati della storia meteorologica.
      */
-    LiveData<WeatherHistory> getHistory(String location, LocalDate date);
+    LiveData<WeatherHistory> getHistory(String location, Date date);
 
     /**
      * Recupera le località di ricerca meteorologica in base alla query di ricerca.

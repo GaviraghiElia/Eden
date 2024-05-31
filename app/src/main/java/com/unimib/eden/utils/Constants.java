@@ -43,9 +43,9 @@ public class Constants {
     public static final String FASE_DESCRIZIONE = "descrizione";
     public static final String FASE_IMMAGINE = "immagine";
     public static final String FASE_FREQUENZA_INNAFFIAMENTO = "frequenza_innaffiamento";
-    public static final int VERSIONE_DATABASE = 18;
-    public static final int VERSIONE_DATABASE_PIANTA = 13;
-    public static final int VERSIONE_DATABASE_FASE = 12;
+    public static final int VERSIONE_DATABASE = 19;
+    public static final int VERSIONE_DATABASE_PIANTA = 14;
+    public static final int VERSIONE_DATABASE_FASE = 13;
 
     public static final String NOME_DATABASE_ORTO = "orto";
     public static final String NOME_DATABASE_COLTURA = "coltura";

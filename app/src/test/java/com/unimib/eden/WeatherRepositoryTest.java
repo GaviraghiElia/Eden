@@ -19,8 +19,8 @@ import org.junit.rules.TestRule;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,7 +55,7 @@ public class WeatherRepositoryTest {
     @Test
     public void testGetHistory() {
         String location = "Milan";
-        LocalDate date = LocalDate.now();
+        Date date = new Date();
         WeatherHistory mockHistory = new WeatherHistory();
 
         when(mockService.getHistory(anyString(), eq(location), eq(date.toString()))).thenReturn(mockCallHistory);
@@ -73,7 +73,7 @@ public class WeatherRepositoryTest {
     @Test
     public void testGetHistoryFailure() {
         String location = "Milan";
-        LocalDate date = LocalDate.now();
+        Date date = new Date();
 
         when(mockService.getHistory(anyString(), eq(location), eq(date.toString()))).thenReturn(mockCallHistory);
         doAnswer(invocation -> {

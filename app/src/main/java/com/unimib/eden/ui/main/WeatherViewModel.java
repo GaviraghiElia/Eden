@@ -5,20 +5,19 @@ import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.weather.Day;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
 import com.unimib.eden.repository.ColturaRepository;
 import com.unimib.eden.repository.WeatherRepository;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ViewModel per gestire e fornire dati meteorologici e aggiornare di conseguenza le colture.
@@ -31,6 +30,8 @@ public class WeatherViewModel extends AndroidViewModel {
     private LiveData<List<WeatherSearchLocation>> searchLocationLiveData;
 
     private LiveData<List<Coltura>> mColture;
+
+    private static final String TAG = "WeatherViewModel";
 
     /**
      * Costruttore per WeatherViewModel.
@@ -64,11 +65,11 @@ public class WeatherViewModel extends AndroidViewModel {
      * Recupera i dati della storia meteorologica.
      *
      * @param location La località per la quale ottenere la storia.
-     * @param localDate La data per la quale ottenere la storia.
+     * @param date La data per la quale ottenere la storia.
      * @return LiveData contenente la storia meteorologica.
      */
-    public LiveData<WeatherHistory> getHistory(String location, LocalDate localDate){
-        historyLiveData = repository.getHistory(location, localDate);
+    public LiveData<WeatherHistory> getHistory(String location, Date date){
+        historyLiveData = repository.getHistory(location, date);
         return historyLiveData;
     }
 
@@ -86,26 +87,13 @@ public class WeatherViewModel extends AndroidViewModel {
     /**
      * Aggiorna i dati di irrigazione delle colture in base alle precipitazioni passate.
      *
-     * @param totalprecipMm Precipitazione totale in millimetri.
+     * @param dayWeather Condizioni del giorno appena trascorso.
      * @param colture Lista delle colture da aggiornare.
      * @return True se le colture sono state aggiornate, altrimenti false.
      */
-    public boolean updateInnaffiamenti(double totalprecipMm, List<Coltura> colture) {
-        if(totalprecipMm > 20) {
-            Date currentDate = new Date();
-            for (Coltura coltura: colture) {
-                Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
-                if(!(ultimoInnaffiamento.getDay() == currentDate.getDay()
-                        && ultimoInnaffiamento.getMonth() == currentDate.getMonth()
-                        && ultimoInnaffiamento.getYear() == currentDate.getYear())) {
-                    colturaRepository.updateDataInnaffiamentoColture(colture);
-                }
-            }
-            return colture.isEmpty();
-        }
-        else {
-            return false;
-        }
+    public void updateInnaffiamenti(Day dayWeather, List<Coltura> colture) {
+        Map<Coltura, Date> updates = updatedDatesOfInnaffiamento(colture, dayWeather);
+        colturaRepository.updateDataInnaffiamentoColture(updates);
     }
 
     /**
@@ -115,5 +103,40 @@ public class WeatherViewModel extends AndroidViewModel {
      */
     public LiveData<List<Coltura>> getColture() {
         return mColture;
+    }
+
+    /*
+     * Stabilisce la data di ultimo innaffiamento sulla base di ogni coltura sulla base delle condizioni metereologiche passate.
+     *
+     * @param colture La lista di colture.
+     * @param dayWeather Le condizioni meteo passate.
+     * @return La mappa contenente le coppie coltura-data da aggiornare.
+     */
+    public static Map<Coltura, Date> updatedDatesOfInnaffiamento(List<Coltura> colture, Day dayWeather) {
+        Map<Coltura, Date> datesForColture = new HashMap<>();
+        Date currentDate = new Date();
+        for(Coltura coltura: colture) {
+            Date ultimoAggiornamento = coltura.getUltimoAggiornamento();
+            // Controlla se la coltura oggi non è già stata aggiornata
+            if(!(ultimoAggiornamento.getDay() == currentDate.getDay()
+                    && ultimoAggiornamento.getMonth() == currentDate.getMonth()
+                    && ultimoAggiornamento.getYear() == currentDate.getYear())) {
+                // Ha piovuto a sufficienza per considerare le piante come bagnate (ieri)
+                if(dayWeather.getTotalprecip_mm() > 20) {
+                    Date newDate = new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000);
+                    datesForColture.put(coltura, newDate);
+                }
+                // Ha fatto troppo caldo e secco, anticipa di un giorno la data di innaffiamento
+                else if(dayWeather.getAvgtemp_c() > 35 && dayWeather.getAvghumidity() < 50) {
+                    Date newDate = new Date(coltura.getUltimoInnaffiamento().getTime() - 2 * 24 * 60 * 60 * 1000);
+                    datesForColture.put(coltura, newDate);
+                }
+                else {
+                    // Return null as a date when there is no need to update it
+                    datesForColture.put(coltura, null);
+                }
+            }
+        }
+        return datesForColture;
     }
 }

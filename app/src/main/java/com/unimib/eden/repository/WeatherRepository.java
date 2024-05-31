@@ -19,7 +19,8 @@ import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
 import com.unimib.eden.service.WeatherService;
 
-import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,9 +59,17 @@ public class WeatherRepository implements IWeatherRepository {
      * @param date La data per la quale ottenere la storia.
      * @return LiveData contenente i dati della storia meteorologica.
      */
-    public LiveData<WeatherHistory> getHistory(String location, LocalDate date) {
+    public LiveData<WeatherHistory> getHistory(String location, Date date) {
         MutableLiveData<WeatherHistory> data = new MutableLiveData<>();
-        Call<WeatherHistory> call = service.getHistory(apiKey, location, date.toString());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int year = calendar.get(Calendar.YEAR);
+        String month = String.format("%02d", calendar.get(Calendar.MONTH) + 1);  // Calendar.MONTH is zero-based
+        String day = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
+        String formattedDate = year + "-" + month + "-" + day;
+        Call<WeatherHistory> call = service.getHistory(apiKey, location, formattedDate);
 
         call.enqueue(new Callback<WeatherHistory>() {
             @Override
