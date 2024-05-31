@@ -30,10 +30,10 @@
                 android:layout_marginEnd="16dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
-                    android:id="@+id/imageViewPianta"
+                    android:id="@+id/imageViewPiantaSearch"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/note_illustration"
                     />
             </com.google.android.material.card.MaterialCardView>

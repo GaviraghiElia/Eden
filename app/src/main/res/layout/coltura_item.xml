@@ -17,7 +17,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageViewFase"
+            android:id="@+id/cardviewColtura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="50dp"
@@ -26,10 +26,10 @@
             android:layout_marginEnd="16dp"
             app:cardPreventCornerOverlap="false">
             <ImageView
-
+                android:id="@+id/imageViewColtura"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:src="@drawable/note_illustration"
                 />
         </com.google.android.material.card.MaterialCardView>
@@ -42,8 +42,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
-            android:layout_toEndOf="@id/imageViewFase"
-            android:layout_alignTop="@id/imageViewFase"
+            android:layout_toEndOf="@id/cardviewColtura"
+            android:layout_alignTop="@id/cardviewColtura"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
@@ -54,7 +54,7 @@
             android:text="X giorni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/cardviewColtura"
             android:layout_below="@id/textViewPianta"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/garden_watering_can_24_ok"
@@ -69,7 +69,7 @@
             android:text="Data"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/cardviewColtura"
             android:layout_below="@id/textViewDaysNumber"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/baseline_calendar_month_24"
@@ -84,7 +84,7 @@
             android:text="Note"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFase"
+            android:layout_toEndOf="@id/cardviewColtura"
             android:layout_below="@id/textViewDate"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/baseline_edit_note_24"

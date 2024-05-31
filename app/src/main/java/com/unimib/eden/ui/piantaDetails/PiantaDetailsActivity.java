@@ -83,8 +83,17 @@ public class PiantaDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         pianta = (Pianta) intent.getSerializableExtra("pianta");
+        String nomePianta = pianta.getNome();
 
-        binding.piantaNomeDetails.setText(pianta.getNome());
+        //binding.piantaNomeDetails.setText(nomePianta);
+        int resID = getResources().getIdentifier(nomePianta.toLowerCase(), "drawable", getPackageName());
+        if(resID != 0)
+        {
+            binding.imageViewPiantaDeailts.setImageResource(getResources().getIdentifier(pianta.getNome().toLowerCase() , "drawable", getPackageName()));
+        }else{
+            binding.imageViewPiantaDeailts.setVisibility(View.GONE);
+        }
+
         binding.famigliaBotanicaDetails.setText(pianta.getFamigliaBotanica());
         binding.minTemperaturaDetails.setText(String.valueOf(pianta.getMinTemperatura()) + "°");
         binding.maxTemperaturaDetails.setText(String.valueOf(pianta.getMaxTemperatura())+ "°");
