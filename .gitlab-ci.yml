@@ -9,7 +9,7 @@ variables:
   # Version of the Android build tools we are using.
   ANDROID_BUILD_TOOLS: "34.0.0"
   ANDROID_SDK_TOOLS: "7583922"
-  EMULATOR_IMAGE: "26"
+  EMULATOR_IMAGE: "24"
 
 # Packages installation before running script
 default:
