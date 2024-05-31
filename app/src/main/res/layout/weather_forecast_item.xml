@@ -36,14 +36,14 @@
             android:id="@+id/textViewGiorno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giorno"
+            android:text="Oggi"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_alignTop="@id/imageViewMeteo"
-            android:layout_margin="4dp"
-            android:gravity="center_vertical"/>
+            android:layout_marginStart="14dp"
+            android:gravity="center_horizontal"/>
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -67,6 +67,7 @@
             android:layout_below="@id/textViewGiorno"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/thermometer"
+            android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
@@ -80,10 +81,11 @@
             android:textColor="@color/md_theme_primary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTemperatura"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="14dp"
             android:drawableStart="@drawable/icon_rain"
+            android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
-            android:layout_margin="4dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"/>
 
         <TextView
@@ -97,6 +99,7 @@
             android:layout_below="@id/textViewChanceOfRain"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/height_measure"
+            android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
@@ -110,10 +113,11 @@
             android:textColor="@color/md_theme_primary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTotalPrec"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="14dp"
             android:drawableStart="@drawable/fog"
+            android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
-            android:layout_margin="4dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"/>
         </GridLayout>
     </RelativeLayout>
