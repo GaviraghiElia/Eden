@@ -182,6 +182,7 @@ public class BancarellaFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.home_menu, menu);
+        menu.getItem(0).setVisible(false);
 
     }
 
