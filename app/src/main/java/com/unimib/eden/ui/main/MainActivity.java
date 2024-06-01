@@ -35,6 +35,10 @@ import java.util.List;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.home.HomeViewModel;
 
+/**
+ * MainActivity è il punto di ingresso principale dell'applicazione. Configura i componenti di navigazione,
+ * inizializza l'autenticazione Firebase e osserva i cambiamenti nei dati meteorologici e nelle colture.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -44,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
     NavHostFragment navHostFragment;
     NavController navController;
 
+    public WeatherViewModel viewModel;
 
     private List<Coltura> mColture = new ArrayList<>();
 
     boolean firstOpening = true;
 
+    /**
+     * Chiamato quando l'attività viene creata per la prima volta. Questo è il punto in cui di fa tutta la configurazione
+     * statica normale: creare viste, collegare dati alle liste, ecc. Questo metodo ti fornisce anche un Bundle contenente
+     * lo stato precedentemente congelato dell'attività, se presente.
+     *
+     * @param savedInstanceState Se l'attività viene ricreata dopo essere stata precedentemente chiusa, questo Bundle contiene i dati
+     *                           che ha fornito più recentemente in {@link #onSaveInstanceState}.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_profile, R.id.navigation_stand).build();
 
-        // Logic to manage the behavior of the BottomNavigationView, navHostFragmentActivityMain and Toolbar
+        // Logica per gestire il comportamento di BottomNavigationView, navHostFragmentActivityMain e Toolbar
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(androidx.navigation.fragment.R.id.nav_host_fragment_container);
         navController = navHostFragment.getNavController();
 
-        // For the Toolbar
+        // Per la Toolbar
         setSupportActionBar(findViewById(R.id.toolbarMain));
         //((Toolbar) findViewById(R.id.toolbarMain)).setTitleTextAppearance(this, R.style.TextAppearance_App_CollapsingToolbar_Collapsed);
 
@@ -68,14 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        // For the BottomNavigationView
+        // Per la BottomNavigationView
         NavigationUI.setupWithNavController((BottomNavigationView) findViewById(R.id.nav_view), navController);
 
-        // Initialize Firebase Auth
+        // Inizializza Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         BottomNavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setEnabled(true);
-
 
         // Crea un'istanza del ViewModel
         viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
@@ -87,25 +99,23 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d(TAG, "onChanged: ");
                 mColture = coltura;
-                Log.d(TAG, "firstOpening"+firstOpening);
+                Log.d(TAG, "firstOpening" + firstOpening);
                 viewModel.getHistory("Agrate Brianza", new Date()).observe(lifecycleOwner, new Observer<WeatherHistory>() {
-                        @Override
-                        public void onChanged(WeatherHistory weatherHistory) {
-                            if (weatherHistory != null) {
-                                Log.d("WeatherAppLog", "weatherHistory: " + weatherHistory.toString());
-                                viewModel.updateInnaffiamenti(weatherHistory.getForecast().getForecastday().get(0).getDay(), coltura);
-                                Log.d("WeatherAppLog", "updateInnaffiamenti: " + weatherHistory.getForecast().getForecastday().get(0).getDay().getTotalprecip_mm());
-                            } else {
-                                Log.d("WeatherAppLog", "weatherHistory - null");
-                            }
+                    @Override
+                    public void onChanged(WeatherHistory weatherHistory) {
+                        if (weatherHistory != null) {
+                            Log.d("WeatherAppLog", "weatherHistory: " + weatherHistory.toString());
+                            viewModel.updateInnaffiamenti(weatherHistory.getForecast().getForecastday().get(0).getDay(), coltura);
+                            Log.d("WeatherAppLog", "updateInnaffiamenti: " + weatherHistory.getForecast().getForecastday().get(0).getDay().getTotalprecip_mm());
+                        } else {
+                            Log.d("WeatherAppLog", "weatherHistory - null");
                         }
-                    });
+                    }
+                });
             }
         };
 
         viewModel.getColture().observe(this, allColtureObserver);
-
-
 
         /*
         viewModel.getForecast("Agrate Brianza", 2, "no", "no").observe(this, new Observer<WeatherForecast>() {
@@ -146,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
         });
          */
     }
+
+    /**
+     * Questo metodo viene chiamato ogni volta che viene selezionato un elemento nel menu delle opzioni.
+     * L'implementazione predefinita restituisce semplicemente false per consentire l'elaborazione normale
+     * (chiamando il Runnable dell'elemento o inviando un messaggio al suo Handler come appropriato).
+     *
+     * @param item L'elemento del menu che è stato selezionato.
+     * @return boolean Restituisce false per consentire l'elaborazione normale del menu, true per gestirlo qui.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.action_logout){
