@@ -129,8 +129,7 @@ public class IrrigazioniFragment extends Fragment {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
-        //TODO: chiedere posizione
-        irrigazioniViewModel.getForecast("Antananarivo", 3, "no", "no").observe(this, allWeatherForecastObserver);
+        irrigazioniViewModel.getForecast("Agrate Brianza", 3, "no", "no").observe(this, allWeatherForecastObserver);
 
         // Recupera le colture dal ViewModel
         //mColture = homeViewModel.getColture();
@@ -213,11 +212,7 @@ public class IrrigazioniFragment extends Fragment {
                 }
             }
         });
-
-        //homeViewModel.updateDB("g.colombo147@campus.unimib.it");
-
         return view;
-
     }
 
     @Override

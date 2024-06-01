@@ -1,5 +1,8 @@
 package com.unimib.eden.adapter;
 
+
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 import com.unimib.eden.R;
 import com.unimib.eden.model.weather.ForecastDay;
@@ -78,6 +83,7 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
         private final TextView textViewUmidita;
         private final TextView textViewGiorno;
         private final ImageView imageViewMeteo;
+        //private final MaterialCardView materialCardView;
 
         public ForecastDayViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,8 +93,9 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
             this.textViewChanceOfRain = itemView.findViewById(R.id.textViewChanceOfRain);
             this.textViewTotalPrec = itemView.findViewById(R.id.textViewTotalPrec);
             this.textViewUmidita = itemView.findViewById(R.id.textViewUmidita);
-            this.imageViewMeteo = itemView.findViewById(R.id.imageViewMeteo2);
+            this.imageViewMeteo = itemView.findViewById(R.id.imageViewMeteo);
 
+            //this.materialCardView = itemView.findViewById(R.id.MaterialCardView);
         }
 
         /**
@@ -106,6 +113,17 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
             String imageURL = "https:" + forecastDay.getDay().getCondition().getIcon();
             Log.d(TAG, imageURL);
             Picasso.get().load(imageURL).into(imageViewMeteo);
+            /*if(forecastDay.getDay().getDaily_chance_of_rain() < 50){
+                //this.materialCardView.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
+                int hexColor = Color.parseColor("#ffdad8");
+                ColorStateList colorStateList = ColorStateList.valueOf(hexColor);
+                this.materialCardView.setCardBackgroundColor(255);
+            }else{
+                int hexColor = Color.parseColor("#DCE7C8");
+                ColorStateList colorStateList = ColorStateList.valueOf(hexColor);
+                this.materialCardView.setCardBackgroundColor(0);
+            }*/
+
         }
     }
 }
