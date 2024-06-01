@@ -12,6 +12,9 @@ public class WeatherHistory {
         this.forecast = forecast;
     }
 
+    public WeatherHistory() {
+    }
+
     @Override
     public String toString() {
         return "WeatherHistory{" +
