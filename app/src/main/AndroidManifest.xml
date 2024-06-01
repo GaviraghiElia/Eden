@@ -54,6 +54,10 @@
             android:label="InserimentoProdottoActivity">
         </activity>
         <activity
+            android:name=".ui.prodottoDetails.ProdottoDetailsActivity"
+            android:label="ProdottoDetailsActivity">
+        </activity>
+        <activity
             android:name=".ui.inserimentoColtura.InserimentoColturaActivity"
             android:label="InserimentoColturaActivity">
         </activity>

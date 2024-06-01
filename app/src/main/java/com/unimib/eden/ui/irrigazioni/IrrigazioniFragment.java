@@ -140,25 +140,16 @@ public class IrrigazioniFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         // Inflate il layout per questo frammento
         mBinding = FragmentIrrigazioniBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
 
         navController = NavHostFragment.findNavController(this);
-        if(checkSession())
-        {
-            Log.d("mAuth", "home fragment - user sign in");
-            Log.d("mAuth", "home fragment " + requireActivity());
-
-        }else
-        {
-            Log.d("mAuth", "home fragment - user not auth");
-            Log.d("mAuth", "home fragment - this activity is" + requireActivity());
-            navController.navigate(R.id.action_navigation_home_to_registerFragment);
-        }
 
         BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
         navBar.setVisibility(View.VISIBLE);
+
 
         // Imposta RecyclerView con LinearLayoutManager
         mBinding.irrigazioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -220,33 +211,6 @@ public class IrrigazioniFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.home_menu, menu);
         menu.getItem(0).setVisible(false);
-
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Listener for the items in the custom menu
-        /*
-        if (item.getItemId() == R.id.app_bar_search) {
-            Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
-            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
-            startActivity(intent);
-            return true;
-        }
-
-         */
-
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private boolean checkSession()
-    {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null)
-            return true;
-
-        return false;
-    }
 }
