@@ -1,7 +1,5 @@
 package com.unimib.eden.adapter;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
