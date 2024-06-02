@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.unimib.eden"
-        minSdk 21
+        minSdk 24
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -30,10 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            // for instrumented test
             testCoverageEnabled = true
-            // for unit test
-            //testCoverageEnabled = false
         }
     }
     compileOptions {
@@ -71,8 +68,8 @@ task jacocoTestReport(type: JacocoReport) {
     }
 
     def fileFilter = [
-            '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-            '**/*Test*.*', 'android/**/*.*'
+            '*/R.class', '/R$.class', '*/BuildConfig.', '*/Manifest.*',
+            '*/*Test.', 'android//.*'
     ]
 
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
@@ -161,4 +158,12 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+
+    //for meteo icon
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+
 }

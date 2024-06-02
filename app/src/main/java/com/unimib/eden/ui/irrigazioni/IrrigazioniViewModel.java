@@ -5,17 +5,28 @@ import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.weather.Condition;
+import com.unimib.eden.model.weather.Day;
+import com.unimib.eden.model.weather.ForecastDay;
+import com.unimib.eden.model.weather.WeatherForecast;
+import com.unimib.eden.model.weather.WeatherHistory;
+import com.unimib.eden.model.weather.WeatherSearchLocation;
 import com.unimib.eden.repository.ColturaRepository;
 import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.WeatherRepository;
 import com.unimib.eden.utils.Transformer;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,17 +40,16 @@ public class IrrigazioniViewModel extends AndroidViewModel {
     private static final String TAG = "IrrigazioniViewModel";
 
     private List<Pianta> mPiante;
-
     private List<Fase> mFasi;
-
     private LiveData<List<Coltura>> mColture;
     private LiveData<List<Coltura>> mColtureDaIrrigare;
     private PiantaRepository piantaRepository;
     private ColturaRepository colturaRepository;
-
     private FaseRepository faseRepository;
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private WeatherRepository repository;
+    private LiveData<WeatherForecast> forecastLiveData;
+
 
     /**
      * Costruttore per HomeViewModel.
@@ -53,15 +63,32 @@ public class IrrigazioniViewModel extends AndroidViewModel {
         piantaRepository = new PiantaRepository(application);
         faseRepository = new FaseRepository(application);
         colturaRepository = new ColturaRepository(application);
-
+        repository = new WeatherRepository();
         // Recupera i dati dai repository
         mPiante = piantaRepository.getAllPiante();
         mFasi = faseRepository.getAllFasi();
         mColture = colturaRepository.getAllColture();
         mColtureDaIrrigare = colturaRepository.getAllColtureDaInnaffiare((new Date()).getTime()/ (1000 * 60 * 60 * 24));
-        Log.d(TAG, "IrrigazioniViewModel: " + (1716210570396L/ (1000 * 60 * 60 * 24)));
-        Log.d(TAG, "IrrigazioniViewModel: " + (new Date()).getTime()/ (1000 * 60 * 60 * 24));
+        //Log.d(TAG, "IrrigazioniViewModel: " + (1716210570396L/ (1000 * 60 * 60 * 24)));
+        //Log.d(TAG, "IrrigazioniViewModel: " + (new Date()).getTime()/ (1000 * 60 * 60 * 24));
+    }
 
+    /**
+     * Recupera le previsioni meteo per una località specificata.
+     *
+     * @param location la località per cui devono essere recuperate le previsioni meteo.
+     *                 Può essere un nome di città, un codice postale o coordinate geografiche.
+     * @param days     il numero di giorni per cui sono richieste le previsioni meteo.
+     * @param aqi      indica se i dati dell'Indice di Qualità dell'Aria (AQI) devono essere inclusi.
+     *                 I valori possibili possono essere "yes" o "no".
+     * @param alerts   indica se gli avvisi meteorologici devono essere inclusi.
+     *                 I valori possibili possono essere "yes" o "no".
+     * @return un oggetto LiveData contenente i dati delle previsioni meteo.
+     *         Gli osservatori possono utilizzare questo LiveData per ricevere aggiornamenti quando i dati delle previsioni cambiano.
+     */
+    public LiveData<WeatherForecast> getForecast(String location, int days, String aqi, String alerts) {
+        forecastLiveData = repository.getForecast(location, days, aqi, alerts);
+        return forecastLiveData;
     }
 
     /**

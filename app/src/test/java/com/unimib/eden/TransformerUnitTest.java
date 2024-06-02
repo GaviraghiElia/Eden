@@ -17,8 +17,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -198,4 +200,80 @@ public class TransformerUnitTest {
         // Asserting the result
         assertEquals("In ritardo di 1 giorno", formattedString); // Ci si aspetta "Ritardo di un giorno" per il giorno di ritardo
     }
+
+    /**
+     * Testa il metodo getRelativeDate per la data di oggi.
+     * Questo test imposta la data corrente nel formato "yyyy-MM-dd" e verifica che
+     * il metodo getRelativeDate restituisca "Oggi".
+     */
+    @Test
+    public void testGetRelativeDateToday() {
+        // Otteniamo la data di oggi in formato yyyy-MM-dd
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = dateFormat.format(new Date());
+        // Verifichiamo che il metodo restituisca "Oggi" per la data di oggi
+        assertEquals("Oggi", Transformer.getRelativeDate(today));
+    }
+
+    /**
+     * Testa il metodo getRelativeDate per la data di domani.
+     * Questo test imposta la data di domani nel formato "yyyy-MM-dd" e verifica che
+     * il metodo getRelativeDate restituisca "Domani".
+     */
+    @Test
+    public void testGetRelativeDateTomorrow() {
+        // Otteniamo la data di domani in formato yyyy-MM-dd
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String tomorrow = dateFormat.format(calendar.getTime());
+        // Verifichiamo che il metodo restituisca "Domani" per la data di domani
+        assertEquals("Domani", Transformer.getRelativeDate(tomorrow));
+    }
+
+    /**
+     * Testa il metodo getRelativeDate per la data di dopodomani.
+     * Questo test imposta la data di dopodomani nel formato "yyyy-MM-dd" e verifica che
+     * il metodo getRelativeDate restituisca "Dopodomani".
+     */
+    @Test
+    public void testGetRelativeDateDayAfterTomorrow() {
+        // Otteniamo la data di dopodomani in formato yyyy-MM-dd
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dayAfterTomorrow = dateFormat.format(calendar.getTime());
+        // Verifichiamo che il metodo restituisca "Dopodomani" per la data di dopodomani
+        assertEquals("Dopodomani", Transformer.getRelativeDate(dayAfterTomorrow));
+    }
+
+    /**
+     * Testa il metodo getRelativeDate per una data diversa da oggi, domani o dopodomani.
+     * Questo test imposta una data che è cinque giorni nel futuro nel formato "yyyy-MM-dd" e verifica che
+     * il metodo getRelativeDate restituisca "altro".
+     */
+    @Test
+    public void testGetRelativeDateOther() {
+        // Otteniamo una data che non è oggi, domani, o dopodomani
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 5); // 5 giorni dopo oggi
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String otherDate = dateFormat.format(calendar.getTime());
+        // Verifichiamo che il metodo restituisca "altro" per una data diversa da oggi, domani, e dopodomani
+        assertEquals("altro", Transformer.getRelativeDate(otherDate));
+    }
+
+    /**
+     * Testa il metodo getRelativeDate per un formato di data non valido.
+     * Questo test fornisce una stringa di data con un formato non valido e verifica che
+     * il metodo getRelativeDate restituisca "altro".
+     */
+    @Test
+    public void testGetRelativeDateInvalidFormat() {
+        // Passiamo una data in un formato non valido
+        String invalidDate = "31-12-2024"; // formato non valido
+        // Verifichiamo che il metodo restituisca "altro" per una data con un formato non valido
+        assertEquals("altro", Transformer.getRelativeDate(invalidDate));
+    }
+
 }

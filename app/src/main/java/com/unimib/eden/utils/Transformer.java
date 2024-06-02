@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 
 import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Classe di utilità per la trasformazione dei dati relativi alle date.
@@ -52,4 +54,38 @@ public class Transformer {
             return String.format(context.getString(R.string.giorni_fa), Math.abs(days));
         }
     }
+
+    /**
+     * Restituisce una stringa che rappresenta la relazione della data fornita con la data attuale,
+     * indicando se è "oggi", "domani" "dopodomani" o "altro".
+     *
+     * @param dateString la stringa che rappresenta la data nel formato "yyyy-MM-dd"
+     * @return una stringa che indica se la data è "oggi", "domani", "dopodomani" o "altro"
+     */
+    public static String getRelativeDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateFormat.parse(dateString));
+            Calendar calendarNow = Calendar.getInstance();
+            calendarNow.setTime(new Date());
+            int daysDifference = calendar.get(Calendar.DAY_OF_YEAR) - calendarNow.get(Calendar.DAY_OF_YEAR);
+            int yearDifference = calendar.get(Calendar.YEAR) - calendarNow.get(Calendar.YEAR);
+
+            if (yearDifference == 0) {
+                if (daysDifference == 0) {
+                    return "Oggi";
+                } else if (daysDifference == 1) {
+                    return "Domani";
+                } else if (daysDifference == 2) {
+                    return "Dopodomani";
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "altro";
+    }
+
 }
