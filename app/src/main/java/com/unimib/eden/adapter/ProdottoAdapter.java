@@ -111,11 +111,10 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
         public void bind(Prodotto prodotto) {
 
             String nomePiantaProdotto = piantaRepository.getPiantaById(prodotto.getPianta()).getNome();
-            nomePiantaProdotto = nomePiantaProdotto.toLowerCase();
 
             int resID = itemView.getContext().getResources()
                     .getIdentifier(
-                            nomePiantaProdotto,
+                            nomePiantaProdotto.toLowerCase(),
                             "drawable",
                             itemView.getContext().getPackageName()
                     );

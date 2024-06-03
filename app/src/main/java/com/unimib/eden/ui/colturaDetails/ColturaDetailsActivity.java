@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointBackward;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -100,7 +101,7 @@ public class ColturaDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 materialDateBuilder = MaterialDatePicker.Builder.datePicker();
                 materialDateBuilder.setTitleText(R.string.date_picker_title);
-                materialDateBuilder.setCalendarConstraints(new CalendarConstraints.Builder().setStart(coltura.getUltimoInnaffiamento().getTime()).build());
+                materialDateBuilder.setCalendarConstraints(new CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now()).build());
                 //materialDateBuilder.build();
                 materialDatePicker = materialDateBuilder.build();
                 materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");

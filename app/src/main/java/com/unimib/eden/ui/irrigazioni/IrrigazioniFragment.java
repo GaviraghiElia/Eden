@@ -2,6 +2,7 @@ package com.unimib.eden.ui.irrigazioni;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,7 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +41,8 @@ import com.unimib.eden.databinding.FragmentIrrigazioniBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.weather.ForecastDay;
 import com.unimib.eden.model.weather.WeatherForecast;
+import com.unimib.eden.ui.authentication.AuthenticationActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -176,23 +184,29 @@ public class IrrigazioniFragment extends Fragment {
                 });
 
                  */
+
                 if (coltureDaAggiornare.contains(coltura)) {
                     coltureDaAggiornare.remove(coltura);
                 } else {
                     coltureDaAggiornare.add(coltura);
                 }
+
+                if(coltureDaAggiornare.isEmpty()) {
+                    mBinding.buttonUpdateIrrigazioni.setVisibility(View.GONE);
+                    }
+                else {
+                    mBinding.buttonUpdateIrrigazioni.setVisibility(View.VISIBLE);
+                }
             }
         }, R.layout.irrigazioni_item, getActivity().getApplication());
 
-        //copiato da sotto, per le previsioni
-        mBinding.previsioniRecyclerView.setAdapter(mForecastDayAdapter);
-
         // Imposta l'adapter su RecyclerView
         mBinding.irrigazioniRecyclerView.setAdapter(mColturaAdapter);
+
         mBinding.buttonUpdateIrrigazioni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!coltureDaAggiornare.isEmpty()) {
+                /*if (!coltureDaAggiornare.isEmpty()) {
                     for (Coltura coltura: coltureDaAggiornare) {
                         irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
 
@@ -200,9 +214,57 @@ public class IrrigazioniFragment extends Fragment {
                     mColture.removeAll(coltureDaAggiornare);
                     coltureDaAggiornare.clear();
                     mColturaAdapter.update(mColture);
-                }
+                }*/
+
+                new MaterialAlertDialogBuilder(getContext())
+                        .setTitle(getResources().getText(R.string.confermaInnaffiamento))
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (!coltureDaAggiornare.isEmpty()) {
+                                    for (Coltura coltura: coltureDaAggiornare) {
+                                        irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
+
+                                    }
+                                    mColture.removeAll(coltureDaAggiornare);
+                                    coltureDaAggiornare.clear();
+                                    mColturaAdapter.update(mColture);
+                                }
+                            }
+                        })
+                        .setNegativeButton(getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
             }
         });
+
+        RecyclerView recyclerViewWeather = mBinding.previsioniRecyclerView;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewWeather.setLayoutManager(layoutManager);
+
+        recyclerViewWeather.setVerticalScrollBarEnabled(true);
+        recyclerViewWeather.setHorizontalScrollBarEnabled(true);
+        recyclerViewWeather.setScrollbarFadingEnabled(false);
+
+        // Attach PagerSnapHelper to RecyclerView
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(recyclerViewWeather);
+
+
+        // Create LinearSmoothScroller
+        LinearSmoothScroller smoothScroller = new LinearSmoothScroller(getContext()) {
+            @Override
+            protected int getHorizontalSnapPreference() {
+                return SNAP_TO_START; // Snap to the start of the view
+            }
+        };
+
+        // Set your adapter to the RecyclerView
+        recyclerViewWeather.setAdapter(mForecastDayAdapter);
+
         return view;
     }
 

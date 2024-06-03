@@ -85,6 +85,8 @@ public class PiantaDetailsActivity extends AppCompatActivity {
         pianta = (Pianta) intent.getSerializableExtra("pianta");
         String nomePianta = pianta.getNome();
 
+        binding.topAppBar.setTitle(pianta.getNome());
+
         //binding.piantaNomeDetails.setText(nomePianta);
         int resID = getResources().getIdentifier(nomePianta.toLowerCase(), "drawable", getPackageName());
         if(resID != 0)

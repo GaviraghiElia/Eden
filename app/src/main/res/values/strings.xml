@@ -127,7 +127,7 @@
     <string name="frequenza_innaffiamento_fase_label">Frequenza innaffiamento:</string>
     <string name="frequenza_innaffiamento_fase">Frequenza innaffiamento</string>
     <string name="note">Note</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Annulla</string>
     <string name="wantLogout">Vuoi effettuare il logout?</string>
     <string name="logoutInfo">Verrai disconnesso dal tuo account e dovrai effettuare l\'accesso per riaccedervi.</string>
     <string name="exitApp">Vuoi uscire dall\'applicazione?</string>
@@ -138,4 +138,5 @@
     <string name="quantita">Quantita</string>
     <string name="si">Sì :)</string>
     <string name="no">No :(</string>
+    <string name="confermaInnaffiamento">Vuoi innaffiare queste piante?</string>
 </resources>
