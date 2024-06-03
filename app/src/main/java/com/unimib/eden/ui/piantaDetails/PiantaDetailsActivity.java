@@ -83,10 +83,18 @@ public class PiantaDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         pianta = (Pianta) intent.getSerializableExtra("pianta");
+        String nomePianta = pianta.getNome();
 
-        binding.piantaNomeDetails.setText(pianta.getNome());
+        //binding.piantaNomeDetails.setText(nomePianta);
+        int resID = getResources().getIdentifier(nomePianta.toLowerCase(), "drawable", getPackageName());
+        if(resID != 0)
+        {
+            binding.imageViewPiantaDeailts.setImageResource(getResources().getIdentifier(pianta.getNome().toLowerCase() , "drawable", getPackageName()));
+        }else{
+            binding.imageViewPiantaDeailts.setVisibility(View.GONE);
+        }
+
         binding.famigliaBotanicaDetails.setText(pianta.getFamigliaBotanica());
-        binding.frequenzaInnaffiamentoDetails.setText(String.valueOf(pianta.getFrequenzaInnaffiamento()) + " al giorno");
         binding.minTemperaturaDetails.setText(String.valueOf(pianta.getMinTemperatura()) + "°");
         binding.maxTemperaturaDetails.setText(String.valueOf(pianta.getMaxTemperatura())+ "°");
         binding.spazioNecessarioDetails.setText(String.valueOf(pianta.getSpazioNecessario()) + " cm");
@@ -110,10 +118,10 @@ public class PiantaDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: button clicked");
-                if (binding.fasiConstraintLayout.getVisibility() == binding.fasiConstraintLayout.VISIBLE) {
-                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.GONE);
+                if (binding.linearLayoutFasiView.getVisibility() == binding.fasiRecyclerView.VISIBLE) {
+                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.GONE);
                 } else {
-                    binding.fasiConstraintLayout.setVisibility(binding.fasiConstraintLayout.VISIBLE);
+                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.VISIBLE);
                 }
             }
         });

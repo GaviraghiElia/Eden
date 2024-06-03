@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import androidx.fragment.app.FragmentActivity;
 
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
+import com.unimib.eden.utils.AuthenticationFieldValidator;
 import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import org.junit.Before;
@@ -16,21 +17,27 @@ import org.mockito.Mockito;
 public class PiantaDetailsActivityTest {
 
 
+    private ConvertIntMonthToString convertIntMonthToString;
+
+    @Before
+    public void setUp() throws Exception {
+        convertIntMonthToString = new ConvertIntMonthToString();
+    }
     @Test
     public void testGetMese() {
 
-        assertEquals("Gennaio", ConvertIntMonthToString.getMese(1));
-        assertEquals("Febbraio", ConvertIntMonthToString.getMese(2));
-        assertEquals("Marzo", ConvertIntMonthToString.getMese(3));
-        assertEquals("Aprile", ConvertIntMonthToString.getMese(4));
-        assertEquals("Maggio", ConvertIntMonthToString.getMese(5));
-        assertEquals("Giugno", ConvertIntMonthToString.getMese(6));
-        assertEquals("Luglio", ConvertIntMonthToString.getMese(7));
-        assertEquals("Agosto", ConvertIntMonthToString.getMese(8));
-        assertEquals("Settembre", ConvertIntMonthToString.getMese(9));
-        assertEquals("Ottobre", ConvertIntMonthToString.getMese(10));
-        assertEquals("Novembre", ConvertIntMonthToString.getMese(11));
-        assertEquals("Dicembre", ConvertIntMonthToString.getMese(12));
+        assertEquals("Gennaio", convertIntMonthToString.getMese(1));
+        assertEquals("Febbraio", convertIntMonthToString.getMese(2));
+        assertEquals("Marzo", convertIntMonthToString.getMese(3));
+        assertEquals("Aprile", convertIntMonthToString.getMese(4));
+        assertEquals("Maggio", convertIntMonthToString.getMese(5));
+        assertEquals("Giugno", convertIntMonthToString.getMese(6));
+        assertEquals("Luglio", convertIntMonthToString.getMese(7));
+        assertEquals("Agosto", convertIntMonthToString.getMese(8));
+        assertEquals("Settembre", convertIntMonthToString.getMese(9));
+        assertEquals("Ottobre", convertIntMonthToString.getMese(10));
+        assertEquals("Novembre", convertIntMonthToString.getMese(11));
+        assertEquals("Dicembre", convertIntMonthToString.getMese(12));
     }
 
 }

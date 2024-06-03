@@ -1,130 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentPanel"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="15dp">
 
-    <View
-        android:id="@+id/divider"
+    <!-- Media -->
+    <ImageView
+        android:id="@+id/imageViewFasePianta"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/fase_card_illustration"
+        />
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.card.MaterialCardView
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/md_theme_surfaceContainer">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1_center"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp">
 
-        <TextView
-            android:id="@+id/nomeFaseLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/nome_fase_label"
-            style="@style/TextAppearance.AppCompat.Headline.Subtitle"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-        <TextView
-            android:id="@+id/nomeFaseDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/nome_fase"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/nomeFaseLabel"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/nomeFaseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nome_fase_label"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    />
+                <TextView
+                    android:id="@+id/nomeFaseDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nome_fase"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/inizioFaseLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/inizio_fase_label"
-            style="@style/TextAppearance.AppCompat.Headline.Subtitle"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nomeFaseLabel" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-        <TextView
-            android:id="@+id/inizioFaseDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/inizio_fase"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/inizioFaseLabel"
-            app:layout_constraintEnd_toStartOf="@+id/guideline1_center"
-            app:layout_constraintTop_toBottomOf="@+id/nomeFaseLabel" />
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_gravity="left">
 
-        <TextView
-            android:id="@+id/durataFaseLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/durata_fase_label"
-            style="@style/TextAppearance.AppCompat.Headline.Subtitle"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/guideline1_center"
-            app:layout_constraintTop_toBottomOf="@+id/nomeFaseLabel" />
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/inizioFaseLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/inizio_fase_label"
+                        android:textAppearance="?attr/textAppearanceTitleSmall"
+                        />
+                    <TextView
+                        android:id="@+id/inizioFaseDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/inizio_fase"
+                        android:layout_marginLeft="5dp"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        />
 
-        <TextView
-            android:id="@+id/durataFaseDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:text="@string/durata_fase"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/durataFaseLabel"
-            app:layout_constraintTop_toBottomOf="@+id/nomeFaseLabel" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/descrizioneFaseLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/description_label"
-            style="@style/TextAppearance.AppCompat.Headline.Subtitle"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inizioFaseLabel" />
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/descrizioneFaseDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/descrizione_fase"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descrizioneFaseLabel" />
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/durataFaseLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/durata_fase_label"
+                        android:textAppearance="?attr/textAppearanceTitleSmall"
+                        />
+                    <TextView
+                        android:id="@+id/durataFaseDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/durata_fase"
+                        android:layout_marginLeft="5dp"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        />
 
+                </LinearLayout>
+            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/descrizioneFaseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description_label"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    />
+                <TextView
+                    android:id="@+id/descrizioneFaseDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descrizione_fase"
+                    android:layout_marginLeft="5dp"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:id="@+id/frequenzaInnaffiamentoFaseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/frequenza_innaffiamento_fase_label"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    />
+                <TextView
+                    android:id="@+id/frequenzaInnaffiamentoFaseDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/frequenza_innaffiamento_fase_label"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

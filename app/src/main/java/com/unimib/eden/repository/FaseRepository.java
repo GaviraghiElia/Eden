@@ -13,11 +13,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.FaseDao;
 import com.unimib.eden.database.FaseRoomDatabase;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -127,6 +131,18 @@ public class FaseRepository implements IFaseRepository {
     }
 
     /**
+     * Ottiene un'entità Coltura dal repository basandosi sull'ID specificato.
+     *
+     * @param faseId L'ID dell'entità Fase da cercare nel repository.
+     * @return L'entità Fase corrispondente all'ID specificato, se presente nel repository, altrimenti null.
+     */
+    @Override
+    public Fase getFaseById(String faseId) {
+        return mFaseDao.getById(faseId);
+    }
+
+
+    /**
      * Metodo updateLocalDB che esegue l'aggiornamento del Room database per allinearlo a quello di Firebase.
      * Prende tutte le fasi presenti su Firebase ed esegue un controllo se queste non sono presenti nel Room database e se queste sono state modificate rispetto alle istanze in locale.
      * Se una fase è già presente in locale allora questa non viene inserita.
@@ -182,7 +198,8 @@ public class FaseRepository implements IFaseRepository {
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));
+                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
                                     insert(newFase);
                                 }
                                 if (isFaseChanged) {
@@ -197,7 +214,8 @@ public class FaseRepository implements IFaseRepository {
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
                                             String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)));
+                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
                                     insert(newFase);
 
 
@@ -218,11 +236,23 @@ public class FaseRepository implements IFaseRepository {
      * @throws InterruptedException
      */
     @Override
-    public List<Fase> getFasiID(List<String> ids) throws ExecutionException, InterruptedException {
+    public ArrayList<Fase> getFasiID(List<String> ids) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new GetFasiAsyncTask(mFaseDao).execute(ids);
+        ArrayList<Fase> fasi = (ArrayList<Fase>) asyncTask.get();
 
-        Log.d(TAG, "getFasiID: ASYNKTASK " + asyncTask.get().toString());
-        return (List<Fase>) asyncTask.get();
+        // Crea una mappa che associa ciascun id alla sua posizione nella lista ids
+        Map<String, Integer> idToIndexMap = new HashMap<>();
+        for (int i = 0; i < ids.size(); i++) {
+            idToIndexMap.put(ids.get(i), i);
+        }
+        // Ordina la lista fasi utilizzando la mappa
+        Collections.sort(fasi, new Comparator<Fase>() {
+            @Override
+            public int compare(Fase f1, Fase f2) {
+                return Integer.compare(idToIndexMap.get(f1.getId()), idToIndexMap.get(f2.getId()));
+            }
+        });
+        return fasi;
     }
 
     /**

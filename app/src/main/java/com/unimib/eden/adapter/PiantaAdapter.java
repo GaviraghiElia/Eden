@@ -3,10 +3,10 @@ package com.unimib.eden.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaActivity;
 import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
 
     private final static String TAG = "PiantaAdapter";
     private List<Pianta> piantaList;
-    private int itemLayout = R.layout.search_pianta_item;;
+    private int itemLayout = R.layout.search_pianta_item;
 
     /**
      * Intero per gestire la destinazione corretta in seguito al onClick di una pianta
@@ -84,10 +84,11 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                         v.getContext().startActivity(intent);
                         break;
                     case Constants.CREATE_COLTURA_OPERATION_CODE:
-                        intent = new Intent(v.getContext(), PiantaDetailsActivity.class);
+                        intent = new Intent(v.getContext(), InserimentoColturaActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
-                        v.getContext().startActivity(intent);
+                        ((SearchPiantaActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
+                        ((SearchPiantaActivity) v.getContext()).finish();
                         break;
                     case Constants.CREATE_PRODOTTO_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InserimentoProdottoActivity.class);
@@ -128,11 +129,11 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
     class PiantaViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewPiantaName;
         private ImageView imageViewPianta;
+
         public PiantaViewHolder(View itemView) {
             super(itemView);
             this.textViewPiantaName = itemView.findViewById(R.id.piantaName);
-            this.imageViewPianta = itemView.findViewById(R.id.imageViewPianta);
-
+            this.imageViewPianta = itemView.findViewById(R.id.imageViewPiantaSearch);
 
         }
 
@@ -142,6 +143,20 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
          */
         public void bind(Pianta pianta) {
             this.textViewPiantaName.setText(pianta.getNome());
+
+            String nomePianta = pianta.getNome().toLowerCase();
+            int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
+            Log.d("PiantaSearchImageViewId", nomePianta);
+            Log.d("PiantaSearchImageViewId", itemView.getContext().getPackageName());
+            Log.d("PiantaSearchImageViewId", String.valueOf(resID));
+
+            if(resID != 0) { // Se l'immagine esiste nel drawable
+                this.imageViewPianta.setImageResource(resID);
+            } else {
+                int fallbackResID = itemView.getContext().getResources().getIdentifier("note_illustration", "drawable", itemView.getContext().getPackageName());
+                this.imageViewPianta.setImageResource(fallbackResID);
+            }
+
         }
     }
 }
