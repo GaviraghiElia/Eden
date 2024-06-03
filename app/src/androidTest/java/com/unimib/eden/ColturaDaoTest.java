@@ -33,7 +33,7 @@ public class ColturaDaoTest {
             "QuV8dadcUbZ5gKNpVhET",
             "beVITqkLHWCerI1XLRxj",
             //TODO: change to id
-            "g.colombo147@campus.unimib.it",
+            "YPYhzBvIsnbKTsz7BhumJc3oP142",
             20,
             "Coltivazione in vaso sul balcone",
             new Date(124 - 1900, 2, 29, 19, 13, 11),
@@ -47,7 +47,7 @@ public class ColturaDaoTest {
             "RJWeOugwpBBo4bbZE95C",
             "vxpwZvOefZM28L9GnOmX",
             //TODO: change to id
-            "g.colombo147@campus.unimib.it",
+            "YPYhzBvIsnbKTsz7BhumJc3oP142",
             5,
             "",
             new Date(124 - 1900, 2, 29, 1, 0, 0),

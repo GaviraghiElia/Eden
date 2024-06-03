@@ -34,6 +34,7 @@ import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Un semplice {@link Fragment} per la visualizzazione della bancarella, con possibilità di aggiunta di nuovi prodotti.
@@ -82,11 +83,7 @@ public class BancarellaFragment extends Fragment {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         bancarellaViewModel.getProdotti().observe(this, allProdottiObserver);
 
-
-        // Recupera le colture dal ViewModel
-        //mColture = homeViewModel.getColture();
-        //TODO: CAMBIARE CURRENT USER
-        bancarellaViewModel.updateDB("g.colombo147@campus.unimib.it");
+        bancarellaViewModel.updateDB(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
     }
 
     /**

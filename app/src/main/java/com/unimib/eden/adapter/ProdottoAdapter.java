@@ -17,6 +17,7 @@ import com.unimib.eden.repository.FaseRepository;
 import com.unimib.eden.repository.PiantaRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Adapter per la visualizzazione dei prodotti in una RecyclerView.
@@ -128,7 +129,15 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
 
             this.textViewPiantaProdotto.setText(nomePiantaProdotto);
             this.textViewFaseProdotto.setText(faseRepository.getFaseById(prodotto.getFaseAttuale()).getNomeFase());
-            this.textViewQuantitaProdotto.setText(String.valueOf(prodotto.getQuantita()));
+
+            String unitMeasure = "";
+            if (Objects.equals(prodotto.getFaseAttuale(), "yTgppWsyv9XsdmncYDoH")) {
+                unitMeasure = " grammi";
+            } else {
+                unitMeasure = " piante";
+            }
+            this.textViewQuantitaProdotto.setText(String.valueOf(prodotto.getQuantita()) + unitMeasure);
+
             this.textViewPrezzoProdotto.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -49,6 +49,7 @@ import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Una semplice sottoclasse di {@link Fragment} per la schermata Home.
@@ -126,11 +127,7 @@ public class HomeFragment extends Fragment {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         homeViewModel.getColture().observe(this, allColtureObserver);
 
-
-        // Recupera le colture dal ViewModel
-        //mColture = homeViewModel.getColture();
-
-        homeViewModel.updateDB("g.colombo147@campus.unimib.it");
+        homeViewModel.updateDB(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
     }
 
     @Nullable

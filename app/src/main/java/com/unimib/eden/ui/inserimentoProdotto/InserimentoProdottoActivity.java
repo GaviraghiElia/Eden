@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import com.unimib.eden.R;
@@ -219,8 +220,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         prodotto.put(PRODOTTO_FASE_ATTUALE, faseId);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
 
-        //TODO: RIMETTERE VERO ID
-        String utente = "g.colombo147@campus.unimib.it";//firebaseAuth.getCurrentUser().getUid();
+        String utente = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         prodotto.put(PRODOTTO_VENDITORE, utente);
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
