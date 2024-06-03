@@ -120,7 +120,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
                             } catch (InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
-                            adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nomeFasi);
+                            adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_menu_item, nomeFasi);
                         }
                     }
                 });
@@ -137,7 +137,7 @@ public class InserimentoColturaActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
+        adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, nomeFasi);
         mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
         mBinding.buttonSubmit.setOnClickListener(v -> {
             aggiungiColtura();

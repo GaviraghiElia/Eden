@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -86,6 +87,8 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
      * ViewHolder per ogni elemento della RecyclerView.
      */
     public class ProdottoViewHolder extends RecyclerView.ViewHolder {
+
+        private final ImageView imageViewProdottoBancarella;
         private final TextView textViewPiantaProdotto;
         private final TextView textViewFaseProdotto;
         private final TextView textViewQuantitaProdotto;
@@ -93,6 +96,7 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
 
         public ProdottoViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.imageViewProdottoBancarella = itemView.findViewById(R.id.imageViewProdottoBancarella);
             this.textViewPiantaProdotto = itemView.findViewById(R.id.textViewPiantaProdotto);
             this.textViewFaseProdotto = itemView.findViewById(R.id.textViewFaseProdotto);
             this.textViewQuantitaProdotto = itemView.findViewById(R.id.textViewQuantitaProdotto);
@@ -105,7 +109,25 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
          * @param prodotto Il prodotto da visualizzare.
          */
         public void bind(Prodotto prodotto) {
-            this.textViewPiantaProdotto.setText(piantaRepository.getPiantaById(prodotto.getPianta()).getNome());
+
+            String nomePiantaProdotto = piantaRepository.getPiantaById(prodotto.getPianta()).getNome();
+            nomePiantaProdotto = nomePiantaProdotto.toLowerCase();
+
+            int resID = itemView.getContext().getResources()
+                    .getIdentifier(
+                            nomePiantaProdotto,
+                            "drawable",
+                            itemView.getContext().getPackageName()
+                    );
+
+            if(resID != 0) { // Se l'immagine esiste nel drawable
+                this.imageViewProdottoBancarella.setImageResource(resID);
+            } else {
+                int fallbackResID = itemView.getContext().getResources().getIdentifier("fase_card_illustration", "drawable", itemView.getContext().getPackageName());
+                this.imageViewProdottoBancarella.setImageResource(fallbackResID);
+            }
+
+            this.textViewPiantaProdotto.setText(nomePiantaProdotto);
             this.textViewFaseProdotto.setText(faseRepository.getFaseById(prodotto.getFaseAttuale()).getNomeFase());
             this.textViewQuantitaProdotto.setText(String.valueOf(prodotto.getQuantita()));
             this.textViewPrezzoProdotto.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");

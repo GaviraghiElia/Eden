@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="260dp"
         android:layout_gravity="center"
-        android:layout_marginHorizontal="25dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/register"
         app:srcCompat="@drawable/undraw_register" />
@@ -23,7 +23,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="25dp">
+        android:layout_marginHorizontal="16dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:layout_marginHorizontal="25dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="15dp"
         android:gravity="center|bottom"
         android:orientation="vertical" >
