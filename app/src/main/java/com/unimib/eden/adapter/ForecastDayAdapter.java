@@ -1,5 +1,9 @@
 package com.unimib.eden.adapter;
 
+import static androidx.test.InstrumentationRegistry.getContext;
+import static com.google.common.io.Resources.getResource;
+
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -103,13 +108,30 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
         public void bind(ForecastDay forecastDay) {
             String relativeDate = Transformer.getRelativeDate(forecastDay.getDate());
             this.textViewGiorno.setText(relativeDate);
-            this.textViewChanceOfRain.setText(String.valueOf(forecastDay.getDay().getDaily_chance_of_rain()) + " %");
-            this.textViewTotalPrec.setText(String.valueOf(forecastDay.getDay().getTotalprecip_mm()) + " mm");
-            this.textViewTemperatura.setText(String.valueOf(forecastDay.getDay().getAvgtemp_c()) + " °C");
-            this.textViewUmidita.setText(String.valueOf(forecastDay.getDay().getAvghumidity()) + " %");
+            double chanceOfRain = forecastDay.getDay().getDaily_chance_of_rain();
+            this.textViewChanceOfRain.setText(String.valueOf(chanceOfRain) + " %");
+            double totalprecip = forecastDay.getDay().getTotalprecip_mm();
+            this.textViewTotalPrec.setText(String.valueOf(totalprecip) + " mm");
+            double avgTemp = forecastDay.getDay().getAvgtemp_c();
+            this.textViewTemperatura.setText(String.valueOf(avgTemp) + " °C");
+            double avgHumidity = forecastDay.getDay().getAvghumidity();
+            this.textViewUmidita.setText(String.valueOf(avgHumidity) + " %");
             String imageURL = "https:" + forecastDay.getDay().getCondition().getIcon();
             Log.d(TAG, imageURL);
             Picasso.get().load(imageURL).into(imageViewMeteo);
+
+            Context context = itemView.getContext();
+            int color;
+            if(chanceOfRain > 70 && totalprecip > 20) {
+                color = ContextCompat.getColor(context, R.color.md_theme_blueSurface);
+            }
+            else if(avgTemp > 35 && avgHumidity < 50) {
+                color = ContextCompat.getColor(context, R.color.md_theme_redContainer);
+            }
+            else {
+                color = ContextCompat.getColor(context, R.color.md_theme_secondaryContainer);
+            }
+            this.itemView.setBackgroundColor(color);
         }
     }
 }

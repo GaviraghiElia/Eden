@@ -6,8 +6,6 @@
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginVertical="5dp"
     app:rippleColor="@color/md_theme_onSurfaceVariant"
     android:backgroundTint="@color/md_theme_secondaryContainer">
 
@@ -67,48 +65,48 @@
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewChanceOfRain"
+            android:id="@+id/textViewUmidita"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="Possibilita di pioggia"
+            android:text="Umidita"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTemperatura"
             android:layout_marginStart="14dp"
-            android:drawableStart="@drawable/icon_rain"
+            android:drawableStart="@drawable/fog"
             android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
             android:layout_marginTop="4dp"
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewTotalPrec"
+            android:id="@+id/textViewChanceOfRain"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="Totale precipitazioni"
+            android:text="Probabilita precipitazioni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewChanceOfRain"
             android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/height_measure"
+            android:drawableStart="@drawable/icon_rain"
             android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewUmidita"
+            android:id="@+id/textViewTotalPrec"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:text="Umidita"
+            android:text="Totale precipitazioni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
             android:layout_toEndOf="@id/imageViewMeteo"
             android:layout_below="@id/textViewTotalPrec"
             android:layout_marginStart="14dp"
-            android:drawableStart="@drawable/fog"
+            android:drawableStart="@drawable/height_measure"
             android:drawableTint="@color/md_theme_scrim"
             android:drawablePadding="8dp"
             android:layout_marginTop="4dp"

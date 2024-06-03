@@ -15,14 +15,12 @@
         android:elevation="8dp"
         android:minHeight="48dp"
         app:icon="@drawable/water_drop_24px"
+        android:visibility="gone"
         />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="4dp"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,8 +28,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+            android:scrollbars="horizontal"
+            android:scrollbarThumbVertical="@drawable/scrollbar_thumb"
+            android:scrollbarThumbHorizontal="@drawable/scrollbar_thumb"
+            android:scrollbarTrackVertical="@drawable/scrollbar_track"
+            android:scrollbarTrackHorizontal="@drawable/scrollbar_track"
+            android:paddingStart="12dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="12dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/irrigazioniRecyclerView"

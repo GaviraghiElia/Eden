@@ -19,6 +19,8 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.Timestamp;
 import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Offerta;
+import com.unimib.eden.utils.Enum;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +40,7 @@ public class ColturaUnitTest {
     private final Date dataInserimento = new Date();
     private final int faseAttuale = 1;
     private final Date ultimoInnaffiamento = new Date();
+    private final Date ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     private final String nomePianta = "nomePianta";
     private final ArrayList<Integer> frequenzaInnaffiamento = new ArrayList<>();
     private final int frequenzaInnaffiamentoAttuale = 2;
@@ -64,6 +67,15 @@ public class ColturaUnitTest {
         assertEquals(nomePianta, coltura.getNomePianta());
         assertEquals(frequenzaInnaffiamento, coltura.getFrequenzaInnaffiamento());
         assertEquals(frequenzaInnaffiamentoAttuale, coltura.getFrequenzaInnaffiamentoAttuale());
+        checkDate(ultimoAggiornamento, coltura.getUltimoAggiornamento());
+    }
+
+    private void checkDate(Date data1, Date data2){
+        assertEquals(data1.getDay(), data2.getDay());
+        assertEquals(data1.getHours(), data2.getHours());
+        assertEquals(data1.getMinutes(), data2.getMinutes());
+        assertEquals(data1.getSeconds(), data2.getSeconds());
+        assertEquals(data1.getYear(), data2.getYear());
     }
 
     @Test
@@ -82,6 +94,7 @@ public class ColturaUnitTest {
         newFrequenzaInnaffiamento.add(5);
         coltura.setFrequenzaInnaffiamento(newFrequenzaInnaffiamento);
         coltura.setFrequenzaInnaffiamentoAttuale(3);
+        coltura.setUltimoAggiornamento(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000));
 
         assertEquals("newId", coltura.getId());
         assertEquals("newIdPianta", coltura.getIdPianta());
@@ -94,6 +107,7 @@ public class ColturaUnitTest {
         assertEquals("newNomePianta", coltura.getNomePianta());
         assertEquals(newFrequenzaInnaffiamento, coltura.getFrequenzaInnaffiamento());
         assertEquals(3, coltura.getFrequenzaInnaffiamentoAttuale());
+        checkDate(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000), coltura.getUltimoAggiornamento());
     }
 
     @Test
@@ -101,10 +115,13 @@ public class ColturaUnitTest {
         Coltura sameColtura = new Coltura(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
         Coltura differentColtura = new Coltura("differentId", idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
 
+        Coltura newColtura = null;
         assertTrue(coltura.equals(sameColtura));
         assertFalse(coltura.equals(differentColtura));
         assertEquals(coltura.hashCode(), sameColtura.hashCode());
         assertNotEquals(coltura.hashCode(), differentColtura.hashCode());
+        assertFalse(coltura.equals(newColtura));
+        assertTrue(coltura.equals(coltura));
     }
 
     @Test
@@ -138,6 +155,7 @@ public class ColturaUnitTest {
         // Check if Date fields are not null
         assertNotNull(coltura.getDataInserimento());
         assertNotNull(coltura.getUltimoInnaffiamento());
+        assertNotNull(coltura.getUltimoAggiornamento());
     }
 
     @Test
@@ -171,6 +189,8 @@ public class ColturaUnitTest {
         // Check if Date fields are not null
         assertNotNull(newColtura.getDataInserimento());
         assertNotNull(newColtura.getUltimoInnaffiamento());
+        assertNotNull(newColtura.getUltimoAggiornamento());
     }
+
 
 }
