@@ -1,7 +1,7 @@
 package com.unimib.eden.repository;
 
-import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Pianta;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -20,14 +20,6 @@ public interface IFaseRepository {
      * @return  Una lista di tutte le fasi.
      */
     List<Fase> getAllFasi();
-
-    /**
-     * Ottiene una fase dal repository in base all'ID specificato.
-     *
-     * @param faseId L'ID della fase da cercare nel repository.
-     * @return La fase corrispondente all'ID specificato, se presente nel repository, altrimenti null.
-     */
-    Fase getFaseById(String faseId);
 
     /**
      * Ottiene tutte le fasi che hanno gli ID uguali a quelli passati in input.

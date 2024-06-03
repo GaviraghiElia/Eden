@@ -84,14 +84,14 @@ public class ProdottoDaoTest {
     @Test
     public void daoInsert_insertsProdottoIntoDb() {
         addOneProdottoToDb();
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Prodotto> allProdotti = prodottoDao.getAll();
         assertEquals(allProdotti.get(0), prodotto1);
     }
 
     @Test
     public void daoGetAllProdotti_returnAllProdottiFromDb() {
         addTwoProdottiToDb();
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Prodotto> allProdotti = prodottoDao.getAll();
         assertEquals(allProdotti.get(0), prodotto1);
         assertEquals(allProdotti.get(1), prodotto2);
     }
@@ -101,7 +101,7 @@ public class ProdottoDaoTest {
         addTwoProdottiToDb();
         prodottoDao.delete(prodotto1);
         prodottoDao.delete(prodotto2);
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Prodotto> allProdotti = prodottoDao.getAll();
         assertTrue(allProdotti.isEmpty());
     }
 }

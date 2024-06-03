@@ -13,7 +13,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.unimib.eden.database.PiantaDao;
 import com.unimib.eden.database.PiantaRoomDatabase;
-import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
 
 import org.junit.After;
@@ -27,7 +26,6 @@ import java.util.List;
 
 import kotlin.jvm.Throws;
 
-//instrumented test
 @RunWith(AndroidJUnit4.class)
 public class PiantaDaoTest {
     private static final String TAG = "PiantaDaoTest";
@@ -42,6 +40,7 @@ public class PiantaDaoTest {
             "Solanaceae",
             3,
             4,
+            2,
             fasi,
             0.0,
             "pieno sole",
@@ -57,6 +56,7 @@ public class PiantaDaoTest {
             "Amaranthaceae",
             3,
             5,
+            2,
             fasi,
             0.0,
             "mezz'ombra",
@@ -128,22 +128,15 @@ public class PiantaDaoTest {
    @Test
     public void daoSearchPianteFiltri_returnsPiantaFilteredFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.searchPianteFiltri("pom", 3, 5);
+        List<Pianta> allPiante = piantaDao.searchPianteFiltri("pom", 2, 3, 5);
         assertEquals(allPiante.get(0), pianta1);
    }
 
    @Test
     public void daoSearchPianteFiltriAll_returnsPiantaFilteredFromDb() {
        addTwoPianteToDb();
-       List<Pianta> allPiante = piantaDao.searchPianteFiltriAll("Spi",  "mezz'ombra", 3, 5);
+       List<Pianta> allPiante = piantaDao.searchPianteFiltriAll("Spi", 2, "mezz'ombra", 3, 5);
        assertEquals(allPiante.get(0), pianta2);
    }
-
-    @Test
-    public void daoGetPiantaById_returnsPiantaFromDb() {
-        addTwoPianteToDb();
-        Pianta pianta = piantaDao.getById(pianta2.getId());
-        assertEquals(pianta, pianta2);
-    }
 
 }

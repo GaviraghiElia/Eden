@@ -64,11 +64,6 @@ public class HomeViewModel extends AndroidViewModel {
         return mPiante;
     }
 
-    /**
-     * Ottieni una lista di fasi.
-     *
-     * @return Una lista di fasi.
-     */
     public List<Fase> getFasi() {return mFasi;}
 
     /**

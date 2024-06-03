@@ -95,15 +95,12 @@ public class LoginFragment extends Fragment {
         });
 
         // Button forget passowrd
-        /*
         mBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_loginFragment_to_forgotPasswordFragment);
             }
         });
-
-         */
 
         return view;
     }

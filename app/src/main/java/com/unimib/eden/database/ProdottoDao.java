@@ -1,6 +1,5 @@
 package com.unimib.eden.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,10 +23,7 @@ public interface ProdottoDao {
      * @return Una lista di tutti i prodotti presenti nel database.
      */
     @Query("SELECT * FROM 'prodotto'")
-    LiveData<List<Prodotto>> getAll();
-
-    @Query("SELECT * FROM 'prodotto'")
-    List<Prodotto> getAllTest();
+    List<Prodotto> getAll();
 
     /**
      * Elimina i prodotti specificati dal database.

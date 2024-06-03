@@ -11,11 +11,11 @@
     <ImageView
         android:id="@+id/imageLogin"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_margin="15dp"
         android:contentDescription="Login Image"
-        android:src="@drawable/undraw_login" />
+        android:src="@drawable/ic_login_green" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="16dp">
+        android:layout_marginHorizontal="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,26 +31,28 @@
             android:text="@string/login"
             android:layout_gravity="center"
             android:textSize="40sp"
+            android:minHeight="48dp"
             android:fontFamily="sans-serif-condensed-medium"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="5dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/your_mail"
+            app:hintTextColor="@color/black_secondary"
             app:boxStrokeWidthFocused="2dp"
             app:startIconDrawable="@drawable/ic_baseline_mail_24"
-            app:startIconTint="@color/md_theme_secondary"
+            app:startIconTint="@color/purple_personal_dark"
             app:endIconMode="clear_text"
-            app:errorEnabled="true"
-            app:endIconTint="@color/md_theme_onPrimaryContainer">
+            app:endIconTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:id="@+id/loginEmail"
                 android:layout_height="wrap_content"
-                android:textColor="@color/md_theme_onPrimaryContainer"
+                android:textColor="@color/black"
                 android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -58,71 +60,64 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/password"
+            app:hintTextColor="@color/black_secondary"
             app:boxStrokeWidthFocused="2dp"
             app:startIconDrawable="@drawable/ic_baseline_lock_24"
-            app:startIconTint="@color/md_theme_secondary"
+            app:startIconTint="@color/purple_personal_dark"
             app:endIconMode="password_toggle"
-            app:errorEnabled="true"
-            app:endIconTint="@color/md_theme_onPrimaryContainer">
+            app:endIconTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:textColor="@color/md_theme_onPrimaryContainer"
+                android:textColor="@color/black"
                 tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp">
+            android:layout_marginTop="0dp"
+            android:layout_marginHorizontal="15dp">
             <Button
                 android:id="@+id/forgetPassword"
-                style="@style/Widget.Material3.Button.TextButton.Icon"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/forget_password"
-                android:textColor="@color/md_theme_primary"
+                android:textColor="@color/black"
+                android:textSize="11sp"
                 android:layout_alignParentEnd="true" />
 
-        </RelativeLayout>-->
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center|bottom"
-        android:orientation="vertical" >
+        </RelativeLayout>
 
         <Button
             android:id="@+id/buttonLogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            style="@style/Widget.Material3.Button.Icon"
-            app:icon="@drawable/ic_baseline_login_24"
-            app:iconGravity="textEnd"
-            android:elevation="8dp"
-            android:textSize="18sp"
-            android:minHeight="58dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_ripple_background"
+            android:elevation="4dp"
+            android:minHeight="48dp"
+            android:paddingHorizontal="50dp"
             android:text="@string/login"
             android:enabled="false"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:gravity="center_horizontal"
             android:text="@string/not_register"
             android:layout_gravity="center"
@@ -130,11 +125,10 @@
 
         <Button
             android:id="@+id/buttonSignUp"
-            style="@style/Widget.Material3.Button.TextButton.Icon"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-12dp"
-            android:textSize="16sp"
             android:text="@string/sign_up"
             android:layout_gravity="center"
             android:textStyle="bold"/>

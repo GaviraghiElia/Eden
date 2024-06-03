@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -16,7 +16,15 @@
         <action
             android:id="@+id/action_navigation_home_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_colturaDetailsFragment"
+            app:destination="@id/colturaDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.unimib.eden.ui.profilo.ProfiloFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profilo" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.unimib.eden.ui.authentication.LoginFragment"
@@ -68,7 +76,18 @@
         android:id="@+id/mainActivity"
         android:name="com.unimib.eden.ui.main.MainActivity"
         android:label="MainActivity" />
-
+    <fragment
+        android:id="@+id/colturaDetailsFragment"
+        android:name="com.unimib.eden.ui.colturaDetails.ColturaDetailsFragment"
+        android:label="fragment_coltura_details"
+        tools:layout="@layout/fragment_coltura_details">
+        <action
+            android:id="@+id/action_colturaDetailsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <argument
+            android:name="coltura"
+            app:argType="com.unimib.eden.model.Coltura" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_stand"
         android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"

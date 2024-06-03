@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -85,23 +84,19 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
      */
     class FaseViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView imageViewFasePianta;
         private final TextView getNomeFaseLabel;
         private final TextView nomeFaseDetails;
         private final TextView inizioFaseDetails;
         private final TextView durataFaseDetails;
         private final TextView descrizioneFaseDetails;
-        private final TextView frequenzaInnaffiamentoFaseDetails;
-
         public FaseViewHolder(View view) {
             super(view);
-            this.imageViewFasePianta = view.findViewById(R.id.imageViewFasePianta);
             this.getNomeFaseLabel = view.findViewById(R.id.nomeFaseLabel);
             this.nomeFaseDetails = view.findViewById(R.id.nomeFaseDetails);
             this.inizioFaseDetails = view.findViewById(R.id.inizioFaseDetails);
             this.durataFaseDetails = view.findViewById(R.id.durataFaseDetails);
             this.descrizioneFaseDetails = view.findViewById(R.id.descrizioneFaseDetails);
-            this.frequenzaInnaffiamentoFaseDetails = view.findViewById(R.id.frequenzaInnaffiamentoFaseDetails);
+
 
         }
 
@@ -111,31 +106,11 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
          * @param pos   La posizione della fase da visualizzare all'interno della lista delle fasi.
          */
         public void bind(Fase fase, int pos) {
-            pos = pos + 1;
             this.getNomeFaseLabel.setText("Fase " + pos + ":");
             this.nomeFaseDetails.setText(fase.getNomeFase());
             this.inizioFaseDetails.setText(ConvertIntMonthToString.getMese(fase.getInizioFase()));
             this.durataFaseDetails.setText(String.valueOf(fase.getDurataFase()));
             this.descrizioneFaseDetails.setText(fase.getDescrizione());
-            this.frequenzaInnaffiamentoFaseDetails.setText(String.valueOf(fase.getFrequenzaInnaffiamento()));
-
-            String nomeFase = fase.getNomeFase().toLowerCase();
-            String str [] = nomeFase.split(" ");
-            nomeFase = str[0];
-
-            int resID = itemView.getContext().getResources()
-                    .getIdentifier(
-                            nomeFase,
-                            "drawable",
-                            itemView.getContext().getPackageName()
-                    );
-
-            if(resID != 0) { // Se l'immagine esiste nel drawable
-                this.imageViewFasePianta.setImageResource(resID);
-            } else {
-                int fallbackResID = itemView.getContext().getResources().getIdentifier("fase_card_illustration", "drawable", itemView.getContext().getPackageName());
-                this.imageViewFasePianta.setImageResource(fallbackResID);
-            }
         }
     }
 
