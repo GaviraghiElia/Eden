@@ -9,8 +9,10 @@ import android.content.Context;
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
+import com.unimib.eden.utils.AuthenticationFieldValidator;
 import com.unimib.eden.utils.Transformer;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -23,6 +25,13 @@ import java.util.Date;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransformerUnitTest {
+
+    private Transformer transformer;
+
+    @Before
+    public void setUp() throws Exception {
+        transformer = new Transformer();
+    }
 
     /**
      * Testa il metodo per il calcolo dei giorni fino al prossimo innaffiamento.
@@ -43,7 +52,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
 
         // Calling the method to test
-        long daysRemaining = Transformer.daysToProssimoInnaffiamento(coltura);
+        long daysRemaining = transformer.daysToProssimoInnaffiamento(coltura);
 
         // Asserting the result
         assertEquals(0, daysRemaining); // Giorni rimanenti fino al prossimo innaffiamento
@@ -72,7 +81,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(5); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Oggi", formattedString); // Ci si aspetta "Oggi" per oggi
@@ -99,7 +108,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Tra 5 giorni", formattedString); // Ci si aspetta "Tra 7 giorni" per il prossimo innaffiamento fra 7 giorni
@@ -128,7 +137,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(1); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("Domani", formattedString); // Ci si aspetta "Domani" per il prossimo innaffiamento
@@ -157,7 +166,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(3); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("In ritardo di 2 giorni", formattedString); // Ci si aspetta "Ritardo di un giorno" per i giorni di ritardo
@@ -186,7 +195,7 @@ public class TransformerUnitTest {
         //when(pianta.getFrequenzaInnaffiamento()).thenReturn(4); // La frequenza di innaffiamento è ogni giorno
 
         // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatProssimoInnaffiamento(context, coltura);
 
         // Asserting the result
         assertEquals("In ritardo di 1 giorno", formattedString); // Ci si aspetta "Ritardo di un giorno" per il giorno di ritardo

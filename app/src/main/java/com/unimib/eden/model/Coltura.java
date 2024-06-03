@@ -134,7 +134,7 @@ public class Coltura implements Serializable {
         initFromMap(dataMap);
     }
 
-    private void initFromMap(Map<String, Object> tempMap) {
+    public void initFromMap(Map<String, Object> tempMap) {
         this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
         this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
         this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
@@ -260,10 +260,6 @@ public class Coltura implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
-    }
-
-    public boolean equals(QueryDocumentSnapshot document) {
-        return equals(new Coltura(document));
     }
 
 }

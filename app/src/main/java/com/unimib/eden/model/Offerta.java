@@ -13,6 +13,7 @@ import com.unimib.eden.utils.Enum;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Offerta {
     @PrimaryKey
@@ -32,6 +33,13 @@ public class Offerta {
         //da controllare
         String statoPropostaString = String.valueOf(tempMap.get(OFFERTA_STATO));
         this.statoPropostaEnum = Enum.StatoProposta.valueOf(statoPropostaString);
+    }
+
+    public Offerta(String id, String acquirente, double prezzo, Enum.StatoProposta statoPropostaEnum) {
+        this.id = id;
+        this.acquirente = acquirente;
+        this.prezzo = prezzo;
+        this.statoPropostaEnum = statoPropostaEnum;
     }
 
     public String getId() {
@@ -64,5 +72,28 @@ public class Offerta {
 
     public void setStatoPropostaEnum(Enum.StatoProposta statoPropostaEnum) {
         this.statoPropostaEnum = statoPropostaEnum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offerta offerta = (Offerta) o;
+        return Double.compare(prezzo, offerta.prezzo) == 0 && Objects.equals(id, offerta.id) && Objects.equals(acquirente, offerta.acquirente) && statoPropostaEnum == offerta.statoPropostaEnum;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, acquirente, prezzo, statoPropostaEnum);
+    }
+
+    @Override
+    public String toString() {
+        return "Offerta{" +
+                "id='" + id + '\'' +
+                ", acquirente='" + acquirente + '\'' +
+                ", prezzo=" + prezzo +
+                ", statoPropostaEnum=" + statoPropostaEnum +
+                '}';
     }
 }
