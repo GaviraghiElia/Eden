@@ -84,7 +84,6 @@ public class RegisterFragment extends Fragment
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
         navController = NavHostFragment.findNavController(this);
-        Log.d("mAuth", "register fragment - this activity is" + requireActivity());
 
         // Text Watcher per abilitare il bottone di registrazione
         mBinding.registerEmail.addTextChangedListener(registerTextWatcher);
@@ -126,7 +125,6 @@ public class RegisterFragment extends Fragment
             @Override
             public void onClick(View v)
             {
-                Log.d("mAuth", "register fragment - navigazione verso login");
                 navController.navigate(R.id.action_registerFragment_to_loginFragment);
             }
         });
@@ -170,10 +168,7 @@ public class RegisterFragment extends Fragment
                 if (firebaseResponse.isSuccess())
                 {
                     makeMessage(getString(R.string.successfull_registration));
-                    Log.d("mAuth", "registrazione effettuata");
                     firebaseAuth = FirebaseAuth.getInstance();
-
-                    Log.d("mAuth", "register fragment - activity " + requireActivity());
                     navController.navigate(R.id.action_registerFragment_to_mainActivity);
                     requireActivity().finish();
                     //startActivity(new Intent(requireContext(), MainActivity.class));
@@ -181,7 +176,6 @@ public class RegisterFragment extends Fragment
                 else
                 {
                     makeMessage(firebaseResponse.getMessage());
-                    Log.d("mAuth", "registrazione fallita");
                 }
             }
         });
@@ -246,11 +240,4 @@ public class RegisterFragment extends Fragment
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         mUserViewModel.clear();
     }
-
-    /**
-     * Metodo per la gestione dell'evento alla pressione del tasto back
-     *
-     * @param view la view del contesto
-     */
-
 }

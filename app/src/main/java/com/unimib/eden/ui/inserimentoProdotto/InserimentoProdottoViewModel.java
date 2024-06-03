@@ -1,7 +1,6 @@
 package com.unimib.eden.ui.inserimentoProdotto;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 
@@ -57,6 +56,14 @@ public class InserimentoProdottoViewModel extends AndroidViewModel {
         return piantaRepository.getPiantaById(piantaId).getFasi();
     }
 
+    /**
+     * Questo metodo restituisce una lista di oggetti Fase per una lista di ID di fasi specificati.
+     *
+     * @param fasiID la lista degli ID delle fasi da recuperare.
+     * @return un'ArrayList di oggetti Fase corrispondenti agli ID delle fasi forniti.
+     * @throws ExecutionException se si verifica un errore durante l'esecuzione dell'operazione.
+     * @throws InterruptedException se il thread corrente viene interrotto mentre attende.
+     */
     public List<Fase> getFasiList(List<String> fasiID) throws ExecutionException, InterruptedException {
         try {
             return faseRepository.getFasiID(fasiID);

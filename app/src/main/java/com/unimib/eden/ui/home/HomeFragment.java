@@ -16,9 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,12 +25,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
@@ -41,6 +39,9 @@ import com.unimib.eden.model.Pianta;
 import com.unimib.eden.R;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
+import com.unimib.eden.ui.searchPianta. SearchPiantaActivity;
+import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaActivity;
+import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
 import com.unimib.eden.ui.main.MainActivity;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
@@ -84,10 +85,10 @@ public class HomeFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                new AlertDialog.Builder(requireContext())
-                        .setTitle("Chiudi l'applicazione")
-                        .setMessage("Vuoi veramente uscire dall'applicazione?")
-                        .setPositiveButton("SI",
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(requireActivity().getResources().getText(R.string.exitApp))
+                        .setMessage(requireActivity().getResources().getText(R.string.exitAppInfo))
+                        .setPositiveButton("Si",
                                 new DialogInterface.OnClickListener() {
 
                                     @Override
@@ -96,7 +97,7 @@ public class HomeFragment extends Fragment {
                                         requireActivity().finish();
                                     }
                                 })
-                        .setNegativeButton("NO",
+                        .setNegativeButton(requireActivity().getResources().getText(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
 
                                     @Override
@@ -140,6 +141,18 @@ public class HomeFragment extends Fragment {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
 
+        // Codice per gestire il click del pulsante per aggiungere una nuova coltura
+        Button addButton = view.findViewById(R.id.buttonAddColtura);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.buttonAddColtura) {
+                    Intent intent = new Intent(requireContext(), InserimentoColturaActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
         navController = NavHostFragment.findNavController(this);
         if(checkSession())
         {
@@ -173,7 +186,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("coltura", coltura);
                 startActivity(intent);
             }
-        }, R.layout.coltura_small_card, getActivity().getApplication());
+        }, R.layout.coltura_item, getActivity().getApplication());
 
         // Imposta l'adapter su RecyclerView
         mBinding.homeRecyclerView.setAdapter(mColturaAdapter);
@@ -181,6 +194,20 @@ public class HomeFragment extends Fragment {
         Log.d(TAG, "onCreateView: mFasi " + homeViewModel.getFasi().toString());
         Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
         Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mBinding.homeRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY > oldScrollY + 5 && mBinding.buttonAddColtura.isShown())
+                        mBinding.buttonAddColtura.shrink();
+                    else if (scrollY < oldScrollY - 20)
+                        mBinding.buttonAddColtura.extend();
+                    else if (scrollY == 0)
+                        mBinding.buttonAddColtura.extend();
+                }
+            });
+        }
 
         return view;
 
@@ -202,11 +229,6 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
             return true;
         }
-        if(item.getItemId() == R.id.action_logout){
-            mAuth.signOut();
-            startActivity(new Intent(getActivity().getApplicationContext(), AuthenticationActivity.class));
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

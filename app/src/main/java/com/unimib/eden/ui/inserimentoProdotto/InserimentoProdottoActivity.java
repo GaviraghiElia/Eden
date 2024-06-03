@@ -51,9 +51,10 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
     private static final String TAG = "InserimentoProdotto";
     private InserimentoProdottoViewModel inserimentoProdottoViewModel;
     private ActivityInserimentoProdottoBinding mBinding;
-    private String pomodoroId = "beVITqkLHWCerI1XLRxj";
+    private String piantaId = "";
     private Pianta pianta;
     private String ultimaFase = "";
+    private int fasePosition;
 
     //per prendere current user
     private FirebaseAuth firebaseAuth;
@@ -79,7 +80,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         mBinding = ActivityInserimentoProdottoBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
-        mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24_white);
+        mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarInsProd.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,10 +104,13 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                             Intent data = o.getData();
                             pianta = (Pianta) data.getSerializableExtra("pianta");
                             Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
+                            piantaId = pianta.getId();
                             mBinding.pianta.setText(pianta.getNome());
                             mBinding.toolbarInsProd.setTitle("Inserisci " + pianta.getNome());
                             try {
                                 fasiList = inserimentoProdottoViewModel.getFasiList(pianta.getFasi());
+                                //TODO: anche qui sono in disordine (ordine alfabetico per ID)
+                                Log.d(TAG, fasiList.get(0).getId().toString());
                                 if(!nomeFasi.isEmpty()) {
                                     nomeFasi.clear();
                                 }
@@ -120,7 +124,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
                                 throw new RuntimeException(e);
                             }
                             ultimaFase = nomeFasi.get(nomeFasi.size()-1);
-                            adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item, nomeFasi);
+                            adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_menu_item, nomeFasi);
                         }
                     }
                 });
@@ -137,9 +141,7 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         });
 
 
-
-        //TODO: forse android.R.layout è da cambiare
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nomeFasi);
+        adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, nomeFasi);
         mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
         //binding.autoCompleteTextViewFasi.setText(nomeFasi.get(0), false);
 
@@ -151,12 +153,12 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fasePosition = position;
                 if (position == nomeFasi.size() - 1) {
-                    mBinding.textViewQuantitaUnita.setText("grammi");
-                    //textViewQuantitaUnita.setText("grammi");
+                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_grammi));
+                    //mBinding.textViewQuantitaUnita.setText("grammi");
                 } else {
-                    mBinding.textViewQuantitaUnita.setText("piante");
-                    //textViewQuantitaUnita.setText("piante");
+                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_piante));
                 }
             }
         });
@@ -197,8 +199,8 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         int quantita = Integer.parseInt(mBinding.quantita.getText().toString());
         String altreInformazioni = mBinding.altreInformazioni.getText().toString();
         Boolean scambioDisponibile = mBinding.checkBoxDisponibileAScambi.isChecked();
-        //String pianta = binding.pianta.getText().toString();
         String faseAttuale = mBinding.autoCompleteTextViewFasi.getText().toString();
+        String faseId = fasiList.get(fasePosition).getId();
 
         String tipo;
         //controllo se ultima fase .equals() quella scelta
@@ -207,19 +209,22 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         }else{
             tipo="coltura";
         }
+        Log.d(TAG, "tipo:" + tipo);
 
         Map<String, Object> prodotto = new HashMap<>();
         prodotto.put(PRODOTTO_TIPO, tipo);
         prodotto.put(PRODOTTO_PREZZO, prezzo);
-        prodotto.put(PRODOTTO_PIANTA, pomodoroId);
+        prodotto.put(PRODOTTO_PIANTA, piantaId);
         prodotto.put(PRODOTTO_QUANTITA, quantita);
-        prodotto.put(PRODOTTO_FASE_ATTUALE, faseAttuale);
+        prodotto.put(PRODOTTO_FASE_ATTUALE, faseId);
         prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
 
-        String utente = firebaseAuth.getCurrentUser().getUid();
+        //TODO: RIMETTERE VERO ID
+        String utente = "g.colombo147@campus.unimib.it";//firebaseAuth.getCurrentUser().getUid();
         prodotto.put(PRODOTTO_VENDITORE, utente);
         prodotto.put(PRODOTTO_OFFERTE, null);
         prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
+
         inserimentoProdottoViewModel.aggiungiProdotto(prodotto);
         finish();
     }

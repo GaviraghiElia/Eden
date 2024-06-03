@@ -4,6 +4,8 @@ import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PiantaRepository;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
@@ -86,17 +87,23 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
      * ViewHolder per ogni elemento della RecyclerView.
      */
     public class ColturaViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView imageViewColtura;
         private final TextView textViewColturaPianta;
         private final TextView textViewGiorniInnaffiamento;
         private final TextView textViewDataInserimento;
         private final TextView textViewNote;
 
+        private final CheckBox checkBox;
+
+
         public ColturaViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.imageViewColtura = itemView.findViewById(R.id.imageViewColtura);
             this.textViewColturaPianta = itemView.findViewById(R.id.textViewPianta);
             this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
             this.textViewDataInserimento = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);
+            this.checkBox = itemView.findViewById(R.id.irrigazioniChecbox);
         }
 
         /**
@@ -107,21 +114,65 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         public void bind(Coltura coltura) {
             //this.textViewColturaPianta.setText(piantaRepository.getPiantaById(coltura.getIdPianta()).getNome());
             //this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura, piantaRepository.getPiantaById(coltura.getIdPianta())));
+
             this.textViewColturaPianta.setText(coltura.getNomePianta());
+
             this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura));
-            this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
-            if (coltura.getNote().isEmpty()) {
-                this.textViewNote.setVisibility(View.GONE);
-            } else {
-                this.textViewNote.setText(coltura.getNote());
+            if(Transformer.daysToProssimoInnaffiamento(coltura) >= 0){
+                this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_ok, 0, 0, 0);
+            }else{
+                this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_delay, 0, 0, 0);
             }
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(coltura);
+            if (layout == R.layout.coltura_item) {
+
+                // add imageViewPianta
+                String nomePianta = coltura.getNomePianta().toLowerCase();
+                int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
+
+                if(resID != 0) { // Se l'immagine esiste nel drawable
+                    this.imageViewColtura.setImageResource(resID);
+                } else {
+                    int fallbackResID = itemView.getContext().getResources().getIdentifier("note_illustration", "drawable", itemView.getContext().getPackageName());
+                    this.imageViewColtura.setImageResource(fallbackResID);
                 }
-            });
+
+                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getDataInserimento()));
+                if (coltura.getNote().isEmpty()) {
+                    this.textViewNote.setVisibility(View.GONE);
+                } else {
+                    this.textViewNote.setText(coltura.getNote());
+                }
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onItemClick(coltura);
+                    }
+                });
+            }
+            if (layout == R.layout.irrigazioni_item)  {
+
+                // add imageViewPianta
+                String nomePianta = coltura.getNomePianta().toLowerCase();
+                int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
+
+                if(resID != 0) { // Se l'immagine esiste nel drawable
+                    this.imageViewColtura.setImageResource(resID);
+                } else {
+                    int fallbackResID = itemView.getContext().getResources().getIdentifier("note_illustration", "drawable", itemView.getContext().getPackageName());
+                    this.imageViewColtura.setImageResource(fallbackResID);
+                }
+
+                this.textViewDataInserimento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
+                checkBox.setChecked(false);
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onItemClickListener.onItemClick(coltura);
+                    }
+                });
+            }
         }
     }
 }
