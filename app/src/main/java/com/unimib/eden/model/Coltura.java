@@ -68,6 +68,9 @@ public class Coltura implements Serializable {
     @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE)
     private int frequenzaInnaffiamentoAttuale;
 
+    // Parametro interno locale che segnala quando la coltura è stata aggiornata rispetto al meteo
+    private Date ultimoAggiornamento;
+
     /**
      * Costruttore per la classe Coltura.
      *
@@ -94,6 +97,8 @@ public class Coltura implements Serializable {
         this.nomePianta = nomePianta;
         this.frequenzaInnaffiamento = frequenzaInnaffiamento;
         this.frequenzaInnaffiamentoAttuale = frequenzaInnaffiamentoAttuale;
+        // La data di ultimo aggiornamento è inizializzata al giorno precedente, così da permettere di aggiornare in base al meteo anche al primo inserimento
+        this.ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     }
 
     /**
@@ -116,6 +121,7 @@ public class Coltura implements Serializable {
         this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
         this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
         this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
+        this.ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     }
 
     /**
@@ -128,7 +134,7 @@ public class Coltura implements Serializable {
         initFromMap(dataMap);
     }
 
-    private void initFromMap(Map<String, Object> tempMap) {
+    public void initFromMap(Map<String, Object> tempMap) {
         this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
         this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
         this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
@@ -139,10 +145,9 @@ public class Coltura implements Serializable {
         Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
         this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
-        //this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
-        //TODO: la prossima riga potrebbe generare errori
         this.frequenzaInnaffiamento = (ArrayList<Integer>) (ArrayList) tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO);
         this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
+        this.ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     }
 
     // Metodi getter e setter
@@ -236,6 +241,14 @@ public class Coltura implements Serializable {
         this.frequenzaInnaffiamentoAttuale = frequenzaInnaffiamentoAttuale;
     }
 
+    public Date getUltimoAggiornamento() {
+        return ultimoAggiornamento;
+    }
+
+    public void setUltimoAggiornamento(Date ultimoAggiornamento) {
+        this.ultimoAggiornamento = ultimoAggiornamento;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -247,10 +260,6 @@ public class Coltura implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
-    }
-
-    public boolean equals(QueryDocumentSnapshot document) {
-        return equals(new Coltura(document));
     }
 
 }

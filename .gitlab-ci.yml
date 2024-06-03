@@ -86,13 +86,16 @@ debugTests:
     - android-sdk-linux/emulator/emulator -avd test -no-boot-anim -no-window -no-audio -no-snapshot &
     - ./android-wait-for-emulator
     - android-sdk-linux/platform-tools/adb shell input keyevent 82
-    - ./gradlew connectedDebugAndroidTest --info
+    - ./gradlew connectedDebugAndroidTest --info # Integrated tests
     - ./gradlew createDebugCoverageReport # Generate code coverage report
-    - ./gradlew test  --info # For unit tests
-    - ./gradlew testDebug --info
+    - ./gradlew test --info # Release tests
+      #- ./gradlew testDebug --info
+      #- ./gradlew testDebugUnitTest
+    - ./gradlew jacocoTestReport
   artifacts:
-    paths:
-      - app/build/outputs/apk/debug/app-debug.apk
-      - app/build/reports/androidTests/connected/
-      - app/build/reports/coverage/androidTest/
-      #- app/build/reports/tests/testDebugUnitTest
+      paths:
+        - app/build/outputs/apk/debug/app-debug.apk
+        - app/build/reports/androidTests/connected/
+        - app/build/reports/coverage/androidTest/
+        - app/build/reports/tests/testDebugUnitTest
+        - app/build/reports/jacoco/jacocoTestReport/
