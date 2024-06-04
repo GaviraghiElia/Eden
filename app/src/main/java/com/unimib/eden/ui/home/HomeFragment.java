@@ -48,6 +48,8 @@ import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,7 +97,8 @@ public class HomeFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
-                                        requireActivity().finish();
+                                        //requireActivity().finish();
+                                        requireActivity().finishAffinity();
                                     }
                                 })
                         .setNegativeButton(requireActivity().getResources().getText(R.string.cancel),
@@ -120,6 +123,12 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "onChanged: ");
                 mColture = coltura;
 
+                /*Collections.sort(mColture, new Comparator<Coltura>() {
+                    @Override
+                    public int compare(Coltura s1, Coltura s2) {
+                        return String.compare(s1.getAge(), s2.getAge());
+                    }
+                });*/
                 mColturaAdapter.update(mColture);
             }
         };

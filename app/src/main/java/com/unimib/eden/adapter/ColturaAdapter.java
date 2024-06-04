@@ -93,7 +93,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         private final ImageView imageViewColtura;
         private final TextView textViewColturaPianta;
         private final TextView textViewGiorniInnaffiamento;
-        private final TextView textViewDataInnaffiamento;
+        private final TextView textViewUltimoInnaffiamento;
         private final TextView textViewNote;
 
         private final CheckBox checkBox;
@@ -104,7 +104,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
             this.imageViewColtura = itemView.findViewById(R.id.imageViewColtura);
             this.textViewColturaPianta = itemView.findViewById(R.id.textViewPianta);
             this.textViewGiorniInnaffiamento = itemView.findViewById(R.id.textViewDaysNumber);
-            this.textViewDataInnaffiamento = itemView.findViewById(R.id.textViewDate);
+            this.textViewUltimoInnaffiamento = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);
             this.checkBox = itemView.findViewById(R.id.irrigazioniChecbox);
         }
@@ -140,7 +140,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                     this.imageViewColtura.setImageResource(fallbackResID);
                 }
 
-                this.textViewDataInnaffiamento.setText(Converters.dateToString(coltura.getDataInserimento()));
+                this.textViewUltimoInnaffiamento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
                 if (coltura.getNote().isEmpty()) {
                     this.textViewNote.setVisibility(View.GONE);
                 } else {
@@ -166,7 +166,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                     this.imageViewColtura.setImageResource(fallbackResID);
                 }
 
-                this.textViewDataInnaffiamento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
+                this.textViewUltimoInnaffiamento.setText(Converters.dateToString(coltura.getUltimoInnaffiamento()));
                 checkBox.setChecked(false);
 
                 checkBox.setOnClickListener(new View.OnClickListener() {

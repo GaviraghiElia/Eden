@@ -24,11 +24,13 @@ public class EntryActivity extends AppCompatActivity {
         if(currentUser != null) {
             Log.d("mauth", "andiamo dentro alla main activity");
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
         else
         {
             Log.d("mauth", "andiamo dentro alla auth activity");
             startActivity(new Intent(this, AuthenticationActivity.class));
+            finish();
         }
         finish();
     }
