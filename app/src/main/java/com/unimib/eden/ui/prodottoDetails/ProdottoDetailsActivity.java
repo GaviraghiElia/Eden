@@ -19,6 +19,7 @@ import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class ProdottoDetailsActivity extends AppCompatActivity {
@@ -61,7 +62,15 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(prodotto.getQuantita()));
+
+        String unitMeasure = "";
+        if (Objects.equals(prodotto.getFaseAttuale(), "yTgppWsyv9XsdmncYDoH")) {
+            unitMeasure = " grammi";
+        } else {
+            unitMeasure = " piante";
+        }
+        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(prodotto.getQuantita()) + unitMeasure);
+
         mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");
         if (prodotto.getScambioDisponibile()) {
             mBinding.textViewScambiProdottoFull.setText(R.string.si);

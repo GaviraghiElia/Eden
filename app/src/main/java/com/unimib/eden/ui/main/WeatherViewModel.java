@@ -89,7 +89,6 @@ public class WeatherViewModel extends AndroidViewModel {
      *
      * @param dayWeather Condizioni del giorno appena trascorso.
      * @param colture Lista delle colture da aggiornare.
-     * @return True se le colture sono state aggiornate, altrimenti false.
      */
     public void updateInnaffiamenti(Day dayWeather, List<Coltura> colture) {
         Map<Coltura, Date> updates = updatedDatesOfInnaffiamento(colture, dayWeather);

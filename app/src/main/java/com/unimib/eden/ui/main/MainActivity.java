@@ -176,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();
                             startActivity(new Intent(getApplicationContext(), AuthenticationActivity.class));
+                            finish();
                         }
                     })
                     .setNegativeButton(getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {

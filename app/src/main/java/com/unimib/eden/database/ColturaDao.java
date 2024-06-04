@@ -26,7 +26,7 @@ public interface ColturaDao {
      *
      * @return Una lista di tutte le colture presenti nel database.
      */
-    @Query("SELECT * FROM 'coltura'")
+    @Query("SELECT * FROM 'coltura' ORDER BY nome, ultimo_innaffiamento ASC")
     LiveData<List<Coltura>> getAll();
 
     @Query("SELECT * FROM 'coltura'")

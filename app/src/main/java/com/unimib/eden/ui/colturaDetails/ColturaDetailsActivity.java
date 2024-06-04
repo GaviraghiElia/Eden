@@ -111,7 +111,9 @@ public class ColturaDetailsActivity extends AppCompatActivity {
                     Log.d(TAG, "onItemClick: DATE3: " + new Date(materialDatePicker.getHeaderText()));
 
                     colturaDetailsViewModel.updateDataInnaffiamentoColtura(coltura, new Date(materialDatePicker.getHeaderText()));
-
+                    coltura.setUltimoInnaffiamento(new Date(materialDatePicker.getHeaderText()));
+                    mBinding.textViewUltimoInnaffiamentoFull.setText(colturaDetailsViewModel.getProssimoInnaffiamento(getApplicationContext(), coltura));
+                    mBinding.textViewDataInserimentoFull.setText(Converters.dateToString(coltura.getDataInserimento()));
                 });
                 /*
                 colturaDetailsViewModel.updateDataInnaffiamentoColtura(coltura);

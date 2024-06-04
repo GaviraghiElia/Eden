@@ -32,6 +32,7 @@ public class AuthenticationActivity extends AppCompatActivity
         if (checkSession())
         {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
 
         mBinding = ActivityAuthenticationBinding.inflate(getLayoutInflater());

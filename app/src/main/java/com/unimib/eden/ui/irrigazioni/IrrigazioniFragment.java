@@ -139,9 +139,6 @@ public class IrrigazioniFragment extends Fragment {
         irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
         irrigazioniViewModel.getForecast("Agrate Brianza", 3, "no", "no").observe(this, allWeatherForecastObserver);
 
-        // Recupera le colture dal ViewModel
-        //mColture = homeViewModel.getColture();
-        //irrigazioniViewModel.updateDB("g.colombo147@campus.unimib.it");
     }
 
     @Nullable
