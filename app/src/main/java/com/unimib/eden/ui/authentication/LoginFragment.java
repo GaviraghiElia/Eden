@@ -23,7 +23,7 @@ import com.unimib.eden.ui.main.MainActivity;
 
 /**
  * Manages the login process for the application.
- *
+ * <p>
  * This class extends the Fragment and overrides the lifecycle methods
  * to handle the creation, start, and view creation for the login fragment.
  */
@@ -32,7 +32,7 @@ public class LoginFragment extends Fragment {
     private NavController navController;
 
     private FragmentLoginBinding mBinding;
-    private UtenteViewModel mUtenteViewModel;
+    private UserViewModel mUtenteViewModel;
     private String email;
     private String password;
 
@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUtenteViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
+        mUtenteViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
     /**
@@ -128,7 +128,7 @@ public class LoginFragment extends Fragment {
     /**
      * Handles the text change events for login input fields and enables/disables the login button accordingly.
      */
-    private TextWatcher loginTextWatcher = new TextWatcher() {
+    private final TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -166,16 +166,15 @@ public class LoginFragment extends Fragment {
     }
 
     /**
-     * Controlla se l'utente è già autenticato.
-     * @return true se l'utente è autenticato, false altrimenti.
+     * Checks if the user is already authenticated.
+     *
+     * @return True if the user is authenticated, false otherwise.
      */
+
     private boolean checkSession()
     {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser != null)
-            return true;
-
-        return false;
+        return currentUser != null;
     }
 }

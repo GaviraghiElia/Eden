@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/navigation_stand"
-        android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
+        android:name="com.unimib.eden.ui.stand.StandFragment"
         android:label="fragment_stand"
         tools:layout="@layout/fragment_stand" />
 

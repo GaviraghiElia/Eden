@@ -11,20 +11,20 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * WeatherService è un'interfaccia che definisce i metodi per interagire con l'API di servizi meteorologici
- * utilizzando Retrofit. Include metodi per ottenere previsioni meteorologiche, dati storici e ricerche di località.
+ * WeatherService is an interface that defines methods to interact with the weather services API using Retrofit.
+ * It includes methods to obtain weather forecasts, historical data, and location searches.
  */
 public interface WeatherService {
 
     /**
-     * Ottiene le previsioni meteorologiche per una determinata località.
+     * Gets the weather forecast for a specific location.
      *
-     * @param apiKey La chiave API per autenticarsi con il servizio.
-     * @param location La località per cui ottenere le previsioni meteorologiche.
-     * @param days Il numero di giorni per cui ottenere le previsioni.
-     * @param aqi Indica se includere o meno i dati sulla qualità dell'aria.
-     * @param alerts Indica se includere o meno gli avvisi meteorologici.
-     * @return Un oggetto {@link Call} che può essere utilizzato per richiedere le previsioni meteorologiche.
+     * @param apiKey The API key to authenticate with the service.
+     * @param location The location for which to get the weather forecast.
+     * @param days The number of days to get the forecast for.
+     * @param aqi Indicates whether to include air quality data or not.
+     * @param alerts Indicates whether to include weather alerts or not.
+     * @return A {@link Call} object that can be used to request the weather forecast.
      */
     @GET("forecast.json")
     Call<WeatherForecast> getForecast(
@@ -36,12 +36,12 @@ public interface WeatherService {
     );
 
     /**
-     * Ottiene i dati meteorologici storici per una determinata località e data.
+     * Gets historical weather data for a specific location and date.
      *
-     * @param apiKey La chiave API per autenticarsi con il servizio.
-     * @param location La località per cui ottenere i dati storici.
-     * @param date La data per cui ottenere i dati storici, nel formato "yyyy-MM-dd".
-     * @return Un oggetto {@link Call} che può essere utilizzato per richiedere i dati meteorologici storici.
+     * @param apiKey The API key to authenticate with the service.
+     * @param location The location for which to get historical data.
+     * @param date The date for which to get historical data, in "yyyy-MM-dd" format.
+     * @return A {@link Call} object that can be used to request historical weather data.
      */
     @GET("history.json")
     Call<WeatherHistory> getHistory(
@@ -51,11 +51,11 @@ public interface WeatherService {
     );
 
     /**
-     * Esegue una ricerca automatica per le località corrispondenti a una determinata query.
+     * Performs an autocomplete search for locations matching a specific query.
      *
-     * @param apiKey La chiave API per autenticarsi con il servizio.
-     * @param locationSearch La query di ricerca per trovare le località corrispondenti.
-     * @return Un oggetto {@link Call} che può essere utilizzato per richiedere i risultati della ricerca di località.
+     * @param apiKey The API key to authenticate with the service.
+     * @param locationSearch The search query to find matching locations.
+     * @return A {@link Call} object that can be used to request location search results.
      */
     @GET("search.json")
     Call<List<WeatherSearchLocation>> getAutocompleteSearch(

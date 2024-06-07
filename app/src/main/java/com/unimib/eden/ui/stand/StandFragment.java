@@ -1,4 +1,4 @@
-package com.unimib.eden.ui.bancarella;
+package com.unimib.eden.ui.stand;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -37,27 +37,27 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Un semplice {@link Fragment} per la visualizzazione della bancarella, con possibilità di aggiunta di nuovi prodotti.
+ * A simple {@link Fragment} for displaying the stand with the ability to add new products.
  */
-public class BancarellaFragment extends Fragment {
-    private static final String TAG = "BancarellaFragment";
+public class StandFragment extends Fragment {
+    private static final String TAG = "StandFragment";
     private FragmentStandBinding binding;
-    private List<Prodotto> mProdotti = new ArrayList<Prodotto>();
-    private BancarellaViewModel bancarellaViewModel;
-    private ProdottoAdapter mProdottoAdapter;
+    private List<Prodotto> mProducts = new ArrayList<>();
+    private StandViewModel standViewModel;
+    private ProdottoAdapter mProductAdapter;
     private FirebaseAuth mAuth;
 
     /**
-     * Costruttore predefinito per BancarellaFragment.
+     * Default constructor for StandFragment.
      */
-    public BancarellaFragment() {
-        // Costruttore pubblico vuoto richiesto
+    public StandFragment() {
+        // Required empty public constructor
     }
 
     /**
-     * Metodo richiamato al momento della creazione del fragment.
+     * Method called upon fragment creation.
      *
-     * @param savedInstanceState lo stato precedente dell'istanza, se presente.
+     * @param savedInstanceState the previously saved instance state, if any.
      */
     @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -66,41 +66,38 @@ public class BancarellaFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        bancarellaViewModel = new ViewModelProvider(this).get(BancarellaViewModel.class);
+        standViewModel = new ViewModelProvider(this).get(StandViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
         final Observer<List<Prodotto>> allProdottiObserver = new Observer<List<Prodotto>>() {
             @Override
             public void onChanged(List<Prodotto> prodotti) {
-
-                Log.d(TAG, "onChanged: ");
-                mProdotti = prodotti;
-
-                mProdottoAdapter.update(mProdotti);
+                mProducts = prodotti;
+                mProductAdapter.update(mProducts);
             }
         };
 
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        bancarellaViewModel.getProdotti().observe(this, allProdottiObserver);
+        // Observe the LiveData, passing in this fragment as the LifecycleOwner and the observer.
+        standViewModel.getProducts().observe(this, allProdottiObserver);
 
-        bancarellaViewModel.updateDB(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+        standViewModel.updateDB(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
     }
 
     /**
-     * Metodo richiamato per creare e visualizzare l'interfaccia utente del fragment.
+     * Method called to create and display the fragment's user interface.
      *
-     * @param inflater           il layout inflater che può essere utilizzato per inflare qualsiasi layout XML.
-     * @param container          il parent view che il fragment UI dovrebbe essere agganciato, se presente.
-     * @param savedInstanceState lo stato precedente dell'istanza, se presente.
-     * @return la vista radice del layout del fragment.
+     * @param inflater           the LayoutInflater used to inflate any XML layout.
+     * @param container          the parent view that the fragment UI should attach to, if any.
+     * @param savedInstanceState the previously saved instance state, if any.
+     * @return the root view of the fragment's layout.
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStandBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        // Codice per gestire il click del pulsante per aggiungere un nuovo prodotto
+        // Code to handle the add new product button click
         Button addButton = view.findViewById(R.id.buttonAddProduct);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,52 +109,30 @@ public class BancarellaFragment extends Fragment {
             }
         });
 
-        // Imposta RecyclerView con LinearLayoutManager
-        binding.bancarellaRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Set up RecyclerView with LinearLayoutManager
+        binding.standRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
-        mProdottoAdapter = new ProdottoAdapter(mProdotti, new ProdottoAdapter.OnItemClickListener() {
+        // Initialize the adapter with the product list and item click listener
+        mProductAdapter = new ProdottoAdapter(mProducts, new ProdottoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Prodotto prodotto) {
-                // Gestisce l'evento di clic sull'elemento
+                // Handle item click event
                 Log.d(TAG, "OnItemClick " + prodotto.toString());
 
-                // Naviga verso ProdottoDetailsFragment con la prodotto selezionata
+                // Navigate to ProdottoDetailsActivity with the selected product
                 Intent intent = new Intent(getActivity(), ProdottoDetailsActivity.class);
                 intent.putExtra("prodotto", prodotto);
                 startActivity(intent);
             }
         }, R.layout.prodotto_item, getActivity().getApplication());
 
-        // Imposta l'adapter su RecyclerView
-        binding.bancarellaRecyclerView.setAdapter(mProdottoAdapter);
+        // Set the adapter to the RecyclerView
+        binding.standRecyclerView.setAdapter(mProductAdapter);
 
-
-        /* TODO
-        da implementare con la scrollview
-         */
-        /*
-        binding.scrollViewInfo.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
-            {
-                if (scrollY > oldScrollY + 5 && binding.addToListExtButton.isShown())
-                    binding.addToListExtButton.shrink();
-                else
-                if (scrollY < oldScrollY - 20)
-                    binding.addToListExtButton.extend();
-                else
-                if (scrollY == 0)
-                    binding.addToListExtButton.extend();
-            }
-        });
-        */
-
-        Log.d(TAG, "onCreateView: " + bancarellaViewModel.getProdotti());
-
+        Log.d(TAG, "onCreateView: " + standViewModel.getProducts());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.bancarellaRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            binding.standRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     if (scrollY > oldScrollY + 5 && binding.buttonAddProduct.isShown())
@@ -170,8 +145,7 @@ public class BancarellaFragment extends Fragment {
             });
         }
 
-
-        // Ritorna la vista del fragment
+        // Return the fragment's view
         return view;
     }
 
@@ -180,7 +154,6 @@ public class BancarellaFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.home_menu, menu);
         menu.getItem(0).setVisible(false);
-
     }
 
     @Override
@@ -197,10 +170,6 @@ public class BancarellaFragment extends Fragment {
     private boolean checkSession()
     {
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null)
-            return true;
-
-        return false;
+        return currentUser != null;
     }
 }

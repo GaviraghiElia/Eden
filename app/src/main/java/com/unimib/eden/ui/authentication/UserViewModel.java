@@ -11,7 +11,7 @@ import com.unimib.eden.model.Utente;
 import com.unimib.eden.repository.IUtenteRepository;
 import com.unimib.eden.repository.UtenteRepository;
 
-public class UtenteViewModel extends AndroidViewModel {
+public class UserViewModel extends AndroidViewModel {
 
     /**
      * LiveData per la risposta di autenticazione da Firebase.
@@ -27,7 +27,7 @@ public class UtenteViewModel extends AndroidViewModel {
      *
      * @param application l'istanza di Application
      */
-    public UtenteViewModel(@NonNull Application application)
+    public UserViewModel(@NonNull Application application)
     {
         super(application);
         this.mUserRepository = new UtenteRepository(application);
