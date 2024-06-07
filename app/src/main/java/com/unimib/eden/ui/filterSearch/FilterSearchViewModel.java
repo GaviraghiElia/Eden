@@ -4,30 +4,20 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-
-import com.unimib.eden.model.Pianta;
-import com.unimib.eden.repository.PiantaRepository;
-
-import java.util.List;
 
 /**
- * Classe FilterSearchViewModel che rappsenta i ViewModel per l'activity FilterSearchActvity.
- *
- * @author Alice Hoa Galli
+ * FilterSearchViewModel class representing the ViewModel for the FilterSearchActivity.
  */
 public class FilterSearchViewModel extends AndroidViewModel {
 
     private static final String TAG = "FilterSearchViewModel";
 
     /**
-     * Costruttore che genera un'istanza del FilterSearchViewModel.
+     * Constructor that creates an instance of FilterSearchViewModel.
      *
-     * @param application   Contesto dell'applicazione
+     * @param application The application context
      */
     public FilterSearchViewModel(@NonNull Application application) {
         super(application);
-
     }
-
 }

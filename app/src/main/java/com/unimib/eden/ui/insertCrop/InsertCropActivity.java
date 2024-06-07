@@ -1,4 +1,4 @@
-package com.unimib.eden.ui.inserimentoColtura;
+package com.unimib.eden.ui.insertCrop;
 
 import static com.unimib.eden.utils.Constants.CROPS_INSERTION_DATE;
 import static com.unimib.eden.utils.Constants.CROPS_CURRENT_PHASE;
@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,37 +44,38 @@ import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 /**
- * Activity per l'inserimento di una nuova coltura.
- * Questa activity consente all'utente di inserire i dettagli di una nuova coltura e di aggiungerla al database.
+ * Activity for inserting a new crop.
+ * This activity allows the user to input the details of a new crop and add it to the database.
  */
-public class InserimentoColturaActivity extends AppCompatActivity {
-    private static final String TAG = "InserimentoColtura";
-    private InserimentoColturaViewModel inserimentoColturaViewModel;
+public class InsertCropActivity extends AppCompatActivity {
+    private static final String TAG = "InsertCropActivity";
+    private InsertCropViewModel insertCropViewModel;
     private ActivityInserimentoColturaBinding mBinding;
-    private String piantaId = "";
-    private String piantaNome = "";
-    private Pianta pianta;
-    private int fase = -1;
+    private String plantId = "";
+    private String plantName = "";
+    private Pianta plant;
+    private int phase = -1;
     private FirebaseAuth firebaseAuth;
 
-    ArrayList<String> nomeFasi = new ArrayList<String>();
+    ArrayList<String> phasesNames = new ArrayList<>();
 
-    ArrayList<Fase> fasiList;
-    ArrayList<Integer> frequenze;
+    ArrayList<Fase> phasesList;
+    ArrayList<Integer> frequencies;
     ArrayAdapter<String> adapter;
 
 
     /**
-     * Metodo chiamato quando l'activity viene creata. Qui vengono inizializzati i componenti
-     * dell'interfaccia utente, impostati i listener e ottenuti i dati necessari dal ViewModel.
+     * Called when the activity is first created. This is where you should do all of your
+     * normal static set up: create views, bind data to lists, etc.
      *
-     * @param savedInstanceState Oggetto Bundle contenente lo stato precedente dell'activity,
-     *                           se disponibile.
+     * @param savedInstanceState Bundle: If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inserimentoColturaViewModel = new ViewModelProvider(this).get(InserimentoColturaViewModel.class);
+        insertCropViewModel = new ViewModelProvider(this).get(InsertCropViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
         mBinding = ActivityInserimentoColturaBinding.inflate(getLayoutInflater());
@@ -88,39 +88,36 @@ public class InserimentoColturaActivity extends AppCompatActivity {
             }
         });
 
-        mBinding.quantita.addTextChangedListener(colturaTextWatcher);
-        mBinding.pianta.addTextChangedListener(colturaTextWatcher);
-        mBinding.autoCompleteTextViewFasi.addTextChangedListener(colturaTextWatcher);
+        mBinding.quantita.addTextChangedListener(cropTextWatcher);
+        mBinding.pianta.addTextChangedListener(cropTextWatcher);
+        mBinding.autoCompleteTextViewFasi.addTextChangedListener(cropTextWatcher);
 
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
+                new ActivityResultCallback<>() {
 
                     @Override
                     public void onActivityResult(ActivityResult o) {
-                        if(o.getResultCode()== Activity.RESULT_OK){
+                        if (o.getResultCode() == Activity.RESULT_OK) {
                             Intent data = o.getData();
-                            pianta = (Pianta) data.getSerializableExtra("pianta");
-                            Log.d(TAG, "onActivityResult: PIANTA " + pianta.toString());
-                            piantaId = pianta.getId();
-                            piantaNome = pianta.getNome();
-                            mBinding.pianta.setText(pianta.getNome());
-                            mBinding.toolbarInsColt.setTitle("Inserisci " + pianta.getNome());
+                            plant = (Pianta) data.getSerializableExtra("pianta");
+                            plantId = plant.getId();
+                            plantName = plant.getNome();
+                            mBinding.pianta.setText(plant.getNome());
+                            mBinding.toolbarInsColt.setTitle("Inserisci " + plant.getNome().toLowerCase());
                             try {
-                                fasiList = inserimentoColturaViewModel.getFasiList(pianta.getFasi());
-                                frequenze = inserimentoColturaViewModel.getFrequenzeInnaffiamento(pianta.getFasi());
-                                if(!nomeFasi.isEmpty()) {
-                                    nomeFasi.clear();
+                                phasesList = insertCropViewModel.getPhasesList(plant.getFasi());
+                                frequencies = insertCropViewModel.getWateringFrequency(plant.getFasi());
+                                if (!phasesNames.isEmpty()) {
+                                    phasesNames.clear();
                                 }
-                                for(Fase f: fasiList) {
-                                    nomeFasi.add(f.getNomeFase());
+                                for (Fase f : phasesList) {
+                                    phasesNames.add(f.getNomeFase());
                                 }
-                            } catch (ExecutionException e) {
-                                throw new RuntimeException(e);
-                            } catch (InterruptedException e) {
+                            } catch (ExecutionException | InterruptedException e) {
                                 throw new RuntimeException(e);
                             }
-                            adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_menu_item, nomeFasi);
+                            adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.dropdown_menu_item, phasesNames);
                         }
                     }
                 });
@@ -129,7 +126,6 @@ public class InserimentoColturaActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
-                    //TODO: aggiungere CREATE_COLTURA_OPERATION_CODE
                     intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();
@@ -137,31 +133,31 @@ public class InserimentoColturaActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, nomeFasi);
+        adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, phasesNames);
         mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
         mBinding.buttonSubmit.setOnClickListener(v -> {
-            aggiungiColtura();
+            addCrop();
         });
 
         mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                fase=position;
+                phase =position;
             }
         });
     }
 
-    private TextWatcher colturaTextWatcher = new TextWatcher() {
+    private final TextWatcher cropTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String quantita = mBinding.quantita.getText().toString();
-            String piantaText = mBinding.pianta.getText().toString();
-            String fasiText = mBinding.autoCompleteTextViewFasi.getText().toString();
-            mBinding.buttonSubmit.setEnabled(!quantita.isEmpty() && !piantaText.isEmpty() && !fasiText.isEmpty());
+            String quantity = mBinding.quantita.getText().toString();
+            String plantText = mBinding.pianta.getText().toString();
+            String phasesText = mBinding.autoCompleteTextViewFasi.getText().toString();
+            mBinding.buttonSubmit.setEnabled(!quantity.isEmpty() && !plantText.isEmpty() && !phasesText.isEmpty());
         }
 
         @Override
@@ -176,32 +172,31 @@ public class InserimentoColturaActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo chiamato quando l'utente preme il pulsante "Invia" per aggiungere una nuova coltura.
-     * Raccoglie i dati inseriti dall'utente dall'interfaccia utente e li invia al ViewModel
-     * per l'aggiunta della coltura al database.
+     * Method called when the user presses the "Submit" button to add a new crop.
+     * It collects the data entered by the user from the user interface and sends it to the ViewModel
+     * for adding the crop to the database.
      */
-    private void aggiungiColtura() {
-        int quantita = Integer.parseInt(mBinding.quantita.getText().toString());
+    private void addCrop() {
+        int quantity = Integer.parseInt(mBinding.quantita.getText().toString());
         String note = mBinding.note.getText().toString();
 
-        Map<String, Object> coltura = new HashMap<>();
-        String utente = firebaseAuth.getCurrentUser().getUid();
-        coltura.put(CROPS_OWNER, utente);
-        coltura.put(CROPS_PLANT, piantaId);
-        coltura.put(CROPS_QUANTITY, quantita);
-        coltura.put(CROPS_NOTES, note);
+        Map<String, Object> crop = new HashMap<>();
+        String user = firebaseAuth.getCurrentUser().getUid();
+        crop.put(CROPS_OWNER, user);
+        crop.put(CROPS_PLANT, plantId);
+        crop.put(CROPS_QUANTITY, quantity);
+        crop.put(CROPS_NOTES, note);
 
         Date now = new Date();
         Timestamp timestamp = new Timestamp(now);
-        coltura.put(CROPS_INSERTION_DATE, timestamp);
-        coltura.put(CROPS_LAST_WATERING, timestamp);
+        crop.put(CROPS_INSERTION_DATE, timestamp);
+        crop.put(CROPS_LAST_WATERING, timestamp);
 
-        coltura.put(CROPS_CURRENT_PHASE, fase);
-        coltura.put(PLANT_NAME, piantaNome);
-        coltura.put(CROPS_WATERING_FREQUENCY, frequenze);
-        coltura.put(CROPS_CURRENT_WATERING_FREQUENCY,frequenze.get(fase));
-        Log.d(TAG, "coltura creata: " + coltura.toString());
-        inserimentoColturaViewModel.aggiungiColtura(coltura);
+        crop.put(CROPS_CURRENT_PHASE, phase);
+        crop.put(PLANT_NAME, plantName);
+        crop.put(CROPS_WATERING_FREQUENCY, frequencies);
+        crop.put(CROPS_CURRENT_WATERING_FREQUENCY, frequencies.get(phase));
+        insertCropViewModel.addCrop(crop);
         finish();
     }
 }

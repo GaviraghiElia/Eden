@@ -28,7 +28,7 @@ import com.unimib.eden.adapter.ProdottoAdapter;
 import com.unimib.eden.databinding.FragmentStandBinding;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
-import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
+import com.unimib.eden.ui.insertProduct.InsertProductActivity;
 import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
 
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class StandFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.buttonAddProduct) {
-                    Intent intent = new Intent(requireContext(), InserimentoProdottoActivity.class);
+                    Intent intent = new Intent(requireContext(), InsertProductActivity.class);
                     startActivity(intent);
                 }
             }

@@ -50,16 +50,16 @@
             android:noHistory="true"
             android:exported="true" />
         <activity
-            android:name=".ui.inserimentoProdotto.InserimentoProdottoActivity"
-            android:label="InserimentoProdottoActivity">
+            android:name=".ui.insertProduct.InsertProductActivity"
+            android:label="InsertProductActivity">
         </activity>
         <activity
             android:name=".ui.prodottoDetails.ProdottoDetailsActivity"
             android:label="ProdottoDetailsActivity">
         </activity>
         <activity
-            android:name=".ui.inserimentoColtura.InserimentoColturaActivity"
-            android:label="InserimentoColturaActivity">
+            android:name=".ui.insertCrop.InsertCropActivity"
+            android:label="InsertCropActivity">
         </activity>
     </application>
 </manifest>

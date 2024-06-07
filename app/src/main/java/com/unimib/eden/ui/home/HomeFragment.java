@@ -33,7 +33,7 @@ import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.ui.cropDetails.CropDetailsActivity;
-import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaActivity;
+import com.unimib.eden.ui.insertCrop.InsertCropActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v.getId() == R.id.buttonAddColtura) {
-                    Intent intent = new Intent(requireContext(), InserimentoColturaActivity.class);
+                    Intent intent = new Intent(requireContext(), InsertCropActivity.class);
                     startActivity(intent);
                 }
             }
