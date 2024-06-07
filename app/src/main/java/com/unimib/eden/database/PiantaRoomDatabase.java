@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
  *
  * @author Alice Hoa Galli
  */
-@Database(entities = {Pianta.class}, version = Constants.VERSIONE_DATABASE_PIANTA, exportSchema = false)
+@Database(entities = {Pianta.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class PiantaRoomDatabase extends RoomDatabase {
 
@@ -49,7 +49,7 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
             synchronized (PiantaRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    PiantaRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
+                                    PiantaRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)

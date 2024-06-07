@@ -1,8 +1,8 @@
 package com.unimib.eden.model;
 
-import static com.unimib.eden.utils.Constants.OFFERTA_ACQUIRENTE;
-import static com.unimib.eden.utils.Constants.OFFERTA_PREZZO;
-import static com.unimib.eden.utils.Constants.OFFERTA_STATO;
+import static com.unimib.eden.utils.Constants.OFFER_BUYER;
+import static com.unimib.eden.utils.Constants.OFFER_PRICE;
+import static com.unimib.eden.utils.Constants.OFFER_STATUS;
 
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
@@ -10,28 +10,26 @@ import androidx.room.PrimaryKey;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.unimib.eden.utils.Enum;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class Offerta {
     @PrimaryKey
     private String id;
-    @ColumnInfo(name = OFFERTA_ACQUIRENTE)
+    @ColumnInfo(name = OFFER_BUYER)
     private String acquirente;
-    @ColumnInfo(name = OFFERTA_PREZZO)
+    @ColumnInfo(name = OFFER_PRICE)
     private double prezzo;
-    @ColumnInfo(name = OFFERTA_STATO)
+    @ColumnInfo(name = OFFER_STATUS)
     private Enum.StatoProposta statoPropostaEnum;
 
     public Offerta(QueryDocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> tempMap = document.getData();
-        this.acquirente = String.valueOf(tempMap.get(OFFERTA_ACQUIRENTE));
-        this.prezzo = Double.parseDouble(tempMap.get(OFFERTA_PREZZO).toString());
+        this.acquirente = String.valueOf(tempMap.get(OFFER_BUYER));
+        this.prezzo = Double.parseDouble(tempMap.get(OFFER_PRICE).toString());
         //da controllare
-        String statoPropostaString = String.valueOf(tempMap.get(OFFERTA_STATO));
+        String statoPropostaString = String.valueOf(tempMap.get(OFFER_STATUS));
         this.statoPropostaEnum = Enum.StatoProposta.valueOf(statoPropostaString);
     }
 

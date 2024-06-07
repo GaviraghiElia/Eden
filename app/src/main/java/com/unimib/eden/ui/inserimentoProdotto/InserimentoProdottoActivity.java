@@ -1,14 +1,14 @@
 package com.unimib.eden.ui.inserimentoProdotto;
 
-import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
-import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_OFFERTE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PIANTA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
+import static com.unimib.eden.utils.Constants.PRODUCT_OTHER_INFORMATION;
+import static com.unimib.eden.utils.Constants.PRODUCT_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.PRODUCT_OFFERS;
+import static com.unimib.eden.utils.Constants.PRODUCT_PLANT;
+import static com.unimib.eden.utils.Constants.PRODUCT_PRICE;
+import static com.unimib.eden.utils.Constants.PRODUCT_QUANTITY;
+import static com.unimib.eden.utils.Constants.PRODUCT_EXCHANGE_AVAILABLE;
+import static com.unimib.eden.utils.Constants.PRODUCT_TYPE;
+import static com.unimib.eden.utils.Constants.PRODUCT_SELLER;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -213,17 +212,17 @@ public class InserimentoProdottoActivity extends AppCompatActivity {
         Log.d(TAG, "tipo:" + tipo);
 
         Map<String, Object> prodotto = new HashMap<>();
-        prodotto.put(PRODOTTO_TIPO, tipo);
-        prodotto.put(PRODOTTO_PREZZO, prezzo);
-        prodotto.put(PRODOTTO_PIANTA, piantaId);
-        prodotto.put(PRODOTTO_QUANTITA, quantita);
-        prodotto.put(PRODOTTO_FASE_ATTUALE, faseId);
-        prodotto.put(PRODOTTO_ALTRE_INFORMAZIONI, altreInformazioni);
+        prodotto.put(PRODUCT_TYPE, tipo);
+        prodotto.put(PRODUCT_PRICE, prezzo);
+        prodotto.put(PRODUCT_PLANT, piantaId);
+        prodotto.put(PRODUCT_QUANTITY, quantita);
+        prodotto.put(PRODUCT_CURRENT_PHASE, faseId);
+        prodotto.put(PRODUCT_OTHER_INFORMATION, altreInformazioni);
 
         String utente = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-        prodotto.put(PRODOTTO_VENDITORE, utente);
-        prodotto.put(PRODOTTO_OFFERTE, null);
-        prodotto.put(PRODOTTO_SCAMBIO_DISPONIBILE, scambioDisponibile);
+        prodotto.put(PRODUCT_SELLER, utente);
+        prodotto.put(PRODUCT_OFFERS, null);
+        prodotto.put(PRODUCT_EXCHANGE_AVAILABLE, scambioDisponibile);
 
         inserimentoProdottoViewModel.aggiungiProdotto(prodotto);
         finish();

@@ -1,16 +1,16 @@
 package com.unimib.eden;
 
-import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
-import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_ID;
-import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
-import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
-import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
-import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
-import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.PIANTA_NOME;
+import static com.unimib.eden.utils.Constants.CROPS_INSERTION_DATE;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.CROPS_ID;
+import static com.unimib.eden.utils.Constants.CROPS_NOTES;
+import static com.unimib.eden.utils.Constants.CROPS_PLANT;
+import static com.unimib.eden.utils.Constants.CROPS_OWNER;
+import static com.unimib.eden.utils.Constants.CROPS_QUANTITY;
+import static com.unimib.eden.utils.Constants.CROPS_LAST_WATERING;
+import static com.unimib.eden.utils.Constants.CROPS_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.PLANT_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -19,8 +19,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.Timestamp;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Offerta;
-import com.unimib.eden.utils.Enum;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -127,17 +125,17 @@ public class ColturaUnitTest {
     @Test
     public void testInitFromMap() {
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put(COLTURA_ID, id);
-        dataMap.put(COLTURA_PIANTA, idPianta);
-        dataMap.put(COLTURA_PROPRIETARIO, proprietario);
-        dataMap.put(COLTURA_QUANTITA, quantita);
-        dataMap.put(COLTURA_NOTE, note);
-        dataMap.put(COLTURA_DATA_INSERIMENTO, new Timestamp(new Date()));
-        dataMap.put(COLTURA_FASE_ATTUALE, faseAttuale);
-        dataMap.put(COLTURA_ULTIMO_INNAFFIAMENTO, new Timestamp(new Date()));
-        dataMap.put(PIANTA_NOME, nomePianta);
-        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenzaInnaffiamento);
-        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE, frequenzaInnaffiamentoAttuale);
+        dataMap.put(CROPS_ID, id);
+        dataMap.put(CROPS_PLANT, idPianta);
+        dataMap.put(CROPS_OWNER, proprietario);
+        dataMap.put(CROPS_QUANTITY, quantita);
+        dataMap.put(CROPS_NOTES, note);
+        dataMap.put(CROPS_INSERTION_DATE, new Timestamp(new Date()));
+        dataMap.put(CROPS_CURRENT_PHASE, faseAttuale);
+        dataMap.put(CROPS_LAST_WATERING, new Timestamp(new Date()));
+        dataMap.put(PLANT_NAME, nomePianta);
+        dataMap.put(CROPS_WATERING_FREQUENCY, frequenzaInnaffiamento);
+        dataMap.put(CROPS_CURRENT_WATERING_FREQUENCY, frequenzaInnaffiamentoAttuale);
 
         // Initialize Coltura from the data map
         coltura.initFromMap(dataMap);
@@ -161,17 +159,17 @@ public class ColturaUnitTest {
     @Test
     public void testConstructorFromMap() {
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put(COLTURA_ID, id);
-        dataMap.put(COLTURA_PIANTA, idPianta);
-        dataMap.put(COLTURA_PROPRIETARIO, proprietario);
-        dataMap.put(COLTURA_QUANTITA, quantita);
-        dataMap.put(COLTURA_NOTE, note);
-        dataMap.put(COLTURA_DATA_INSERIMENTO, new Timestamp(new Date()));
-        dataMap.put(COLTURA_FASE_ATTUALE, faseAttuale);
-        dataMap.put(COLTURA_ULTIMO_INNAFFIAMENTO, new Timestamp(new Date()));
-        dataMap.put(PIANTA_NOME, nomePianta);
-        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenzaInnaffiamento);
-        dataMap.put(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE, frequenzaInnaffiamentoAttuale);
+        dataMap.put(CROPS_ID, id);
+        dataMap.put(CROPS_PLANT, idPianta);
+        dataMap.put(CROPS_OWNER, proprietario);
+        dataMap.put(CROPS_QUANTITY, quantita);
+        dataMap.put(CROPS_NOTES, note);
+        dataMap.put(CROPS_INSERTION_DATE, new Timestamp(new Date()));
+        dataMap.put(CROPS_CURRENT_PHASE, faseAttuale);
+        dataMap.put(CROPS_LAST_WATERING, new Timestamp(new Date()));
+        dataMap.put(PLANT_NAME, nomePianta);
+        dataMap.put(CROPS_WATERING_FREQUENCY, frequenzaInnaffiamento);
+        dataMap.put(CROPS_CURRENT_WATERING_FREQUENCY, frequenzaInnaffiamentoAttuale);
 
         // Initialize Coltura from the data map
         Coltura newColtura =  new Coltura(dataMap);

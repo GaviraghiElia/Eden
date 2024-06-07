@@ -1,56 +1,36 @@
 package com.unimib.eden.utils;
 
-import android.util.Log;
-
 /**
- * Classe ConvertIntMonthToString per convertire un mese espresso sotto forma di intero con la corrispettiva stringa.
+ * ConvertIntMonthToString class to convert a month expressed as an integer to its corresponding string.
  *
- * @author Alice Hoa Galli
  */
+
 public class ConvertIntMonthToString {
 
     public ConvertIntMonthToString() {}
 
-    public static String getMese(int mese) {
-        String nomeMese = "";
-        switch (mese) {
-            case 1:
-                nomeMese = "Gennaio";
-                break;
-            case 2:
-                nomeMese = "Febbraio";
-                break;
-            case 3:
-                nomeMese = "Marzo";
-                break;
-            case 4:
-                nomeMese = "Aprile";
-                break;
-            case 5:
-                nomeMese = "Maggio";
-                break;
-            case 6:
-                nomeMese = "Giugno";
-                break;
-            case 7:
-                nomeMese = "Luglio";
-                break;
-            case 8:
-                nomeMese = "Agosto";
-                break;
-            case 9:
-                nomeMese = "Settembre";
-                break;
-            case 10:
-                nomeMese = "Ottobre";
-                break;
-            case 11:
-                nomeMese = "Novembre";
-                break;
-            case 12:
-                nomeMese = "Dicembre";
-                break;
-        }
-        return nomeMese;
+    /**
+     * Converts an integer representing a month to its corresponding name in Italian.
+     *
+     * @param month the integer representing the month (1 to 12)
+     * @return the corresponding month name
+     */
+
+    public static String getMonth(int month) {
+        return switch (month) {
+            case 1 -> "Gennaio";
+            case 2 -> "Febbraio";
+            case 3 -> "Marzo";
+            case 4 -> "Aprile";
+            case 5 -> "Maggio";
+            case 6 -> "Giugno";
+            case 7 -> "Luglio";
+            case 8 -> "Agosto";
+            case 9 -> "Settembre";
+            case 10 -> "Ottobre";
+            case 11 -> "Novembre";
+            case 12 -> "Dicembre";
+            default -> "";
+        };
     }
 }

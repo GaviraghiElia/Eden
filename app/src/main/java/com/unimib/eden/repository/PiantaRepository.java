@@ -44,7 +44,7 @@ public class PiantaRepository implements IPiantaRepository {
      * @param application   Il contesto dell'applicazione
      */
     public PiantaRepository(Application application) {
-        PiantaRoomDatabase piantaRoomDatabase = ServiceLocator.getInstance().getPiantaDao(application);
+        PiantaRoomDatabase piantaRoomDatabase = ServiceLocator.getInstance().getPlantDao(application);
         this.mPiantaDao = piantaRoomDatabase.piantaDao();
         allPiante = mPiantaDao.getAll();
     }
@@ -145,7 +145,7 @@ public class PiantaRepository implements IPiantaRepository {
      */
     public void updateLocalDB() {
 
-        db.collection(Constants.FIRESTORE_COLLECTION_PIANTE)
+        db.collection(Constants.FIRESTORE_COLLECTION_PLANTS)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

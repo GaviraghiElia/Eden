@@ -7,13 +7,8 @@ import com.unimib.eden.database.FaseRoomDatabase;
 import com.unimib.eden.database.PiantaRoomDatabase;
 import com.unimib.eden.database.ProdottoRoomDatabase;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
- * Class ServiceLocator che restituisce istanze dei Room database per le entità Pianta e Fase.
- *
- * @author Alice Hoa Galli
+ * Class ServiceLocator that provides instances of Room databases for the Plant and Phase entities.
  */
 public class ServiceLocator {
 
@@ -23,9 +18,9 @@ public class ServiceLocator {
     }
 
     /**
-     * Metodo getInstance che restituisce un'istanza della classe ServiceLocator.
+     * Method getInstance that returns an instance of the ServiceLocator class.
      *
-     * @return Un'istanza della classe ServiceLocator.
+     * @return An instance of the ServiceLocator class.
      */
     public static ServiceLocator getInstance() {
         if (instance == null) {
@@ -37,36 +32,36 @@ public class ServiceLocator {
     }
 
     /**
-     * Metodo getPiantaDao che restituisce un'istanza del Room database di pianta.
+     * Method getPlantDao that returns an instance of the plant Room database.
      *
-     * @param application   Contesto dell'applicazione
-     * @return Un'istanza del Room database di pianta.
+     * @param application   The application context
+     * @return An instance of the plant Room database.
      */
-    public PiantaRoomDatabase getPiantaDao(Application application) {
+    public PiantaRoomDatabase getPlantDao(Application application) {
         return PiantaRoomDatabase.getDatabase(application);
     }
 
     /**
-     * Metodo getColturaDao che restituisce un'istanza del Room database di coltura.
+     * Method getCropDao that returns an instance of the crop Room database.
      *
-     * @param application   Contesto dell'applicazione
-     * @return Un'istanza del Room database di coltura.
+     * @param application   The application context
+     * @return An instance of the crop Room database.
      */
-    public ColturaRoomDatabase getColturaDao(Application application) {
+    public ColturaRoomDatabase getCropDao(Application application) {
         return ColturaRoomDatabase.getDatabase(application);
     }
     /**
-     * Metodo getFaseDao che restituisce un'istanza del Room database di fase.
+     * Method getPhaseDao that returns an instance of the phase Room database.
      *
-     * @param application   Contesto dell'applicazione
-     * @return Un'istanza del Room database di fase.
+     * @param application   The application context
+     * @return An instance of the phase Room database.
      */
-    public FaseRoomDatabase getFaseDao(Application application) {
+    public FaseRoomDatabase getPhaseDao(Application application) {
         return FaseRoomDatabase.getDatabase(application);
     }
 
 
-    public ProdottoRoomDatabase getProdottoDao(Application application) {
+    public ProdottoRoomDatabase getProductDao(Application application) {
         return ProdottoRoomDatabase.getDatabase(application);
     }
 }

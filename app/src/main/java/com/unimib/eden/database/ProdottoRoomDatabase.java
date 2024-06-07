@@ -16,7 +16,7 @@ import com.unimib.eden.utils.Converters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Prodotto.class}, version = Constants.VERSIONE_DATABASE, exportSchema = false)
+@Database(entities = {Prodotto.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ProdottoRoomDatabase extends RoomDatabase {
 

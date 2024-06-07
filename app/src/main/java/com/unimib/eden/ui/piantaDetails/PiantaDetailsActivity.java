@@ -5,7 +5,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 
@@ -17,11 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.FaseAdapter;
-import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ConvertIntMonthToString;
@@ -103,8 +100,8 @@ public class PiantaDetailsActivity extends AppCompatActivity {
         binding.altezzaMaxPrevistaDetails.setText(String.valueOf(pianta.getAltezzaMaxPrevista()) + " cm");
         binding.tipoTerrenoDetails.setText(pianta.getTipoTerreno());
         binding.esposizioneSoleDetails.setText(pianta.getEsposizioneSole());
-        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMese(pianta.getInizioSemina()));
-        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMese(pianta.getFineSemina()));
+        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMonth(pianta.getInizioSemina()));
+        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMonth(pianta.getFineSemina()));
         binding.descriptionDetails.setText(pianta.getDescrizione());
 
 

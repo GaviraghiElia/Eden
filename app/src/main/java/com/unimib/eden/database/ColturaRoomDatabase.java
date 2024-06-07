@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * Classe di database per Coltura.
  * Questa classe definisce il database Room che contiene la tabella Coltura.
  */
-@Database(entities = {Coltura.class}, version = Constants.VERSIONE_DATABASE, exportSchema = false)
+@Database(entities = {Coltura.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ColturaRoomDatabase extends RoomDatabase {
 
@@ -47,7 +47,7 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
             synchronized (ColturaRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ColturaRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
+                                    ColturaRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)

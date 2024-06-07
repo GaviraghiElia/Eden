@@ -11,37 +11,36 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Classe di utilità per la trasformazione dei dati relativi alle date.
+ * Utility class for transforming date-related data.
  */
 public class Transformer {
     private static final String TAG = "Transformer";
 
     /**
-     * Calcola il numero di giorni fino al prossimo innaffiamento per una coltura.
+     * Calculates the number of days until the next watering for a crop.
      *
-     * @param coltura La coltura.
-     * @return Il numero di giorni fino al prossimo innaffiamento.
+     * @param crop The crop.
+     * @return The number of days until the next watering.
      */
-    public static int daysToProssimoInnaffiamento(Coltura coltura) {
+    public static int daysToNextWatering(Coltura crop) {
         Date currentDate = new Date();
-        Date ultimoInnaffiamento = coltura.getUltimoInnaffiamento();
-        long timeDifference = currentDate.getTime() - ultimoInnaffiamento.getTime();
+        Date lastWatering = crop.getUltimoInnaffiamento();
+        long timeDifference = currentDate.getTime() - lastWatering.getTime();
         long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        int faseAttuale = coltura.getFaseAttuale();
-        int frequenzaInnaffiamento = coltura.getFrequenzaInnaffiamento().get(faseAttuale);
-        int daysRemaining = frequenzaInnaffiamento - (int) daysDifference;
-        return daysRemaining;
+        int currentPhase = crop.getFaseAttuale();
+        int wateringFrequency = crop.getFrequenzaInnaffiamento().get(currentPhase);
+        return wateringFrequency - (int) daysDifference;
     }
 
     /**
-     * Formatta la data del prossimo innaffiamento come una stringa.
+     * Formats the next watering date as a string.
      *
-     * @param context Il contesto.
-     * @param coltura La coltura.
-     * @return La stringa formattata rappresentante la data del prossimo innaffiamento.
+     * @param context The context.
+     * @param crop The crop.
+     * @return The formatted string representing the next watering date.
      */
-    public static String formatProssimoInnaffiamento(Context context, Coltura coltura) {
-        int days = daysToProssimoInnaffiamento(coltura);
+    public static String formatNextWatering(Context context, Coltura crop) {
+        int days = daysToNextWatering(crop);
         if (days == 0) {
             return context.getString(R.string.oggi);
         } else if (days == 1) {
@@ -56,11 +55,11 @@ public class Transformer {
     }
 
     /**
-     * Restituisce una stringa che rappresenta la relazione della data fornita con la data attuale,
-     * indicando se è "oggi", "domani" "dopodomani" o "altro".
+     * Returns a string representing the relationship of the provided date with the current date,
+     * indicating if it is "today", "tomorrow", "day after tomorrow", or "other".
      *
-     * @param dateString la stringa che rappresenta la data nel formato "yyyy-MM-dd"
-     * @return una stringa che indica se la data è "oggi", "domani", "dopodomani" o "altro"
+     * @param dateString The string representing the date in "yyyy-MM-dd" format.
+     * @return A string indicating if the date is "today", "tomorrow", "day after tomorrow", or "other".
      */
     public static String getRelativeDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

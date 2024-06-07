@@ -10,7 +10,6 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -23,7 +22,7 @@ import java.util.concurrent.Executors;
  *
  * @author Alice Hoa Galli
  */
-@Database(entities = {Fase.class}, version = Constants.VERSIONE_DATABASE_FASE, exportSchema = false)
+@Database(entities = {Fase.class}, version = Constants.DATABASE_VERSION_PHASE, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class FaseRoomDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;
@@ -49,7 +48,7 @@ public abstract class FaseRoomDatabase extends RoomDatabase {
             synchronized (FaseRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    FaseRoomDatabase.class, Constants.NOME_DATABASE_ORTO)
+                                    FaseRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)

@@ -1,15 +1,15 @@
 package com.unimib.eden.model;
 
-import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
-import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_ID;
-import static com.unimib.eden.utils.Constants.PRODOTTO_OFFERTE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PIANTA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
+import static com.unimib.eden.utils.Constants.PRODUCT_OTHER_INFORMATION;
+import static com.unimib.eden.utils.Constants.PRODUCT_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.PRODUCT_ID;
+import static com.unimib.eden.utils.Constants.PRODUCT_OFFERS;
+import static com.unimib.eden.utils.Constants.PRODUCT_PLANT;
+import static com.unimib.eden.utils.Constants.PRODUCT_PRICE;
+import static com.unimib.eden.utils.Constants.PRODUCT_QUANTITY;
+import static com.unimib.eden.utils.Constants.PRODUCT_EXCHANGE_AVAILABLE;
+import static com.unimib.eden.utils.Constants.PRODUCT_TYPE;
+import static com.unimib.eden.utils.Constants.PRODUCT_SELLER;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -32,23 +32,23 @@ public class Prodotto implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
-    @ColumnInfo(name = PRODOTTO_TIPO)
+    @ColumnInfo(name = PRODUCT_TYPE)
     private String tipo;
-    @ColumnInfo(name = PRODOTTO_VENDITORE)
+    @ColumnInfo(name = PRODUCT_SELLER)
     private String venditore;
-    @ColumnInfo(name = PRODOTTO_PREZZO)
+    @ColumnInfo(name = PRODUCT_PRICE)
     private double prezzo;
-    @ColumnInfo(name = PRODOTTO_PIANTA)
+    @ColumnInfo(name = PRODUCT_PLANT)
     private String pianta;
-    @ColumnInfo(name = PRODOTTO_OFFERTE)
+    @ColumnInfo(name = PRODUCT_OFFERS)
     private ArrayList<String> offerte;
-    @ColumnInfo(name = PRODOTTO_QUANTITA)
+    @ColumnInfo(name = PRODUCT_QUANTITY)
     private int quantita;
-    @ColumnInfo(name = PRODOTTO_FASE_ATTUALE)
+    @ColumnInfo(name = PRODUCT_CURRENT_PHASE)
     private String faseAttuale;
-    @ColumnInfo(name = PRODOTTO_ALTRE_INFORMAZIONI)
+    @ColumnInfo(name = PRODUCT_OTHER_INFORMATION)
     private String altreInformazioni;
-    @ColumnInfo(name = PRODOTTO_SCAMBIO_DISPONIBILE)
+    @ColumnInfo(name = PRODUCT_EXCHANGE_AVAILABLE)
     private Boolean scambioDisponibile;
 
     /**
@@ -95,20 +95,20 @@ public class Prodotto implements Serializable {
      * @param dataMap La mappa di dati che rappresenta il prodotto.
      */
     public Prodotto(Map<String, Object> dataMap) {
-        this.id = String.valueOf(dataMap.get(PRODOTTO_ID));
+        this.id = String.valueOf(dataMap.get(PRODUCT_ID));
         initFromMap(dataMap);
     }
 
     public void initFromMap(Map<String, Object> dataMap) {
-        this.tipo = String.valueOf(dataMap.get(PRODOTTO_TIPO));
-        this.venditore = String.valueOf(dataMap.get(PRODOTTO_VENDITORE));
-        this.prezzo = Double.parseDouble(dataMap.get(PRODOTTO_PREZZO).toString());
-        this.pianta = String.valueOf(dataMap.get(PRODOTTO_PIANTA));
-        this.quantita = Integer.parseInt(String.valueOf(dataMap.get(PRODOTTO_QUANTITA)));
-        this.faseAttuale = String.valueOf(dataMap.get(PRODOTTO_FASE_ATTUALE));
-        this.altreInformazioni = String.valueOf(dataMap.get(PRODOTTO_ALTRE_INFORMAZIONI));
-        this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODOTTO_SCAMBIO_DISPONIBILE)));
-        this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODOTTO_OFFERTE);
+        this.tipo = String.valueOf(dataMap.get(PRODUCT_TYPE));
+        this.venditore = String.valueOf(dataMap.get(PRODUCT_SELLER));
+        this.prezzo = Double.parseDouble(dataMap.get(PRODUCT_PRICE).toString());
+        this.pianta = String.valueOf(dataMap.get(PRODUCT_PLANT));
+        this.quantita = Integer.parseInt(String.valueOf(dataMap.get(PRODUCT_QUANTITY)));
+        this.faseAttuale = String.valueOf(dataMap.get(PRODUCT_CURRENT_PHASE));
+        this.altreInformazioni = String.valueOf(dataMap.get(PRODUCT_OTHER_INFORMATION));
+        this.scambioDisponibile = Boolean.parseBoolean(String.valueOf(dataMap.get(PRODUCT_EXCHANGE_AVAILABLE)));
+        this.offerte = (ArrayList<String>) (ArrayList) dataMap.get(PRODUCT_OFFERS);
     }
 
     @NonNull

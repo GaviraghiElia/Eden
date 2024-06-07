@@ -16,56 +16,56 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
-import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_ID;
-import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
-import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
-import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
-import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
-import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.NOME_DATABASE_COLTURA;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.PIANTA_NOME;
+import static com.unimib.eden.utils.Constants.CROPS_INSERTION_DATE;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.CROPS_ID;
+import static com.unimib.eden.utils.Constants.CROPS_NOTES;
+import static com.unimib.eden.utils.Constants.CROPS_PLANT;
+import static com.unimib.eden.utils.Constants.CROPS_OWNER;
+import static com.unimib.eden.utils.Constants.CROPS_QUANTITY;
+import static com.unimib.eden.utils.Constants.CROPS_LAST_WATERING;
+import static com.unimib.eden.utils.Constants.CROP_DATABASE_NAME;
+import static com.unimib.eden.utils.Constants.CROPS_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.PLANT_NAME;
 
 /**
  * Classe modello che rappresenta una coltura.
  */
-@Entity(tableName = NOME_DATABASE_COLTURA)
+@Entity(tableName = CROP_DATABASE_NAME)
 public class Coltura implements Serializable {
 
     @NonNull
     @PrimaryKey
     private String id;
 
-    @ColumnInfo(name = COLTURA_PIANTA)
+    @ColumnInfo(name = CROPS_PLANT)
     private String idPianta;
 
-    @ColumnInfo(name = COLTURA_PROPRIETARIO)
+    @ColumnInfo(name = CROPS_OWNER)
     private String proprietario;
 
-    @ColumnInfo(name = COLTURA_QUANTITA)
+    @ColumnInfo(name = CROPS_QUANTITY)
     private int quantita;
 
-    @ColumnInfo(name = COLTURA_NOTE)
+    @ColumnInfo(name = CROPS_NOTES)
     private String note;
 
-    @ColumnInfo(name = COLTURA_DATA_INSERIMENTO)
+    @ColumnInfo(name = CROPS_INSERTION_DATE)
     private Date dataInserimento;
 
-    @ColumnInfo(name = COLTURA_FASE_ATTUALE)
+    @ColumnInfo(name = CROPS_CURRENT_PHASE)
     private int faseAttuale;
 
-    @ColumnInfo(name = COLTURA_ULTIMO_INNAFFIAMENTO)
+    @ColumnInfo(name = CROPS_LAST_WATERING)
     private Date ultimoInnaffiamento;
-    @ColumnInfo(name = PIANTA_NOME)
+    @ColumnInfo(name = PLANT_NAME)
     private String nomePianta;
     @TypeConverters(Converters.class)
-    @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO)
+    @ColumnInfo(name = CROPS_WATERING_FREQUENCY)
     private ArrayList<Integer> frequenzaInnaffiamento;
 
-    @ColumnInfo(name = COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE)
+    @ColumnInfo(name = CROPS_CURRENT_WATERING_FREQUENCY)
     private int frequenzaInnaffiamentoAttuale;
 
     // Parametro interno locale che segnala quando la coltura è stata aggiornata rispetto al meteo
@@ -109,18 +109,18 @@ public class Coltura implements Serializable {
     public Coltura(QueryDocumentSnapshot document) {
         this.id = document.getId();
         Map<String, Object> tempMap = document.getData();
-        this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
-        this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
-        this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
-        this.note = String.valueOf(tempMap.get(COLTURA_NOTE));
-        Timestamp dataInserimento = (Timestamp) tempMap.get(COLTURA_DATA_INSERIMENTO);
+        this.idPianta = String.valueOf(tempMap.get(CROPS_PLANT));
+        this.proprietario = String.valueOf(tempMap.get(CROPS_OWNER));
+        this.quantita = Integer.parseInt(tempMap.get(CROPS_QUANTITY).toString());
+        this.note = String.valueOf(tempMap.get(CROPS_NOTES));
+        Timestamp dataInserimento = (Timestamp) tempMap.get(CROPS_INSERTION_DATE);
         this.dataInserimento = dataInserimento.toDate();
-        this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_FASE_ATTUALE).toString());
-        Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
+        this.faseAttuale = Integer.parseInt(tempMap.get(CROPS_CURRENT_PHASE).toString());
+        Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(CROPS_LAST_WATERING);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
-        this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
-        this.frequenzaInnaffiamento = (ArrayList) document.getData().get(COLTURA_FREQUENZA_INNAFFIAMENTO);
-        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
+        this.nomePianta = String.valueOf(tempMap.get(PLANT_NAME));
+        this.frequenzaInnaffiamento = (ArrayList) document.getData().get(CROPS_WATERING_FREQUENCY);
+        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(CROPS_CURRENT_WATERING_FREQUENCY).toString());
         this.ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     }
 
@@ -130,23 +130,23 @@ public class Coltura implements Serializable {
      * @param dataMap La mappa di dati che rappresenta la coltura.
      */
     public Coltura(Map<String, Object> dataMap) {
-        this.id = String.valueOf(dataMap.get(COLTURA_ID));
+        this.id = String.valueOf(dataMap.get(CROPS_ID));
         initFromMap(dataMap);
     }
 
     public void initFromMap(Map<String, Object> tempMap) {
-        this.idPianta = String.valueOf(tempMap.get(COLTURA_PIANTA));
-        this.proprietario = String.valueOf(tempMap.get(COLTURA_PROPRIETARIO));
-        this.quantita = Integer.parseInt(tempMap.get(COLTURA_QUANTITA).toString());
-        this.note = String.valueOf(tempMap.get(COLTURA_NOTE));
-        Timestamp dataInserimento = (Timestamp) tempMap.get(COLTURA_DATA_INSERIMENTO);
+        this.idPianta = String.valueOf(tempMap.get(CROPS_PLANT));
+        this.proprietario = String.valueOf(tempMap.get(CROPS_OWNER));
+        this.quantita = Integer.parseInt(tempMap.get(CROPS_QUANTITY).toString());
+        this.note = String.valueOf(tempMap.get(CROPS_NOTES));
+        Timestamp dataInserimento = (Timestamp) tempMap.get(CROPS_INSERTION_DATE);
         this.dataInserimento = dataInserimento.toDate();
-        this.faseAttuale = Integer.parseInt(tempMap.get(COLTURA_FASE_ATTUALE).toString());
-        Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(COLTURA_ULTIMO_INNAFFIAMENTO);
+        this.faseAttuale = Integer.parseInt(tempMap.get(CROPS_CURRENT_PHASE).toString());
+        Timestamp ultimoInnaffiamento = (Timestamp) tempMap.get(CROPS_LAST_WATERING);
         this.ultimoInnaffiamento = ultimoInnaffiamento.toDate();
-        this.nomePianta = String.valueOf(tempMap.get(PIANTA_NOME));
-        this.frequenzaInnaffiamento = (ArrayList<Integer>) (ArrayList) tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO);
-        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE).toString());
+        this.nomePianta = String.valueOf(tempMap.get(PLANT_NAME));
+        this.frequenzaInnaffiamento = (ArrayList<Integer>) (ArrayList) tempMap.get(CROPS_WATERING_FREQUENCY);
+        this.frequenzaInnaffiamentoAttuale = Integer.parseInt(tempMap.get(CROPS_CURRENT_WATERING_FREQUENCY).toString());
         this.ultimoAggiornamento = new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000);
     }
 

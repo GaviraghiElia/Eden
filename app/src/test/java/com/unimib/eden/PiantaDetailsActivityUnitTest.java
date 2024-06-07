@@ -20,18 +20,18 @@ public class PiantaDetailsActivityUnitTest {
     @Test
     public void testGetMese() {
 
-        assertEquals("Gennaio", convertIntMonthToString.getMese(1));
-        assertEquals("Febbraio", convertIntMonthToString.getMese(2));
-        assertEquals("Marzo", convertIntMonthToString.getMese(3));
-        assertEquals("Aprile", convertIntMonthToString.getMese(4));
-        assertEquals("Maggio", convertIntMonthToString.getMese(5));
-        assertEquals("Giugno", convertIntMonthToString.getMese(6));
-        assertEquals("Luglio", convertIntMonthToString.getMese(7));
-        assertEquals("Agosto", convertIntMonthToString.getMese(8));
-        assertEquals("Settembre", convertIntMonthToString.getMese(9));
-        assertEquals("Ottobre", convertIntMonthToString.getMese(10));
-        assertEquals("Novembre", convertIntMonthToString.getMese(11));
-        assertEquals("Dicembre", convertIntMonthToString.getMese(12));
+        assertEquals("Gennaio", convertIntMonthToString.getMonth(1));
+        assertEquals("Febbraio", convertIntMonthToString.getMonth(2));
+        assertEquals("Marzo", convertIntMonthToString.getMonth(3));
+        assertEquals("Aprile", convertIntMonthToString.getMonth(4));
+        assertEquals("Maggio", convertIntMonthToString.getMonth(5));
+        assertEquals("Giugno", convertIntMonthToString.getMonth(6));
+        assertEquals("Luglio", convertIntMonthToString.getMonth(7));
+        assertEquals("Agosto", convertIntMonthToString.getMonth(8));
+        assertEquals("Settembre", convertIntMonthToString.getMonth(9));
+        assertEquals("Ottobre", convertIntMonthToString.getMonth(10));
+        assertEquals("Novembre", convertIntMonthToString.getMonth(11));
+        assertEquals("Dicembre", convertIntMonthToString.getMonth(12));
     }
 
 }

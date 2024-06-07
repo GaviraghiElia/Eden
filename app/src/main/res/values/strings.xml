@@ -139,4 +139,5 @@
     <string name="si">Sì :)</string>
     <string name="no">No :(</string>
     <string name="confermaInnaffiamento">Vuoi innaffiare queste piante?</string>
+    <string name="ok">Ok</string>
 </resources>

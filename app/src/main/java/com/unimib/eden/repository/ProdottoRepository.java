@@ -15,7 +15,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.ProdottoDao;
 import com.unimib.eden.database.ProdottoRoomDatabase;
-import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -40,7 +39,7 @@ public class ProdottoRepository implements IProdottoRepository {
      * @param application il contesto dell'applicazione.
      */
     public ProdottoRepository(Application application) {
-        ProdottoRoomDatabase prodottoRoomDatabase = ServiceLocator.getInstance().getProdottoDao(application);
+        ProdottoRoomDatabase prodottoRoomDatabase = ServiceLocator.getInstance().getProductDao(application);
         this.mProdottoDao = prodottoRoomDatabase.prodottoDao();
         allProdotti = mProdottoDao.getAll();
     }
@@ -87,7 +86,7 @@ public class ProdottoRepository implements IProdottoRepository {
                     String prodottoId = documentReference.getId();
                     Log.d(TAG, "Prodotto aggiunto con ID: " + prodottoId);
                     // Aggiungi l'ID al prodottoMap
-                    prodottoMap.put(Constants.PRODOTTO_ID, prodottoId);
+                    prodottoMap.put(Constants.PRODUCT_ID, prodottoId);
                     Prodotto prodotto = new Prodotto(prodottoMap);
                     Log.d(TAG, "prodotto: " + prodotto.toString());
                     insert(prodotto);
@@ -101,7 +100,7 @@ public class ProdottoRepository implements IProdottoRepository {
      */
     public void updateLocalDB(String currentUserId) {
         db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
-                .whereEqualTo(Constants.PRODOTTO_VENDITORE, currentUserId)
+                .whereEqualTo(Constants.PRODUCT_SELLER, currentUserId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

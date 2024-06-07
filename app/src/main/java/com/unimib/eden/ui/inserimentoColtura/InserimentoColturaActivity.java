@@ -1,15 +1,15 @@
 package com.unimib.eden.ui.inserimentoColtura;
 
-import static com.unimib.eden.utils.Constants.COLTURA_DATA_INSERIMENTO;
-import static com.unimib.eden.utils.Constants.COLTURA_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE;
-import static com.unimib.eden.utils.Constants.COLTURA_NOTE;
-import static com.unimib.eden.utils.Constants.COLTURA_PIANTA;
-import static com.unimib.eden.utils.Constants.COLTURA_PROPRIETARIO;
-import static com.unimib.eden.utils.Constants.COLTURA_QUANTITA;
-import static com.unimib.eden.utils.Constants.COLTURA_ULTIMO_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.PIANTA_NOME;
+import static com.unimib.eden.utils.Constants.CROPS_INSERTION_DATE;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.CROPS_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.CROPS_CURRENT_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.CROPS_NOTES;
+import static com.unimib.eden.utils.Constants.CROPS_PLANT;
+import static com.unimib.eden.utils.Constants.CROPS_OWNER;
+import static com.unimib.eden.utils.Constants.CROPS_QUANTITY;
+import static com.unimib.eden.utils.Constants.CROPS_LAST_WATERING;
+import static com.unimib.eden.utils.Constants.PLANT_NAME;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -186,20 +186,20 @@ public class InserimentoColturaActivity extends AppCompatActivity {
 
         Map<String, Object> coltura = new HashMap<>();
         String utente = firebaseAuth.getCurrentUser().getUid();
-        coltura.put(COLTURA_PROPRIETARIO, utente);
-        coltura.put(COLTURA_PIANTA, piantaId);
-        coltura.put(COLTURA_QUANTITA, quantita);
-        coltura.put(COLTURA_NOTE, note);
+        coltura.put(CROPS_OWNER, utente);
+        coltura.put(CROPS_PLANT, piantaId);
+        coltura.put(CROPS_QUANTITY, quantita);
+        coltura.put(CROPS_NOTES, note);
 
         Date now = new Date();
         Timestamp timestamp = new Timestamp(now);
-        coltura.put(COLTURA_DATA_INSERIMENTO, timestamp);
-        coltura.put(COLTURA_ULTIMO_INNAFFIAMENTO, timestamp);
+        coltura.put(CROPS_INSERTION_DATE, timestamp);
+        coltura.put(CROPS_LAST_WATERING, timestamp);
 
-        coltura.put(COLTURA_FASE_ATTUALE, fase);
-        coltura.put(PIANTA_NOME, piantaNome);
-        coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO, frequenze);
-        coltura.put(COLTURA_FREQUENZA_INNAFFIAMENTO_ATTUALE,frequenze.get(fase));
+        coltura.put(CROPS_CURRENT_PHASE, fase);
+        coltura.put(PLANT_NAME, piantaNome);
+        coltura.put(CROPS_WATERING_FREQUENCY, frequenze);
+        coltura.put(CROPS_CURRENT_WATERING_FREQUENCY,frequenze.get(fase));
         Log.d(TAG, "coltura creata: " + coltura.toString());
         inserimentoColturaViewModel.aggiungiColtura(coltura);
         finish();

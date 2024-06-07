@@ -1,18 +1,16 @@
 package com.unimib.eden.model;
 
-import static com.unimib.eden.utils.Constants.FASE_DESCRIZIONE;
-import static com.unimib.eden.utils.Constants.FASE_DURATA_FASE;
-import static com.unimib.eden.utils.Constants.FASE_FREQUENZA_INNAFFIAMENTO;
-import static com.unimib.eden.utils.Constants.FASE_IMMAGINE;
-import static com.unimib.eden.utils.Constants.FASE_INIZIO_FASE;
-import static com.unimib.eden.utils.Constants.FASE_NOME_FASE;
+import static com.unimib.eden.utils.Constants.PHASE_DESCRIPTION;
+import static com.unimib.eden.utils.Constants.PHASE_DURATION;
+import static com.unimib.eden.utils.Constants.PHASE_WATERING_FREQUENCY;
+import static com.unimib.eden.utils.Constants.PHASE_IMAGE;
+import static com.unimib.eden.utils.Constants.PHASE_START;
+import static com.unimib.eden.utils.Constants.PHASE_NAME;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -28,18 +26,18 @@ public class Fase implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
-    @ColumnInfo(name = FASE_NOME_FASE)
+    @ColumnInfo(name = PHASE_NAME)
     private String nomeFase;
-    @ColumnInfo(name = FASE_INIZIO_FASE)
+    @ColumnInfo(name = PHASE_START)
     private int inizioFase;
-    @ColumnInfo(name = FASE_DURATA_FASE)
+    @ColumnInfo(name = PHASE_DURATION)
     private int durataFase;
-    @ColumnInfo(name = FASE_DESCRIZIONE)
+    @ColumnInfo(name = PHASE_DESCRIPTION)
     private String descrizione;
-    @ColumnInfo(name = FASE_IMMAGINE)
+    @ColumnInfo(name = PHASE_IMAGE)
     private String immagine;
 
-    @ColumnInfo(name = FASE_FREQUENZA_INNAFFIAMENTO)
+    @ColumnInfo(name = PHASE_WATERING_FREQUENCY)
     private int frequenzaInnaffiamento;
 
     /**

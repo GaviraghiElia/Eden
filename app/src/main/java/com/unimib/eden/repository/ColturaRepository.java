@@ -2,12 +2,10 @@ package com.unimib.eden.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Transformations;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,12 +18,9 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 /**
  * Classe repository per la gestione delle entità Coltura, fornendo operazioni di accesso ai dati e sincronizzazione con Firestore.
@@ -43,7 +38,7 @@ public class ColturaRepository implements IColturaRepository {
      * @param application il contesto dell'applicazione.
      */
     public ColturaRepository(Application application) {
-        ColturaRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getColturaDao(application);
+        ColturaRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getCropDao(application);
         this.mColturaDao = colturaRoomDatabase.colturaDao();
         allColture = mColturaDao.getAll();
         Log.d(TAG, "ColturaRepository: allColture " + allColture.getValue());
@@ -110,7 +105,7 @@ public class ColturaRepository implements IColturaRepository {
      */
     @Override
     public void updateDataInnaffiamentoColtura(Coltura coltura) {
-        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+        db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                 .document(coltura.getId())
                 .update("ultimo_innaffiamento", new Date());
         deleteColtura(coltura);
@@ -127,7 +122,7 @@ public class ColturaRepository implements IColturaRepository {
     public void updateDataInnaffiamentoColtura(Coltura coltura, Date newDate) {
         deleteColtura(coltura);
         if(newDate != null) {
-            db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+            db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                     .document(coltura.getId())
                     .update("ultimo_innaffiamento", newDate);
             coltura.setUltimoInnaffiamento(newDate);
@@ -152,7 +147,7 @@ public class ColturaRepository implements IColturaRepository {
     public void updateDataInnaffiamentoColture(List<Coltura> colture) {
         Log.d(TAG, "updateDataInnaffiamentoAllColture"+colture.toString());
         for (Coltura coltura: colture) {
-            db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+            db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                     .document(coltura.getId())
                     .update("ultimo_innaffiamento", new Date());
             deleteColtura(coltura);
@@ -168,13 +163,13 @@ public class ColturaRepository implements IColturaRepository {
      * @param colturaMap mappa contenente i dati della coltura da aggiungere.
      */
     public void aggiungiColtura(Map<String, Object> colturaMap) {
-        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
+        db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                 .add(colturaMap)
                 .addOnSuccessListener(documentReference -> {
                     String colturaId = documentReference.getId();
                     Log.d(TAG, "Coltura aggiunta con ID: " + colturaId);
                     // Aggiungi l'ID al colturaMap
-                    colturaMap.put(Constants.PRODOTTO_ID, colturaId);
+                    colturaMap.put(Constants.PRODUCT_ID, colturaId);
                     Coltura coltura = new Coltura(colturaMap);
                     Log.d(TAG, "coltura: " + coltura.toString());
                     insert(coltura);
@@ -190,8 +185,8 @@ public class ColturaRepository implements IColturaRepository {
      * Se il database locale è vuoto, scarica le entità Coltura da Firestore.
      */
     public void updateLocalDB(String currentUserId) {
-        db.collection(Constants.FIRESTORE_COLLECTION_COLTURE)
-                .whereEqualTo(Constants.COLTURA_PROPRIETARIO, currentUserId)
+        db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
+                .whereEqualTo(Constants.CROPS_OWNER, currentUserId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -12,9 +12,6 @@ import com.unimib.eden.model.Offerta;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.unimib.eden.utils.Enum;
 
 public class OffertaUnitTest {
@@ -23,7 +20,7 @@ public class OffertaUnitTest {
 
     @Before
     public void setUp() {
-        offerta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCETTATA);
+        offerta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
     }
 
     @Test
@@ -32,7 +29,7 @@ public class OffertaUnitTest {
         assertEquals("idOfferta", offerta.getId());
         assertEquals("Sandro", offerta.getAcquirente());
         assertEquals(150, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.ACCETTATA, offerta.getStatoPropostaEnum());
+        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getStatoPropostaEnum());
     }
 
     @Test
@@ -40,7 +37,7 @@ public class OffertaUnitTest {
         assertEquals("idOfferta", offerta.getId());
         assertEquals("Sandro", offerta.getAcquirente());
         assertEquals(150, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.ACCETTATA, offerta.getStatoPropostaEnum());
+        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getStatoPropostaEnum());
     }
 
     @Test
@@ -48,18 +45,18 @@ public class OffertaUnitTest {
         offerta.setId("idOfferta2");
         offerta.setAcquirente("Alice");
         offerta.setPrezzo(200);
-        offerta.setStatoPropostaEnum(Enum.StatoProposta.RIFIUTATA);
+        offerta.setStatoPropostaEnum(Enum.StatoProposta.REJECTED);
 
         assertEquals("idOfferta2", offerta.getId());
         assertEquals("Alice", offerta.getAcquirente());
         assertEquals(200, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.RIFIUTATA, offerta.getStatoPropostaEnum());
+        assertEquals(Enum.StatoProposta.REJECTED, offerta.getStatoPropostaEnum());
     }
 
     @Test
     public void testEqualsAndHashCode() {
-        Offerta sameOfferta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCETTATA);
-        Offerta differentOfferta = new Offerta("idOfferta2", "Alice", 200, Enum.StatoProposta.RIFIUTATA);
+        Offerta sameOfferta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
+        Offerta differentOfferta = new Offerta("idOfferta2", "Alice", 200, Enum.StatoProposta.REJECTED);
 
         Offerta newOfferta = null;
         assertEquals(offerta, sameOfferta);

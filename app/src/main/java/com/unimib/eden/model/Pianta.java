@@ -1,17 +1,17 @@
 package com.unimib.eden.model;
 
-import static com.unimib.eden.utils.Constants.PIANTA_ALTEZZA_MAX_PREVISTA;
-import static com.unimib.eden.utils.Constants.PIANTA_FINE_SEMINA;
-import static com.unimib.eden.utils.Constants.PIANTA_INIZIO_SEMINA;
-import static com.unimib.eden.utils.Constants.PIANTA_MAX_TEMPERATURA;
-import static com.unimib.eden.utils.Constants.PIANTA_MIN_TEMPERATURA;
-import static com.unimib.eden.utils.Constants.PIANTA_NOME;
-import static com.unimib.eden.utils.Constants.PIANTA_DESCRIZIONE;
-import static com.unimib.eden.utils.Constants.PIANTA_FAMIGLIA_BOTANICA;
-import static com.unimib.eden.utils.Constants.PIANTA_FASE;
-import static com.unimib.eden.utils.Constants.PIANTA_SPAZIO_NECESSARIO;
-import static com.unimib.eden.utils.Constants.PIANTA_ESPOSIZIONE_SOLE;
-import static com.unimib.eden.utils.Constants.PIANTA_TIPO_TERRENO;
+import static com.unimib.eden.utils.Constants.PLANT_MAX_EXPECTED_HEIGHT;
+import static com.unimib.eden.utils.Constants.PLANT_SOWING_END;
+import static com.unimib.eden.utils.Constants.PLANT_SOWING_START;
+import static com.unimib.eden.utils.Constants.PLANT_MAX_TEMPERATURE;
+import static com.unimib.eden.utils.Constants.PLANT_MIN_TEMPERATURE;
+import static com.unimib.eden.utils.Constants.PLANT_NAME;
+import static com.unimib.eden.utils.Constants.PLANT_DESCRIPTION;
+import static com.unimib.eden.utils.Constants.PLANT_BOTANICAL_FAMILY;
+import static com.unimib.eden.utils.Constants.PLANT_PHASE;
+import static com.unimib.eden.utils.Constants.PLANT_REQUIRED_SPACE;
+import static com.unimib.eden.utils.Constants.PLANT_SUN_EXPOSURE;
+import static com.unimib.eden.utils.Constants.PLANT_SOIL_TYPE;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -21,10 +21,8 @@ import androidx.room.TypeConverters;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import com.google.gson.annotations.SerializedName;
 import com.unimib.eden.utils.Converters;
 
 /**
@@ -38,30 +36,30 @@ public class Pianta implements Serializable {
     @NonNull
     @PrimaryKey
     private String id;
-    @ColumnInfo(name = PIANTA_NOME)
+    @ColumnInfo(name = PLANT_NAME)
     private String nome;
-    @ColumnInfo(name = PIANTA_DESCRIZIONE)
+    @ColumnInfo(name = PLANT_DESCRIPTION)
     private String descrizione;
-    @ColumnInfo(name = PIANTA_FAMIGLIA_BOTANICA)
+    @ColumnInfo(name = PLANT_BOTANICAL_FAMILY)
     private String famigliaBotanica;
-    @ColumnInfo(name = PIANTA_INIZIO_SEMINA)
+    @ColumnInfo(name = PLANT_SOWING_START)
     private int inizioSemina;
-    @ColumnInfo(name = PIANTA_FINE_SEMINA)
+    @ColumnInfo(name = PLANT_SOWING_END)
     private int fineSemina;
     @TypeConverters(Converters.class)
-    @ColumnInfo(name = PIANTA_FASE)
+    @ColumnInfo(name = PLANT_PHASE)
     private ArrayList<String> fasi;
-    @ColumnInfo(name = PIANTA_SPAZIO_NECESSARIO)
+    @ColumnInfo(name = PLANT_REQUIRED_SPACE)
     private Double spazioNecessario;
-    @ColumnInfo(name = PIANTA_ESPOSIZIONE_SOLE)
+    @ColumnInfo(name = PLANT_SUN_EXPOSURE)
     private String esposizioneSole;
-    @ColumnInfo(name = PIANTA_TIPO_TERRENO)
+    @ColumnInfo(name = PLANT_SOIL_TYPE)
     private String tipoTerreno;
-    @ColumnInfo(name = PIANTA_MIN_TEMPERATURA)
+    @ColumnInfo(name = PLANT_MIN_TEMPERATURE)
     private int minTemperatura;
-    @ColumnInfo(name = PIANTA_MAX_TEMPERATURA)
+    @ColumnInfo(name = PLANT_MAX_TEMPERATURE)
     private int maxTemperatura;
-    @ColumnInfo(name = PIANTA_ALTEZZA_MAX_PREVISTA)
+    @ColumnInfo(name = PLANT_MAX_EXPECTED_HEIGHT)
     private Double altezzaMaxPrevista;
 
     /**

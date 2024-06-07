@@ -13,7 +13,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.FaseDao;
 import com.unimib.eden.database.FaseRoomDatabase;
-import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -49,7 +48,7 @@ public class FaseRepository implements IFaseRepository {
      * @param application   Il contesto dell'applicazione
      */
     public FaseRepository(Application application) {
-        FaseRoomDatabase faseRoomDatabase = ServiceLocator.getInstance().getFaseDao(application);
+        FaseRoomDatabase faseRoomDatabase = ServiceLocator.getInstance().getPhaseDao(application);
         this.mFaseDao = faseRoomDatabase.faseDao();
         allFasi = mFaseDao.getAll();
     }
@@ -194,12 +193,12 @@ public class FaseRepository implements IFaseRepository {
                                     Log.d(TAG, "onComplete: FASE" + tempMap.toString());
                                     newFase = new Fase(
                                             document.getId(),
-                                            String.valueOf(tempMap.get(Constants.FASE_NOME_FASE)),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
-                                            String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
+                                            String.valueOf(tempMap.get(Constants.PHASE_NAME)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_START))),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_DURATION))),
+                                            String.valueOf(tempMap.get(Constants.PHASE_DESCRIPTION)),
+                                            String.valueOf(tempMap.get(Constants.PHASE_IMAGE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_WATERING_FREQUENCY))));
                                     insert(newFase);
                                 }
                                 if (isFaseChanged) {
@@ -210,12 +209,12 @@ public class FaseRepository implements IFaseRepository {
 
                                     newFase = new Fase(
                                             document.getId(),
-                                            String.valueOf(tempMap.get(Constants.FASE_NOME_FASE)),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_INIZIO_FASE))),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_DURATA_FASE))),
-                                            String.valueOf(tempMap.get(Constants.FASE_DESCRIZIONE)),
-                                            String.valueOf(tempMap.get(Constants.FASE_IMMAGINE)),
-                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.FASE_FREQUENZA_INNAFFIAMENTO))));
+                                            String.valueOf(tempMap.get(Constants.PHASE_NAME)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_START))),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_DURATION))),
+                                            String.valueOf(tempMap.get(Constants.PHASE_DESCRIPTION)),
+                                            String.valueOf(tempMap.get(Constants.PHASE_IMAGE)),
+                                            Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_WATERING_FREQUENCY))));
                                     insert(newFase);
 
 

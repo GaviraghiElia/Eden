@@ -6,39 +6,50 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.NumberPicker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.unimib.eden.R;
 
 /**
- * Classe NumberPickerDialog per creare un Number Picker da mostrare nella FilterSearchActivity per i campi inizioSemina e fineSemia.
- *
- * @author Alice Hoa Galli
+ * A dialog fragment to create a Number Picker to be displayed in the FilterSearchActivity
+ * for the fields sowingStart and sowingEnd.
+ * <p>
+ * This dialog allows the user to select a number within a specified range.
+ * It is used to set the starting and ending sowing dates.
  */
 public class NumberPickerDialog extends DialogFragment {
     private NumberPicker.OnValueChangeListener valueChangeListener;
-    private int inizioSemina;
-    private int fineSemina;
-    private int idSemina;
+    private final int sowingStart;
+    private final int sowingEnd;
+    private final int sowingId;
 
-    public NumberPickerDialog(int inizioSemina, int fineSemina, int idSemina) {
-        this.inizioSemina = inizioSemina;
-        this.fineSemina = fineSemina;
-        this.idSemina = idSemina;
+    /**
+     * Constructs a new NumberPickerDialog with the specified sowing start, end, and identifier values.
+     *
+     * @param sowingStart the minimum value for the NumberPicker
+     * @param sowingEnd the maximum value for the NumberPicker
+     * @param sowingId an identifier to distinguish between start and end sowing dates
+     */
+    public NumberPickerDialog(int sowingStart, int sowingEnd, int sowingId) {
+        this.sowingStart = sowingStart;
+        this.sowingEnd = sowingEnd;
+        this.sowingId = sowingId;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final NumberPicker numberPickerMax = new NumberPicker(getActivity());
 
-        numberPickerMax.setMinValue(inizioSemina);
-        numberPickerMax.setMaxValue(fineSemina);
+        numberPickerMax.setMinValue(sowingStart);
+        numberPickerMax.setMaxValue(sowingEnd);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if (idSemina == 0) {
+        if (sowingId == 0) {
             builder.setTitle(R.string.choose_inizio_semina);
         } else {
             builder.setTitle(R.string.choose_fine_semina);
@@ -52,10 +63,10 @@ public class NumberPickerDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 int pickedValueMax = numberPickerMax.getValue();
-                TextInputEditText textInputEditText = null;
-                if (idSemina == 0) { //setto il campo di inizio semina
+                TextInputEditText textInputEditText;
+                if (sowingId == 0) { // Set the starting sowing date field
                     textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditInizioSemina);
-                } else { //setto il campo di fine semina
+                } else { // Set the ending sowing date field
                     textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditFineSemina);
                 }
 
@@ -74,10 +85,20 @@ public class NumberPickerDialog extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Gets the value change listener for the NumberPicker.
+     *
+     * @return the value change listener
+     */
     public NumberPicker.OnValueChangeListener getValueChangeListener() {
         return valueChangeListener;
     }
 
+    /**
+     * Sets the value change listener for the NumberPicker.
+     *
+     * @param valueChangeListener the value change listener to set
+     */
     public void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
         this.valueChangeListener = valueChangeListener;
     }

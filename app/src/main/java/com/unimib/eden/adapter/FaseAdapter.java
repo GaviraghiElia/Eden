@@ -114,7 +114,7 @@ public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder
             pos = pos + 1;
             this.getNomeFaseLabel.setText("Fase " + pos + ":");
             this.nomeFaseDetails.setText(fase.getNomeFase());
-            this.inizioFaseDetails.setText(ConvertIntMonthToString.getMese(fase.getInizioFase()));
+            this.inizioFaseDetails.setText(ConvertIntMonthToString.getMonth(fase.getInizioFase()));
             this.durataFaseDetails.setText(String.valueOf(fase.getDurataFase()));
             this.descrizioneFaseDetails.setText(fase.getDescrizione());
             this.frequenzaInnaffiamentoFaseDetails.setText(String.valueOf(fase.getFrequenzaInnaffiamento()));

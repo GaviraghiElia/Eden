@@ -1,16 +1,16 @@
 package com.unimib.eden;
 
 
-import static com.unimib.eden.utils.Constants.PRODOTTO_ALTRE_INFORMAZIONI;
-import static com.unimib.eden.utils.Constants.PRODOTTO_FASE_ATTUALE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_ID;
-import static com.unimib.eden.utils.Constants.PRODOTTO_OFFERTE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PIANTA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_PREZZO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_QUANTITA;
-import static com.unimib.eden.utils.Constants.PRODOTTO_SCAMBIO_DISPONIBILE;
-import static com.unimib.eden.utils.Constants.PRODOTTO_TIPO;
-import static com.unimib.eden.utils.Constants.PRODOTTO_VENDITORE;
+import static com.unimib.eden.utils.Constants.PRODUCT_OTHER_INFORMATION;
+import static com.unimib.eden.utils.Constants.PRODUCT_CURRENT_PHASE;
+import static com.unimib.eden.utils.Constants.PRODUCT_ID;
+import static com.unimib.eden.utils.Constants.PRODUCT_OFFERS;
+import static com.unimib.eden.utils.Constants.PRODUCT_PLANT;
+import static com.unimib.eden.utils.Constants.PRODUCT_PRICE;
+import static com.unimib.eden.utils.Constants.PRODUCT_QUANTITY;
+import static com.unimib.eden.utils.Constants.PRODUCT_EXCHANGE_AVAILABLE;
+import static com.unimib.eden.utils.Constants.PRODUCT_TYPE;
+import static com.unimib.eden.utils.Constants.PRODUCT_SELLER;
 import com.unimib.eden.model.Prodotto;
 
 import org.junit.Before;
@@ -160,15 +160,15 @@ public class ProdottoUnitTest {
     @Test
     public void testInitFromMap() {
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put(PRODOTTO_TIPO, "Verdura");
-        dataMap.put(PRODOTTO_PREZZO, 15.0);
-        dataMap.put(PRODOTTO_PIANTA, "Carota");
-        dataMap.put(PRODOTTO_QUANTITA, 10);
-        dataMap.put(PRODOTTO_FASE_ATTUALE, "Fase2");
-        dataMap.put(PRODOTTO_ALTRE_INFORMAZIONI, "Nuove informazioni");
-        dataMap.put(PRODOTTO_VENDITORE, "Venditore2");
-        dataMap.put(PRODOTTO_OFFERTE, new ArrayList<>());
-        dataMap.put(PRODOTTO_SCAMBIO_DISPONIBILE, false);
+        dataMap.put(PRODUCT_TYPE, "Verdura");
+        dataMap.put(PRODUCT_PRICE, 15.0);
+        dataMap.put(PRODUCT_PLANT, "Carota");
+        dataMap.put(PRODUCT_QUANTITY, 10);
+        dataMap.put(PRODUCT_CURRENT_PHASE, "Fase2");
+        dataMap.put(PRODUCT_OTHER_INFORMATION, "Nuove informazioni");
+        dataMap.put(PRODUCT_SELLER, "Venditore2");
+        dataMap.put(PRODUCT_OFFERS, new ArrayList<>());
+        dataMap.put(PRODUCT_EXCHANGE_AVAILABLE, false);
 
         prodotto.initFromMap(dataMap);
 
@@ -187,16 +187,16 @@ public class ProdottoUnitTest {
     @Test
     public void testProdottoConstructorFromMap() {
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put(PRODOTTO_ID, "2");
-        dataMap.put(PRODOTTO_TIPO, "Verdura");
-        dataMap.put(PRODOTTO_PREZZO, 15.0);
-        dataMap.put(PRODOTTO_PIANTA, "Carota");
-        dataMap.put(PRODOTTO_QUANTITA, 10);
-        dataMap.put(PRODOTTO_FASE_ATTUALE, "Fase2");
-        dataMap.put(PRODOTTO_ALTRE_INFORMAZIONI, "Nuove informazioni");
-        dataMap.put(PRODOTTO_VENDITORE, "Venditore2");
-        dataMap.put(PRODOTTO_OFFERTE, new ArrayList<>());
-        dataMap.put(PRODOTTO_SCAMBIO_DISPONIBILE, false);
+        dataMap.put(PRODUCT_ID, "2");
+        dataMap.put(PRODUCT_TYPE, "Verdura");
+        dataMap.put(PRODUCT_PRICE, 15.0);
+        dataMap.put(PRODUCT_PLANT, "Carota");
+        dataMap.put(PRODUCT_QUANTITY, 10);
+        dataMap.put(PRODUCT_CURRENT_PHASE, "Fase2");
+        dataMap.put(PRODUCT_OTHER_INFORMATION, "Nuove informazioni");
+        dataMap.put(PRODUCT_SELLER, "Venditore2");
+        dataMap.put(PRODUCT_OFFERS, new ArrayList<>());
+        dataMap.put(PRODUCT_EXCHANGE_AVAILABLE, false);
 
         Prodotto prodottoFromMap = new Prodotto(dataMap);
 

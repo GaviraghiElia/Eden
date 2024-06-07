@@ -120,8 +120,8 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
 
             this.textViewColturaPianta.setText(coltura.getNomePianta());
 
-            this.textViewGiorniInnaffiamento.setText(Transformer.formatProssimoInnaffiamento(itemView.getContext(), coltura));
-            if(Transformer.daysToProssimoInnaffiamento(coltura) >= 0){
+            this.textViewGiorniInnaffiamento.setText(Transformer.formatNextWatering(itemView.getContext(), coltura));
+            if(Transformer.daysToNextWatering(coltura) >= 0){
                 this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_ok, 0, 0, 0);
             }else{
                 this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_delay, 0, 0, 0);
