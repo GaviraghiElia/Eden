@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -116,9 +115,6 @@ public class StandFragment extends Fragment {
         mProductAdapter = new ProdottoAdapter(mProducts, new ProdottoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Prodotto prodotto) {
-                // Handle item click event
-                Log.d(TAG, "OnItemClick " + prodotto.toString());
-
                 // Navigate to ProdottoDetailsActivity with the selected product
                 Intent intent = new Intent(getActivity(), ProdottoDetailsActivity.class);
                 intent.putExtra("prodotto", prodotto);
@@ -128,8 +124,6 @@ public class StandFragment extends Fragment {
 
         // Set the adapter to the RecyclerView
         binding.standRecyclerView.setAdapter(mProductAdapter);
-
-        Log.d(TAG, "onCreateView: " + standViewModel.getProducts());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.standRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {

@@ -127,7 +127,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
                 this.textViewGiorniInnaffiamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.garden_watering_can_24_delay, 0, 0, 0);
             }
 
-            if (layout == R.layout.coltura_item) {
+            if (layout == R.layout.crop_item) {
 
                 // add imageViewPianta
                 String nomePianta = coltura.getNomePianta().toLowerCase();

@@ -5,20 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,55 +13,54 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.unimib.eden.R;
 import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
-import com.unimib.eden.R;
-import com.unimib.eden.ui.authentication.AuthenticationActivity;
-import com.unimib.eden.ui.colturaDetails.ColturaDetailsActivity;
-import com.unimib.eden.ui.searchPianta. SearchPiantaActivity;
+import com.unimib.eden.ui.cropDetails.CropDetailsActivity;
 import com.unimib.eden.ui.inserimentoColtura.InserimentoColturaActivity;
-import com.unimib.eden.ui.inserimentoProdotto.InserimentoProdottoActivity;
-import com.unimib.eden.ui.main.MainActivity;
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Una semplice sottoclasse di {@link Fragment} per la schermata Home.
- * Questo frammento visualizza un elenco di colture.
+ * A simple {@link Fragment} subclass for the Home screen.
+ * This fragment displays a list of crops.
  */
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding mBinding;
     private FirebaseAuth mAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private List<Pianta> piante = new ArrayList<Pianta>();
-    private List<Coltura> colture = new ArrayList<>();
     private NavController navController;
 
-    private List<Coltura> mColture = new ArrayList<>();
+    private List<Coltura> mCrops = new ArrayList<>();
     public HomeViewModel homeViewModel;
-    private ColturaAdapter mColturaAdapter;
-    private FirebaseAuth firebaseAuth;
+    private ColturaAdapter mCropAdapter;
+
     /**
-     * Costruttore predefinito per HomeFragment.
+     * Default constructor for HomeFragment.
      */
     public HomeFragment() {
-        // Costruttore pubblico vuoto richiesto
+        // Required empty public constructor
     }
 
     @SuppressLint("MissingPermission")
@@ -91,22 +76,17 @@ public class HomeFragment extends Fragment {
                 new MaterialAlertDialogBuilder(requireContext())
                         .setTitle(requireActivity().getResources().getText(R.string.exitApp))
                         .setMessage(requireActivity().getResources().getText(R.string.exitAppInfo))
-                        .setPositiveButton("Si",
+                        .setPositiveButton("Yes",
                                 new DialogInterface.OnClickListener() {
-
                                     @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        //requireActivity().finish();
+                                    public void onClick(DialogInterface dialog, int which) {
                                         requireActivity().finishAffinity();
                                     }
                                 })
                         .setNegativeButton(requireActivity().getResources().getText(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
-
                                     @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                     }
                                 }).show();
             }
@@ -116,38 +96,28 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
-        final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
+        final Observer<List<Coltura>> allColtureObserver = new Observer<>() {
             @Override
             public void onChanged(List<Coltura> coltura) {
-
-                Log.d(TAG, "onChanged: ");
-                mColture = coltura;
-
-                /*Collections.sort(mColture, new Comparator<Coltura>() {
-                    @Override
-                    public int compare(Coltura s1, Coltura s2) {
-                        return String.compare(s1.getAge(), s2.getAge());
-                    }
-                });*/
-                mColturaAdapter.update(mColture);
+                mCrops = coltura;
+                mCropAdapter.update(mCrops);
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        homeViewModel.getColture().observe(this, allColtureObserver);
+        homeViewModel.getCrops().observe(this, allColtureObserver);
 
         homeViewModel.updateDB(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        // Inflate il layout per questo frammento
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         mBinding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
 
-        // Codice per gestire il click del pulsante per aggiungere una nuova coltura
+        // Code to handle the click of the button to add a new crop
         Button addButton = view.findViewById(R.id.buttonAddColtura);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,46 +130,29 @@ public class HomeFragment extends Fragment {
         });
 
         navController = NavHostFragment.findNavController(this);
-        if(checkSession())
-        {
-            Log.d("mAuth", "home fragment - user sign in");
-            Log.d("mAuth", "home fragment " + requireActivity());
-
-        }else
-        {
-            Log.d("mAuth", "home fragment - user not auth");
-            Log.d("mAuth", "home fragment - this activity is" + requireActivity());
+        if (!checkSession()) {
             navController.navigate(R.id.action_navigation_home_to_registerFragment);
         }
 
         BottomNavigationView navBar = requireActivity().findViewById(R.id.nav_view);
         navBar.setVisibility(View.VISIBLE);
 
-        // Imposta RecyclerView con LinearLayoutManager
+        // Set up RecyclerView with LinearLayoutManager
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
-        mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
+        // Initialize the adapter with the list of crops and the item click listener
+        mCropAdapter = new ColturaAdapter(mCrops, new ColturaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Coltura coltura) {
-                // Gestisce l'evento di clic sull'elemento
-                Log.d(TAG, "OnItemClick " + coltura.toString());
-
-                // Naviga verso ColturaDetailsFragment con la coltura selezionata
-                //HomeFragmentDirections.ActionNavigationHomeToColturaDetailsFragment action = HomeFragmentDirections.actionNavigationHomeToColturaDetailsFragment(coltura);
-                //Navigation.findNavController(view).navigate(action);
-                Intent intent = new Intent(getActivity(), ColturaDetailsActivity.class);
+                // Navigate to CropDetailsFragment with the selected crop
+                Intent intent = new Intent(getActivity(), CropDetailsActivity.class);
                 intent.putExtra("coltura", coltura);
                 startActivity(intent);
             }
-        }, R.layout.coltura_item, getActivity().getApplication());
+        }, R.layout.crop_item, getActivity().getApplication());
 
-        // Imposta l'adapter su RecyclerView
-        mBinding.homeRecyclerView.setAdapter(mColturaAdapter);
-
-        Log.d(TAG, "onCreateView: mFasi " + homeViewModel.getFasi().toString());
-        Log.d(TAG, "onCreateView: mPiante " + homeViewModel.getPiante().toString());
-        Log.d(TAG, "onCreateView: mColture " + homeViewModel.getColture().getValue());
+        // Set the adapter to RecyclerView
+        mBinding.homeRecyclerView.setAdapter(mCropAdapter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mBinding.homeRecyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -216,14 +169,12 @@ public class HomeFragment extends Fragment {
         }
 
         return view;
-
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.home_menu, menu);
-
     }
 
     @Override
@@ -238,13 +189,8 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean checkSession()
-    {
+    private boolean checkSession() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser != null)
-            return true;
-
-        return false;
+        return currentUser != null;
     }
 }

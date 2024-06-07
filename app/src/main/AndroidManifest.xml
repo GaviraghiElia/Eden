@@ -27,7 +27,7 @@
             android:theme="@style/Theme.Eden" >
         </activity>
         <activity
-            android:name=".ui.colturaDetails.ColturaDetailsActivity"
+            android:name=".ui.cropDetails.CropDetailsActivity"
             android:exported="false">
         </activity>
 

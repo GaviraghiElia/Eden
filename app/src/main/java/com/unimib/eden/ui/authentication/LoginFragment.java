@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,12 +53,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(!checkSession())
-        {
-            Log.d("mAuth", "login fragment - user not signed");
-        }else
-        {
-            Log.d("mAuth", "login fragment - user auth");
+        if(checkSession()) {
             startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
         }
     }

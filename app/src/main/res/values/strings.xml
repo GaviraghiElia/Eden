@@ -140,4 +140,12 @@
     <string name="no">No :(</string>
     <string name="confermaInnaffiamento">Vuoi innaffiare queste piante?</string>
     <string name="ok">Ok</string>
+    <string name="water">Innaffia</string>
+    <string name="current_phase">Fase attuale</string>
+    <string name="edit">Modifica</string>
+    <string name="insertion_date">Data inserimento</string>
+    <string name="quantity">Quantità</string>
+    <string name="notes">Note</string>
+    <string name="watering">Innaffiamento</string>
+    <string name="last_watering">Ultimo innaffiamento</string>
 </resources>

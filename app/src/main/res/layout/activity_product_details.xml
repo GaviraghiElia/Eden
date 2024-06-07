@@ -47,8 +47,8 @@
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="right"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                             android:layout_height="140dp"
                             android:scaleType="centerCrop"
                             android:padding="10dp"
-                            app:srcCompat="@drawable/fase_illustration"
+                            app:srcCompat="@drawable/phase_illustration"
                             />
 
                         <LinearLayout
@@ -99,8 +99,8 @@
                     android:layout_weight="1"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="left"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -162,8 +162,8 @@
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="left"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -215,8 +215,8 @@
                     android:layout_weight="1"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="right"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -280,8 +280,8 @@
                     android:visibility="visible"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"

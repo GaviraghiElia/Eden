@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.card.MaterialCardView;
 import com.unimib.eden.R;
-import com.unimib.eden.databinding.ActivityProdottoDetailsBinding;
+import com.unimib.eden.databinding.ActivityProductDetailsBinding;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
@@ -26,7 +26,7 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
 
     private Prodotto prodotto;
     private ProdottoDetailsViewModel prodottoDetailsViewModel;
-    private ActivityProdottoDetailsBinding mBinding;
+    private ActivityProductDetailsBinding mBinding;
 
     private static final String TAG = "ProdottoDetailsActivity";
 
@@ -38,7 +38,7 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBinding = ActivityProdottoDetailsBinding.inflate(getLayoutInflater());
+        mBinding = ActivityProductDetailsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
         // settare l'app bar

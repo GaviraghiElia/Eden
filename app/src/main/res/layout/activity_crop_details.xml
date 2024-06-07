@@ -47,8 +47,8 @@
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="left"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -74,15 +74,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Innaffiamento"
+                                android:text="@string/last_watering"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewUltimoInnaffiamentoFull"
+                                android:id="@+id/textViewLastWateringFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Ultimo innaffiamento"
+                                android:text="@string/last_watering"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
@@ -96,7 +96,7 @@
                             android:orientation="horizontal" >
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/buttonInnaffiaColtura"
+                                android:id="@+id/buttonWaterCrop"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -105,7 +105,7 @@
                                 android:paddingHorizontal="20dp"
                                 app:iconSize="16dp"
                                 app:iconPadding="8dp"
-                                android:text="Innaffia"
+                                android:text="@string/water"
                                 />
                         </LinearLayout>
 
@@ -114,14 +114,14 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardFasi"
+                    android:id="@+id/cardPhases"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="right"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                             android:layout_height="140dp"
                             android:scaleType="centerCrop"
                             android:padding="10dp"
-                            app:srcCompat="@drawable/fase_illustration"
+                            app:srcCompat="@drawable/phase_illustration"
                             />
 
                         <LinearLayout
@@ -147,15 +147,15 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fase Attuale"
+                                android:text="@string/current_phase"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewFaseAttualeFull"
+                                android:id="@+id/textViewCurrentPhaseFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fase Attuale"
+                                android:text="@string/current_phase"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
@@ -167,7 +167,7 @@
                             android:orientation="horizontal" >
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/buttonModificaFase"
+                                android:id="@+id/buttonModifyPhase"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -176,7 +176,7 @@
                                 android:paddingHorizontal="20dp"
                                 app:iconSize="16dp"
                                 app:iconPadding="8dp"
-                                android:text="Modifica"
+                                android:text="@string/edit"
                                 />
                         </LinearLayout>
 
@@ -195,15 +195,15 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardDataInserimento"
+                    android:id="@+id/cardInsertionDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="left"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -216,7 +216,7 @@
                             android:layout_height="140dp"
                             android:scaleType="centerCrop"
                             android:padding="10dp"
-                            app:srcCompat="@drawable/inserimento_illustration"
+                            app:srcCompat="@drawable/insertion_date_illustration"
                             />
 
                         <LinearLayout
@@ -229,54 +229,34 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Data inserimento"
+                                android:text="@string/insertion_date"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewDataInserimentoFull"
+                                android:id="@+id/textViewInsertionDateFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Data inserimento"
+                                android:text="@string/insertion_date"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
 
                         </LinearLayout>
 
-                        <!--
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal" >
-
-                            <com.google.android.material.button.MaterialButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/Widget.Material3.Button.IconButton.Filled"
-                                app:icon="@drawable/watering_can_24"
-                                android:layout_margin="5dp"
-                                app:iconSize="16dp"
-                                app:iconPadding="8dp"
-                                android:text="Innaffia"
-                                />
-                        </LinearLayout>
-                        -->
-
                     </LinearLayout>
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardQuantita"
+                    android:id="@+id/cardQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="right"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -302,7 +282,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Quantità"
+                                android:text="@string/quantity"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
@@ -310,7 +290,7 @@
                                 android:id="@+id/textViewQuantityFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Quantità"
+                                android:text="@string/quantity"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
@@ -333,15 +313,15 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardNote"
+                    android:id="@+id/cardNotes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:visibility="visible"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:clickable="false"
+                    android:focusable="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -367,7 +347,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Note"
+                                android:text="@string/notes"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
@@ -375,7 +355,7 @@
                                 android:id="@+id/textViewNoteFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Note"
+                                android:text="@string/notes"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
