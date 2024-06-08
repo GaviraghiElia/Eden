@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 /**
  * AuthenticationFieldValidator class for validating text fields for authentication in the application
- *
- * @author Elia Gaviraghi
  */
 public class AuthenticationFieldValidator {
 

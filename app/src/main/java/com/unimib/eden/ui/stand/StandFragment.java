@@ -29,7 +29,7 @@ import com.unimib.eden.databinding.FragmentStandBinding;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.insertProduct.InsertProductActivity;
-import com.unimib.eden.ui.prodottoDetails.ProdottoDetailsActivity;
+import com.unimib.eden.ui.productDetails.ProductDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +116,7 @@ public class StandFragment extends Fragment {
             @Override
             public void onItemClick(Prodotto prodotto) {
                 // Navigate to ProdottoDetailsActivity with the selected product
-                Intent intent = new Intent(getActivity(), ProdottoDetailsActivity.class);
+                Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
                 intent.putExtra("prodotto", prodotto);
                 startActivity(intent);
             }

@@ -17,8 +17,6 @@ import java.util.Objects;
 
 /**
  * Classe Fase è il modello che rappresenta una fase.
- *
- * @author Alice Hoa Galli
  */
 @Entity(tableName = "fase")
 public class Fase implements Serializable {

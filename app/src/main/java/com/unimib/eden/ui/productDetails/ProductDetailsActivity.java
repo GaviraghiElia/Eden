@@ -1,37 +1,38 @@
-package com.unimib.eden.ui.prodottoDetails;
+package com.unimib.eden.ui.productDetails;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.card.MaterialCardView;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityProductDetailsBinding;
 import com.unimib.eden.model.Prodotto;
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
+import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class ProdottoDetailsActivity extends AppCompatActivity {
+/**
+ * Activity ProductDetailsActivity that shows all details of a product.
+ */
+public class ProductDetailsActivity extends AppCompatActivity {
 
-    private Prodotto prodotto;
-    private ProdottoDetailsViewModel prodottoDetailsViewModel;
+    private static final String TAG = "ProductDetailsActivity";
+
+    private Prodotto product;
+    private ProductDetailsViewModel productDetailsViewModel;
     private ActivityProductDetailsBinding mBinding;
 
-    private static final String TAG = "ProdottoDetailsActivity";
-
-
-    public ProdottoDetailsActivity() {}
+    /**
+     * Default constructor for ProductDetailsActivity.
+     */
+    public ProductDetailsActivity() {}
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -41,7 +42,7 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
         mBinding = ActivityProductDetailsBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        // settare l'app bar
+        // Set the app bar
         mBinding.toolbarProdottoDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarProdottoDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,52 +51,56 @@ public class ProdottoDetailsActivity extends AppCompatActivity {
             }
         });
 
-        prodottoDetailsViewModel = new ViewModelProvider(this).get(ProdottoDetailsViewModel.class);
+        // Initialize ViewModel
+        productDetailsViewModel = new ViewModelProvider(this).get(ProductDetailsViewModel.class);
         Intent intent = getIntent();
-        prodotto = (Prodotto) intent.getSerializableExtra("prodotto");
-        prodottoDetailsViewModel.initialize(prodotto);
-        mBinding.toolbarProdottoDetails.setTitle(prodottoDetailsViewModel.getNomePianta(prodotto));
+        product = (Prodotto) intent.getSerializableExtra("prodotto");
+        productDetailsViewModel.initialize(product);
+
+        // Set the title of the toolbar
+        mBinding.toolbarProdottoDetails.setTitle(productDetailsViewModel.getPlantName(product));
+
+        // Set product phase name
         try {
-            mBinding.textViewFaseFull.setText(prodottoDetailsViewModel.getNomeFase(prodotto));
+            mBinding.textViewFaseFull.setText(productDetailsViewModel.getPhaseName(product));
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        String unitMeasure = "";
-        if (Objects.equals(prodotto.getFaseAttuale(), "yTgppWsyv9XsdmncYDoH")) {
-            unitMeasure = " grammi";
-        } else {
-            unitMeasure = " piante";
-        }
-        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(prodotto.getQuantita()) + unitMeasure);
+        // Set quantity and unit of measure
+        String unitMeasure = Objects.equals(product.getFaseAttuale(), Constants.LAST_PHASE) ? " grammi" : " piante";
+        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(product.getQuantita()) + unitMeasure);
 
-        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", prodotto.getPrezzo()) + " €");
-        if (prodotto.getScambioDisponibile()) {
+        // Set product price
+        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", product.getPrezzo()) + " €");
+
+        // Set exchange availability
+        if (product.getScambioDisponibile()) {
             mBinding.textViewScambiProdottoFull.setText(R.string.si);
             mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
-        }
-        else {
+        } else {
             mBinding.textViewScambiProdottoFull.setText(R.string.no);
             mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_redContainer));
         }
-        if (prodotto.getAltreInformazioni().isEmpty()) {
+
+        // Set additional product information
+        if (product.getAltreInformazioni().isEmpty()) {
             mBinding.cardProdottoNote.setVisibility(View.GONE);
         } else {
-            mBinding.textViewInformazioniProdottoFull.setText(prodotto.getAltreInformazioni());
+            mBinding.textViewInformazioniProdottoFull.setText(product.getAltreInformazioni());
         }
 
+        // Button click to view all details
         mBinding.buttonViewAllDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PiantaDetailsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PlantDetailsActivity.class);
                 intent.putExtra("operationCode", Constants.PIANTA_DETAILS_OPERATION_CODE);
-                intent.putExtra("pianta", prodottoDetailsViewModel.getPianta(prodotto));
+                intent.putExtra("pianta", productDetailsViewModel.getPlant(product));
                 startActivity(intent);
             }
         });
-
     }
-
 }

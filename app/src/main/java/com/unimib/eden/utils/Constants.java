@@ -73,6 +73,8 @@ public class Constants {
     public static final String PRODUCT_CURRENT_PHASE = "fase_attuale";
     public static final String PRODUCT_EXCHANGE_AVAILABLE = "scambio_disponibile";
 
+    public static final String LAST_PHASE = "yTgppWsyv9XsdmncYDoH";
+
 
     public static final String OFFER_BUYER = "acquirente";
     public static final String OFFER_PRICE = "offerta";

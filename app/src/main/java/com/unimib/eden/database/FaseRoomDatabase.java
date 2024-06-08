@@ -19,8 +19,6 @@ import java.util.concurrent.Executors;
 /**
  * Classe FaseRoomDatabase per il database di Fase.
  * Questa classe definisce il database Room che contiene la tabella Fase.
- *
- * @author Alice Hoa Galli
  */
 @Database(entities = {Fase.class}, version = Constants.DATABASE_VERSION_PHASE, exportSchema = false)
 @TypeConverters({Converters.class})

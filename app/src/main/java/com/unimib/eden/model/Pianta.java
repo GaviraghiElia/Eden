@@ -27,8 +27,6 @@ import com.unimib.eden.utils.Converters;
 
 /**
  * Classe Pianta è il modello che rappresenta una pianta.
- *
- * @author Alice Hoa Galli
  */
 @Entity(tableName = "pianta")
 public class Pianta implements Serializable {

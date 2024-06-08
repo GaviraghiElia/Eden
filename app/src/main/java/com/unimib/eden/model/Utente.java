@@ -2,8 +2,6 @@ package com.unimib.eden.model;
 
 /**
  * Classe per modellare gli utenti
- *
- * @author Gaviraghi Elia
  */
 public class Utente {
     /**

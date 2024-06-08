@@ -1,4 +1,4 @@
-package com.unimib.eden.ui.searchPianta;
+package com.unimib.eden.ui.searchPlant;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
@@ -8,16 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,8 +24,6 @@ import com.unimib.eden.adapter.PiantaAdapter;
 import com.unimib.eden.databinding.ActivitySearchPiantaBinding;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.filterSearch.FilterSearchActivity;
-import com.unimib.eden.ui.home.HomeFragment;
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.io.Serializable;
@@ -39,23 +33,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Activity SearchPiantaActivity che consente di ricercare le piante nel database.
- *
- * @author Alice Hoa Galli
+ * Activity that allows searching for plants in the database.
  */
-public class SearchPiantaActivity extends AppCompatActivity {
-    private static final String TAG = "SearchPiantaActivity";
+public class SearchPlantActivity extends AppCompatActivity {
+    private static final String TAG = "SearchPlantActivity";
     private ActivitySearchPiantaBinding binding;
-    private SearchPiantaViewModel searchPiantaViewModel;
-    private Handler mHandler = new Handler();
-    private PiantaAdapter piantaAdapter;
+    private SearchPlantViewModel searchPlantViewModel;
+    private final Handler mHandler = new Handler();
+    private PiantaAdapter plantAdapter;
     private int operationCode;
-
-    private Map<String, String> filtriMap = new HashMap<String, String>();
-
+    private Map<String, String> filtersMap = new HashMap<>();
     private boolean hasFiltri = false;
-    private LiveData<List<Pianta>> piantaList = new LiveData<List<Pianta>>() {
-    };
+    private LiveData<List<Pianta>> plantList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,78 +53,82 @@ public class SearchPiantaActivity extends AppCompatActivity {
         binding = ActivitySearchPiantaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Log.d(TAG, "onCreate: FILTRI_MAP " + filtriMap.toString());
-
+        // Get the intent and check for filters
         Intent intent = getIntent();
         operationCode = (int) intent.getSerializableExtra("operationCode");
         if (intent.hasExtra("filtriMap")) {
-            filtriMap = (HashMap<String, String>) intent.getSerializableExtra("filtriMap");
+            filtersMap = (HashMap<String, String>) intent.getSerializableExtra("filtriMap");
             hasFiltri = true;
         }
 
+        // Set up the toolbar navigation
         binding.searchPiantaToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hasFiltri = false;
-                filtriMap.clear();
+                filtersMap.clear();
                 onBackPressed();
             }
         });
-        Menu menu = binding.searchPiantaToolbar.getMenu();
 
+        // Set up the filter menu
+        Menu menu = binding.searchPiantaToolbar.getMenu();
         menu.findItem(R.id.filter_pianta).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(getApplicationContext(), FilterSearchActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
-                if (!filtriMap.isEmpty()) {
-                    intent.putExtra("filtriMap", (Serializable) filtriMap);
+                if (!filtersMap.isEmpty()) {
+                    intent.putExtra("filtriMap", (Serializable) filtersMap);
                 }
-                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
                 return true;
             }
         });
 
-        searchPiantaViewModel = new ViewModelProvider(this).get(SearchPiantaViewModel.class);
+        // Initialize ViewModel
+        searchPlantViewModel = new ViewModelProvider(this).get(SearchPlantViewModel.class);
 
+        // Show the progress bar while loading data
         binding.progressBarSearchPianta.setVisibility(View.VISIBLE);
-        piantaList = searchPiantaViewModel.getPiantaList();
 
+        // Set up the RecyclerView with an adapter
         binding.searchPiantaRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        piantaAdapter = new PiantaAdapter(new ArrayList<>());
-        binding.searchPiantaRecyclerView.setAdapter(piantaAdapter);
+        plantAdapter = new PiantaAdapter(new ArrayList<>());
+        binding.searchPiantaRecyclerView.setAdapter(plantAdapter);
 
+        // Observe the plant list LiveData from ViewModel
         if (hasFiltri) {
-            searchPiantaViewModel.getPiantaList(filtriMap).observe(this, new Observer<List<Pianta>>() {
+            searchPlantViewModel.getPlantsList(filtersMap).observe(this, new Observer<List<Pianta>>() {
                 @Override
-                public void onChanged(List<Pianta> piante) {
-                    piantaAdapter.update(piante, operationCode);
+                public void onChanged(List<Pianta> plants) {
+                    plantAdapter.update(plants, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }
             });
         } else {
-            searchPiantaViewModel.getPiantaList().observe(this, new Observer<List<Pianta>>() {
+            searchPlantViewModel.getPlantsList().observe(this, new Observer<List<Pianta>>() {
                 @Override
-                public void onChanged(List<Pianta> piante) {
-                    piantaAdapter.update(piante, operationCode);
+                public void onChanged(List<Pianta> plants) {
+                    plantAdapter.update(plants, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }
             });
         }
 
-
-
+        // Set up search input listener
         binding.textInputSearchPianta.requestFocus();
         binding.textInputSearchPianta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No action needed here
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // No action needed here
             }
 
             @Override
@@ -146,18 +139,13 @@ public class SearchPiantaActivity extends AppCompatActivity {
                     public void run() {
                         binding.progressBarSearchPianta.setVisibility(View.VISIBLE);
                         if (hasFiltri) {
-                            searchPiantaViewModel.searchPianta(s.toString(), filtriMap);
+                            searchPlantViewModel.searchPlant(s.toString(), filtersMap);
                         } else {
-                            searchPiantaViewModel.searchPianta(s.toString());
+                            searchPlantViewModel.searchPlant(s.toString());
                         }
-
                     }
                 }, Constants.API_SEARCH_DELAY);
             }
         });
     }
-
-
-
-
 }

@@ -22,8 +22,6 @@ import com.unimib.eden.utils.SharedPreferencesProvider;
 
 /**
  * Classe per gestire l'interazione con Firebase in merito alla gestione degli utenti
- *
- * @author Gaviraghi Elia
  */
 public class UtenteRepository implements IUtenteRepository{
 

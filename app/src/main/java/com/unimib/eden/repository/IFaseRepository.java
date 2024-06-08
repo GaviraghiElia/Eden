@@ -9,8 +9,6 @@ import java.util.concurrent.ExecutionException;
 /**
  * Interfaccia IFaseRepository per FaseRepository.
  * Definisce i metodi per l'accesso ai dati della fase
- *
- * @author Alice Hoa Galli
  */
 public interface IFaseRepository {
 

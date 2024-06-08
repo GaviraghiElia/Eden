@@ -17,16 +17,14 @@ import com.unimib.eden.R;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.insertCrop.InsertCropActivity;
 import com.unimib.eden.ui.insertProduct.InsertProductActivity;
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
+import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.List;
 
 /**
  * Classe PiantaAdapter che visualizza i dati delle piante in una RecyclerView.
- *
- * @author Alice Hoa Galli
  */
 public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaViewHolder> {
 
@@ -78,7 +76,7 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
 
                 switch (operationCode) {
                     case Constants.SEARCH_PIANTA_OPERATION_CODE:
-                        intent = new Intent(v.getContext(), PiantaDetailsActivity.class);
+                        intent = new Intent(v.getContext(), PlantDetailsActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
                         v.getContext().startActivity(intent);
@@ -87,15 +85,15 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                         intent = new Intent(v.getContext(), InsertCropActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
-                        ((SearchPiantaActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
-                        ((SearchPiantaActivity) v.getContext()).finish();
+                        ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
+                        ((SearchPlantActivity) v.getContext()).finish();
                         break;
                     case Constants.CREATE_PRODOTTO_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InsertProductActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
-                        ((SearchPiantaActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
-                        ((SearchPiantaActivity) v.getContext()).finish();
+                        ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
+                        ((SearchPlantActivity) v.getContext()).finish();
                         break;
                 }
 

@@ -17,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityFilterSearchBinding;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.NumberPickerDialog;
 
@@ -55,7 +55,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
         binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
                 intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
@@ -108,7 +108,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                         .setTitle(R.string.alert_dialog_no_filter_applied_title)
                         .setMessage(R.string.alert_dialog_no_filter_applied_message)
                         .setPositiveButton(R.string.alert_dialog_no_filter_applied_positive_button, (dialog, which) -> {
-                            Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                             intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
                             intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(intent);
@@ -126,7 +126,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                 if (!binding.textInputEditFineSemina.getText().toString().equals("")) {
                     filtersMap.put("fineSemina", binding.textInputEditFineSemina.getText().toString());
                 }
-                Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
                 intent.putExtra("filtriMap", (Serializable) filtersMap);
                 intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);

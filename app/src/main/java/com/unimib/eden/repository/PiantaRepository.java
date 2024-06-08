@@ -25,8 +25,6 @@ import java.util.concurrent.ExecutionException;
 /**
  * Classe PiantaRepository che rappresenta il repository per la gestione dell'entità Pianta.
  * Fornisce le operazioni di accesso e di sincronizzazione dei dati con il Firestore Database di Firebase.
- *
- * @author Alice Hoa Galli
  */
 public class PiantaRepository implements IPiantaRepository {
     private static final String TAG = "PiantaRepository";
@@ -246,7 +244,7 @@ public class PiantaRepository implements IPiantaRepository {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public List<Pianta> SearchPiante(String query) throws ExecutionException, InterruptedException {
+    public List<Pianta> searchPlants(String query) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new SearchPianteAsyncTask(mPiantaDao).execute(query);
 
         return (List<Pianta>) asyncTask.get();
@@ -282,7 +280,7 @@ public class PiantaRepository implements IPiantaRepository {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public List<Pianta> SearchPiante(String query, Map<String, String> filtriMap) throws ExecutionException, InterruptedException {
+    public List<Pianta> searchPlants(String query, Map<String, String> filtriMap) throws ExecutionException, InterruptedException {
         String frequenzaInnaffiamento = "";
         String esposizioneSole = "";
         String inizioSemina = "";

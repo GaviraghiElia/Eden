@@ -14,8 +14,6 @@ import java.util.List;
 /**
  * Interfaccia Dao per Fase.
  * Questa interfaccia definisce le operazioni di accesso ai dati per la tabella Fase nel database Room.
- *
- * @author Alice Hoa Galli
  */
 @Dao
 public interface FaseDao {

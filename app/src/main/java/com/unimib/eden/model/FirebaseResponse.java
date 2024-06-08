@@ -2,8 +2,6 @@ package com.unimib.eden.model;
 
 /**
  * Classe FirebaseResponse che rappresenta una risposta da Firebase.
- *
- * @author Gaviraghi Elia
  */
 public class FirebaseResponse
 {

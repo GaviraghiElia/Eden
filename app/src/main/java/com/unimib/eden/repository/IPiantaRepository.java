@@ -7,8 +7,6 @@ import java.util.List;
 /**
  * Interfaccia IPiantaRepository per PiantaRepository.
  * Definisce i metodi per l'accesso ai dati della pianta
- *
- * @author Alice Hoa Galli
  */
 public interface IPiantaRepository {
 

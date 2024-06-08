@@ -13,8 +13,6 @@ import java.util.Locale;
 
 /**
  * Converters class for the Phase and Plant entities.
- *
- * @author Alice Hoa Galli
  */
 public class Converters {
 

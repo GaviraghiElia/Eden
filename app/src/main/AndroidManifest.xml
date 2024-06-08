@@ -36,13 +36,13 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".ui.searchPianta.SearchPiantaActivity"
+            android:name=".ui.searchPlant.SearchPlantActivity"
             android:exported="false"
             android:noHistory="true"
             android:label="@string/title_activity_search_pianta"
             android:theme="@style/Theme.Eden" />
         <activity
-            android:name=".ui.piantaDetails.PiantaDetailsActivity"
+            android:name=".ui.plantDetails.PlantDetailsActivity"
             android:noHistory="true"
             android:exported="true" />
         <activity
@@ -54,7 +54,7 @@
             android:label="InsertProductActivity">
         </activity>
         <activity
-            android:name=".ui.prodottoDetails.ProdottoDetailsActivity"
+            android:name=".ui.productDetails.ProductDetailsActivity"
             android:label="ProdottoDetailsActivity">
         </activity>
         <activity

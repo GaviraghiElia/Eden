@@ -19,8 +19,6 @@ import java.util.concurrent.Executors;
 /**
  * Classe PiantaRoomDatabase per il database di Pianta.
  * Questa classe definisce il database Room che contiene la tabella Pianta.
- *
- * @author Alice Hoa Galli
  */
 @Database(entities = {Pianta.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
 @TypeConverters({Converters.class})

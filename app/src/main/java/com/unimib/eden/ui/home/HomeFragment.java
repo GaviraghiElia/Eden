@@ -34,7 +34,7 @@ import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.ui.cropDetails.CropDetailsActivity;
 import com.unimib.eden.ui.insertCrop.InsertCropActivity;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
@@ -181,7 +181,7 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Listener for the items in the custom menu
         if (item.getItemId() == R.id.app_bar_search) {
-            Intent intent = new Intent(getActivity(), SearchPiantaActivity.class);
+            Intent intent = new Intent(getActivity(), SearchPlantActivity.class);
             intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
             startActivity(intent);
             return true;

@@ -12,8 +12,6 @@ package com.unimib.eden.database;
 /**
  * Interfaccia Dao per Pianta.
  * Questa interfaccia definisce le operazioni di accesso ai dati per la tabella Pianta nel database Room.
- *
- * @author Alice Hoa Galli
  */
 @Dao
 public interface PiantaDao {

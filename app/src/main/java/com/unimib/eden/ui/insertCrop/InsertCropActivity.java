@@ -40,7 +40,7 @@ import java.util.concurrent.ExecutionException;
 import com.unimib.eden.R;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.ui.searchPianta.SearchPiantaActivity;
+import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 
 /**
@@ -125,7 +125,7 @@ public class InsertCropActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    Intent intent = new Intent(getApplicationContext(), SearchPiantaActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                     intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();

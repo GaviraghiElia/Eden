@@ -28,8 +28,6 @@ import java.util.concurrent.ExecutionException;
 /**
  * Classe FaseRepository che rappresenta il repository per la gestione dell'entità Fase.
  * Fornisce le operazioni di accesso e di sincronizzazione dei dati con il Firestore Database di Firebase.
- *
- * @author Alice Hoa Galli
  */
 public class FaseRepository implements IFaseRepository {
 

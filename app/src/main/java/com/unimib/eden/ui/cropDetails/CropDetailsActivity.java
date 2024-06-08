@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityCropDetailsBinding;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.ui.piantaDetails.PiantaDetailsActivity;
+import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -88,7 +88,7 @@ public class CropDetailsActivity extends AppCompatActivity {
         mBinding.buttonViewAllDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PiantaDetailsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PlantDetailsActivity.class);
                 intent.putExtra("operationCode", Constants.PIANTA_DETAILS_OPERATION_CODE);
                 intent.putExtra("pianta", cropDetailsViewModel.getPlant(crop));
                 startActivity(intent);

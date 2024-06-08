@@ -18,8 +18,6 @@ import java.util.List;
 
 /**
  * Classe FaseAdapter che visualizza i dati delle fasi in una RecyclerView.
- *
- * @author Alice Hoa Galli
  */
 public class FaseAdapter extends RecyclerView.Adapter<FaseAdapter.FaseViewHolder> {
     private int itemLayout = R.layout.fase_details_item;;
