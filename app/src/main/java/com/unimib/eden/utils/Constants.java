@@ -87,5 +87,5 @@ public class Constants {
     // API
     public static final String apiKey = "27a201b9171e48f5bc8130304240705";
     public static final String BASE_URL = "https://api.weatherapi.com/v1/";
-
+    public static final String LOCATION = "Agrate Brianza";
 }

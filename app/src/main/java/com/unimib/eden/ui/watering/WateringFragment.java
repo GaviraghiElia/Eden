@@ -1,8 +1,7 @@
-package com.unimib.eden.ui.irrigazioni;
+package com.unimib.eden.ui.watering;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,20 +19,15 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.ColturaAdapter;
 import com.unimib.eden.adapter.ForecastDayAdapter;
@@ -41,39 +35,37 @@ import com.unimib.eden.databinding.FragmentIrrigazioniBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.weather.ForecastDay;
 import com.unimib.eden.model.weather.WeatherForecast;
-import com.unimib.eden.ui.authentication.AuthenticationActivity;
+import com.unimib.eden.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Un Fragment per la schermata Irrigazioni.
- * Questo Fragment visualizza un elenco delle colture da innaffiare nel giorno corrente.
- * Visualizza inoltre le previsioni meteo del giorno corrente e i prossimi due giorni
- *
- * @author Alice Hoa Galli
+ * A Fragment for the Watering screen.
+ * This Fragment displays a list of crops to be watered on the current day.
+ * It also displays the weather forecast for the current day and the next two days.
  */
-public class IrrigazioniFragment extends Fragment {
+public class WateringFragment extends Fragment {
 
-    private static final String TAG = "IrrigazioniFragment";
+    private static final String TAG = "WateringFragment";
     private FragmentIrrigazioniBinding mBinding;
     private FirebaseAuth mAuth;
     private NavController navController;
 
-    private List<Coltura> mColture = new ArrayList<>();
+    private List<Coltura> mCrops = new ArrayList<>();
     private WeatherForecast mWeatherForecast;
     private List<ForecastDay> mWeatherForecastList = new ArrayList<>();
-    private List<Coltura> coltureDaAggiornare = new ArrayList<>();
-    public IrrigazioniViewModel irrigazioniViewModel;
-    private ColturaAdapter mColturaAdapter;
+    private List<Coltura> cropsToUpdate = new ArrayList<>();
+    public WateringViewModel wateringViewModel;
+    private ColturaAdapter mCropAdapter;
     private ForecastDayAdapter mForecastDayAdapter;
 
 
     /**
-     * Costruttore predefinito per IrrigazioniFragment.
+     * Default constructor for WateringFragment.
      */
-    public IrrigazioniFragment() {
-        // Costruttore pubblico vuoto richiesto
+    public WateringFragment() {
+        // Public empty constructor required
     }
 
     @SuppressLint("MissingPermission")
@@ -89,7 +81,7 @@ public class IrrigazioniFragment extends Fragment {
                 new MaterialAlertDialogBuilder(requireContext())
                         .setTitle(requireActivity().getResources().getText(R.string.exitApp))
                         .setMessage(requireActivity().getResources().getText(R.string.exitAppInfo))
-                        .setPositiveButton("Si",
+                        .setPositiveButton("Yes",
                                 new DialogInterface.OnClickListener() {
 
                                     @Override
@@ -110,15 +102,14 @@ public class IrrigazioniFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
-        irrigazioniViewModel = new ViewModelProvider(this).get(IrrigazioniViewModel.class);
+        wateringViewModel = new ViewModelProvider(this).get(WateringViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
-        final Observer<List<Coltura>> allColtureObserver = new Observer<List<Coltura>>() {
+        final Observer<List<Coltura>> allCropsObserver = new Observer<List<Coltura>>() {
             @Override
-            public void onChanged(List<Coltura> colture) {
-
-                mColture = colture;
-                mColturaAdapter.update(mColture);
+            public void onChanged(List<Coltura> crops) {
+                mCrops = crops;
+                mCropAdapter.update(mCrops);
             }
         };
 
@@ -126,18 +117,15 @@ public class IrrigazioniFragment extends Fragment {
             @Override
             public void onChanged(WeatherForecast weatherForecast) {
                 if (weatherForecast != null) {
-                    Log.d(TAG, "weatherForecast: " + weatherForecast.toString());
                     mWeatherForecast = weatherForecast;
                     mForecastDayAdapter.update(mWeatherForecast.getForecast().getForecastday());
-                } else {
-                    Log.d(TAG, "null");
                 }
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        irrigazioniViewModel.getColtureDaIrrigare().observe(this, allColtureObserver);
-        irrigazioniViewModel.getForecast("Agrate Brianza", 3, "no", "no").observe(this, allWeatherForecastObserver);
+        wateringViewModel.getCropsToWater().observe(this, allCropsObserver);
+        wateringViewModel.getForecast(Constants.LOCATION, 3, "no", "no").observe(this, allWeatherForecastObserver);
 
     }
 
@@ -146,7 +134,7 @@ public class IrrigazioniFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        // Inflate il layout per questo frammento
+        // Inflate the layout for this fragment
         mBinding = FragmentIrrigazioniBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
 
@@ -156,76 +144,49 @@ public class IrrigazioniFragment extends Fragment {
         navBar.setVisibility(View.VISIBLE);
 
 
-        // Imposta RecyclerView con LinearLayoutManager
+        // Set up RecyclerView with LinearLayoutManager
         mBinding.irrigazioniRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mForecastDayAdapter = new ForecastDayAdapter(mWeatherForecastList, R.layout.weather_forecast_item);
 
-        // Inizializza l'adapter con l'elenco delle colture e il listener del clic sull'elemento
-        mColturaAdapter = new ColturaAdapter(mColture, new ColturaAdapter.OnItemClickListener() {
+        // Initialize the adapter with the list of crops and the item click listener
+        mCropAdapter = new ColturaAdapter(mCrops, new ColturaAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Coltura coltura) {
-                /*
-                materialDateBuilder = MaterialDatePicker.Builder.datePicker();
-                materialDateBuilder.setTitleText(R.string.date_picker_title);
-                materialDateBuilder.build();
-                materialDatePicker = materialDateBuilder.build();
-                materialDatePicker.show(getParentFragmentManager(), "MATERIAL_DATE_PICKER");
-                materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-                    Log.d(TAG, "onItemClick: DATE: " + materialDatePicker.getHeaderText());
-
-                    Log.d(TAG, "onItemClick: DATE3: " + new Date(materialDatePicker.getHeaderText()));
-
-                    irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura, new Date(materialDatePicker.getHeaderText()));
-
-                });
-
-                 */
-
-                if (coltureDaAggiornare.contains(coltura)) {
-                    coltureDaAggiornare.remove(coltura);
+            public void onItemClick(Coltura crop) {
+                if (cropsToUpdate.contains(crop)) {
+                    cropsToUpdate.remove(crop);
                 } else {
-                    coltureDaAggiornare.add(coltura);
+                    cropsToUpdate.add(crop);
                 }
 
-                if(coltureDaAggiornare.isEmpty()) {
+                if(cropsToUpdate.isEmpty()) {
                     mBinding.buttonUpdateIrrigazioni.setVisibility(View.GONE);
-                    }
+                }
                 else {
                     mBinding.buttonUpdateIrrigazioni.setVisibility(View.VISIBLE);
                 }
             }
         }, R.layout.irrigazioni_item, getActivity().getApplication());
 
-        // Imposta l'adapter su RecyclerView
-        mBinding.irrigazioniRecyclerView.setAdapter(mColturaAdapter);
+        // Set the adapter to RecyclerView
+        mBinding.irrigazioniRecyclerView.setAdapter(mCropAdapter);
 
         mBinding.buttonUpdateIrrigazioni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if (!coltureDaAggiornare.isEmpty()) {
-                    for (Coltura coltura: coltureDaAggiornare) {
-                        irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
-
-                    }
-                    mColture.removeAll(coltureDaAggiornare);
-                    coltureDaAggiornare.clear();
-                    mColturaAdapter.update(mColture);
-                }*/
-
                 new MaterialAlertDialogBuilder(getContext())
                         .setTitle(getResources().getText(R.string.confermaInnaffiamento))
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (!coltureDaAggiornare.isEmpty()) {
-                                    for (Coltura coltura: coltureDaAggiornare) {
-                                        irrigazioniViewModel.updateDataInnaffiamentoColtura(coltura);
+                                if (!cropsToUpdate.isEmpty()) {
+                                    for (Coltura coltura: cropsToUpdate) {
+                                        wateringViewModel.updateWateringDateCrop(coltura);
 
                                     }
-                                    mColture.removeAll(coltureDaAggiornare);
-                                    coltureDaAggiornare.clear();
-                                    mColturaAdapter.update(mColture);
+                                    mCrops.removeAll(cropsToUpdate);
+                                    cropsToUpdate.clear();
+                                    mCropAdapter.update(mCrops);
                                 }
                             }
                         })
