@@ -1,6 +1,7 @@
 image: eclipse-temurin:17-jdk-jammy
 stages:
   - build
+  - verify
   - test
 
 variables:
@@ -58,6 +59,19 @@ assembleDebug:
   artifacts:
     paths:
       - app/build/outputs/
+
+
+spotbugs:
+  stage: verify
+  needs: [lintDebug, assembleDebug]
+  allow_failure: true
+  script:
+    - ./gradlew spotbugsRelease
+  artifacts:
+    paths:
+      - app/build/reports/spotbugs/
+    when: always
+
 
 # Run all tests, if any fails, interrupt the pipeline (fail it)
 debugTests:
