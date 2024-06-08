@@ -10,7 +10,7 @@ import com.unimib.eden.model.weather.Day;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
-import com.unimib.eden.repository.ColturaRepository;
+import com.unimib.eden.repository.CropRepository;
 import com.unimib.eden.repository.WeatherRepository;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class WeatherViewModel extends AndroidViewModel {
     private final WeatherRepository repository;
-    private final ColturaRepository cropRepository;
+    private final CropRepository cropRepository;
     private LiveData<WeatherForecast> forecastLiveData;
     private LiveData<WeatherHistory> historyLiveData;
     private LiveData<List<WeatherSearchLocation>> searchLocationLiveData;
@@ -41,9 +41,9 @@ public class WeatherViewModel extends AndroidViewModel {
     public WeatherViewModel(Application application) {
         super(application);
         repository = new WeatherRepository();
-        cropRepository = new ColturaRepository(application);
+        cropRepository = new CropRepository(application);
 
-        mCrops = cropRepository.getAllColture();
+        mCrops = cropRepository.getAllCrops();
     }
 
     /**
@@ -91,7 +91,7 @@ public class WeatherViewModel extends AndroidViewModel {
      */
     public void updateWateringDays(Day dayWeather, List<Coltura> crops) {
         Map<Coltura, Date> updates = updateDatesOfWatering(crops, dayWeather);
-        cropRepository.updateDataInnaffiamentoColture(updates);
+        cropRepository.updateCropsWateringDate(updates);
     }
 
     /**

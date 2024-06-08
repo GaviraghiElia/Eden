@@ -9,9 +9,9 @@ import androidx.lifecycle.AndroidViewModel;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.repository.ColturaRepository;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.CropRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.utils.Transformer;
 
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ import java.util.concurrent.ExecutionException;
 public class CropDetailsViewModel extends AndroidViewModel {
 
     private static final String TAG = "CropDetailsViewModel";
-    private PiantaRepository plantRepository;
-    private FaseRepository phaseRepository;
-    private ColturaRepository cropRepository;
+    private PlantRepository plantRepository;
+    private PhaseRepository phaseRepository;
+    private CropRepository cropRepository;
 
     /**
      * Constructor for ColturaDetailsViewModel.
@@ -39,9 +39,9 @@ public class CropDetailsViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize repositories
-        plantRepository = new PiantaRepository(application);
-        phaseRepository = new FaseRepository(application);
-        cropRepository = new ColturaRepository(application);
+        plantRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
+        cropRepository = new CropRepository(application);
     }
 
     /**
@@ -82,7 +82,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @return The plant with the specified ID.
      */
     private Pianta getPlantById(String plantId) {
-        return plantRepository.getPiantaById(plantId);
+        return plantRepository.getPlantById(plantId);
     }
 
     /**
@@ -97,7 +97,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
         String phaseId = getPlantById(crop.getIdPianta()).getFasi().get(crop.getFaseAttuale());
         ArrayList<String> phasesIds = new ArrayList<>();
         phasesIds.add(phaseId);
-        List<Fase> phases = phaseRepository.getFasiID(phasesIds);
+        List<Fase> phases = phaseRepository.getPhasesFromIds(phasesIds);
         return phases.get(0).getNomeFase();
     }
 
@@ -116,7 +116,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      */
     public void updateWateringDate(Coltura crop) {
-        cropRepository.updateDataInnaffiamentoColtura(crop);
+        cropRepository.updateCropWateringDate(crop);
     }
 
     /**
@@ -126,6 +126,6 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param newDate The new watering date.
      */
     public void updateWateringDateCrop(Coltura crop, Date newDate) {
-        cropRepository.updateDataInnaffiamentoColtura(crop, newDate);
+        cropRepository.updateCropWateringDate(crop, newDate);
     }
 }

@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +20,8 @@ import java.util.concurrent.ExecutionException;
 public class PlantDetailsViewModel extends AndroidViewModel {
     private static final String TAG = "PlantDetailsViewModel";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private PiantaRepository plantRepository;
-    private FaseRepository phaseRepository;
+    private PlantRepository plantRepository;
+    private PhaseRepository phaseRepository;
 
     private List<Fase> phasesList;
 
@@ -32,8 +32,8 @@ public class PlantDetailsViewModel extends AndroidViewModel {
      */
     public PlantDetailsViewModel(@NonNull Application application) {
         super(application);
-        plantRepository = new PiantaRepository(application);
-        phaseRepository = new FaseRepository(application);
+        plantRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
 
         phasesList = new ArrayList<>();
     }
@@ -48,7 +48,7 @@ public class PlantDetailsViewModel extends AndroidViewModel {
      */
     public List<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
-            return phaseRepository.getFasiID(phasesIds);
+            return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

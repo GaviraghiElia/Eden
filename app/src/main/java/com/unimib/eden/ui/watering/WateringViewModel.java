@@ -10,9 +10,9 @@ import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.weather.WeatherForecast;
-import com.unimib.eden.repository.ColturaRepository;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.CropRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.repository.WeatherRepository;
 
 import java.util.Date;
@@ -29,9 +29,9 @@ public class WateringViewModel extends AndroidViewModel {
     private final List<Fase> mPhases;
     private final LiveData<List<Coltura>> mCrops;
     private final LiveData<List<Coltura>> mCropsToWater;
-    private final PiantaRepository plantRepository;
-    private final ColturaRepository cropRepository;
-    private final FaseRepository phaseRepository;
+    private final PlantRepository plantRepository;
+    private final CropRepository cropRepository;
+    private final PhaseRepository phaseRepository;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final WeatherRepository repository;
     private LiveData<WeatherForecast> forecastLiveData;
@@ -45,15 +45,15 @@ public class WateringViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize repositories
-        plantRepository = new PiantaRepository(application);
-        phaseRepository = new FaseRepository(application);
-        cropRepository = new ColturaRepository(application);
+        plantRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
+        cropRepository = new CropRepository(application);
         repository = new WeatherRepository();
         // Retrieve data from repositories
-        mPlants = plantRepository.getAllPiante();
-        mPhases = phaseRepository.getAllFasi();
-        mCrops = cropRepository.getAllColture();
-        mCropsToWater = cropRepository.getAllColtureDaInnaffiare((new Date()).getTime() / (1000 * 60 * 60 * 24));
+        mPlants = plantRepository.getAllPlants();
+        mPhases = phaseRepository.getAllPhases();
+        mCrops = cropRepository.getAllCrops();
+        mCropsToWater = cropRepository.getAllCropsToWater((new Date()).getTime() / (1000 * 60 * 60 * 24));
     }
 
     /**
@@ -117,7 +117,7 @@ public class WateringViewModel extends AndroidViewModel {
      * @return The plant with the specified ID.
      */
     private Pianta getPlantById(String plantId) {
-        return plantRepository.getPiantaById(plantId);
+        return plantRepository.getPlantById(plantId);
     }
 
     /**
@@ -136,7 +136,7 @@ public class WateringViewModel extends AndroidViewModel {
      * @param crop The crop for which the last watering date needs to be updated to the current date.
      */
     public void updateWateringDateCrop(Coltura crop) {
-        cropRepository.updateDataInnaffiamentoColtura(crop);
+        cropRepository.updateCropWateringDate(crop);
     }
 
     /**
@@ -146,6 +146,6 @@ public class WateringViewModel extends AndroidViewModel {
      * @param newDate The date to which the last watering date of the specified crop needs to be updated.
      */
     public void updateWateringDateCrop(Coltura crop, Date newDate) {
-        cropRepository.updateDataInnaffiamentoColtura(crop, newDate);
+        cropRepository.updateCropWateringDate(crop, newDate);
     }
 }

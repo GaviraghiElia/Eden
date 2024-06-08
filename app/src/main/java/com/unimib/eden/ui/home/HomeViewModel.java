@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.ColturaRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.CropRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.List;
 
@@ -25,9 +25,9 @@ public class HomeViewModel extends AndroidViewModel {
     private final List<Pianta> mPlants;
     private final List<Fase> mPhases;
     private final LiveData<List<Coltura>> mCrops;
-    private final PiantaRepository plantsRepository;
-    private final ColturaRepository cropRepository;
-    private final FaseRepository phaseRepository;
+    private final PlantRepository plantsRepository;
+    private final CropRepository cropRepository;
+    private final PhaseRepository phaseRepository;
 
     /**
      * Constructor for HomeViewModel.
@@ -38,14 +38,14 @@ public class HomeViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize repositories
-        plantsRepository = new PiantaRepository(application);
-        phaseRepository = new FaseRepository(application);
-        cropRepository = new ColturaRepository(application);
+        plantsRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
+        cropRepository = new CropRepository(application);
 
         // Retrieve data from repositories
-        mPlants = plantsRepository.getAllPiante();
-        mPhases = phaseRepository.getAllFasi();
-        mCrops = cropRepository.getAllColture();
+        mPlants = plantsRepository.getAllPlants();
+        mPhases = phaseRepository.getAllPhases();
+        mCrops = cropRepository.getAllCrops();
     }
 
     /**
@@ -82,7 +82,7 @@ public class HomeViewModel extends AndroidViewModel {
      * @return The plant with the specified ID.
      */
     private Pianta getPlantById(String plantId) {
-        return plantsRepository.getPiantaById(plantId);
+        return plantsRepository.getPlantById(plantId);
     }
 
     /**

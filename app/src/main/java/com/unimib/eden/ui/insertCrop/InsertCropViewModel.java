@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.repository.ColturaRepository;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.CropRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,10 @@ import java.util.concurrent.ExecutionException;
  */
 public class InsertCropViewModel extends AndroidViewModel {
     private static final String TAG = "InsertCropViewModel";
-    private final ColturaRepository cropRepository;
+    private final CropRepository cropRepository;
 
-    private final FaseRepository phaseRepository;
-    private final PiantaRepository plantRepository;
+    private final PhaseRepository phaseRepository;
+    private final PlantRepository plantRepository;
 
     /**
      * Constructor for InsertCropViewModel.
@@ -32,9 +32,9 @@ public class InsertCropViewModel extends AndroidViewModel {
      */
     public InsertCropViewModel(Application application) {
         super(application);
-        cropRepository = new ColturaRepository(this.getApplication());
-        plantRepository = new PiantaRepository(this.getApplication());
-        phaseRepository = new FaseRepository(this.getApplication());
+        cropRepository = new CropRepository(this.getApplication());
+        plantRepository = new PlantRepository(this.getApplication());
+        phaseRepository = new PhaseRepository(this.getApplication());
     }
 
     /**
@@ -43,7 +43,7 @@ public class InsertCropViewModel extends AndroidViewModel {
      * @param cropMap A map containing the details of the crop to be added.
      */
     public void addCrop(Map<String, Object> cropMap){
-        cropRepository.aggiungiColtura(cropMap);
+        cropRepository.addCrops(cropMap);
     }
 
     /**
@@ -53,7 +53,7 @@ public class InsertCropViewModel extends AndroidViewModel {
      * @return A list of strings representing the phases of the plant.
      */
     public ArrayList<String> getPhasesFromId(String plantId) {
-        return plantRepository.getPiantaById(plantId).getFasi();
+        return plantRepository.getPlantById(plantId).getFasi();
     }
 
     /**
@@ -83,7 +83,7 @@ public class InsertCropViewModel extends AndroidViewModel {
      */
     public ArrayList<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
-            return phaseRepository.getFasiID(phasesIds);
+            return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }

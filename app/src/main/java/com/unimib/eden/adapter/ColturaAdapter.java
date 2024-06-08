@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Coltura;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
 
@@ -38,7 +38,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
 
     private List<Coltura> mColtureList;
     private OnItemClickListener onItemClickListener;
-    private PiantaRepository piantaRepository;
+    private PlantRepository piantaRepository;
     private int layout;
 
     /**
@@ -54,7 +54,7 @@ public class ColturaAdapter extends RecyclerView.Adapter<ColturaAdapter.ColturaV
         Log.d(TAG, "mColtureList:" + mColtureList.toString());
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
-        piantaRepository = new PiantaRepository(application);
+        piantaRepository = new PlantRepository(application);
     }
 
     @NonNull

@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
-import com.unimib.eden.repository.ProdottoRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
+import com.unimib.eden.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,10 @@ import java.util.concurrent.ExecutionException;
  */
 public class InsertProductViewModel extends AndroidViewModel {
     private static final String TAG = "InsertProductViewModel";
-    private ProdottoRepository productRepository;
+    private ProductRepository productRepository;
 
-    private FaseRepository phaseRepository;
-    private PiantaRepository plantRepository;
+    private PhaseRepository phaseRepository;
+    private PlantRepository plantRepository;
 
     /**
      * Constructor for InsertProductViewModel.
@@ -32,9 +32,9 @@ public class InsertProductViewModel extends AndroidViewModel {
      */
     public InsertProductViewModel(Application application) {
         super(application);
-        productRepository = new ProdottoRepository(this.getApplication());
-        plantRepository = new PiantaRepository(this.getApplication());
-        phaseRepository = new FaseRepository(this.getApplication());
+        productRepository = new ProductRepository(this.getApplication());
+        plantRepository = new PlantRepository(this.getApplication());
+        phaseRepository = new PhaseRepository(this.getApplication());
     }
 
     /**
@@ -43,7 +43,7 @@ public class InsertProductViewModel extends AndroidViewModel {
      * @param productMap A map containing the details of the product to be added.
      */
     public void addProduct(Map<String, Object> productMap){
-        productRepository.aggiungiProdotto(productMap);
+        productRepository.addProduct(productMap);
     }
 
     /**
@@ -53,7 +53,7 @@ public class InsertProductViewModel extends AndroidViewModel {
      * @return A list of strings representing the phases of the plant.
      */
     public ArrayList<String> getPhasesById(String plantId) {
-        return plantRepository.getPiantaById(plantId).getFasi();
+        return plantRepository.getPlantById(plantId).getFasi();
     }
 
     /**
@@ -66,7 +66,7 @@ public class InsertProductViewModel extends AndroidViewModel {
      */
     public List<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
-            return phaseRepository.getFasiID(phasesIds);
+            return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }

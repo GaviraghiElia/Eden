@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.unimib.eden.model.Pianta;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class SearchPlantViewModel extends AndroidViewModel {
     private static final String TAG = "SearchPlantViewModel";
-    private final PiantaRepository plantRepository;
+    private final PlantRepository plantRepository;
     private final MutableLiveData<List<Pianta>> plantListLiveData;
 
     /**
@@ -31,7 +31,7 @@ public class SearchPlantViewModel extends AndroidViewModel {
      */
     public SearchPlantViewModel(@NonNull Application application) {
         super(application);
-        plantRepository = new PiantaRepository(application);
+        plantRepository = new PlantRepository(application);
         plantListLiveData = new MutableLiveData<>();
     }
 

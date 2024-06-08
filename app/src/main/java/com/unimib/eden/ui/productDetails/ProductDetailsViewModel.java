@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.Prodotto;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.concurrent.ExecutionException;
 
@@ -19,8 +19,8 @@ import java.util.concurrent.ExecutionException;
 public class ProductDetailsViewModel extends AndroidViewModel {
 
     private static final String TAG = "ProductDetailsViewModel";
-    private final PiantaRepository plantRepository;
-    private final FaseRepository phaseRepository;
+    private final PlantRepository plantRepository;
+    private final PhaseRepository phaseRepository;
 
     /**
      * Constructor for ProductDetailsViewModel.
@@ -31,8 +31,8 @@ public class ProductDetailsViewModel extends AndroidViewModel {
         super(application);
 
         // Initialize repositories
-        plantRepository = new PiantaRepository(application);
-        phaseRepository = new FaseRepository(application);
+        plantRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
     }
 
     /**
@@ -62,7 +62,7 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @return The plant with the specified ID.
      */
     private Pianta getPlantById(String plantId) {
-        return plantRepository.getPiantaById(plantId);
+        return plantRepository.getPlantById(plantId);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @return The name of the phase in which the product was put on sale.
      */
     public String getPhaseName(Prodotto product) throws ExecutionException, InterruptedException {
-        return phaseRepository.getFaseById(product.getFaseAttuale()).getNomeFase();
+        return phaseRepository.getPhaseById(product.getFaseAttuale()).getNomeFase();
     }
 
     /**

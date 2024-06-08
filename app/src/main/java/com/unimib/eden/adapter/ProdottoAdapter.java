@@ -1,7 +1,6 @@
 package com.unimib.eden.adapter;
 
 import android.app.Application;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.Prodotto;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,8 +26,8 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
 
     private static final String TAG = "ProdottoAdapter";
     private View view;
-    private PiantaRepository piantaRepository;
-    private FaseRepository faseRepository;
+    private PlantRepository piantaRepository;
+    private PhaseRepository faseRepository;
 
     /**
      * Interfaccia per la gestione dei click sugli elementi della RecyclerView.
@@ -52,8 +51,8 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
         this.mProdottiList = prodottiList;
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
-        this.piantaRepository = new PiantaRepository(application);
-        this.faseRepository = new FaseRepository(application);
+        this.piantaRepository = new PlantRepository(application);
+        this.faseRepository = new PhaseRepository(application);
     }
 
     @NonNull
@@ -111,7 +110,7 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
          */
         public void bind(Prodotto prodotto) {
 
-            String nomePiantaProdotto = piantaRepository.getPiantaById(prodotto.getPianta()).getNome();
+            String nomePiantaProdotto = piantaRepository.getPlantById(prodotto.getPianta()).getNome();
 
             int resID = itemView.getContext().getResources()
                     .getIdentifier(
@@ -128,7 +127,7 @@ public class ProdottoAdapter extends RecyclerView.Adapter<ProdottoAdapter.Prodot
             }
 
             this.textViewPiantaProdotto.setText(nomePiantaProdotto);
-            this.textViewFaseProdotto.setText(faseRepository.getFaseById(prodotto.getFaseAttuale()).getNomeFase());
+            this.textViewFaseProdotto.setText(faseRepository.getPhaseById(prodotto.getFaseAttuale()).getNomeFase());
 
             String unitMeasure = "";
             if (Objects.equals(prodotto.getFaseAttuale(), "yTgppWsyv9XsdmncYDoH")) {
