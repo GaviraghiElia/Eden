@@ -34,7 +34,7 @@ public class Constants {
     public static final String CROPS_WATERING_FREQUENCY = "frequenza_innaffiamento";
 
 
-    public static final String FIRESTORE_COLLECTION_FASI = "fasi";
+    public static final String FIRESTORE_COLLECTION_PHASES = "fasi";
     public static final String PHASE_NAME = "nome_fase";
     public static final String PHASE_START = "inizio_fase";
     public static final String PHASE_DURATION = "durata_fase";
@@ -57,10 +57,10 @@ public class Constants {
 
 
     public static final int API_SEARCH_DELAY = 500;
-    public static final int SEARCH_PIANTA_OPERATION_CODE = 1;
-    public static final int CREATE_COLTURA_OPERATION_CODE = 2;
-    public static final int CREATE_PRODOTTO_OPERATION_CODE = 3;
-    public static final int PIANTA_DETAILS_OPERATION_CODE = 4;
+    public static final int SEARCH_PLANT_OPERATION_CODE = 1;
+    public static final int CREATE_CROP_OPERATION_CODE = 2;
+    public static final int CREATE_PRODUCT_OPERATION_CODE = 3;
+    public static final int PLANT_DETAILS_OPERATION_CODE = 4;
 
     public static final String PRODUCT_ID = "id";
     public static final String PRODUCT_TYPE = "tipo";
@@ -81,8 +81,8 @@ public class Constants {
     public static final String OFFER_STATUS = "stato";
 
 
-    public static final String FIRESTORE_COLLECTION_PRODOTTI = "prodotti";
-    public static final String NOME_DATABASE_PRODOTTO = "prodotto";
+    public static final String FIRESTORE_COLLECTION_PRODUCTS = "prodotti";
+    public static final String PRODUCT_DATABASE_NAME = "prodotto";
     public static final String CROP_DATABASE_NAME = "coltura";
     public static final String GARDEN_DATABASE_NAME = "orto";
 

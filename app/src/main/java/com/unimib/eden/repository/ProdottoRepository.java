@@ -13,8 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.unimib.eden.database.ProdottoDao;
-import com.unimib.eden.database.ProdottoRoomDatabase;
+import com.unimib.eden.database.ProductDao;
+import com.unimib.eden.database.ProductRoomDatabase;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class ProdottoRepository implements IProdottoRepository {
     private static final String TAG = "ProdottoRepository";
-    private final ProdottoDao mProdottoDao;
+    private final ProductDao mProdottoDao;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private LiveData<List<Prodotto>> allProdotti;
 
@@ -39,8 +39,8 @@ public class ProdottoRepository implements IProdottoRepository {
      * @param application il contesto dell'applicazione.
      */
     public ProdottoRepository(Application application) {
-        ProdottoRoomDatabase prodottoRoomDatabase = ServiceLocator.getInstance().getProductDao(application);
-        this.mProdottoDao = prodottoRoomDatabase.prodottoDao();
+        ProductRoomDatabase prodottoRoomDatabase = ServiceLocator.getInstance().getProductDao(application);
+        this.mProdottoDao = prodottoRoomDatabase.productDao();
         allProdotti = mProdottoDao.getAll();
     }
 
@@ -80,7 +80,7 @@ public class ProdottoRepository implements IProdottoRepository {
      * @param prodottoMap mappa contenente i dati del prodotto da aggiungere.
      */
     public void aggiungiProdotto(Map<String, Object> prodottoMap) {
-        db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
+        db.collection(Constants.FIRESTORE_COLLECTION_PRODUCTS)
                 .add(prodottoMap)
                 .addOnSuccessListener(documentReference -> {
                     String prodottoId = documentReference.getId();
@@ -99,7 +99,7 @@ public class ProdottoRepository implements IProdottoRepository {
      * Se il database locale è vuoto, scarica i prodotti da Firestore.
      */
     public void updateLocalDB(String currentUserId) {
-        db.collection(Constants.FIRESTORE_COLLECTION_PRODOTTI)
+        db.collection(Constants.FIRESTORE_COLLECTION_PRODUCTS)
                 .whereEqualTo(Constants.PRODUCT_SELLER, currentUserId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -184,9 +184,9 @@ public class ProdottoRepository implements IProdottoRepository {
     // Classi AsyncTask interne
 
     private static class DeleteProdottoAsyncTask extends AsyncTask<Prodotto, Void, Void> {
-        private ProdottoDao prodottoDao;
+        private ProductDao prodottoDao;
 
-        private DeleteProdottoAsyncTask(ProdottoDao prodottoDao) {
+        private DeleteProdottoAsyncTask(ProductDao prodottoDao) {
             this.prodottoDao = prodottoDao;
         }
 
@@ -198,9 +198,9 @@ public class ProdottoRepository implements IProdottoRepository {
     }
 
     private static class InsertProdottoAsyncTask extends AsyncTask<Prodotto, Void, Void> {
-        private ProdottoDao mProdottoDao;
+        private ProductDao mProdottoDao;
 
-        private InsertProdottoAsyncTask(ProdottoDao prodottoDao) {
+        private InsertProdottoAsyncTask(ProductDao prodottoDao) {
             this.mProdottoDao = prodottoDao;
         }
 

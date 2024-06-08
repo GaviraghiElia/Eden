@@ -12,8 +12,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.unimib.eden.database.ColturaDao;
-import com.unimib.eden.database.ColturaRoomDatabase;
+import com.unimib.eden.database.CropDao;
+import com.unimib.eden.database.CropRoomDatabase;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -28,7 +28,7 @@ import java.util.Map;
 public class ColturaRepository implements IColturaRepository {
     // Campi della classe
     private static final String TAG = "ColturaRepository";
-    private final ColturaDao mColturaDao;
+    private final CropDao mColturaDao;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private LiveData<List<Coltura>> allColture;
 
@@ -38,8 +38,8 @@ public class ColturaRepository implements IColturaRepository {
      * @param application il contesto dell'applicazione.
      */
     public ColturaRepository(Application application) {
-        ColturaRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getCropDao(application);
-        this.mColturaDao = colturaRoomDatabase.colturaDao();
+        CropRoomDatabase colturaRoomDatabase = ServiceLocator.getInstance().getCropDao(application);
+        this.mColturaDao = colturaRoomDatabase.cropDao();
         allColture = mColturaDao.getAll();
         Log.d(TAG, "ColturaRepository: allColture " + allColture.getValue());
 
@@ -64,7 +64,7 @@ public class ColturaRepository implements IColturaRepository {
      */
     @Override
     public LiveData<List<Coltura>> getAllColtureDaInnaffiare(long date) {
-        return mColturaDao.getAllDaIrrigare(date);
+        return mColturaDao.getAllToWater(date);
 
     }
 
@@ -273,9 +273,9 @@ public class ColturaRepository implements IColturaRepository {
     // Classi AsyncTask interne
 
     private static class DeleteColturaAsyncTask extends AsyncTask<Coltura, Void, Void> {
-        private ColturaDao colturaDao;
+        private CropDao colturaDao;
 
-        private DeleteColturaAsyncTask(ColturaDao colturaDao) {
+        private DeleteColturaAsyncTask(CropDao colturaDao) {
             this.colturaDao = colturaDao;
         }
 
@@ -287,9 +287,9 @@ public class ColturaRepository implements IColturaRepository {
     }
 
     private static class InsertColturaAsyncTask extends AsyncTask<Coltura, Void, Void> {
-        private ColturaDao mColturaDao;
+        private CropDao mColturaDao;
 
-        private InsertColturaAsyncTask(ColturaDao colturaDao) {
+        private InsertColturaAsyncTask(CropDao colturaDao) {
             this.mColturaDao = colturaDao;
         }
 

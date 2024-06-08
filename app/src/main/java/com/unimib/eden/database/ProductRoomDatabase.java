@@ -3,32 +3,29 @@ package com.unimib.eden.database;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.room.Database;
 import androidx.room.Room;
+import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Classe di database per Coltura.
- * Questa classe definisce il database Room che contiene la tabella Coltura.
- */
-@Database(entities = {Coltura.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
+@Database(entities = {Prodotto.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
-public abstract class ColturaRoomDatabase extends RoomDatabase {
+public abstract class ProductRoomDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
+
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile ColturaRoomDatabase INSTANCE;
-    private static Callback roomCallback = new Callback() {
+    private static volatile ProductRoomDatabase INSTANCE;
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -37,17 +34,17 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
     };
 
     /**
-     * Ottiene un'istanza del database.
+     * Method getDatabase that gets an instance of the database.
      *
-     * @param context Il contesto dell'applicazione.
-     * @return Un'istanza del database.
+     * @param context The application context.
+     * @return An instance of the database.
      */
-    public static ColturaRoomDatabase getDatabase(final Context context) {
+    public static ProductRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (ColturaRoomDatabase.class) {
+            synchronized (ProductRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ColturaRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
+                                    ProductRoomDatabase.class, Constants.PRODUCT_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)
@@ -59,9 +56,9 @@ public abstract class ColturaRoomDatabase extends RoomDatabase {
     }
 
     /**
-     * Ottiene il DAO associato al database.
+     * Method productDao that gets the Dao associated with the database.
      *
-     * @return Il DAO associato al database.
+     * @return The Dao associated with the database.
      */
-    public abstract ColturaDao colturaDao();
+    public abstract ProductDao productDao();
 }

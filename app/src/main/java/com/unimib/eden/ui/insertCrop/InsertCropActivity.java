@@ -126,7 +126,7 @@ public class InsertCropActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                    intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
+                    intent.putExtra("operationCode", Constants.CREATE_CROP_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();
                 }

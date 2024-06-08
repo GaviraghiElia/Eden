@@ -11,8 +11,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.unimib.eden.database.FaseDao;
-import com.unimib.eden.database.FaseRoomDatabase;
+import com.unimib.eden.database.PhaseDao;
+import com.unimib.eden.database.PhaseRoomDatabase;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -33,7 +33,7 @@ public class FaseRepository implements IFaseRepository {
 
     private static final String TAG = "FaseRepository";
 
-    private final FaseDao mFaseDao;
+    private final PhaseDao mFaseDao;
 
     List<String> fasi = new ArrayList<String>();
 
@@ -46,8 +46,8 @@ public class FaseRepository implements IFaseRepository {
      * @param application   Il contesto dell'applicazione
      */
     public FaseRepository(Application application) {
-        FaseRoomDatabase faseRoomDatabase = ServiceLocator.getInstance().getPhaseDao(application);
-        this.mFaseDao = faseRoomDatabase.faseDao();
+        PhaseRoomDatabase faseRoomDatabase = ServiceLocator.getInstance().getPhaseDao(application);
+        this.mFaseDao = faseRoomDatabase.phaseDao();
         allFasi = mFaseDao.getAll();
     }
 
@@ -75,9 +75,9 @@ public class FaseRepository implements IFaseRepository {
      * Classe DeleteFaseAsyncTask che esegue l'operazione di eliminazione di una fase in un AsyncTask.
      */
     private static class DeleteFaseAsyncTask extends AsyncTask<Fase, Void, Void> {
-        private FaseDao faseDao;
+        private PhaseDao faseDao;
 
-        private DeleteFaseAsyncTask(FaseDao faseDao) {
+        private DeleteFaseAsyncTask(PhaseDao faseDao) {
             this.faseDao = faseDao;
         }
 
@@ -109,9 +109,9 @@ public class FaseRepository implements IFaseRepository {
      * Classe InsertFaseAsyncTask  che esegue l'inserimento della fase nel database in un AsyncTask.
      */
     private static class InsertFaseAsyncTask extends AsyncTask<Fase, Void, Void> {
-        private FaseDao mFaseDao;
+        private PhaseDao mFaseDao;
 
-        private InsertFaseAsyncTask(FaseDao faseDao) {
+        private InsertFaseAsyncTask(PhaseDao faseDao) {
             this. mFaseDao = faseDao;
         }
 
@@ -148,7 +148,7 @@ public class FaseRepository implements IFaseRepository {
      */
     public void updateLocalDB() {
 
-        db.collection(Constants.FIRESTORE_COLLECTION_FASI)
+        db.collection(Constants.FIRESTORE_COLLECTION_PHASES)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -256,9 +256,9 @@ public class FaseRepository implements IFaseRepository {
      * Classe GetFasiAsyncTask che esegue il recupero di una lista di fasi sulla base degli Id in input in un Async Tassk.
      */
     private static class GetFasiAsyncTask extends AsyncTask<List<String>, Void, List<Fase>> {
-        private FaseDao mFaseDao;
+        private PhaseDao mFaseDao;
 
-        private GetFasiAsyncTask(FaseDao faseDao) {
+        private GetFasiAsyncTask(PhaseDao faseDao) {
             this.mFaseDao = faseDao;
         }
 
@@ -271,7 +271,7 @@ public class FaseRepository implements IFaseRepository {
          */
         @Override
         protected List<Fase> doInBackground(List<String>... lists) {
-            return mFaseDao.getFasiID(lists[0]);
+            return mFaseDao.getPhasesIds(lists[0]);
         }
 
     }

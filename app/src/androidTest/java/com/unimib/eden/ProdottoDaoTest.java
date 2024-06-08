@@ -1,7 +1,6 @@
 package com.unimib.eden;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.unimib.eden.model.Prodotto;
 
@@ -10,8 +9,8 @@ import static org.junit.Assert.*;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.unimib.eden.database.ProdottoDao;
-import com.unimib.eden.database.ProdottoRoomDatabase;
+import com.unimib.eden.database.ProductDao;
+import com.unimib.eden.database.ProductRoomDatabase;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,8 +23,8 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class ProdottoDaoTest {
     private static final String TAG = "ProdottoDaoTest";
-    private ProdottoDao prodottoDao;
-    private ProdottoRoomDatabase prodottoRoomDatabase;
+    private ProductDao prodottoDao;
+    private ProductRoomDatabase prodottoRoomDatabase;
     private ArrayList<String> offerte = new ArrayList<String>();
 
     private Prodotto prodotto1 = new Prodotto(
@@ -56,10 +55,10 @@ public class ProdottoDaoTest {
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
-        prodottoRoomDatabase = Room.inMemoryDatabaseBuilder(context, ProdottoRoomDatabase.class)
+        prodottoRoomDatabase = Room.inMemoryDatabaseBuilder(context, ProductRoomDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        prodottoDao = prodottoRoomDatabase.prodottoDao();
+        prodottoDao = prodottoRoomDatabase.productDao();
     }
 
     @After

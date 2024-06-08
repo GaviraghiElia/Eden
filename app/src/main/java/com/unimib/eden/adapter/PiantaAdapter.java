@@ -75,23 +75,23 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                 Intent intent;
 
                 switch (operationCode) {
-                    case Constants.SEARCH_PIANTA_OPERATION_CODE:
+                    case Constants.SEARCH_PLANT_OPERATION_CODE:
                         intent = new Intent(v.getContext(), PlantDetailsActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
-                        intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                        intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                         v.getContext().startActivity(intent);
                         break;
-                    case Constants.CREATE_COLTURA_OPERATION_CODE:
+                    case Constants.CREATE_CROP_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InsertCropActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
-                        intent.putExtra("operationCode", Constants.CREATE_COLTURA_OPERATION_CODE);
+                        intent.putExtra("operationCode", Constants.CREATE_CROP_OPERATION_CODE);
                         ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
                         ((SearchPlantActivity) v.getContext()).finish();
                         break;
-                    case Constants.CREATE_PRODOTTO_OPERATION_CODE:
+                    case Constants.CREATE_PRODUCT_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InsertProductActivity.class);
                         intent.putExtra("pianta", piantaList.get(position));
-                        intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                        intent.putExtra("operationCode", Constants.CREATE_PRODUCT_OPERATION_CODE);
                         ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
                         ((SearchPlantActivity) v.getContext()).finish();
                         break;

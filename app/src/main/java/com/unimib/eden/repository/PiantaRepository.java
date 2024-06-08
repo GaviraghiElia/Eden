@@ -11,8 +11,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.unimib.eden.database.PiantaDao;
-import com.unimib.eden.database.PiantaRoomDatabase;
+import com.unimib.eden.database.PlantDao;
+import com.unimib.eden.database.PlantRoomDatabase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 public class PiantaRepository implements IPiantaRepository {
     private static final String TAG = "PiantaRepository";
 
-    private final PiantaDao mPiantaDao;
+    private final PlantDao mPiantaDao;
 
     List<String> piante = new ArrayList<String>();
 
@@ -42,8 +42,8 @@ public class PiantaRepository implements IPiantaRepository {
      * @param application   Il contesto dell'applicazione
      */
     public PiantaRepository(Application application) {
-        PiantaRoomDatabase piantaRoomDatabase = ServiceLocator.getInstance().getPlantDao(application);
-        this.mPiantaDao = piantaRoomDatabase.piantaDao();
+        PlantRoomDatabase piantaRoomDatabase = ServiceLocator.getInstance().getPlantDao(application);
+        this.mPiantaDao = piantaRoomDatabase.plantDao();
         allPiante = mPiantaDao.getAll();
     }
 
@@ -71,9 +71,9 @@ public class PiantaRepository implements IPiantaRepository {
      * Classe DeletePiantaAsyncTask che esegue l'operazione di eliminazione di una pianta in un AsyncTask.
      */
     private static class DeletePiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {
-        private PiantaDao piantaDao;
+        private PlantDao piantaDao;
 
-        private DeletePiantaAsyncTask(PiantaDao piantaDao) {
+        private DeletePiantaAsyncTask(PlantDao piantaDao) {
             this.piantaDao = piantaDao;
         }
 
@@ -115,9 +115,9 @@ public class PiantaRepository implements IPiantaRepository {
      * Classe InsertPiantaAsyncTask  che esegue l'inserimento della pianta nel database in un AsyncTask.
      */
     private static class InsertPiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {
-        private PiantaDao mPiantaDao;
+        private PlantDao mPiantaDao;
 
-        private InsertPiantaAsyncTask(PiantaDao piantaDao) {
+        private InsertPiantaAsyncTask(PlantDao piantaDao) {
             this.mPiantaDao = piantaDao;
         }
 
@@ -254,9 +254,9 @@ public class PiantaRepository implements IPiantaRepository {
      * Classe SearchPianteAsyncTask che si occupa di cercare in un Async Task le piante nel cui nome è presente come sottostringa la stringa passata in input.
      */
     private static class SearchPianteAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
-        private PiantaDao piantaDao;
+        private PlantDao piantaDao;
 
-        private SearchPianteAsyncTask(PiantaDao piantaDao) {
+        private SearchPianteAsyncTask(PlantDao piantaDao) {
             this.piantaDao = piantaDao;
         }
 
@@ -267,7 +267,7 @@ public class PiantaRepository implements IPiantaRepository {
          */
         @Override
         protected List<Pianta> doInBackground(String... strings) {
-            return piantaDao.searchPiante(strings[0]);
+            return piantaDao.searchPlants(strings[0]);
         }
     }
 
@@ -322,10 +322,10 @@ public class PiantaRepository implements IPiantaRepository {
      * Classe SearchPianteFiltriAsyncTask che si occupa di cercare in un Async Task le piante nel cui nome è presente come sottostringa la stringa passata in input e che soddisfano i fitri di ricerca impostati.
      */
     private static class SearchPianteFiltriAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
-        private PiantaDao piantaDao;
+        private PlantDao piantaDao;
         private Map<String, String> filtriMap;
 
-        private SearchPianteFiltriAsyncTask(PiantaDao piantaDao) {
+        private SearchPianteFiltriAsyncTask(PlantDao piantaDao) {
             this.piantaDao = piantaDao;
         }
 
@@ -338,9 +338,9 @@ public class PiantaRepository implements IPiantaRepository {
         @Override
         protected List<Pianta> doInBackground(String... strings) {
             if (strings[2].equals("")) {
-                return piantaDao.searchPianteFiltri(strings[0], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+                return piantaDao.searchPlantsFilters(strings[0], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
             } else {
-                return piantaDao.searchPianteFiltriAll(strings[0], strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
+                return piantaDao.searchPlantsAllFilters(strings[0], strings[2], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
             }
 
         }

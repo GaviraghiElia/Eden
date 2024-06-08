@@ -5,15 +5,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.unimib.eden.database.PiantaDao;
-import com.unimib.eden.database.PiantaRoomDatabase;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.database.PlantDao;
+import com.unimib.eden.database.PlantRoomDatabase;
 import com.unimib.eden.model.Pianta;
 
 import org.junit.After;
@@ -21,18 +19,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.jvm.Throws;
 
 //instrumented test
 @RunWith(AndroidJUnit4.class)
 public class PiantaDaoTest {
     private static final String TAG = "PiantaDaoTest";
-    private PiantaDao piantaDao;
-    private PiantaRoomDatabase piantaRoomDatabase;
+    private PlantDao piantaDao;
+    private PlantRoomDatabase piantaRoomDatabase;
     private ArrayList<String> fasi = new ArrayList<String>();
 
     private Pianta pianta1 = new Pianta(
@@ -69,10 +64,10 @@ public class PiantaDaoTest {
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
-        piantaRoomDatabase = Room.inMemoryDatabaseBuilder(context, PiantaRoomDatabase.class)
+        piantaRoomDatabase = Room.inMemoryDatabaseBuilder(context, PlantRoomDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        piantaDao = piantaRoomDatabase.piantaDao();
+        piantaDao = piantaRoomDatabase.plantDao();
     }
 
     @After
@@ -121,21 +116,21 @@ public class PiantaDaoTest {
    @Test
     public void daoSearchPiante_returnsPiantaFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.searchPiante("Spinaci");
+        List<Pianta> allPiante = piantaDao.searchPlants("Spinaci");
         assertEquals(allPiante.get(0), pianta2);
    }
 
    @Test
     public void daoSearchPianteFiltri_returnsPiantaFilteredFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.searchPianteFiltri("pom", 3, 5);
+        List<Pianta> allPiante = piantaDao.searchPlantsFilters("pom", 3, 5);
         assertEquals(allPiante.get(0), pianta1);
    }
 
    @Test
     public void daoSearchPianteFiltriAll_returnsPiantaFilteredFromDb() {
        addTwoPianteToDb();
-       List<Pianta> allPiante = piantaDao.searchPianteFiltriAll("Spi",  "mezz'ombra", 3, 5);
+       List<Pianta> allPiante = piantaDao.searchPlantsAllFilters("Spi",  "mezz'ombra", 3, 5);
        assertEquals(allPiante.get(0), pianta2);
    }
 

@@ -2,10 +2,10 @@ package com.unimib.eden.utils;
 
 import android.app.Application;
 
-import com.unimib.eden.database.ColturaRoomDatabase;
-import com.unimib.eden.database.FaseRoomDatabase;
-import com.unimib.eden.database.PiantaRoomDatabase;
-import com.unimib.eden.database.ProdottoRoomDatabase;
+import com.unimib.eden.database.CropRoomDatabase;
+import com.unimib.eden.database.PhaseRoomDatabase;
+import com.unimib.eden.database.PlantRoomDatabase;
+import com.unimib.eden.database.ProductRoomDatabase;
 
 /**
  * Class ServiceLocator that provides instances of Room databases for the Plant and Phase entities.
@@ -37,8 +37,8 @@ public class ServiceLocator {
      * @param application   The application context
      * @return An instance of the plant Room database.
      */
-    public PiantaRoomDatabase getPlantDao(Application application) {
-        return PiantaRoomDatabase.getDatabase(application);
+    public PlantRoomDatabase getPlantDao(Application application) {
+        return PlantRoomDatabase.getDatabase(application);
     }
 
     /**
@@ -47,8 +47,8 @@ public class ServiceLocator {
      * @param application   The application context
      * @return An instance of the crop Room database.
      */
-    public ColturaRoomDatabase getCropDao(Application application) {
-        return ColturaRoomDatabase.getDatabase(application);
+    public CropRoomDatabase getCropDao(Application application) {
+        return CropRoomDatabase.getDatabase(application);
     }
     /**
      * Method getPhaseDao that returns an instance of the phase Room database.
@@ -56,12 +56,12 @@ public class ServiceLocator {
      * @param application   The application context
      * @return An instance of the phase Room database.
      */
-    public FaseRoomDatabase getPhaseDao(Application application) {
-        return FaseRoomDatabase.getDatabase(application);
+    public PhaseRoomDatabase getPhaseDao(Application application) {
+        return PhaseRoomDatabase.getDatabase(application);
     }
 
 
-    public ProdottoRoomDatabase getProductDao(Application application) {
-        return ProdottoRoomDatabase.getDatabase(application);
+    public ProductRoomDatabase getProductDao(Application application) {
+        return ProductRoomDatabase.getDatabase(application);
     }
 }

@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment {
         // Listener for the items in the custom menu
         if (item.getItemId() == R.id.app_bar_search) {
             Intent intent = new Intent(getActivity(), SearchPlantActivity.class);
-            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+            intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
             startActivity(intent);
             return true;
         }

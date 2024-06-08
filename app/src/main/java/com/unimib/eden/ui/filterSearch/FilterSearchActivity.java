@@ -56,7 +56,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                 intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
             }
@@ -109,7 +109,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                         .setMessage(R.string.alert_dialog_no_filter_applied_message)
                         .setPositiveButton(R.string.alert_dialog_no_filter_applied_positive_button, (dialog, which) -> {
                             Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                            intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                            intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                             intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                             getApplicationContext().startActivity(intent);
                         })
@@ -127,7 +127,7 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                     filtersMap.put("fineSemina", binding.textInputEditFineSemina.getText().toString());
                 }
                 Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                 intent.putExtra("filtriMap", (Serializable) filtersMap);
                 intent.setFlags(FLAG_ACTIVITY_NO_HISTORY | FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);

@@ -9,13 +9,9 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.unimib.eden.database.FaseDao;
-import com.unimib.eden.database.FaseRoomDatabase;
-import com.unimib.eden.database.PiantaDao;
-import com.unimib.eden.database.PiantaRoomDatabase;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.database.PhaseDao;
+import com.unimib.eden.database.PhaseRoomDatabase;
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
 
 import org.junit.After;
 import org.junit.Before;
@@ -29,8 +25,8 @@ import java.util.List;
 public class FaseDaoTest {
 
     private static final String TAG = "FaseDaoTest";
-    private FaseDao faseDao;
-    private FaseRoomDatabase faseRoomDatabase;
+    private PhaseDao faseDao;
+    private PhaseRoomDatabase faseRoomDatabase;
 
 
     private Fase fase1 = new Fase(
@@ -55,10 +51,10 @@ public class FaseDaoTest {
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
-        faseRoomDatabase = Room.inMemoryDatabaseBuilder(context, FaseRoomDatabase.class)
+        faseRoomDatabase = Room.inMemoryDatabaseBuilder(context, PhaseRoomDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        faseDao = faseRoomDatabase.faseDao();
+        faseDao = faseRoomDatabase.phaseDao();
     }
 
     @After
@@ -113,7 +109,7 @@ public class FaseDaoTest {
         addTwoFasiToDb();
         List<String> fasiId = new ArrayList<>();
         fasiId.add("mtqfP931yhNDQzFRN8RU");
-        List<Fase> allFasi = faseDao.getFasiID(fasiId);
+        List<Fase> allFasi = faseDao.getPhasesIds(fasiId);
         assertEquals(allFasi.get(0), fase2);
     }
 

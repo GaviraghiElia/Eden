@@ -78,7 +78,7 @@ public class SearchPlantActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(getApplicationContext(), FilterSearchActivity.class);
-                intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                 if (!filtersMap.isEmpty()) {
                     intent.putExtra("filtriMap", (Serializable) filtersMap);
                 }

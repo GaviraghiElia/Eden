@@ -59,9 +59,9 @@ public class PlantDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                if (operationCode == Constants.SEARCH_PIANTA_OPERATION_CODE) { // from plant search details
+                if (operationCode == Constants.SEARCH_PLANT_OPERATION_CODE) { // from plant search details
                     intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                    intent.putExtra("operationCode", Constants.SEARCH_PIANTA_OPERATION_CODE);
+                    intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                     intent.setFlags(FLAG_ACTIVITY_NO_HISTORY);
                     intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                     getApplicationContext().startActivity(intent);

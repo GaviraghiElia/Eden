@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Pianta;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -17,17 +17,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Classe FaseRoomDatabase per il database di Fase.
- * Questa classe definisce il database Room che contiene la tabella Fase.
+ * PlantRoomDatabase class for the Plant database.
+ * This class defines the Room database that contains the Plant table.
  */
-@Database(entities = {Fase.class}, version = Constants.DATABASE_VERSION_PHASE, exportSchema = false)
+@Database(entities = {Pianta.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
 @TypeConverters({Converters.class})
-public abstract class FaseRoomDatabase extends RoomDatabase {
+public abstract class PlantRoomDatabase extends RoomDatabase {
+
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile FaseRoomDatabase INSTANCE;
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+    private static volatile PlantRoomDatabase INSTANCE;
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -36,17 +37,17 @@ public abstract class FaseRoomDatabase extends RoomDatabase {
     };
 
     /**
-     * Metodo getDatabase che ottiene un'istanza del database.
+     * Method getDatabase that gets an instance of the database.
      *
-     * @param context   Il contesto dell'applicazione
-     * @return Un'istanza del database.
+     * @param context   The application context.
+     * @return An instance of the database.
      */
-    public static FaseRoomDatabase getDatabase(final Context context) {
+    public static PlantRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (FaseRoomDatabase.class) {
+            synchronized (PlantRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    FaseRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
+                                    PlantRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)
@@ -58,9 +59,9 @@ public abstract class FaseRoomDatabase extends RoomDatabase {
     }
 
     /**
-     * Metodo faseDao che ottiene il Dao associato al database.
+     * Method plantDao that gets the Dao associated with the database.
      *
-     * @return Il Dao associato al database.
+     * @return The Dao associated with the database.
      */
-    public abstract FaseDao faseDao();
+    public abstract PlantDao plantDao();
 }

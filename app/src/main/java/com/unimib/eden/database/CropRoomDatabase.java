@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Coltura;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -17,18 +17,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Classe PiantaRoomDatabase per il database di Pianta.
- * Questa classe definisce il database Room che contiene la tabella Pianta.
+ * Database class for Crop.
+ * This class defines the Room database that contains the Crop table.
  */
-@Database(entities = {Pianta.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
+@Database(entities = {Coltura.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
-public abstract class PiantaRoomDatabase extends RoomDatabase {
+public abstract class CropRoomDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private static volatile PiantaRoomDatabase INSTANCE;
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+    private static volatile CropRoomDatabase INSTANCE;
+    private static final Callback roomCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -37,17 +37,17 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
     };
 
     /**
-     * Metodo getDatabase che ottiene un'istanza del database.
+     * Gets an instance of the database.
      *
-     * @param context   Il contesto dell'applicazione
-     * @return Un'istanza del database.
+     * @param context The application context.
+     * @return An instance of the database.
      */
-    public static PiantaRoomDatabase getDatabase(final Context context) {
+    public static CropRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (PiantaRoomDatabase.class) {
+            synchronized (CropRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    PiantaRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
+                                    CropRoomDatabase.class, Constants.GARDEN_DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .addCallback(roomCallback)
@@ -59,9 +59,9 @@ public abstract class PiantaRoomDatabase extends RoomDatabase {
     }
 
     /**
-     * Metodo piantaDao che ottiene il Dao associato al database.
+     * Gets the DAO associated with the database.
      *
-     * @return Il Dao associato al database.
+     * @return The DAO associated with the database.
      */
-    public abstract PiantaDao piantaDao();
+    public abstract CropDao cropDao();
 }

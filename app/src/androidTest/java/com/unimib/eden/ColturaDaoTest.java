@@ -9,8 +9,8 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.unimib.eden.database.ColturaDao;
-import com.unimib.eden.database.ColturaRoomDatabase;
+import com.unimib.eden.database.CropDao;
+import com.unimib.eden.database.CropRoomDatabase;
 import com.unimib.eden.model.Coltura;
 
 import org.junit.After;
@@ -26,8 +26,8 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class ColturaDaoTest {
     private static final String TAG = "ColturaDaoTest";
-    private ColturaDao colturaDao;
-    private ColturaRoomDatabase colturaRoomDatabase;
+    private CropDao colturaDao;
+    private CropRoomDatabase colturaRoomDatabase;
 
     private Coltura coltura1 = new Coltura(
             "QuV8dadcUbZ5gKNpVhET",
@@ -61,10 +61,10 @@ public class ColturaDaoTest {
     @Before
     public void createDb() {
         Context context = ApplicationProvider.getApplicationContext();
-        colturaRoomDatabase = Room.inMemoryDatabaseBuilder(context, ColturaRoomDatabase.class)
+        colturaRoomDatabase = Room.inMemoryDatabaseBuilder(context, CropRoomDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-        colturaDao = colturaRoomDatabase.colturaDao();
+        colturaDao = colturaRoomDatabase.cropDao();
     }
 
     @After
@@ -116,7 +116,7 @@ public class ColturaDaoTest {
     public void daoGetAllDaIrrigare_returnsAllColtureDaIrrigareFromDb() {
         addTwoColtureToDb();
         List<Coltura> allColtureDaIrrigare = new ArrayList<>();
-        allColtureDaIrrigare = colturaDao.getAllDaIrrigareTest((new Date()).getTime()/ (1000 * 60 * 60 * 24));
+        allColtureDaIrrigare = colturaDao.getAllToWaterTest((new Date()).getTime()/ (1000 * 60 * 60 * 24));
 
         assertTrue(allColtureDaIrrigare.contains(coltura1));
         assertTrue(allColtureDaIrrigare.contains(coltura2));

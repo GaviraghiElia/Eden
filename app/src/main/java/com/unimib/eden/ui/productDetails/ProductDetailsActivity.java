@@ -97,7 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PlantDetailsActivity.class);
-                intent.putExtra("operationCode", Constants.PIANTA_DETAILS_OPERATION_CODE);
+                intent.putExtra("operationCode", Constants.PLANT_DETAILS_OPERATION_CODE);
                 intent.putExtra("pianta", productDetailsViewModel.getPlant(product));
                 startActivity(intent);
             }

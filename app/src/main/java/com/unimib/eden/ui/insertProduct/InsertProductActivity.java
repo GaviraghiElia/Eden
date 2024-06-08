@@ -123,7 +123,7 @@ public class InsertProductActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
-                    intent.putExtra("operationCode", Constants.CREATE_PRODOTTO_OPERATION_CODE);
+                    intent.putExtra("operationCode", Constants.CREATE_PRODUCT_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
                     mBinding.pianta.clearFocus();
                 }
