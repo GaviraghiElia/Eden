@@ -1,11 +1,15 @@
+import com.github.spotbugs.snom.SpotBugsTask
+
 plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
+    id "com.github.spotbugs" version "6.0.15"
 }
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'jacoco'
+apply plugin: 'com.github.spotbugs'
 
 android {
     compileSdk 34
@@ -52,6 +56,19 @@ android {
                 events "passed", "skipped", "failed"
             }
         }
+    }
+}
+
+spotbugs {
+    toolVersion = '4.8.0'
+    ignoreFailures = false
+    reportsDir = file("$project.buildDir/reports/spotbugs")
+}
+
+tasks.withType(SpotBugsTask) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
     }
 }
 
