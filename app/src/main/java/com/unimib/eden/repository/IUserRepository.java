@@ -3,7 +3,7 @@ package com.unimib.eden.repository;
 import androidx.lifecycle.MutableLiveData;
 
 import com.unimib.eden.model.FirebaseResponse;
-import com.unimib.eden.model.Utente;
+import com.unimib.eden.model.User;
 
 /**
  * Interface for user repository to handle user authentication and management operations with Firebase.
@@ -36,7 +36,7 @@ public interface IUserRepository {
      * @param password the user's password
      * @return LiveData containing the Firebase response
      */
-    MutableLiveData<FirebaseResponse> reauthenticateUser(Utente user, String email, String password);
+    MutableLiveData<FirebaseResponse> reauthenticateUser(User user, String email, String password);
 
     /**
      * Updates a user's email.

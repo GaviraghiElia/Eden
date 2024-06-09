@@ -13,7 +13,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.CropDao;
 import com.unimib.eden.database.CropRoomDatabase;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -28,7 +28,7 @@ public class CropRepository implements ICropRepository {
     private static final String TAG = "CropRepository";
     private final CropDao mCropDao;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final LiveData<List<Coltura>> allCrops;
+    private final LiveData<List<Crop>> allCrops;
 
     /**
      * Constructs an instance of CropRepository.
@@ -47,7 +47,7 @@ public class CropRepository implements ICropRepository {
      * @return A list of all Crop entities.
      */
     @Override
-    public LiveData<List<Coltura>> getAllCrops() {
+    public LiveData<List<Crop>> getAllCrops() {
         return allCrops;
     }
 
@@ -58,7 +58,7 @@ public class CropRepository implements ICropRepository {
      * @return A list of all crops for irrigation on the specified date.
      */
     @Override
-    public LiveData<List<Coltura>> getAllCropsToWater(long date) {
+    public LiveData<List<Crop>> getAllCropsToWater(long date) {
         return mCropDao.getAllToWater(date);
 
     }
@@ -69,7 +69,7 @@ public class CropRepository implements ICropRepository {
      * @param crop The Crop entity to delete.
      */
     @Override
-    public void deleteCrop(Coltura crop) {
+    public void deleteCrop(Crop crop) {
         new DeleteCropAsyncTask(mCropDao).execute(crop);
     }
 
@@ -79,7 +79,7 @@ public class CropRepository implements ICropRepository {
      * @param crop The new Crop entity to insert.
      */
     @Override
-    public void insert(Coltura crop) {
+    public void insert(Crop crop) {
         new InsertCropAsyncTask(mCropDao).execute(crop);
     }
 
@@ -90,7 +90,7 @@ public class CropRepository implements ICropRepository {
      * @return The Crop entity corresponding to the specified ID if present in the repository, otherwise null.
      */
     @Override
-    public Coltura getCropById(String cropId) {
+    public Crop getCropById(String cropId) {
         return mCropDao.getById(cropId);
     }
 
@@ -100,12 +100,12 @@ public class CropRepository implements ICropRepository {
      * @param crop The crop to update the last watering date to the current date.
      */
     @Override
-    public void updateCropWateringDate(Coltura crop) {
+    public void updateCropWateringDate(Crop crop) {
         db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                 .document(crop.getId())
                 .update("ultimo_innaffiamento", new Date());
         deleteCrop(crop);
-        crop.setUltimoInnaffiamento(new Date());
+        crop.setLastWatering(new Date());
         insert(crop);
     }
 
@@ -117,15 +117,15 @@ public class CropRepository implements ICropRepository {
      */
 
     @Override
-    public void updateCropWateringDate(Coltura crop, Date newDate) {
+    public void updateCropWateringDate(Crop crop, Date newDate) {
         deleteCrop(crop);
         if(newDate != null) {
             db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                     .document(crop.getId())
                     .update("ultimo_innaffiamento", newDate);
-            crop.setUltimoInnaffiamento(newDate);
+            crop.setLastWatering(newDate);
         }
-        crop.setUltimoAggiornamento(new Date());
+        crop.setLastUpdate(new Date());
         insert(crop);
     }
 
@@ -134,8 +134,8 @@ public class CropRepository implements ICropRepository {
      *
      * @param updates The map containing crop-date pairs.
      */
-    public void updateCropsWateringDate(Map<Coltura, Date> updates) {
-        for (Map.Entry<Coltura, Date> current : updates.entrySet()) {
+    public void updateCropsWateringDate(Map<Crop, Date> updates) {
+        for (Map.Entry<Crop, Date> current : updates.entrySet()) {
             updateCropWateringDate(current.getKey(), current.getValue());
         }
     }
@@ -145,14 +145,14 @@ public class CropRepository implements ICropRepository {
      *
      * @param crops The list of crops to update.
      */
-    public void updateCropsWateringDate(List<Coltura> crops) {
-        for (Coltura crop : crops) {
+    public void updateCropsWateringDate(List<Crop> crops) {
+        for (Crop crop : crops) {
             db.collection(Constants.FIRESTORE_COLLECTION_CROPS)
                     .document(crop.getId())
                     .update("ultimo_innaffiamento", new Date());
             deleteCrop(crop);
-            crop.setUltimoInnaffiamento(new Date());
-            crop.setUltimoAggiornamento(new Date());
+            crop.setLastWatering(new Date());
+            crop.setLastUpdate(new Date());
             insert(crop);
         }
     }
@@ -169,7 +169,7 @@ public class CropRepository implements ICropRepository {
                     String cropId = documentReference.getId();
                     // Add the ID to the cropMap
                     cropsMap.put(Constants.PRODUCT_ID, cropId);
-                    Coltura crop = new Coltura(cropsMap);
+                    Crop crop = new Crop(cropsMap);
                     insert(crop);
                 });
     }
@@ -189,17 +189,17 @@ public class CropRepository implements ICropRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                List<Coltura> tempCrops = allCrops.getValue();
+                                List<Crop> tempCrops = allCrops.getValue();
                                 boolean isCropPresent = false;
                                 boolean isCropChanged = false;
-                                Coltura oldCrop = null;
-                                Coltura newCrop = null;
+                                Crop oldCrop = null;
+                                Crop newCrop = null;
                                 if (tempCrops != null) {
-                                    for (Coltura c : tempCrops) {
+                                    for (Crop c : tempCrops) {
                                         if (c.getId().equals(document.getId())) {
                                             isCropPresent = true;
                                         }
-                                        if (c.getId().equals(document.getId()) && c.getFaseAttuale() != Math.toIntExact(Long.valueOf(String.valueOf(document.getData().get("fase_attuale"))))) {
+                                        if (c.getId().equals(document.getId()) && c.getCurrentPhase() != Math.toIntExact(Long.valueOf(String.valueOf(document.getData().get("fase_attuale"))))) {
                                             oldCrop = c;
                                             isCropChanged = true;
                                         }
@@ -214,16 +214,16 @@ public class CropRepository implements ICropRepository {
                                         }
                                     }
                                     if (!isCropPresent) {
-                                        newCrop = new Coltura(document);
+                                        newCrop = new Crop(document);
                                         insert(newCrop);
                                     }
                                     if (isCropChanged) {
                                         deleteCrop(oldCrop);
-                                        newCrop = new Coltura(document);
+                                        newCrop = new Crop(document);
                                         insert(newCrop);
                                     }
                                 } else { // Local DB is empty
-                                    newCrop = new Coltura(document);
+                                    newCrop = new Crop(document);
                                     insert(newCrop);
                                 }
                             }
@@ -234,7 +234,7 @@ public class CropRepository implements ICropRepository {
 
     // Intern AsyncTask classes
 
-    private static class DeleteCropAsyncTask extends AsyncTask<Coltura, Void, Void> {
+    private static class DeleteCropAsyncTask extends AsyncTask<Crop, Void, Void> {
         private final CropDao cropDao;
 
         private DeleteCropAsyncTask(CropDao cropDao) {
@@ -242,13 +242,13 @@ public class CropRepository implements ICropRepository {
         }
 
         @Override
-        protected Void doInBackground(Coltura... crops) {
+        protected Void doInBackground(Crop... crops) {
             cropDao.delete(crops[0]);
             return null;
         }
     }
 
-    private static class InsertCropAsyncTask extends AsyncTask<Coltura, Void, Void> {
+    private static class InsertCropAsyncTask extends AsyncTask<Crop, Void, Void> {
         private final CropDao mCropDao;
 
         private InsertCropAsyncTask(CropDao cropDao) {
@@ -256,7 +256,7 @@ public class CropRepository implements ICropRepository {
         }
 
         @Override
-        protected Void doInBackground(Coltura... crops) {
+        protected Void doInBackground(Crop... crops) {
             mCropDao.insert(crops[0]);
             return null;
         }

@@ -1,24 +1,27 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * La classe Condition rappresenta le condizioni meteorologiche.
- * Include informazioni testuali e un'icona che descrive le condizioni del meteo.
+ * The Condition class represents weather conditions.
+ * It includes textual information and an icon describing the weather conditions.
  */
 public class Condition {
-    private String text;
-    private String icon;
+    private final String text;
+    private final String icon;
 
     /**
-     * Costruttore della classe Condition.
+     * Constructor for the Condition class.
      *
-     * @param text Descrizione testuale delle condizioni meteorologiche.
-     * @param icon URL dell'icona che rappresenta le condizioni meteorologiche.
+     * @param text Description of the weather conditions.
+     * @param icon URL of the icon representing the weather conditions.
      */
     public Condition(String text, String icon) {
         this.text = text;
         this.icon = icon;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Condition{" +
@@ -28,18 +31,18 @@ public class Condition {
     }
 
     /**
-     * Restituisce la descrizione testuale delle condizioni meteorologiche.
+     * Returns the textual description of the weather conditions.
      *
-     * @return Una stringa che descrive le condizioni meteorologiche.
+     * @return A string describing the weather conditions.
      */
     public String getText() {
         return text;
     }
 
     /**
-     * Restituisce l'URL dell'icona che rappresenta le condizioni meteorologiche.
+     * Returns the URL of the icon representing the weather conditions.
      *
-     * @return Una stringa che contiene l'URL dell'icona.
+     * @return A string containing the icon URL.
      */
     public String getIcon() {
         return icon;

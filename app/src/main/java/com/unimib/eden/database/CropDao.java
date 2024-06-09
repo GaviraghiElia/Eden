@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.utils.Converters;
 
 import java.util.List;
@@ -26,10 +26,10 @@ public interface CropDao {
      * @return A list of all crops present in the database.
      */
     @Query("SELECT * FROM 'coltura' ORDER BY nome, ultimo_innaffiamento ASC")
-    LiveData<List<Coltura>> getAll();
+    LiveData<List<Crop>> getAll();
 
     @Query("SELECT * FROM 'coltura'")
-    List<Coltura> getAllTest();
+    List<Crop> getAllTest();
 
     /**
      * Deletes the specified crops from the database.
@@ -37,7 +37,7 @@ public interface CropDao {
      * @param crop The crops to be deleted.
      */
     @Delete
-    void delete(Coltura... crop);
+    void delete(Crop... crop);
 
     /**
      * Inserts a new crop into the database.
@@ -45,7 +45,7 @@ public interface CropDao {
      * @param crop The crop to be inserted.
      */
     @Insert
-    void insert(Coltura crop);
+    void insert(Crop crop);
 
     /**
      * Retrieves a crop from the database based on the specified ID.
@@ -54,10 +54,10 @@ public interface CropDao {
      * @return The crop corresponding to the specified ID, if present in the database; otherwise, null.
      */
     @Query("SELECT * FROM 'coltura' WHERE id = :cropId")
-    Coltura getById(String cropId);
+    Crop getById(String cropId);
 
     @Query("SELECT * FROM 'coltura' WHERE id IN (:ids)")
-    List<Coltura> getByIds(List<String> ids);
+    List<Crop> getByIds(List<String> ids);
 
     /**
      * Retrieves a list of crops to be watered on the current day.
@@ -66,8 +66,8 @@ public interface CropDao {
      * @return A list of crops to be watered on the current day.
      */
     @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24)) ORDER BY :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24)) - frequenza_innaffiamento_attuale DESC")
-    LiveData<List<Coltura>> getAllToWater(long date);
+    LiveData<List<Crop>> getAllToWater(long date);
 
     @Query("SELECT * FROM 'coltura' WHERE 0 < :date - (ultimo_innaffiamento / (1000 * 60 * 60 * 24))")
-    List<Coltura> getAllToWaterTest(long date);
+    List<Crop> getAllToWaterTest(long date);
 }

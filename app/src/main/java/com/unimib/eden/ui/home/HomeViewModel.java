@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.CropRepository;
@@ -24,7 +24,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private final List<Pianta> mPlants;
     private final List<Fase> mPhases;
-    private final LiveData<List<Coltura>> mCrops;
+    private final LiveData<List<Crop>> mCrops;
     private final PlantRepository plantsRepository;
     private final CropRepository cropRepository;
     private final PhaseRepository phaseRepository;
@@ -71,7 +71,7 @@ public class HomeViewModel extends AndroidViewModel {
      *
      * @return A list of crops.
      */
-    public LiveData<List<Coltura>> getCrops() {
+    public LiveData<List<Crop>> getCrops() {
         return mCrops;
     }
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.model.weather.WeatherForecast;
@@ -27,8 +27,8 @@ public class WateringViewModel extends AndroidViewModel {
 
     private final List<Pianta> mPlants;
     private final List<Fase> mPhases;
-    private final LiveData<List<Coltura>> mCrops;
-    private final LiveData<List<Coltura>> mCropsToWater;
+    private final LiveData<List<Crop>> mCrops;
+    private final LiveData<List<Crop>> mCropsToWater;
     private final PlantRepository plantRepository;
     private final CropRepository cropRepository;
     private final PhaseRepository phaseRepository;
@@ -97,7 +97,7 @@ public class WateringViewModel extends AndroidViewModel {
      *
      * @return A list of crops.
      */
-    public LiveData<List<Coltura>> getCrops() {
+    public LiveData<List<Crop>> getCrops() {
         return mCrops;
     }
 
@@ -106,7 +106,7 @@ public class WateringViewModel extends AndroidViewModel {
      *
      * @return A list of all crops to be watered on the current date.
      */
-    public LiveData<List<Coltura>> getCropsToWater() {
+    public LiveData<List<Crop>> getCropsToWater() {
         return mCropsToWater;
     }
 
@@ -135,7 +135,7 @@ public class WateringViewModel extends AndroidViewModel {
      *
      * @param crop The crop for which the last watering date needs to be updated to the current date.
      */
-    public void updateWateringDateCrop(Coltura crop) {
+    public void updateWateringDateCrop(Crop crop) {
         cropRepository.updateCropWateringDate(crop);
     }
 
@@ -145,7 +145,7 @@ public class WateringViewModel extends AndroidViewModel {
      * @param crop The crop for which the last watering date needs to be updated.
      * @param newDate The date to which the last watering date of the specified crop needs to be updated.
      */
-    public void updateWateringDateCrop(Coltura crop, Date newDate) {
+    public void updateWateringDateCrop(Crop crop, Date newDate) {
         cropRepository.updateCropWateringDate(crop, newDate);
     }
 }

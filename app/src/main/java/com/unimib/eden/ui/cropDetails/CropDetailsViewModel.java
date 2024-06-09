@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.repository.CropRepository;
@@ -51,7 +51,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      * @return The formatted date of the next watering.
      */
-    public String getNextWatering(Context context, Coltura crop) {
+    public String getNextWatering(Context context, Crop crop) {
         return Transformer.formatNextWatering(context, crop);
     }
 
@@ -61,8 +61,8 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      * @return The name of the plant.
      */
-    public String getPlantName(Coltura crop) {
-        return getPlantById(crop.getIdPianta()).getNome();
+    public String getPlantName(Crop crop) {
+        return getPlantById(crop.getPlantId()).getNome();
     }
 
     /**
@@ -71,8 +71,8 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      * @return The plant.
      */
-    public Pianta getPlant(Coltura crop) {
-        return getPlantById(crop.getIdPianta());
+    public Pianta getPlant(Crop crop) {
+        return getPlantById(crop.getPlantId());
     }
 
     /**
@@ -93,8 +93,8 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @throws ExecutionException   If the computation threw an exception.
      * @throws InterruptedException If the current thread was interrupted while waiting.
      */
-    public String getPhaseName(Coltura crop) throws ExecutionException, InterruptedException {
-        String phaseId = getPlantById(crop.getIdPianta()).getFasi().get(crop.getFaseAttuale());
+    public String getPhaseName(Crop crop) throws ExecutionException, InterruptedException {
+        String phaseId = getPlantById(crop.getPlantId()).getFasi().get(crop.getCurrentPhase());
         ArrayList<String> phasesIds = new ArrayList<>();
         phasesIds.add(phaseId);
         List<Fase> phases = phaseRepository.getPhasesFromIds(phasesIds);
@@ -106,7 +106,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      *
      * @param crop The crop.
      */
-    public void initialize(Coltura crop) {
+    public void initialize(Crop crop) {
         // Additional initialization if needed
     }
 
@@ -115,7 +115,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      *
      * @param crop The crop.
      */
-    public void updateWateringDate(Coltura crop) {
+    public void updateWateringDate(Crop crop) {
         cropRepository.updateCropWateringDate(crop);
     }
 
@@ -125,7 +125,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      * @param newDate The new watering date.
      */
-    public void updateWateringDateCrop(Coltura crop, Date newDate) {
+    public void updateWateringDateCrop(Crop crop, Date newDate) {
         cropRepository.updateCropWateringDate(crop, newDate);
     }
 }

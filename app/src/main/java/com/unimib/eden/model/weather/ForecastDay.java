@@ -1,18 +1,20 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * La classe ForecastDay rappresenta le previsioni meteo per un singolo giorno.
- * Include la data e un oggetto Day che contiene i dettagli delle condizioni meteo.
+ * The ForecastDay class represents weather forecasts for a single day.
+ * It includes the date and a Day object containing weather condition details.
  */
 public class ForecastDay {
-    private String date;
-    private Day day;
+    private final String date;
+    private final Day day;
 
     /**
-     * Costruttore della classe ForecastDay.
+     * Constructor for the ForecastDay class.
      *
-     * @param date La data della previsione in formato String.
-     * @param day  L'oggetto Day che contiene i dettagli delle condizioni meteo.
+     * @param date The date of the forecast in String format.
+     * @param day  The Day object containing weather condition details.
      */
     public ForecastDay(String date, Day day) {
         this.date = date;
@@ -20,23 +22,24 @@ public class ForecastDay {
     }
 
     /**
-     * Restituisce la data della previsione.
+     * Returns the date of the forecast.
      *
-     * @return La data della previsione.
+     * @return The date of the forecast.
      */
     public String getDate() {
         return date;
     }
 
     /**
-     * Restituisce i dettagli delle condizioni meteo per il giorno.
+     * Returns the weather condition details for the day.
      *
-     * @return L'oggetto Day con i dettagli delle condizioni meteo.
+     * @return The Day object with weather condition details.
      */
     public Day getDay() {
         return day;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "\nForecastDay{" +

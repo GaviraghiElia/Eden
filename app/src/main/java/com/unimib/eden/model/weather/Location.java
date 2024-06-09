@@ -1,7 +1,9 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * Questa classe rappresenta una località con informazioni geografiche di base.
+ * This class represents a location with basic geographical information.
  */
 public class Location {
     private String name;
@@ -11,13 +13,13 @@ public class Location {
     private double lon;
 
     /**
-     * Costruttore della classe Location.
+     * Constructor for the Location class.
      *
-     * @param name    il nome della località.
-     * @param region  la regione della località.
-     * @param country il paese della località.
-     * @param lat     la latitudine della località.
-     * @param lon     la longitudine della località.
+     * @param name    The name of the location.
+     * @param region  The region of the location.
+     * @param country The country of the location.
+     * @param lat     The latitude of the location.
+     * @param lon     The longitude of the location.
      */
     public Location(String name, String region, String country, double lat, double lon) {
         this.name = name;
@@ -28,10 +30,11 @@ public class Location {
     }
 
     /**
-     * Restituisce una rappresentazione in stringa della località.
+     * Returns a string representation of the location.
      *
-     * @return una stringa che rappresenta la località.
+     * @return A string representing the location.
      */
+    @NonNull
     @Override
     public String toString() {
         return "Location{" +
@@ -44,90 +47,90 @@ public class Location {
     }
 
     /**
-     * Restituisce il nome della località.
+     * Returns the name of the location.
      *
-     * @return il nome della località.
+     * @return The name of the location.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Imposta il nome della località.
+     * Sets the name of the location.
      *
-     * @param name il nome da impostare.
+     * @param name The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Restituisce la regione della località.
+     * Returns the region of the location.
      *
-     * @return la regione della località.
+     * @return The region of the location.
      */
     public String getRegion() {
         return region;
     }
 
     /**
-     * Imposta la regione della località.
+     * Sets the region of the location.
      *
-     * @param region la regione da impostare.
+     * @param region The region to set.
      */
     public void setRegion(String region) {
         this.region = region;
     }
 
     /**
-     * Restituisce il paese della località.
+     * Returns the country of the location.
      *
-     * @return il paese della località.
+     * @return The country of the location.
      */
     public String getCountry() {
         return country;
     }
 
     /**
-     * Imposta il paese della località.
+     * Sets the country of the location.
      *
-     * @param country il paese da impostare.
+     * @param country The country to set.
      */
     public void setCountry(String country) {
         this.country = country;
     }
 
     /**
-     * Restituisce la latitudine della località.
+     * Returns the latitude of the location.
      *
-     * @return la latitudine della località.
+     * @return The latitude of the location.
      */
     public double getLat() {
         return lat;
     }
 
     /**
-     * Imposta la latitudine della località.
+     * Sets the latitude of the location.
      *
-     * @param lat la latitudine da impostare.
+     * @param lat The latitude to set.
      */
     public void setLat(double lat) {
         this.lat = lat;
     }
 
     /**
-     * Restituisce la longitudine della località.
+     * Returns the longitude of the location.
      *
-     * @return la longitudine della località.
+     * @return The longitude of the location.
      */
     public double getLon() {
         return lon;
     }
 
     /**
-     * Imposta la longitudine della località.
+     * Sets the longitude of the location.
      *
-     * @param lon la longitudine da impostare.
+     * @param lon The longitude to set.
      */
     public void setLon(double lon) {
         this.lon = lon;

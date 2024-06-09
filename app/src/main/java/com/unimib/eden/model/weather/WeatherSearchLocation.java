@@ -1,7 +1,7 @@
 package com.unimib.eden.model.weather;
 
 /**
- * Questa classe rappresenta una località di ricerca meteo.
+ * This class represents a weather search location.
  */
 public class WeatherSearchLocation {
 
@@ -14,135 +14,135 @@ public class WeatherSearchLocation {
     private String url;
 
     /**
-     * Restituisce l'identificativo della località.
+     * Returns the ID of the location.
      *
-     * @return l'identificativo della località.
+     * @return The ID of the location.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Imposta l'identificativo della località.
+     * Sets the ID of the location.
      *
-     * @param id l'identificativo da impostare.
+     * @param id The ID to set.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Restituisce il nome della località.
+     * Returns the name of the location.
      *
-     * @return il nome della località.
+     * @return The name of the location.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Imposta il nome della località.
+     * Sets the name of the location.
      *
-     * @param name il nome da impostare.
+     * @param name The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Restituisce la regione della località.
+     * Returns the region of the location.
      *
-     * @return la regione della località.
+     * @return The region of the location.
      */
     public String getRegion() {
         return region;
     }
 
     /**
-     * Imposta la regione della località.
+     * Sets the region of the location.
      *
-     * @param region la regione da impostare.
+     * @param region The region to set.
      */
     public void setRegion(String region) {
         this.region = region;
     }
 
     /**
-     * Restituisce il paese della località.
+     * Returns the country of the location.
      *
-     * @return il paese della località.
+     * @return The country of the location.
      */
     public String getCountry() {
         return country;
     }
 
     /**
-     * Imposta il paese della località.
+     * Sets the country of the location.
      *
-     * @param country il paese da impostare.
+     * @param country The country to set.
      */
     public void setCountry(String country) {
         this.country = country;
     }
 
     /**
-     * Restituisce la latitudine della località.
+     * Returns the latitude of the location.
      *
-     * @return la latitudine della località.
+     * @return The latitude of the location.
      */
     public double getLat() {
         return lat;
     }
 
     /**
-     * Imposta la latitudine della località.
+     * Sets the latitude of the location.
      *
-     * @param lat la latitudine da impostare.
+     * @param lat The latitude to set.
      */
     public void setLat(double lat) {
         this.lat = lat;
     }
 
     /**
-     * Restituisce la longitudine della località.
+     * Returns the longitude of the location.
      *
-     * @return la longitudine della località.
+     * @return The longitude of the location.
      */
     public double getLon() {
         return lon;
     }
 
     /**
-     * Imposta la longitudine della località.
+     * Sets the longitude of the location.
      *
-     * @param lon la longitudine da impostare.
+     * @param lon The longitude to set.
      */
     public void setLon(double lon) {
         this.lon = lon;
     }
 
     /**
-     * Restituisce l'URL della località.
+     * Returns the URL of the location.
      *
-     * @return l'URL della località.
+     * @return The URL of the location.
      */
     public String getUrl() {
         return url;
     }
 
     /**
-     * Imposta l'URL della località.
+     * Sets the URL of the location.
      *
-     * @param url l'URL da impostare.
+     * @param url The URL to set.
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
     /**
-     * Restituisce una rappresentazione in stringa della località di ricerca meteo.
+     * Returns a string representation of the weather search location.
      *
-     * @return una stringa che rappresenta la località di ricerca meteo.
+     * @return A string representing the weather search location.
      */
     @Override
     public String toString() {

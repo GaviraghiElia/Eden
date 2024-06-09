@@ -19,7 +19,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unimib.eden.R;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.utils.Constants;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private WeatherViewModel viewModel;
 
-    private List<Coltura> mCrops = new ArrayList<>();
+    private List<Crop> mCrops = new ArrayList<>();
 
 
     /**
@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         // Create an instance of ViewModel
         viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
 
-        final Observer<List<Coltura>> allColtureObserver = new Observer<>() {
+        final Observer<List<Crop>> allColtureObserver = new Observer<>() {
             @Override
-            public void onChanged(List<Coltura> crop) {
+            public void onChanged(List<Crop> crop) {
                 mCrops = crop;
                 viewModel.getHistory(Constants.LOCATION, new Date()).observe(MainActivity.this, new Observer<>() {
                     @Override

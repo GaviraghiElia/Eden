@@ -14,7 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityCropDetailsBinding;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class CropDetailsActivity extends AppCompatActivity {
 
-    private Coltura crop;
+    private Crop crop;
     private CropDetailsViewModel cropDetailsViewModel;
     private ActivityCropDetailsBinding mBinding;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -66,12 +66,12 @@ public class CropDetailsActivity extends AppCompatActivity {
 
         cropDetailsViewModel = new ViewModelProvider(this).get(CropDetailsViewModel.class);
         Intent intent = getIntent();
-        crop = (Coltura) intent.getSerializableExtra("coltura");
+        crop = (Crop) intent.getSerializableExtra("coltura");
         cropDetailsViewModel.initialize(crop);
-        mBinding.toolbarColturaDetails.setTitle(crop.getNomePianta());
+        mBinding.toolbarColturaDetails.setTitle(crop.getPlantName());
 
         mBinding.textViewLastWateringFull.setText(cropDetailsViewModel.getNextWatering(this, crop));
-        mBinding.textViewInsertionDateFull.setText(Converters.dateToString(crop.getDataInserimento()));
+        mBinding.textViewInsertionDateFull.setText(Converters.dateToString(crop.getInsertionDate()));
         try {
             mBinding.textViewCurrentPhaseFull.setText(cropDetailsViewModel.getPhaseName(crop));
         } catch (ExecutionException | InterruptedException e) {
@@ -83,7 +83,7 @@ public class CropDetailsActivity extends AppCompatActivity {
             mBinding.cardNotes.setVisibility(View.VISIBLE);
             mBinding.textViewNoteFull.setText(crop.getNote());
         }
-        mBinding.textViewQuantityFull.setText(String.valueOf(crop.getQuantita()));
+        mBinding.textViewQuantityFull.setText(String.valueOf(crop.getQuantity()));
 
         mBinding.buttonViewAllDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +105,9 @@ public class CropDetailsActivity extends AppCompatActivity {
                 materialDatePicker.show(getSupportFragmentManager(), "MATERIAL_DATE_PICKER");
                 materialDatePicker.addOnPositiveButtonClickListener(selection -> {
                     cropDetailsViewModel.updateWateringDateCrop(crop, new Date(materialDatePicker.getHeaderText()));
-                    crop.setUltimoInnaffiamento(new Date(materialDatePicker.getHeaderText()));
+                    crop.setLastWatering(new Date(materialDatePicker.getHeaderText()));
                     mBinding.textViewLastWateringFull.setText(cropDetailsViewModel.getNextWatering(getApplicationContext(), crop));
-                    mBinding.textViewInsertionDateFull.setText(Converters.dateToString(crop.getDataInserimento()));
+                    mBinding.textViewInsertionDateFull.setText(Converters.dateToString(crop.getInsertionDate()));
                 });
             }
         });

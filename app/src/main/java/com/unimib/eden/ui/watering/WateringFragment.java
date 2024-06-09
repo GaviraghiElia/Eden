@@ -32,7 +32,7 @@ import com.unimib.eden.R;
 import com.unimib.eden.adapter.CropAdapter;
 import com.unimib.eden.adapter.ForecastDayAdapter;
 import com.unimib.eden.databinding.FragmentIrrigazioniBinding;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.weather.ForecastDay;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.utils.Constants;
@@ -52,10 +52,10 @@ public class WateringFragment extends Fragment {
     private FirebaseAuth mAuth;
     private NavController navController;
 
-    private List<Coltura> mCrops = new ArrayList<>();
+    private List<Crop> mCrops = new ArrayList<>();
     private WeatherForecast mWeatherForecast;
     private List<ForecastDay> mWeatherForecastList = new ArrayList<>();
-    private List<Coltura> cropsToUpdate = new ArrayList<>();
+    private List<Crop> cropsToUpdate = new ArrayList<>();
     public WateringViewModel wateringViewModel;
     private CropAdapter mCropAdapter;
     private ForecastDayAdapter mForecastDayAdapter;
@@ -105,9 +105,9 @@ public class WateringFragment extends Fragment {
         wateringViewModel = new ViewModelProvider(this).get(WateringViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
-        final Observer<List<Coltura>> allCropsObserver = new Observer<List<Coltura>>() {
+        final Observer<List<Crop>> allCropsObserver = new Observer<List<Crop>>() {
             @Override
-            public void onChanged(List<Coltura> crops) {
+            public void onChanged(List<Crop> crops) {
                 mCrops = crops;
                 mCropAdapter.update(mCrops);
             }
@@ -152,7 +152,7 @@ public class WateringFragment extends Fragment {
         // Initialize the adapter with the list of crops and the item click listener
         mCropAdapter = new CropAdapter(mCrops, new CropAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Coltura crop) {
+            public void onItemClick(Crop crop) {
                 if (cropsToUpdate.contains(crop)) {
                     cropsToUpdate.remove(crop);
                 } else {
@@ -180,7 +180,7 @@ public class WateringFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!cropsToUpdate.isEmpty()) {
-                                    for (Coltura coltura: cropsToUpdate) {
+                                    for (Crop coltura: cropsToUpdate) {
                                         wateringViewModel.updateWateringDateCrop(coltura);
 
                                     }

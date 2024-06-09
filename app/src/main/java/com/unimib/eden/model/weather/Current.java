@@ -1,151 +1,154 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * La classe Current rappresenta i dati meteorologici attuali.
- * Include informazioni come la temperatura, le condizioni meteo, la precipitazione e l'umidità.
+ * The Current class represents current weather data.
+ * It includes information such as temperature, weather conditions, precipitation, and humidity.
  */
 public class Current {
-    private String last_updated;
+    private String lastUpdated;
     private double temp_c;
     private Condition condition;
-    private double precip_mm;
-    private double precip_in;
+    private double precipitations_mm;
+    private double precipitations_in;
     private double humidity;
 
     /**
-     * Costruttore della classe Current.
+     * Constructor for the Current class.
      *
-     * @param last_updated La data e l'ora dell'ultimo aggiornamento dei dati.
-     * @param temp_c La temperatura attuale in gradi Celsius.
-     * @param condition Le condizioni meteorologiche attuali.
-     * @param precip_mm La precipitazione attuale in millimetri.
-     * @param precip_in La precipitazione attuale in pollici.
-     * @param humidity L'umidità attuale in percentuale.
+     * @param lastUpdated The date and time of the last data update.
+     * @param temp_c The current temperature in degrees Celsius.
+     * @param condition The current weather conditions.
+     * @param precipitations_mm The current precipitation in millimeters.
+     * @param precipitations_in The current precipitation in inches.
+     * @param humidity The current humidity in percentage.
      */
-    public Current(String last_updated, double temp_c, Condition condition, double precip_mm, double precip_in, double humidity) {
-        this.last_updated = last_updated;
+    public Current(String lastUpdated, double temp_c, Condition condition, double precipitations_mm, double precipitations_in, double humidity) {
+        this.lastUpdated = lastUpdated;
         this.temp_c = temp_c;
         this.condition = condition;
-        this.precip_mm = precip_mm;
-        this.precip_in = precip_in;
+        this.precipitations_mm = precipitations_mm;
+        this.precipitations_in = precipitations_in;
         this.humidity = humidity;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Current{" +
-                "last_updated='" + last_updated + '\'' +
+                "last_updated='" + lastUpdated + '\'' +
                 ", temp_c=" + temp_c +
                 ", condition=" + condition +
-                ", precip_mm=" + precip_mm +
-                ", precip_in=" + precip_in +
+                ", precipitations_mm=" + precipitations_mm +
+                ", precipitations_in=" + precipitations_in +
                 ", humidity=" + humidity +
                 '}';
     }
 
     /**
-     * Restituisce la data e l'ora dell'ultimo aggiornamento dei dati.
+     * Returns the date and time of the last data update.
      *
-     * @return Una stringa che rappresenta la data e l'ora dell'ultimo aggiornamento.
+     * @return A string representing the date and time of the last update.
      */
-    public String getLast_updated() {
-        return last_updated;
+    public String getLastUpdated() {
+        return lastUpdated;
     }
 
     /**
-     * Imposta la data e l'ora dell'ultimo aggiornamento dei dati.
+     * Sets the date and time of the last data update.
      *
-     * @param last_updated La data e l'ora dell'ultimo aggiornamento.
+     * @param lastUpdated The date and time of the last update.
      */
-    public void setLast_updated(String last_updated) {
-        this.last_updated = last_updated;
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     /**
-     * Restituisce la temperatura attuale in gradi Celsius.
+     * Returns the current temperature in degrees Celsius.
      *
-     * @return La temperatura attuale in gradi Celsius.
+     * @return The current temperature in degrees Celsius.
      */
     public double getTemp_c() {
         return temp_c;
     }
 
     /**
-     * Imposta la temperatura attuale in gradi Celsius.
+     * Sets the current temperature in degrees Celsius.
      *
-     * @param temp_c La temperatura attuale in gradi Celsius.
+     * @param temp_c The current temperature in degrees Celsius.
      */
     public void setTemp_c(double temp_c) {
         this.temp_c = temp_c;
     }
 
     /**
-     * Restituisce le condizioni meteorologiche attuali.
+     * Returns the current weather conditions.
      *
-     * @return Le condizioni meteorologiche attuali.
+     * @return The current weather conditions.
      */
     public Condition getCondition() {
         return condition;
     }
 
     /**
-     * Imposta le condizioni meteorologiche attuali.
+     * Sets the current weather conditions.
      *
-     * @param condition Le condizioni meteorologiche attuali.
+     * @param condition The current weather conditions.
      */
     public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
     /**
-     * Restituisce la precipitazione attuale in millimetri.
+     * Returns the current precipitation in millimeters.
      *
-     * @return La precipitazione attuale in millimetri.
+     * @return The current precipitation in millimeters.
      */
-    public double getPrecip_mm() {
-        return precip_mm;
+    public double getPrecipitations_mm() {
+        return precipitations_mm;
     }
 
     /**
-     * Imposta la precipitazione attuale in millimetri.
+     * Sets the current precipitation in millimeters.
      *
-     * @param precip_mm La precipitazione attuale in millimetri.
+     * @param precipitations_mm The current precipitation in millimeters.
      */
-    public void setPrecip_mm(double precip_mm) {
-        this.precip_mm = precip_mm;
+    public void setPrecipitations_mm(double precipitations_mm) {
+        this.precipitations_mm = precipitations_mm;
     }
 
     /**
-     * Restituisce la precipitazione attuale in pollici.
+     * Returns the current precipitation in inches.
      *
-     * @return La precipitazione attuale in pollici.
+     * @return The current precipitation in inches.
      */
-    public double getPrecip_in() {
-        return precip_in;
+    public double getPrecipitations_in() {
+        return precipitations_in;
     }
 
     /**
-     * Imposta la precipitazione attuale in pollici.
+     * Sets the current precipitation in inches.
      *
-     * @param precip_in La precipitazione attuale in pollici.
+     * @param precipitations_in The current precipitation in inches.
      */
-    public void setPrecip_in(double precip_in) {
-        this.precip_in = precip_in;
+    public void setPrecipitations_in(double precipitations_in) {
+        this.precipitations_in = precipitations_in;
     }
 
     /**
-     * Restituisce l'umidità attuale in percentuale.
+     * Returns the current humidity in percentage.
      *
-     * @return L'umidità attuale in percentuale.
+     * @return The current humidity in percentage.
      */
     public double getHumidity() {
         return humidity;
     }
 
     /**
-     * Imposta l'umidità attuale in percentuale.
+     * Sets the current humidity in percentage.
      *
-     * @param humidity L'umidità attuale in percentuale.
+     * @param humidity The current humidity in percentage.
      */
     public void setHumidity(double humidity) {
         this.humidity = humidity;

@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.model.weather.Day;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
@@ -28,7 +28,7 @@ public class WeatherViewModel extends AndroidViewModel {
     private LiveData<WeatherHistory> historyLiveData;
     private LiveData<List<WeatherSearchLocation>> searchLocationLiveData;
 
-    private final LiveData<List<Coltura>> mCrops;
+    private final LiveData<List<Crop>> mCrops;
 
     private static final String TAG = "WeatherViewModel";
 
@@ -89,8 +89,8 @@ public class WeatherViewModel extends AndroidViewModel {
      * @param dayWeather The weather conditions of the past day.
      * @param crops      List of crops to be updated.
      */
-    public void updateWateringDays(Day dayWeather, List<Coltura> crops) {
-        Map<Coltura, Date> updates = updateDatesOfWatering(crops, dayWeather);
+    public void updateWateringDays(Day dayWeather, List<Crop> crops) {
+        Map<Crop, Date> updates = updateDatesOfWatering(crops, dayWeather);
         cropRepository.updateCropsWateringDate(updates);
     }
 
@@ -99,7 +99,7 @@ public class WeatherViewModel extends AndroidViewModel {
      *
      * @return LiveData containing a list of crops.
      */
-    public LiveData<List<Coltura>> getCrops() {
+    public LiveData<List<Crop>> getCrops() {
         return mCrops;
     }
 
@@ -110,23 +110,23 @@ public class WeatherViewModel extends AndroidViewModel {
      * @param dayWeather The past weather conditions.
      * @return A map containing crop-date pairs to be updated.
      */
-    public static Map<Coltura, Date> updateDatesOfWatering(List<Coltura> crops, Day dayWeather) {
-        Map<Coltura, Date> datesForCrops = new HashMap<>();
+    public static Map<Crop, Date> updateDatesOfWatering(List<Crop> crops, Day dayWeather) {
+        Map<Crop, Date> datesForCrops = new HashMap<>();
         Date currentDate = new Date();
-        for (Coltura coltura : crops) {
-            Date lastUpdate = coltura.getUltimoAggiornamento();
+        for (Crop coltura : crops) {
+            Date lastUpdate = coltura.getLastUpdate();
             // Check if the crop has not been updated today
             if (!(lastUpdate.getDay() == currentDate.getDay()
                     && lastUpdate.getMonth() == currentDate.getMonth()
                     && lastUpdate.getYear() == currentDate.getYear())) {
                 // It rained enough to consider the plants as watered (yesterday)
-                if (dayWeather.getTotalprecip_mm() > 20) {
+                if (dayWeather.getTotalPrecipitations_mm() > 20) {
                     Date newDate = new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000);
                     datesForCrops.put(coltura, newDate);
                 }
                 // It was too hot and dry, bring forward the watering date by one day
-                else if (dayWeather.getAvgtemp_c() > 35 && dayWeather.getAvghumidity() < 50) {
-                    Date newDate = new Date(coltura.getUltimoInnaffiamento().getTime() - 2 * 24 * 60 * 60 * 1000);
+                else if (dayWeather.getAvgTemp_c() > 35 && dayWeather.getAvgHumidity() < 50) {
+                    Date newDate = new Date(coltura.getLastWatering().getTime() - 2 * 24 * 60 * 60 * 1000);
                     datesForCrops.put(coltura, newDate);
                 } else {
                     // Return null as a date when there is no need to update it

@@ -31,7 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.CropAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.ui.cropDetails.CropDetailsActivity;
 import com.unimib.eden.ui.insertCrop.InsertCropActivity;
 import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private NavController navController;
 
-    private List<Coltura> mCrops = new ArrayList<>();
+    private List<Crop> mCrops = new ArrayList<>();
     public HomeViewModel homeViewModel;
     private CropAdapter mCropAdapter;
 
@@ -96,9 +96,9 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
-        final Observer<List<Coltura>> allColtureObserver = new Observer<>() {
+        final Observer<List<Crop>> allColtureObserver = new Observer<>() {
             @Override
-            public void onChanged(List<Coltura> coltura) {
+            public void onChanged(List<Crop> coltura) {
                 mCrops = coltura;
                 mCropAdapter.update(mCrops);
             }
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment {
         // Initialize the adapter with the list of crops and the item click listener
         mCropAdapter = new CropAdapter(mCrops, new CropAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Coltura coltura) {
+            public void onItemClick(Crop coltura) {
                 // Navigate to CropDetailsFragment with the selected crop
                 Intent intent = new Intent(getActivity(), CropDetailsActivity.class);
                 intent.putExtra("coltura", coltura);

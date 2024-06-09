@@ -1,7 +1,9 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * Questa classe rappresenta le previsioni meteorologiche per una data località.
+ * This class represents the weather forecast for a specific location.
  */
 public class WeatherForecast {
     private Location location;
@@ -9,11 +11,11 @@ public class WeatherForecast {
     private Current current;
 
     /**
-     * Costruttore della classe WeatherForecast.
+     * Constructor for the WeatherForecast class.
      *
-     * @param location la località per cui si desidera ottenere le previsioni meteorologiche.
-     * @param current le condizioni meteorologiche attuali per la località.
-     * @param forecast le previsioni meteorologiche per la località.
+     * @param location The location for which the weather forecast is desired.
+     * @param current  The current weather conditions for the location.
+     * @param forecast The weather forecast for the location.
      */
     public WeatherForecast(Location location, Current current, Forecast forecast) {
         this.location = location;
@@ -22,17 +24,18 @@ public class WeatherForecast {
     }
 
     /**
-     * Costruttore vuoto della classe WeatherForecast.
+     * Empty constructor for the WeatherForecast class.
      */
     public WeatherForecast() {
 
     }
 
     /**
-     * Restituisce una rappresentazione in stringa delle previsioni meteorologiche.
+     * Returns a string representation of the weather forecast.
      *
-     * @return una stringa che rappresenta le previsioni meteorologiche.
+     * @return A string representing the weather forecast.
      */
+    @NonNull
     @Override
     public String toString() {
         return "\n" + location +
@@ -42,27 +45,27 @@ public class WeatherForecast {
     }
 
     /**
-     * Restituisce la località.
+     * Returns the location.
      *
-     * @return la località.
+     * @return The location.
      */
     public Location getLocation() {
         return location;
     }
 
     /**
-     * Restituisce le previsioni meteorologiche.
+     * Returns the weather forecast.
      *
-     * @return le previsioni meteorologiche.
+     * @return The weather forecast.
      */
     public Forecast getForecast() {
         return forecast;
     }
 
     /**
-     * Restituisce le condizioni meteorologiche attuali.
+     * Returns the current weather conditions.
      *
-     * @return le condizioni meteorologiche attuali.
+     * @return The current weather conditions.
      */
     public Current getCurrent() {
         return current;

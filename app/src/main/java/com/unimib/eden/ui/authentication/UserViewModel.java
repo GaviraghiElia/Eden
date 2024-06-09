@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.unimib.eden.model.FirebaseResponse;
-import com.unimib.eden.model.Utente;
+import com.unimib.eden.model.User;
 import com.unimib.eden.repository.IUserRepository;
 import com.unimib.eden.repository.UserRepository;
 
@@ -82,7 +82,7 @@ public class UserViewModel extends AndroidViewModel {
      * @param password la password dell'utente
      * @return LiveData con la risposta di Firebase
      */
-    public MutableLiveData<FirebaseResponse> reauthenticateUser(Utente utente, String email, String password)
+    public MutableLiveData<FirebaseResponse> reauthenticateUser(User utente, String email, String password)
     {
         mAuthenticationResponseLiveData = mUserRepository.reauthenticateUser(utente, email, password);
 

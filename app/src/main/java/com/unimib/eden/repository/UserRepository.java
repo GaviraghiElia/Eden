@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.unimib.eden.R;
 import com.unimib.eden.model.FirebaseResponse;
-import com.unimib.eden.model.Utente;
+import com.unimib.eden.model.User;
 import com.unimib.eden.utils.SharedPreferencesProvider;
 
 /**
@@ -138,7 +138,7 @@ public class UserRepository implements IUserRepository{
      * @return LiveData with the Firebase response
      */
     @Override
-    public MutableLiveData<FirebaseResponse> reauthenticateUser(Utente user, String email, String password)
+    public MutableLiveData<FirebaseResponse> reauthenticateUser(User user, String email, String password)
     {
         return null;
     }

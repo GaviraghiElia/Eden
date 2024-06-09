@@ -1,17 +1,19 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 /**
- * Questa classe rappresenta la storia meteorologica per una data località.
+ * This class represents the weather history for a specific location.
  */
 public class WeatherHistory {
     private Location location;
     private Forecast forecast;
 
     /**
-     * Costruttore della classe WeatherHistory.
+     * Constructor for the WeatherHistory class.
      *
-     * @param location la località per cui si desidera ottenere la storia meteorologica.
-     * @param forecast le previsioni meteorologiche associate alla località.
+     * @param location The location for which the weather history is desired.
+     * @param forecast The weather forecast associated with the location.
      */
     public WeatherHistory(Location location, Forecast forecast) {
         this.location = location;
@@ -19,10 +21,11 @@ public class WeatherHistory {
     }
 
     /**
-     * Restituisce una rappresentazione in stringa della storia meteorologica.
+     * Returns a string representation of the weather history.
      *
-     * @return una stringa che rappresenta la storia meteorologica.
+     * @return A string representing the weather history.
      */
+    @NonNull
     @Override
     public String toString() {
         return "WeatherHistory{" +
@@ -32,36 +35,36 @@ public class WeatherHistory {
     }
 
     /**
-     * Restituisce la località.
+     * Returns the location.
      *
-     * @return la località.
+     * @return The location.
      */
     public Location getLocation() {
         return location;
     }
 
     /**
-     * Imposta la località.
+     * Sets the location.
      *
-     * @param location la località da impostare.
+     * @param location The location to set.
      */
     public void setLocation(Location location) {
         this.location = location;
     }
 
     /**
-     * Restituisce le previsioni meteorologiche.
+     * Returns the weather forecast.
      *
-     * @return le previsioni meteorologiche.
+     * @return The weather forecast.
      */
     public Forecast getForecast() {
         return forecast;
     }
 
     /**
-     * Imposta le previsioni meteorologiche.
+     * Sets the weather forecast.
      *
-     * @param forecast le previsioni meteorologiche da impostare.
+     * @param forecast The weather forecast to set.
      */
     public void setForecast(Forecast forecast) {
         this.forecast = forecast;

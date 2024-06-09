@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.utils.Converters;
 import com.unimib.eden.utils.Transformer;
@@ -32,10 +32,10 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
      * Interface for handling clicks on RecyclerView items.
      */
     public interface OnItemClickListener {
-        void onItemClick(Coltura coltura);
+        void onItemClick(Crop coltura);
     }
 
-    private final List<Coltura> mCropsList;
+    private final List<Crop> mCropsList;
     private final OnItemClickListener onItemClickListener;
     private final PlantRepository plantRepository;
     private final int layout;
@@ -48,7 +48,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
      * @param layout             Layout to use for each RecyclerView item.
      * @param application        Application object for accessing the plant repository.
      */
-    public CropAdapter(List<Coltura> cropsList, OnItemClickListener onItemClickListener, int layout, Application application) {
+    public CropAdapter(List<Crop> cropsList, OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mCropsList = cropsList;
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
@@ -75,7 +75,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
         return 0;
     }
 
-    public void update(List<Coltura> cropsList) {
+    public void update(List<Crop> cropsList) {
         if (this.mCropsList != null) {
             this.mCropsList.clear();
             this.mCropsList.addAll(cropsList);
@@ -109,8 +109,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
          *
          * @param crop The crop to display.
          */
-        public void bind(Coltura crop) {
-            this.textViewPlant.setText(crop.getNomePianta());
+        public void bind(Crop crop) {
+            this.textViewPlant.setText(crop.getPlantName());
 
             this.textViewWateringDays.setText(Transformer.formatNextWatering(itemView.getContext(), crop));
             if (Transformer.daysToNextWatering(crop) >= 0) {
@@ -121,7 +121,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
 
             if (layout == R.layout.crop_item) {
                 // add imageViewPlant
-                String plantName = crop.getNomePianta().toLowerCase();
+                String plantName = crop.getPlantName().toLowerCase();
                 int resID = itemView.getContext().getResources().getIdentifier(plantName, "drawable", itemView.getContext().getPackageName());
 
                 if (resID != 0) { // If the image exists in the drawable
@@ -131,7 +131,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
                     this.imageViewCrop.setImageResource(fallbackResID);
                 }
 
-                this.textViewLastWatering.setText(Converters.dateToString(crop.getUltimoInnaffiamento()));
+                this.textViewLastWatering.setText(Converters.dateToString(crop.getLastWatering()));
                 if (crop.getNote().isEmpty()) {
                     this.textViewNote.setVisibility(View.GONE);
                 } else {
@@ -146,7 +146,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
             }
             if (layout == R.layout.irrigazioni_item) {
                 // add imageViewPlant
-                String plantName = crop.getNomePianta().toLowerCase();
+                String plantName = crop.getPlantName().toLowerCase();
                 int resID = itemView.getContext().getResources().getIdentifier(plantName, "drawable", itemView.getContext().getPackageName());
 
                 if (resID != 0) { // If the image exists in the drawable
@@ -156,7 +156,7 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
                     this.imageViewCrop.setImageResource(fallbackResID);
                 }
 
-                this.textViewLastWatering.setText(Converters.dateToString(crop.getUltimoInnaffiamento()));
+                this.textViewLastWatering.setText(Converters.dateToString(crop.getLastWatering()));
                 checkBox.setChecked(false);
 
                 checkBox.setOnClickListener(new View.OnClickListener() {

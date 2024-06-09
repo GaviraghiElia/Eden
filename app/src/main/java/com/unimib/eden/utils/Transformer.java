@@ -3,7 +3,7 @@ package com.unimib.eden.utils;
 import android.content.Context;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 
 import java.util.Date;
 import java.text.ParseException;
@@ -22,13 +22,13 @@ public class Transformer {
      * @param crop The crop.
      * @return The number of days until the next watering.
      */
-    public static int daysToNextWatering(Coltura crop) {
+    public static int daysToNextWatering(Crop crop) {
         Date currentDate = new Date();
-        Date lastWatering = crop.getUltimoInnaffiamento();
+        Date lastWatering = crop.getLastWatering();
         long timeDifference = currentDate.getTime() - lastWatering.getTime();
         long daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-        int currentPhase = crop.getFaseAttuale();
-        int wateringFrequency = crop.getFrequenzaInnaffiamento().get(currentPhase);
+        int currentPhase = crop.getCurrentPhase();
+        int wateringFrequency = crop.getWateringFrequency().get(currentPhase);
         return wateringFrequency - (int) daysDifference;
     }
 
@@ -39,7 +39,7 @@ public class Transformer {
      * @param crop The crop.
      * @return The formatted string representing the next watering date.
      */
-    public static String formatNextWatering(Context context, Coltura crop) {
+    public static String formatNextWatering(Context context, Crop crop) {
         int days = daysToNextWatering(crop);
         if (days == 0) {
             return context.getString(R.string.oggi);

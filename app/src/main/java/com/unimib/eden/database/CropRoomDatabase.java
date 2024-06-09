@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * Database class for Crop.
  * This class defines the Room database that contains the Crop table.
  */
-@Database(entities = {Coltura.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
+@Database(entities = {Crop.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class CropRoomDatabase extends RoomDatabase {
 

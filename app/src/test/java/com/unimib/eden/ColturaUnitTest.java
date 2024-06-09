@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.Timestamp;
-import com.unimib.eden.model.Coltura;
+import com.unimib.eden.model.Crop;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ColturaUnitTest {
-    private Coltura coltura;
+    private Crop coltura;
     private final String id = "coltura1";
     private final String idPianta = "pianta1";
     private final String proprietario = "proprietario1";
@@ -49,23 +49,23 @@ public class ColturaUnitTest {
         frequenzaInnaffiamento.add(2);
         frequenzaInnaffiamento.add(3);
 
-        coltura = new Coltura(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
+        coltura = new Crop(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
     }
 
     @Test
     public void testConstructorAndGetters() {
         assertEquals(id, coltura.getId());
-        assertEquals(idPianta, coltura.getIdPianta());
-        assertEquals(proprietario, coltura.getProprietario());
-        assertEquals(quantita, coltura.getQuantita());
+        assertEquals(idPianta, coltura.getPlantId());
+        assertEquals(proprietario, coltura.getOwner());
+        assertEquals(quantita, coltura.getQuantity());
         assertEquals(note, coltura.getNote());
-        assertEquals(dataInserimento, coltura.getDataInserimento());
-        assertEquals(faseAttuale, coltura.getFaseAttuale());
-        assertEquals(ultimoInnaffiamento, coltura.getUltimoInnaffiamento());
-        assertEquals(nomePianta, coltura.getNomePianta());
-        assertEquals(frequenzaInnaffiamento, coltura.getFrequenzaInnaffiamento());
-        assertEquals(frequenzaInnaffiamentoAttuale, coltura.getFrequenzaInnaffiamentoAttuale());
-        checkDate(ultimoAggiornamento, coltura.getUltimoAggiornamento());
+        assertEquals(dataInserimento, coltura.getInsertionDate());
+        assertEquals(faseAttuale, coltura.getCurrentPhase());
+        assertEquals(ultimoInnaffiamento, coltura.getLastWatering());
+        assertEquals(nomePianta, coltura.getPlantName());
+        assertEquals(frequenzaInnaffiamento, coltura.getWateringFrequency());
+        assertEquals(frequenzaInnaffiamentoAttuale, coltura.getCurrentWateringFrequency());
+        checkDate(ultimoAggiornamento, coltura.getLastUpdate());
     }
 
     private void checkDate(Date data1, Date data2){
@@ -79,41 +79,41 @@ public class ColturaUnitTest {
     @Test
     public void testSetters() {
         coltura.setId("newId");
-        coltura.setIdPianta("newIdPianta");
-        coltura.setProprietario("newProprietario");
-        coltura.setQuantita(20);
+        coltura.setPlantId("newIdPianta");
+        coltura.setOwner("newProprietario");
+        coltura.setQuantity(20);
         coltura.setNote("newNote");
-        coltura.setDataInserimento(new Date(0));
-        coltura.setFaseAttuale(2);
-        coltura.setUltimoInnaffiamento(new Date(0));
-        coltura.setNomePianta("newNomePianta");
+        coltura.setInsertionDate(new Date(0));
+        coltura.setCurrentPhase(2);
+        coltura.setLastWatering(new Date(0));
+        coltura.setPlantName("newNomePianta");
         ArrayList<Integer> newFrequenzaInnaffiamento = new ArrayList<>();
         newFrequenzaInnaffiamento.add(4);
         newFrequenzaInnaffiamento.add(5);
-        coltura.setFrequenzaInnaffiamento(newFrequenzaInnaffiamento);
-        coltura.setFrequenzaInnaffiamentoAttuale(3);
-        coltura.setUltimoAggiornamento(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000));
+        coltura.setWateringFrequency(newFrequenzaInnaffiamento);
+        coltura.setCurrentWateringFrequency(3);
+        coltura.setLastUpdate(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000));
 
         assertEquals("newId", coltura.getId());
-        assertEquals("newIdPianta", coltura.getIdPianta());
-        assertEquals("newProprietario", coltura.getProprietario());
-        assertEquals(20, coltura.getQuantita());
+        assertEquals("newIdPianta", coltura.getPlantId());
+        assertEquals("newProprietario", coltura.getOwner());
+        assertEquals(20, coltura.getQuantity());
         assertEquals("newNote", coltura.getNote());
-        assertEquals(new Date(0), coltura.getDataInserimento());
-        assertEquals(2, coltura.getFaseAttuale());
-        assertEquals(new Date(0), coltura.getUltimoInnaffiamento());
-        assertEquals("newNomePianta", coltura.getNomePianta());
-        assertEquals(newFrequenzaInnaffiamento, coltura.getFrequenzaInnaffiamento());
-        assertEquals(3, coltura.getFrequenzaInnaffiamentoAttuale());
-        checkDate(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000), coltura.getUltimoAggiornamento());
+        assertEquals(new Date(0), coltura.getInsertionDate());
+        assertEquals(2, coltura.getCurrentPhase());
+        assertEquals(new Date(0), coltura.getLastWatering());
+        assertEquals("newNomePianta", coltura.getPlantName());
+        assertEquals(newFrequenzaInnaffiamento, coltura.getWateringFrequency());
+        assertEquals(3, coltura.getCurrentWateringFrequency());
+        checkDate(new Date((new Date()).getTime() - 1 * 24 * 60 * 60 * 1000), coltura.getLastUpdate());
     }
 
     @Test
     public void testEqualsAndHashCode() {
-        Coltura sameColtura = new Coltura(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
-        Coltura differentColtura = new Coltura("differentId", idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
+        Crop sameColtura = new Crop(id, idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
+        Crop differentColtura = new Crop("differentId", idPianta, proprietario, quantita, note, dataInserimento, faseAttuale, ultimoInnaffiamento, nomePianta, frequenzaInnaffiamento, frequenzaInnaffiamentoAttuale);
 
-        Coltura newColtura = null;
+        Crop newColtura = null;
         assertTrue(coltura.equals(sameColtura));
         assertFalse(coltura.equals(differentColtura));
         assertEquals(coltura.hashCode(), sameColtura.hashCode());
@@ -142,18 +142,18 @@ public class ColturaUnitTest {
 
         // Check if Coltura fields are correctly initialized
         assertEquals(id, coltura.getId());
-        assertEquals(idPianta, coltura.getIdPianta());
-        assertEquals(proprietario, coltura.getProprietario());
-        assertEquals(quantita, coltura.getQuantita());
+        assertEquals(idPianta, coltura.getPlantId());
+        assertEquals(proprietario, coltura.getOwner());
+        assertEquals(quantita, coltura.getQuantity());
         assertEquals(note, coltura.getNote());
-        assertEquals(faseAttuale, coltura.getFaseAttuale());
-        assertEquals(nomePianta, coltura.getNomePianta());
-        assertEquals(frequenzaInnaffiamento, coltura.getFrequenzaInnaffiamento());
-        assertEquals(frequenzaInnaffiamentoAttuale, coltura.getFrequenzaInnaffiamentoAttuale());
+        assertEquals(faseAttuale, coltura.getCurrentPhase());
+        assertEquals(nomePianta, coltura.getPlantName());
+        assertEquals(frequenzaInnaffiamento, coltura.getWateringFrequency());
+        assertEquals(frequenzaInnaffiamentoAttuale, coltura.getCurrentWateringFrequency());
         // Check if Date fields are not null
-        assertNotNull(coltura.getDataInserimento());
-        assertNotNull(coltura.getUltimoInnaffiamento());
-        assertNotNull(coltura.getUltimoAggiornamento());
+        assertNotNull(coltura.getInsertionDate());
+        assertNotNull(coltura.getLastWatering());
+        assertNotNull(coltura.getLastUpdate());
     }
 
     @Test
@@ -172,22 +172,22 @@ public class ColturaUnitTest {
         dataMap.put(CROPS_CURRENT_WATERING_FREQUENCY, frequenzaInnaffiamentoAttuale);
 
         // Initialize Coltura from the data map
-        Coltura newColtura =  new Coltura(dataMap);
+        Crop newColtura =  new Crop(dataMap);
 
         // Check if Coltura fields are correctly initialized
         assertEquals(id, newColtura.getId());
-        assertEquals(idPianta, newColtura.getIdPianta());
-        assertEquals(proprietario, newColtura.getProprietario());
-        assertEquals(quantita, newColtura.getQuantita());
+        assertEquals(idPianta, newColtura.getPlantId());
+        assertEquals(proprietario, newColtura.getOwner());
+        assertEquals(quantita, newColtura.getQuantity());
         assertEquals(note, newColtura.getNote());
-        assertEquals(faseAttuale, newColtura.getFaseAttuale());
-        assertEquals(nomePianta, newColtura.getNomePianta());
-        assertEquals(frequenzaInnaffiamento, newColtura.getFrequenzaInnaffiamento());
-        assertEquals(frequenzaInnaffiamentoAttuale, newColtura.getFrequenzaInnaffiamentoAttuale());
+        assertEquals(faseAttuale, newColtura.getCurrentPhase());
+        assertEquals(nomePianta, newColtura.getPlantName());
+        assertEquals(frequenzaInnaffiamento, newColtura.getWateringFrequency());
+        assertEquals(frequenzaInnaffiamentoAttuale, newColtura.getCurrentWateringFrequency());
         // Check if Date fields are not null
-        assertNotNull(newColtura.getDataInserimento());
-        assertNotNull(newColtura.getUltimoInnaffiamento());
-        assertNotNull(newColtura.getUltimoAggiornamento());
+        assertNotNull(newColtura.getInsertionDate());
+        assertNotNull(newColtura.getLastWatering());
+        assertNotNull(newColtura.getLastUpdate());
     }
 
 
