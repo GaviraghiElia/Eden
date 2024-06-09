@@ -1,7 +1,6 @@
 package com.unimib.eden.repository;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -21,51 +20,46 @@ import com.unimib.eden.model.Utente;
 import com.unimib.eden.utils.SharedPreferencesProvider;
 
 /**
- * Classe per gestire l'interazione con Firebase in merito alla gestione degli utenti
+ * Class to manage interaction with Firebase regarding user management
  */
-public class UtenteRepository implements IUtenteRepository{
+public class UserRepository implements IUserRepository{
 
-    /**
-     * Istanza di FirebaseAuth.
-     */
     private final FirebaseAuth mAuth;
 
     /**
-     * Istanza di Application.
+     * Instance of Application.
      */
     private final Application mApplication;
 
     /**
-     * Fornitore di SharedPreferences.
+     * SharedPreferences provider.
      */
     private final SharedPreferencesProvider mSharedPreferencesProvider;
 
     /**
-     * LiveData per la risposta di autenticazione da Firebase.
+     * LiveData for Firebase authentication response.
      */
     private final MutableLiveData<FirebaseResponse> mAuthenticationResponseLiveData;
 
     /**
-     * Istanza di FirebaseDatabase.
+     * Instance of FirebaseDatabase.
      */
-    private FirebaseDatabase fDB;
+    private final FirebaseDatabase fDB;
 
     /**
-     * Riferimento al database di Firebase.
+     * Reference to the Firebase database.
      */
-    private DatabaseReference reference;
+    private final DatabaseReference reference;
 
     /**
-     * Costruttore per UtenteRepository.
+     * Constructor for UserRepository.
      *
-     * @param application l'istanza di Application
+     * @param application the instance of Application
      */
-    public UtenteRepository(Application application)
+    public UserRepository(Application application)
     {
         mAuth = FirebaseAuth.getInstance();
-        Log.d("FIREBASE", "mauth ok");
         fDB = FirebaseDatabase.getInstance();
-        Log.d("FIREBASE", "getIstance ok");
         reference = fDB.getReference("users");
         mApplication = application;
         mAuthenticationResponseLiveData = new MutableLiveData<>();
@@ -73,32 +67,25 @@ public class UtenteRepository implements IUtenteRepository{
     }
 
     /**
-     * Metodo per effettuare l'accesso con email e password.
+     * Method to sign in with email and password.
      *
-     * @param email l'email dell'utente
-     * @param password la password dell'utente
-     * @return LiveData con la risposta di Firebase
+     * @param email the user's email
+     * @param password the user's password
+     * @return LiveData with the Firebase response
      */
     @Override
     public MutableLiveData<FirebaseResponse> signInWithEmail(String email, String password)
     {
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(ContextCompat.getMainExecutor(mApplication), new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(ContextCompat.getMainExecutor(mApplication), new OnCompleteListener<>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
                         FirebaseResponse firebaseResponse = new FirebaseResponse();
-                        if (task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             firebaseResponse.setSuccess(true);
-                            Log.d("FIREBASE", "signInWithEmail:success", task.getException());
-                        }
-                        else
-                        {
+                        } else {
                             // If sign in fails, display a message to the user.
-                            Log.d("TAG", "signInWithEmail:failure", task.getException());
-
                             firebaseResponse.setSuccess(false);
                             firebaseResponse.setMessage(task.getException().getMessage());
                         }
@@ -110,17 +97,17 @@ public class UtenteRepository implements IUtenteRepository{
     }
 
     /**
-     * Metodo per creare un utente con email e password.
+     * Method to create a user with email and password.
      *
-     * @param email l'email dell'utente
-     * @param password la password dell'utente
-     * @return LiveData con la risposta di Firebase
+     * @param email the user's email
+     * @param password the user's password
+     * @return LiveData with the Firebase response
      */
     @Override
     public MutableLiveData<FirebaseResponse> createUserWithEmail(String email, String password)
     {
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         FirebaseResponse firebaseResponse = new FirebaseResponse();
@@ -143,24 +130,24 @@ public class UtenteRepository implements IUtenteRepository{
     }
 
     /**
-     * Metodo per ri-autenticare un utente.
+     * Method to re-authenticate a user.
      *
-     * @param utente l'utente da ri-autenticare
-     * @param email l'email dell'utente
-     * @param password la password dell'utente
-     * @return LiveData con la risposta di Firebase
+     * @param user the user to re-authenticate
+     * @param email the user's email
+     * @param password the user's password
+     * @return LiveData with the Firebase response
      */
     @Override
-    public MutableLiveData<FirebaseResponse> reauthenticateUser(Utente utente, String email, String password)
+    public MutableLiveData<FirebaseResponse> reauthenticateUser(Utente user, String email, String password)
     {
         return null;
     }
 
     /**
-     * Metodo per aggiornare l'email di un utente.
+     * Method to update a user's email.
      *
-     * @param email la nuova email dell'utente
-     * @return LiveData con la risposta di Firebase
+     * @param email the new email of the user
+     * @return LiveData with the Firebase response
      */
     @Override
     public MutableLiveData<FirebaseResponse> updateEmail(String email)
@@ -169,10 +156,10 @@ public class UtenteRepository implements IUtenteRepository{
     }
 
     /**
-     * Metodo per inviare un link di reset della password.
+     * Method to send a password reset link.
      *
-     * @param email l'email dell'utente
-     * @return LiveData con la risposta di Firebase
+     * @param email the user's email
+     * @return LiveData with the Firebase response
      */
     @Override
     public MutableLiveData<FirebaseResponse> resetPasswordLink(String email)

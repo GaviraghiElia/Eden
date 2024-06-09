@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.unimib.eden.model.FirebaseResponse;
 import com.unimib.eden.model.Utente;
-import com.unimib.eden.repository.IUtenteRepository;
-import com.unimib.eden.repository.UtenteRepository;
+import com.unimib.eden.repository.IUserRepository;
+import com.unimib.eden.repository.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
 
@@ -20,7 +20,7 @@ public class UserViewModel extends AndroidViewModel {
     /**
      * Repository per l'utente.
      */
-    private final IUtenteRepository mUserRepository;
+    private final IUserRepository mUserRepository;
 
     /**
      * Costruttore per UtenteViewModel.
@@ -30,7 +30,7 @@ public class UserViewModel extends AndroidViewModel {
     public UserViewModel(@NonNull Application application)
     {
         super(application);
-        this.mUserRepository = new UtenteRepository(application);
+        this.mUserRepository = new UserRepository(application);
     }
 
     /**
