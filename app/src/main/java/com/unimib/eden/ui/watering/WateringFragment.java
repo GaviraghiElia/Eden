@@ -29,7 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.eden.R;
-import com.unimib.eden.adapter.ColturaAdapter;
+import com.unimib.eden.adapter.CropAdapter;
 import com.unimib.eden.adapter.ForecastDayAdapter;
 import com.unimib.eden.databinding.FragmentIrrigazioniBinding;
 import com.unimib.eden.model.Coltura;
@@ -57,7 +57,7 @@ public class WateringFragment extends Fragment {
     private List<ForecastDay> mWeatherForecastList = new ArrayList<>();
     private List<Coltura> cropsToUpdate = new ArrayList<>();
     public WateringViewModel wateringViewModel;
-    private ColturaAdapter mCropAdapter;
+    private CropAdapter mCropAdapter;
     private ForecastDayAdapter mForecastDayAdapter;
 
 
@@ -150,7 +150,7 @@ public class WateringFragment extends Fragment {
         mForecastDayAdapter = new ForecastDayAdapter(mWeatherForecastList, R.layout.weather_forecast_item);
 
         // Initialize the adapter with the list of crops and the item click listener
-        mCropAdapter = new ColturaAdapter(mCrops, new ColturaAdapter.OnItemClickListener() {
+        mCropAdapter = new CropAdapter(mCrops, new CropAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Coltura crop) {
                 if (cropsToUpdate.contains(crop)) {

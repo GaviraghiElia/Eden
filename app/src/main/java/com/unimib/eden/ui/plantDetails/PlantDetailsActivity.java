@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.unimib.eden.R;
-import com.unimib.eden.adapter.FaseAdapter;
+import com.unimib.eden.adapter.PhaseAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
 import com.unimib.eden.model.Fase;
 import com.unimib.eden.model.Pianta;
@@ -33,7 +33,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
     private static final String TAG = "PlantDetailsActivity";
     private ActivityPiantaDetailsBinding binding;
     private PlantDetailsViewModel plantDetailsViewModel;
-    private FaseAdapter phaseAdapter;
+    private PhaseAdapter phaseAdapter;
 
     private int operationCode;
     Pianta plant = null;
@@ -118,7 +118,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         });
 
         binding.fasiRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        phaseAdapter = new FaseAdapter(new ArrayList<>());
+        phaseAdapter = new PhaseAdapter(new ArrayList<>());
         binding.fasiRecyclerView.setAdapter(phaseAdapter);
         phaseAdapter.update(phases);
     }

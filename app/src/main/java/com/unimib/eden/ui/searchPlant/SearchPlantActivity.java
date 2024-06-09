@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.unimib.eden.R;
-import com.unimib.eden.adapter.PiantaAdapter;
+import com.unimib.eden.adapter.PlantAdapter;
 import com.unimib.eden.databinding.ActivitySearchPiantaBinding;
 import com.unimib.eden.model.Pianta;
 import com.unimib.eden.ui.filterSearch.FilterSearchActivity;
@@ -40,7 +40,7 @@ public class SearchPlantActivity extends AppCompatActivity {
     private ActivitySearchPiantaBinding binding;
     private SearchPlantViewModel searchPlantViewModel;
     private final Handler mHandler = new Handler();
-    private PiantaAdapter plantAdapter;
+    private PlantAdapter plantAdapter;
     private int operationCode;
     private Map<String, String> filtersMap = new HashMap<>();
     private boolean hasFiltri = false;
@@ -96,7 +96,7 @@ public class SearchPlantActivity extends AppCompatActivity {
 
         // Set up the RecyclerView with an adapter
         binding.searchPiantaRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        plantAdapter = new PiantaAdapter(new ArrayList<>());
+        plantAdapter = new PlantAdapter(new ArrayList<>());
         binding.searchPiantaRecyclerView.setAdapter(plantAdapter);
 
         // Observe the plant list LiveData from ViewModel

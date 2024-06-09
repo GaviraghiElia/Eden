@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
 
-import com.unimib.eden.adapter.ProdottoAdapter;
+import com.unimib.eden.adapter.ProductAdapter;
 import com.unimib.eden.databinding.FragmentStandBinding;
 import com.unimib.eden.model.Prodotto;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
@@ -43,7 +43,7 @@ public class StandFragment extends Fragment {
     private FragmentStandBinding binding;
     private List<Prodotto> mProducts = new ArrayList<>();
     private StandViewModel standViewModel;
-    private ProdottoAdapter mProductAdapter;
+    private ProductAdapter mProductAdapter;
     private FirebaseAuth mAuth;
 
     /**
@@ -112,7 +112,7 @@ public class StandFragment extends Fragment {
         binding.standRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize the adapter with the product list and item click listener
-        mProductAdapter = new ProdottoAdapter(mProducts, new ProdottoAdapter.OnItemClickListener() {
+        mProductAdapter = new ProductAdapter(mProducts, new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Prodotto prodotto) {
                 // Navigate to ProdottoDetailsActivity with the selected product

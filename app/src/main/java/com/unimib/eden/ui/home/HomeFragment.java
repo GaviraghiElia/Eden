@@ -29,7 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.eden.R;
-import com.unimib.eden.adapter.ColturaAdapter;
+import com.unimib.eden.adapter.CropAdapter;
 import com.unimib.eden.databinding.FragmentHomeBinding;
 import com.unimib.eden.model.Coltura;
 import com.unimib.eden.ui.cropDetails.CropDetailsActivity;
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private List<Coltura> mCrops = new ArrayList<>();
     public HomeViewModel homeViewModel;
-    private ColturaAdapter mCropAdapter;
+    private CropAdapter mCropAdapter;
 
     /**
      * Default constructor for HomeFragment.
@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
         mBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Initialize the adapter with the list of crops and the item click listener
-        mCropAdapter = new ColturaAdapter(mCrops, new ColturaAdapter.OnItemClickListener() {
+        mCropAdapter = new CropAdapter(mCrops, new CropAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Coltura coltura) {
                 // Navigate to CropDetailsFragment with the selected crop

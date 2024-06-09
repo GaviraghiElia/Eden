@@ -3,7 +3,6 @@ package com.unimib.eden.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,52 +23,52 @@ import com.unimib.eden.utils.Constants;
 import java.util.List;
 
 /**
- * Classe PiantaAdapter che visualizza i dati delle piante in una RecyclerView.
+ * PlantAdapter class that displays plant data in a RecyclerView.
  */
-public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaViewHolder> {
+public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
 
-    private final static String TAG = "PiantaAdapter";
-    private List<Pianta> piantaList;
+    private final static String TAG = "PlantAdapter";
+    private final List<Pianta> plantsList;
     private int itemLayout = R.layout.search_pianta_item;
 
     /**
-     * Intero per gestire la destinazione corretta in seguito al onClick di una pianta
+     * Integer to handle the correct destination following the onClick of a plant.
      */
     private int  operationCode;
 
     /**
-     * Costruttore dell'adapter PiantaAdapter.
+     * Constructor for the PlantAdapter.
      *
-     * @param piantaList    Lista di piante da visualizzare.
+     * @param plantsList List of plants to display.
      */
-    public PiantaAdapter(List<Pianta> piantaList) {
-        this.piantaList = piantaList;
+    public PlantAdapter(List<Pianta> plantsList) {
+        this.plantsList = plantsList;
     }
 
-    public PiantaAdapter(List<Pianta> piantaList, int itemLayout) {
-        this.piantaList = piantaList;
+    public PlantAdapter(List<Pianta> plantsList, int itemLayout) {
+        this.plantsList = plantsList;
         this.itemLayout = itemLayout;
     }
 
     @NonNull
     @Override
-    public PiantaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.search_pianta_item, parent, false);
 
-        return new PiantaViewHolder(view);
+        return new PlantViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PiantaViewHolder piantaViewHolder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull PlantViewHolder plantViewHolder, @SuppressLint("RecyclerView") int position) {
 
         // Create an instance of the ChildItem
         // class for the given position
 
-        Pianta pianta = piantaList.get(position);
-        piantaViewHolder.bind(pianta);
+        Pianta pianta = plantsList.get(position);
+        plantViewHolder.bind(pianta);
 
-        piantaViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        plantViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent;
@@ -77,20 +76,20 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
                 switch (operationCode) {
                     case Constants.SEARCH_PLANT_OPERATION_CODE:
                         intent = new Intent(v.getContext(), PlantDetailsActivity.class);
-                        intent.putExtra("pianta", piantaList.get(position));
+                        intent.putExtra("pianta", plantsList.get(position));
                         intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
                         v.getContext().startActivity(intent);
                         break;
                     case Constants.CREATE_CROP_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InsertCropActivity.class);
-                        intent.putExtra("pianta", piantaList.get(position));
+                        intent.putExtra("pianta", plantsList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_CROP_OPERATION_CODE);
                         ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
                         ((SearchPlantActivity) v.getContext()).finish();
                         break;
                     case Constants.CREATE_PRODUCT_OPERATION_CODE:
                         intent = new Intent(v.getContext(), InsertProductActivity.class);
-                        intent.putExtra("pianta", piantaList.get(position));
+                        intent.putExtra("pianta", plantsList.get(position));
                         intent.putExtra("operationCode", Constants.CREATE_PRODUCT_OPERATION_CODE);
                         ((SearchPlantActivity) v.getContext()).setResult(Activity.RESULT_OK, intent);
                         ((SearchPlantActivity) v.getContext()).finish();
@@ -106,53 +105,50 @@ public class PiantaAdapter extends RecyclerView.Adapter<PiantaAdapter.PiantaView
 
     @Override
     public int getItemCount() {
-        if (piantaList != null) {
-            return piantaList.size();
+        if (plantsList != null) {
+            return plantsList.size();
         }
         return 0;
     }
 
     public void update(List<Pianta> piantaList, int operationCode) {
-        if (this.piantaList != null) {
-            this.piantaList.clear();
-            this.piantaList.addAll(piantaList);
+        if (this.plantsList != null) {
+            this.plantsList.clear();
+            this.plantsList.addAll(piantaList);
             this.operationCode = operationCode;
             notifyDataSetChanged();
         }
     }
 
     /**
-     * Classe PiantaViewHolder per il ViewHolder di ogni elemento della RecyclerView.
+     * PlantViewHolder class for the ViewHolder of each item in the RecyclerView.
      */
-    class PiantaViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textViewPiantaName;
-        private ImageView imageViewPianta;
+    static class PlantViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textViewPlantName;
+        private final ImageView imageViewPlant;
 
-        public PiantaViewHolder(View itemView) {
+        public PlantViewHolder(View itemView) {
             super(itemView);
-            this.textViewPiantaName = itemView.findViewById(R.id.piantaName);
-            this.imageViewPianta = itemView.findViewById(R.id.imageViewPiantaSearch);
+            this.textViewPlantName = itemView.findViewById(R.id.piantaName);
+            this.imageViewPlant = itemView.findViewById(R.id.imageViewPiantaSearch);
 
         }
 
         /**
-         * Metodo bind che associa i dati della pianta al ViewHolder.
-         * @param pianta    La pianta da visualizzare.
+         * Bind method that associates plant data with the ViewHolder.
+         * @param plant The plant to display.
          */
-        public void bind(Pianta pianta) {
-            this.textViewPiantaName.setText(pianta.getNome());
+        public void bind(Pianta plant) {
+            this.textViewPlantName.setText(plant.getNome());
 
-            String nomePianta = pianta.getNome().toLowerCase();
-            int resID = itemView.getContext().getResources().getIdentifier(nomePianta, "drawable", itemView.getContext().getPackageName());
-            Log.d("PiantaSearchImageViewId", nomePianta);
-            Log.d("PiantaSearchImageViewId", itemView.getContext().getPackageName());
-            Log.d("PiantaSearchImageViewId", String.valueOf(resID));
+            String plantName = plant.getNome().toLowerCase();
+            int resID = itemView.getContext().getResources().getIdentifier(plantName, "drawable", itemView.getContext().getPackageName());
 
-            if(resID != 0) { // Se l'immagine esiste nel drawable
-                this.imageViewPianta.setImageResource(resID);
+            if(resID != 0) { // If the image exists in the drawable
+                this.imageViewPlant.setImageResource(resID);
             } else {
                 int fallbackResID = itemView.getContext().getResources().getIdentifier("note_illustration", "drawable", itemView.getContext().getPackageName());
-                this.imageViewPianta.setImageResource(fallbackResID);
+                this.imageViewPlant.setImageResource(fallbackResID);
             }
 
         }
