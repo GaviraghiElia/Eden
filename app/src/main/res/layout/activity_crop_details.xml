@@ -382,7 +382,7 @@
                 android:id="@+id/buttonViewAllDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/vedi_dettagli_pianta"
+                android:text="@string/see_plant_details"
                 android:layout_gravity="center_horizontal"
                 android:padding="12dp"
                 android:layout_marginBottom="16dp"

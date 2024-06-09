@@ -154,7 +154,7 @@ public class RegisterFragment extends Fragment
             {
                 if (firebaseResponse.isSuccess())
                 {
-                    makeMessage(getString(R.string.successfull_registration));
+                    makeMessage(getString(R.string.successful_registration));
                     firebaseAuth = FirebaseAuth.getInstance();
                     navController.navigate(R.id.action_registerFragment_to_mainActivity);
                     requireActivity().finish();

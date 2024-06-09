@@ -50,7 +50,7 @@ public class TransformerUnitTest {
         Context context = mock(Context.class);
         Crop crop = mock(Crop.class);
 
-        when(context.getString(R.string.oggi)).thenReturn("Oggi");
+        when(context.getString(R.string.today)).thenReturn("Oggi");
         Date currentDate = new Date();
         Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
         when(crop.getCurrentPhase()).thenReturn(0);
@@ -67,7 +67,7 @@ public class TransformerUnitTest {
         Context context = mock(Context.class);
         Crop crop = mock(Crop.class);
 
-        when(context.getString(R.string.tra_giorni)).thenReturn("Tra %d giorni");
+        when(context.getString(R.string.within_days)).thenReturn("Tra %d giorni");
         when(crop.getCurrentPhase()).thenReturn(0);
         when(crop.getLastWatering()).thenReturn(new Date());
         when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
@@ -82,7 +82,7 @@ public class TransformerUnitTest {
         Context context = mock(Context.class);
         Crop crop = mock(Crop.class);
 
-        when(context.getString(R.string.domani)).thenReturn("Domani");
+        when(context.getString(R.string.tomorrow)).thenReturn("Domani");
         Date currentDate = new Date();
         Date lastWatering = new Date(currentDate.getTime() - 4 * 24 * 60 * 60 * 1000); // 4 days ago
         when(crop.getCurrentPhase()).thenReturn(0);
@@ -99,7 +99,7 @@ public class TransformerUnitTest {
         Context context = mock(Context.class);
         Crop crop = mock(Crop.class);
 
-        when(context.getString(R.string.giorni_fa)).thenReturn("In ritardo di %1$d giorni");
+        when(context.getString(R.string.days_ago)).thenReturn("In ritardo di %1$d giorni");
         Date currentDate = new Date();
         Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
         when(crop.getCurrentPhase()).thenReturn(3);
@@ -116,7 +116,7 @@ public class TransformerUnitTest {
         Context context = mock(Context.class);
         Crop crop = mock(Crop.class);
 
-        when(context.getString(R.string.ritardo_giorno)).thenReturn("In ritardo di 1 giorno");
+        when(context.getString(R.string.days_delay)).thenReturn("In ritardo di 1 giorno");
         Date currentDate = new Date();
         Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
         when(crop.getCurrentPhase()).thenReturn(1);

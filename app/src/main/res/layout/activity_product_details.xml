@@ -126,7 +126,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/disponibile_a_scambi"
+                                android:text="@string/available_for_exchange"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
@@ -134,7 +134,7 @@
                                 android:id="@+id/textViewProductExchangeFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/disponibile_a_scambi"
+                                android:text="@string/available_for_exchange"
                                 android:layout_gravity="center"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 />
@@ -342,7 +342,7 @@
                 android:id="@+id/buttonViewAllDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/vedi_dettagli_pianta"
+                android:text="@string/see_plant_details"
                 android:layout_gravity="center_horizontal"
                 android:padding="12dp"
                 android:layout_marginBottom="16dp"

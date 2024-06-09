@@ -45,7 +45,7 @@
                     android:id="@+id/phaseNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/nome_fase_label"
+                    android:text="@string/phase_label"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
@@ -54,7 +54,7 @@
                     android:id="@+id/phaseNameDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/nome_fase"
+                    android:text="@string/phase_name"
                     android:layout_marginLeft="10dp"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     />
@@ -78,14 +78,14 @@
                         android:id="@+id/phaseStartLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/inizio_fase_label"
+                        android:text="@string/phase_name_label"
                         android:textAppearance="?attr/textAppearanceTitleSmall"
                         />
                     <TextView
                         android:id="@+id/phaseStartDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/inizio_fase"
+                        android:text="@string/phase_start"
                         android:layout_marginLeft="5dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         />
@@ -103,14 +103,14 @@
                         android:id="@+id/phaseDurationLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/durata_fase_label"
+                        android:text="@string/phase_duration_label"
                         android:textAppearance="?attr/textAppearanceTitleSmall"
                         />
                     <TextView
                         android:id="@+id/phaseDurationDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/durata_fase"
+                        android:text="@string/phase_duration"
                         android:layout_marginLeft="5dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         />
@@ -136,7 +136,7 @@
                     android:id="@+id/phaseDescriptionDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descrizione_fase"
+                    android:text="@string/phase_description"
                     android:layout_marginLeft="5dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     />
@@ -153,14 +153,14 @@
                     android:id="@+id/wateringFrequencyFaseLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/frequenza_innaffiamento_fase_label"
+                    android:text="@string/watering_frequency_phase_label"
                     android:textAppearance="?attr/textAppearanceTitleSmall"
                     />
                 <TextView
                     android:id="@+id/wateringFrequencyFaseDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/frequenza_innaffiamento_fase_label"
+                    android:text="@string/watering_frequency_phase_label"
                     android:layout_marginLeft="10dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     />

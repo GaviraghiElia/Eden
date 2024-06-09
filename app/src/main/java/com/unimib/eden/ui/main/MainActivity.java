@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
             new MaterialAlertDialogBuilder(this)
-                    .setTitle(getString(R.string.wantLogout))
-                    .setMessage(getString(R.string.logoutInfo))
-                    .setPositiveButton(getString(R.string.si), new DialogInterface.OnClickListener() {
+                    .setTitle(getString(R.string.want_logout))
+                    .setMessage(getString(R.string.logout_info))
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mAuth.signOut();

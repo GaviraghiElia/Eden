@@ -42,15 +42,15 @@ public class Transformer {
     public static String formatNextWatering(Context context, Crop crop) {
         int days = daysToNextWatering(crop);
         if (days == 0) {
-            return context.getString(R.string.oggi);
+            return context.getString(R.string.today);
         } else if (days == 1) {
-            return context.getString(R.string.domani);
+            return context.getString(R.string.tomorrow);
         } else if (days > 0) {
-            return String.format(context.getString(R.string.tra_giorni), days);
+            return String.format(context.getString(R.string.within_days), days);
         } else if (days == -1) {
-            return String.format(context.getString(R.string.ritardo_giorno));
+            return String.format(context.getString(R.string.days_delay));
         } else {
-            return String.format(context.getString(R.string.giorni_fa), Math.abs(days));
+            return String.format(context.getString(R.string.days_ago), Math.abs(days));
         }
     }
 

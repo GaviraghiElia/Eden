@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/search_pianta_toolbar"
+            android:hint="@string/search_plant_toolbar"
             app:startIconDrawable="@drawable/ic_baseline_search_24"
             app:endIconMode="clear_text">
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/fasi"
+            android:hint="@string/phases"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/growing_plant_24">
 
@@ -97,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/quantita_piante"
+                android:hint="@string/plant_quantity"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/delivery">
 
@@ -115,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/prezzo"
+                android:hint="@string/price"
                 app:startIconDrawable="@drawable/euro_circle"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_baseline_euro_24">
@@ -135,7 +135,7 @@
             android:id="@+id/checkBoxDisponibileAScambi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/disponibile_a_scambi"
+            android:text="@string/available_for_exchange"
             android:checked="false"
             android:layout_marginTop="16dp"
             android:drawablePadding="8dp"/>
@@ -144,7 +144,7 @@
             style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/altre_informazioni"
+            android:hint="@string/other_information"
             app:startIconDrawable="@drawable/baseline_edit_note_24"
             app:endIconMode="clear_text"
             android:layout_marginTop="16dp">
@@ -170,7 +170,7 @@
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/inserisci_prodotto"
+                android:text="@string/insert_product"
                 android:enabled="false"
                 android:layout_gravity="center_horizontal"
                 android:padding="16dp"

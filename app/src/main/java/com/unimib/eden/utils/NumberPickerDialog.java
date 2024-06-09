@@ -50,9 +50,9 @@ public class NumberPickerDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         if (sowingId == 0) {
-            builder.setTitle(R.string.choose_inizio_semina);
+            builder.setTitle(R.string.choose_sowing_start);
         } else {
-            builder.setTitle(R.string.choose_fine_semina);
+            builder.setTitle(R.string.choose_sowing_end);
         }
         builder.setMessage(R.string.choose_number);
 

@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/search_pianta_toolbar"
+            android:hint="@string/search_plant_toolbar"
             app:startIconDrawable="@drawable/ic_baseline_search_24"
             app:endIconMode="clear_text">
 
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/fasi"
+            android:hint="@string/phases"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/growing_plant_24">
 
@@ -85,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:hint="@string/quantita"
+                android:hint="@string/quantity"
                 app:startIconDrawable="@drawable/seeds_24"
                 app:endIconMode="clear_text">
 
@@ -128,7 +128,7 @@
                 android:id="@+id/buttonSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/inserisci_coltura"
+                android:text="@string/insert_crop"
                 android:enabled="false"
                 android:background="@drawable/button_ripple_background"
                 android:layout_gravity="center_horizontal"

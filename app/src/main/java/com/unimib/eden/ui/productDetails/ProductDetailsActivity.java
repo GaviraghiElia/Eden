@@ -78,7 +78,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
         // Set exchange availability
         if (product.getExchangeAvailable()) {
-            mBinding.textViewProductExchangeFull.setText(R.string.si);
+            mBinding.textViewProductExchangeFull.setText(R.string.yes);
             mBinding.cardProductExchange.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
         } else {
             mBinding.textViewProductExchangeFull.setText(R.string.no);

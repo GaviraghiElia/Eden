@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.unimib.eden.databinding.ActivityInserimentoProdottoBinding;
+import com.unimib.eden.databinding.ActivityInsertProductBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ import com.unimib.eden.utils.Constants;
 public class InsertProductActivity extends AppCompatActivity {
     private static final String TAG = "InsertProductActivity";
     private InsertProductViewModel insertProductViewModel;
-    private ActivityInserimentoProdottoBinding mBinding;
+    private ActivityInsertProductBinding mBinding;
     private String plantId = "";
     private Plant plant;
     private String lastPhase = "";
@@ -73,7 +73,7 @@ public class InsertProductActivity extends AppCompatActivity {
         insertProductViewModel = new ViewModelProvider(this).get(InsertProductViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        mBinding = ActivityInserimentoProdottoBinding.inflate(getLayoutInflater());
+        mBinding = ActivityInsertProductBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
         mBinding.toolbarInsProd.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarInsProd.setNavigationOnClickListener(new View.OnClickListener() {
@@ -144,9 +144,9 @@ public class InsertProductActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 phasePosition = position;
                 if (position == phasesNames.size() - 1) {
-                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_grammi));
+                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantity_grams));
                 } else {
-                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.quantita_piante));
+                    mBinding.quantitaTextInputLayout.setHint(getText(R.string.plant_quantity));
                 }
             }
         });

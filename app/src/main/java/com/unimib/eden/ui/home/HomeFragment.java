@@ -74,8 +74,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(requireActivity().getResources().getText(R.string.exitApp))
-                        .setMessage(requireActivity().getResources().getText(R.string.exitAppInfo))
+                        .setTitle(requireActivity().getResources().getText(R.string.exit_app))
+                        .setMessage(requireActivity().getResources().getText(R.string.exit_app_info))
                         .setPositiveButton("Yes",
                                 new DialogInterface.OnClickListener() {
                                     @Override

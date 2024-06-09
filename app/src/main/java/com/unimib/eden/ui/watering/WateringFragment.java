@@ -81,9 +81,9 @@ public class WateringFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(requireActivity().getResources().getText(R.string.exitApp))
-                        .setMessage(requireActivity().getResources().getText(R.string.exitAppInfo))
-                        .setPositiveButton(R.string.si,
+                        .setTitle(requireActivity().getResources().getText(R.string.exit_app))
+                        .setMessage(requireActivity().getResources().getText(R.string.exit_app_info))
+                        .setPositiveButton(R.string.yes,
                                 new DialogInterface.OnClickListener() {
 
                                     @Override
@@ -184,8 +184,8 @@ public class WateringFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 new MaterialAlertDialogBuilder(getContext())
-                        .setTitle(getResources().getText(R.string.confermaInnaffiamento))
-                        .setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+                        .setTitle(getResources().getText(R.string.watering_confirmation))
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!cropsToUpdate.isEmpty()) {
