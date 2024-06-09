@@ -22,26 +22,13 @@
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ToolbarTheme"
-                app:menu="@menu/pianta_details_app_bar_menu"
+                app:menu="@menu/plant_details_app_bar_menu"
                 app:navigationIcon="@drawable/ic_close_24dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!--
-            <TextView
-                android:id="@+id/piantaNomeDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceTitleLarge"
-                android:textSize="32sp"
-                android:textColor="@color/md_theme_onBackground"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:text="@string/pianta_name" />
-                -->
-
         <ImageView
-            android:id="@+id/imageViewPiantaDeailts"
+            android:id="@+id/imageViewPlantDetails"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginVertical="5dp"
@@ -95,7 +82,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"/>
                             <TextView
-                                android:id="@+id/famigliaBotanicaDetails"
+                                android:id="@+id/botanicalFamilyDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/famiglia_botanica"
@@ -114,7 +101,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall" />
                             <TextView
-                                android:id="@+id/esposizioneSoleDetails"
+                                android:id="@+id/sunExposureDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/esposizione"
@@ -157,7 +144,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"/>
                             <TextView
-                                android:id="@+id/minTemperaturaDetails"
+                                android:id="@+id/minTemperatureDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5 gradi"
@@ -176,7 +163,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall" />
                             <TextView
-                                android:id="@+id/maxTemperaturaDetails"
+                                android:id="@+id/maxTemperatureDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5 gradi"
@@ -227,7 +214,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"/>
                             <TextView
-                                android:id="@+id/inizioSeminaDetails"
+                                android:id="@+id/sowingStartDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/inizio_semina"
@@ -246,7 +233,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall" />
                             <TextView
-                                android:id="@+id/fineSeminaDetails"
+                                android:id="@+id/sowingEndDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/fine_semina"
@@ -288,7 +275,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall"/>
                             <TextView
-                                android:id="@+id/spazioNecessarioDetails"
+                                android:id="@+id/requiredSpaceDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/spazio_necessario"
@@ -307,7 +294,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall" />
                             <TextView
-                                android:id="@+id/altezzaMaxPrevistaDetails"
+                                android:id="@+id/maxExpectedHeightDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/altezza_max_prevista"
@@ -358,7 +345,7 @@
                                 android:layout_gravity="left"
                                 android:textAppearance="?attr/textAppearanceTitleSmall" />
                             <TextView
-                                android:id="@+id/tipoTerrenoDetails"
+                                android:id="@+id/soilTypeDetails"
                                 android:layout_width="0dip"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -411,7 +398,7 @@
             android:layout_marginHorizontal="16dp">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/fasiTitleSection"
+                android:id="@+id/phasesTitleSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
@@ -427,14 +414,14 @@
                 android:focusable="true"/>
 
             <LinearLayout
-                android:id="@+id/linearLayoutFasiView"
+                android:id="@+id/linearLayoutPhasesView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fasiRecyclerView"
+                    android:id="@+id/phasesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp">

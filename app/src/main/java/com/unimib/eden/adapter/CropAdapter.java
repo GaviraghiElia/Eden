@@ -96,8 +96,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
 
         public CropViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.imageViewCrop = itemView.findViewById(R.id.imageViewColtura);
-            this.textViewPlant = itemView.findViewById(R.id.textViewPianta);
+            this.imageViewCrop = itemView.findViewById(R.id.imageViewCrop);
+            this.textViewPlant = itemView.findViewById(R.id.textViewPlant);
             this.textViewWateringDays = itemView.findViewById(R.id.textViewDaysNumber);
             this.textViewLastWatering = itemView.findViewById(R.id.textViewDate);
             this.textViewNote = itemView.findViewById(R.id.textViewNote);

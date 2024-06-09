@@ -17,7 +17,7 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/imageViewFaseProdotto"
+            android:id="@+id/imageViewPhaseProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="50dp"
@@ -26,7 +26,7 @@
             android:layout_marginEnd="16dp"
             app:cardPreventCornerOverlap="false">
             <ImageView
-                android:id="@+id/imageViewProdottoBancarella"
+                android:id="@+id/imageViewProductStand"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
@@ -35,27 +35,27 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/textViewPiantaProdotto"
+            android:id="@+id/textViewPlantProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plant Name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
-            android:layout_toEndOf="@id/imageViewFaseProdotto"
-            android:layout_alignTop="@id/imageViewFaseProdotto"
+            android:layout_toEndOf="@id/imageViewPhaseProduct"
+            android:layout_alignTop="@id/imageViewPhaseProduct"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewFaseProdotto"
+            android:id="@+id/textViewPhaseProduct"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:text="X giorni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFaseProdotto"
-            android:layout_below="@id/textViewPiantaProdotto"
+            android:layout_toEndOf="@id/imageViewPhaseProduct"
+            android:layout_below="@id/textViewPlantProduct"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/growing_plant_24"
             android:drawablePadding="8dp"
@@ -63,14 +63,14 @@
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewPrezzoProdotto"
+            android:id="@+id/textViewPriceProduct"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:text="Data"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFaseProdotto"
-            android:layout_below="@id/textViewFaseProdotto"
+            android:layout_toEndOf="@id/imageViewPhaseProduct"
+            android:layout_below="@id/textViewPhaseProduct"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/euro_circle"
             android:drawablePadding="8dp"
@@ -79,14 +79,14 @@
 
 
         <TextView
-            android:id="@+id/textViewQuantitaProdotto"
+            android:id="@+id/textViewQuantityProduct"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:text="Data"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewFaseProdotto"
-            android:layout_below="@id/textViewPrezzoProdotto"
+            android:layout_toEndOf="@id/imageViewPhaseProduct"
+            android:layout_below="@id/textViewPriceProduct"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/delivery"
             android:drawablePadding="8dp"

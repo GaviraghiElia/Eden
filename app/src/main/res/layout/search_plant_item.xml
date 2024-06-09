@@ -30,7 +30,7 @@
                 android:layout_marginEnd="16dp"
                 app:cardPreventCornerOverlap="false">
                 <ImageView
-                    android:id="@+id/imageViewPiantaSearch"
+                    android:id="@+id/imageViewPlantSearch"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/piantaName"
+                android:id="@+id/plantName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

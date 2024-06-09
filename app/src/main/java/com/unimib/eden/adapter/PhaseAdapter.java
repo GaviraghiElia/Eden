@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHolder> {
 
-    private int itemLayout = R.layout.fase_details_item;
+    private int itemLayout = R.layout.phase_details_item;
     private final List<Phase> phasesList;
 
     /**
@@ -82,13 +82,13 @@ public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHol
 
         public PhaseViewHolder(View view) {
             super(view);
-            this.imageViewPhasePlant = view.findViewById(R.id.imageViewFasePianta);
-            this.getNamePhaseLabel = view.findViewById(R.id.nomeFaseLabel);
-            this.namePhaseDetails = view.findViewById(R.id.nomeFaseDetails);
-            this.phaseStartDetails = view.findViewById(R.id.inizioFaseDetails);
-            this.phaseDurationDetails = view.findViewById(R.id.durataFaseDetails);
-            this.phaseDescriptionDetails = view.findViewById(R.id.descrizioneFaseDetails);
-            this.wateringFrequencyPhaseDetails = view.findViewById(R.id.frequenzaInnaffiamentoFaseDetails);
+            this.imageViewPhasePlant = view.findViewById(R.id.imageViewPhasePlant);
+            this.getNamePhaseLabel = view.findViewById(R.id.phaseNameLabel);
+            this.namePhaseDetails = view.findViewById(R.id.phaseNameDetails);
+            this.phaseStartDetails = view.findViewById(R.id.phaseStartDetails);
+            this.phaseDurationDetails = view.findViewById(R.id.phaseDurationDetails);
+            this.phaseDescriptionDetails = view.findViewById(R.id.phaseDescriptionDetails);
+            this.wateringFrequencyPhaseDetails = view.findViewById(R.id.wateringFrequencyFaseDetails);
         }
 
         /**

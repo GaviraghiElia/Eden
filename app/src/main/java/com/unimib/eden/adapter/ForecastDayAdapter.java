@@ -84,12 +84,12 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
 
         public ForecastDayViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.textViewDay = itemView.findViewById(R.id.textViewGiorno);
-            this.textViewTemperature = itemView.findViewById(R.id.textViewTemperatura);
+            this.textViewDay = itemView.findViewById(R.id.textViewDay);
+            this.textViewTemperature = itemView.findViewById(R.id.textViewTemperature);
             this.textViewChanceOfRain = itemView.findViewById(R.id.textViewChanceOfRain);
             this.textViewTotalPrecipitations = itemView.findViewById(R.id.textViewTotalPrec);
-            this.textViewHumidity = itemView.findViewById(R.id.textViewUmidita);
-            this.imageViewWeather = itemView.findViewById(R.id.imageViewMeteo);
+            this.textViewHumidity = itemView.findViewById(R.id.textViewHumidity);
+            this.imageViewWeather = itemView.findViewById(R.id.imageViewForecast);
         }
 
         /**

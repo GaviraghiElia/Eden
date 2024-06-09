@@ -120,7 +120,7 @@ public class StandFragment extends Fragment {
                 intent.putExtra("prodotto", prodotto);
                 startActivity(intent);
             }
-        }, R.layout.prodotto_item, getActivity().getApplication());
+        }, R.layout.product_item, getActivity().getApplication());
 
         // Set the adapter to the RecyclerView
         binding.standRecyclerView.setAdapter(mProductAdapter);

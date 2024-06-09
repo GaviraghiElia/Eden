@@ -51,8 +51,8 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         filterSearchViewModel = new ViewModelProvider(this).get(FilterSearchViewModel.class);
 
-        binding.searchPiantaToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        binding.searchPlantToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.searchPlantToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
@@ -70,39 +70,39 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
 
         if (hasPreviousFiltri) {
             if (filtersMap.get("esposizioneSole") != null) {
-                binding.esposizioneSoleAutoComplete.setText(filtersMap.get("esposizioneSole"));
+                binding.sunExposureAutoComplete.setText(filtersMap.get("esposizioneSole"));
             }
             if (filtersMap.get("inizioSemina") != null) {
-                binding.textInputEditInizioSemina.setText(filtersMap.get("inizioSemina"));
+                binding.textInputEditSowingStart.setText(filtersMap.get("inizioSemina"));
             }
             if (filtersMap.get("fineSemina") != null) {
-                binding.textInputEditFineSemina.setText(filtersMap.get("fineSemina"));
+                binding.textInputEditSowingEnd.setText(filtersMap.get("fineSemina"));
             }
         }
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, esposizioneSole);
-        binding.esposizioneSoleAutoComplete.setAdapter(adapter);
+        binding.sunExposureAutoComplete.setAdapter(adapter);
 
         // InizioSeminaNumberPicker
-        binding.textInputEditInizioSemina.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.textInputEditSowingStart.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 showNumberPicker(v, 0);
-                binding.textInputEditInizioSemina.clearFocus();
+                binding.textInputEditSowingStart.clearFocus();
             }
         });
 
         // FineSeminaNumberPicker
-        binding.textInputEditFineSemina.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.textInputEditSowingEnd.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
                 showNumberPicker(v, 1);
-                binding.textInputEditFineSemina.clearFocus();
+                binding.textInputEditSowingEnd.clearFocus();
             }
         });
 
         binding.confirmButton.setOnClickListener(view -> {
-            if (binding.esposizioneSoleAutoComplete.getText().toString().equals("") &&
-                    binding.textInputEditInizioSemina.getText().toString().equals("") &&
-                    binding.textInputEditFineSemina.getText().toString().equals("")) {
+            if (binding.sunExposureAutoComplete.getText().toString().equals("") &&
+                    binding.textInputEditSowingStart.getText().toString().equals("") &&
+                    binding.textInputEditSowingEnd.getText().toString().equals("")) {
                 hasSelectedZeroFiltri = true;
                 new MaterialAlertDialogBuilder(FilterSearchActivity.this)
                         .setTitle(R.string.alert_dialog_no_filter_applied_title)
@@ -117,14 +117,14 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
                             //dialog.cancel();
                         }).show();
             } else {
-                if (!binding.esposizioneSoleAutoComplete.getText().toString().equals("")) {
-                    filtersMap.put("esposizioneSole", binding.esposizioneSoleAutoComplete.getText().toString());
+                if (!binding.sunExposureAutoComplete.getText().toString().equals("")) {
+                    filtersMap.put("esposizioneSole", binding.sunExposureAutoComplete.getText().toString());
                 }
-                if (!binding.textInputEditInizioSemina.getText().toString().equals("")) {
-                    filtersMap.put("inizioSemina", binding.textInputEditInizioSemina.getText().toString());
+                if (!binding.textInputEditSowingStart.getText().toString().equals("")) {
+                    filtersMap.put("inizioSemina", binding.textInputEditSowingStart.getText().toString());
                 }
-                if (!binding.textInputEditFineSemina.getText().toString().equals("")) {
-                    filtersMap.put("fineSemina", binding.textInputEditFineSemina.getText().toString());
+                if (!binding.textInputEditSowingEnd.getText().toString().equals("")) {
+                    filtersMap.put("fineSemina", binding.textInputEditSowingEnd.getText().toString());
                 }
                 Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                 intent.putExtra("operationCode", Constants.SEARCH_PLANT_OPERATION_CODE);
@@ -145,14 +145,14 @@ public class FilterSearchActivity extends AppCompatActivity implements NumberPic
         NumberPickerDialog newFragment;
 
         if (sowingId == 0) {
-            TextInputEditText fineSemina = this.findViewById(R.id.textInputEditFineSemina);
+            TextInputEditText fineSemina = this.findViewById(R.id.textInputEditSowingEnd);
             if (String.valueOf(fineSemina.getText()).equals("")) {
                 newFragment = new NumberPickerDialog(1, 12, sowingId);
             } else {
                 newFragment = new NumberPickerDialog(1, Integer.valueOf(String.valueOf(fineSemina.getText())), sowingId);
             }
         } else {
-            TextInputEditText inizioSemina = this.findViewById(R.id.textInputEditInizioSemina);
+            TextInputEditText inizioSemina = this.findViewById(R.id.textInputEditSowingStart);
             if (String.valueOf(inizioSemina.getText()).equals("")) {
                 newFragment = new NumberPickerDialog(1, 12, sowingId);
             } else {

@@ -15,12 +15,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbarProdottoDetails"
+                android:id="@+id/toolbarProductDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ToolbarTheme"
-                app:menu="@menu/pianta_details_app_bar_menu"
+                app:menu="@menu/plant_details_app_bar_menu"
                 app:navigationIcon="@drawable/ic_close_24dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -40,7 +40,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardProdottoFasi"
+                    android:id="@+id/cardProductPhases"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,7 +79,7 @@
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewFaseFull"
+                                android:id="@+id/textViewPhaseFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Fase Attuale"
@@ -93,7 +93,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardProdottoScambi"
+                    android:id="@+id/cardProductExchange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -131,7 +131,7 @@
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewScambiProdottoFull"
+                                android:id="@+id/textViewProductExchangeFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/disponibile_a_scambi"
@@ -155,7 +155,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardProdottoPrezzo"
+                    android:id="@+id/cardProductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -194,7 +194,7 @@
                                 android:textAppearance="?attr/textAppearanceTitleSmall"
                                 />
                             <TextView
-                                android:id="@+id/textViewPrezzoProdottoFull"
+                                android:id="@+id/textViewProductPriceFull"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Prezzo"

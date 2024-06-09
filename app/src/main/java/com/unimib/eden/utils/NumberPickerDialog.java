@@ -65,9 +65,9 @@ public class NumberPickerDialog extends DialogFragment {
                 int pickedValueMax = numberPickerMax.getValue();
                 TextInputEditText textInputEditText;
                 if (sowingId == 0) { // Set the starting sowing date field
-                    textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditInizioSemina);
+                    textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditSowingStart);
                 } else { // Set the ending sowing date field
-                    textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditFineSemina);
+                    textInputEditText = (TextInputEditText) getActivity().findViewById(R.id.textInputEditSowingEnd);
                 }
 
                 textInputEditText.setText(Integer.toString(pickedValueMax));

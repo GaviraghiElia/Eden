@@ -25,7 +25,7 @@
             />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardviewColtura"
+            android:id="@+id/cardviewCrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="50dp"
@@ -35,7 +35,7 @@
             app:cardPreventCornerOverlap="false">
 
             <ImageView
-                android:id="@+id/imageViewColtura"
+                android:id="@+id/imageViewCrop"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
@@ -44,15 +44,15 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/textViewPianta"
+            android:id="@+id/textViewPlant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plant Name"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
-            android:layout_toEndOf="@id/cardviewColtura"
-            android:layout_alignTop="@id/cardviewColtura"
+            android:layout_toEndOf="@id/cardviewCrop"
+            android:layout_alignTop="@id/cardviewCrop"
             android:layout_margin="4dp"
             android:gravity="center_vertical"/>
 
@@ -63,8 +63,8 @@
             android:text="X giorni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/cardviewColtura"
-            android:layout_below="@id/textViewPianta"
+            android:layout_toEndOf="@id/cardviewCrop"
+            android:layout_below="@id/textViewPlant"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/garden_watering_can_24_ok"
             android:drawablePadding="8dp"
@@ -78,7 +78,7 @@
             android:text="Data"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/cardviewColtura"
+            android:layout_toEndOf="@id/cardviewCrop"
             android:layout_below="@id/textViewDaysNumber"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/baseline_calendar_month_24"

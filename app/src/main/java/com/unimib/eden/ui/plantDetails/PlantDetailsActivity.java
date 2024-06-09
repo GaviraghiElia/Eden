@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.PhaseAdapter;
-import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
+import com.unimib.eden.databinding.ActivityPlantDetailsBinding;
 import com.unimib.eden.model.Phase;
 import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 public class PlantDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "PlantDetailsActivity";
-    private ActivityPiantaDetailsBinding binding;
+    private ActivityPlantDetailsBinding binding;
     private PlantDetailsViewModel plantDetailsViewModel;
     private PhaseAdapter phaseAdapter;
 
@@ -48,7 +48,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityPiantaDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityPlantDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Intent i = getIntent();
@@ -82,20 +82,20 @@ public class PlantDetailsActivity extends AppCompatActivity {
         // binding.piantaNomeDetails.setText(nomePianta);
         int resID = getResources().getIdentifier(plantName.toLowerCase(), "drawable", getPackageName());
         if(resID != 0) {
-            binding.imageViewPiantaDeailts.setImageResource(getResources().getIdentifier(plant.getName().toLowerCase(), "drawable", getPackageName()));
+            binding.imageViewPlantDetails.setImageResource(getResources().getIdentifier(plant.getName().toLowerCase(), "drawable", getPackageName()));
         } else {
-            binding.imageViewPiantaDeailts.setVisibility(View.GONE);
+            binding.imageViewPlantDetails.setVisibility(View.GONE);
         }
 
-        binding.famigliaBotanicaDetails.setText(plant.getBotanicalFamily());
-        binding.minTemperaturaDetails.setText(String.valueOf(plant.getMinTemperature()) + "°");
-        binding.maxTemperaturaDetails.setText(String.valueOf(plant.getMaxTemperature()) + "°");
-        binding.spazioNecessarioDetails.setText(String.valueOf(plant.getRequiredSpace()) + " cm");
-        binding.altezzaMaxPrevistaDetails.setText(String.valueOf(plant.getMaxExpectedHeight()) + " cm");
-        binding.tipoTerrenoDetails.setText(plant.getSoilType());
-        binding.esposizioneSoleDetails.setText(plant.getSunExposure());
-        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingStart()));
-        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingEnd()));
+        binding.botanicalFamilyDetails.setText(plant.getBotanicalFamily());
+        binding.minTemperatureDetails.setText(String.valueOf(plant.getMinTemperature()) + "°");
+        binding.maxTemperatureDetails.setText(String.valueOf(plant.getMaxTemperature()) + "°");
+        binding.requiredSpaceDetails.setText(String.valueOf(plant.getRequiredSpace()) + " cm");
+        binding.maxExpectedHeightDetails.setText(String.valueOf(plant.getMaxExpectedHeight()) + " cm");
+        binding.soilTypeDetails.setText(plant.getSoilType());
+        binding.sunExposureDetails.setText(plant.getSunExposure());
+        binding.sowingStartDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingStart()));
+        binding.sowingEndDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingEnd()));
         binding.descriptionDetails.setText(plant.getDescription());
 
         try {
@@ -106,20 +106,20 @@ public class PlantDetailsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        binding.fasiTitleSection.setOnClickListener(new View.OnClickListener() {
+        binding.phasesTitleSection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.linearLayoutFasiView.getVisibility() == binding.fasiRecyclerView.VISIBLE) {
-                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.GONE);
+                if (binding.linearLayoutPhasesView.getVisibility() == binding.phasesRecyclerView.VISIBLE) {
+                    binding.linearLayoutPhasesView.setVisibility(binding.phasesRecyclerView.GONE);
                 } else {
-                    binding.linearLayoutFasiView.setVisibility(binding.fasiRecyclerView.VISIBLE);
+                    binding.linearLayoutPhasesView.setVisibility(binding.phasesRecyclerView.VISIBLE);
                 }
             }
         });
 
-        binding.fasiRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        binding.phasesRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         phaseAdapter = new PhaseAdapter(new ArrayList<>());
-        binding.fasiRecyclerView.setAdapter(phaseAdapter);
+        binding.phasesRecyclerView.setAdapter(phaseAdapter);
         phaseAdapter.update(phases);
     }
 }

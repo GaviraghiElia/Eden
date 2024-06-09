@@ -9,7 +9,7 @@
 
     <!-- Media -->
     <ImageView
-        android:id="@+id/imageViewFasePianta"
+        android:id="@+id/imageViewPhasePlant"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="centerCrop"
@@ -42,7 +42,7 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/nomeFaseLabel"
+                    android:id="@+id/phaseNameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nome_fase_label"
@@ -51,7 +51,7 @@
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     />
                 <TextView
-                    android:id="@+id/nomeFaseDetails"
+                    android:id="@+id/phaseNameDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/nome_fase"
@@ -75,14 +75,14 @@
 
                     <!-- Title, secondary and supporting text -->
                     <TextView
-                        android:id="@+id/inizioFaseLabel"
+                        android:id="@+id/phaseStartLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/inizio_fase_label"
                         android:textAppearance="?attr/textAppearanceTitleSmall"
                         />
                     <TextView
-                        android:id="@+id/inizioFaseDetails"
+                        android:id="@+id/phaseStartDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/inizio_fase"
@@ -100,14 +100,14 @@
 
                     <!-- Title, secondary and supporting text -->
                     <TextView
-                        android:id="@+id/durataFaseLabel"
+                        android:id="@+id/phaseDurationLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/durata_fase_label"
                         android:textAppearance="?attr/textAppearanceTitleSmall"
                         />
                     <TextView
-                        android:id="@+id/durataFaseDetails"
+                        android:id="@+id/phaseDurationDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/durata_fase"
@@ -126,14 +126,14 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/descrizioneFaseLabel"
+                    android:id="@+id/phaseDescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/description_label"
                     android:textAppearance="?attr/textAppearanceTitleSmall"
                     />
                 <TextView
-                    android:id="@+id/descrizioneFaseDetails"
+                    android:id="@+id/phaseDescriptionDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/descrizione_fase"
@@ -150,14 +150,14 @@
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/frequenzaInnaffiamentoFaseLabel"
+                    android:id="@+id/wateringFrequencyFaseLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/frequenza_innaffiamento_fase_label"
                     android:textAppearance="?attr/textAppearanceTitleSmall"
                     />
                 <TextView
-                    android:id="@+id/frequenzaInnaffiamentoFaseDetails"
+                    android:id="@+id/wateringFrequencyFaseDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/frequenza_innaffiamento_fase_label"

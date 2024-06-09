@@ -84,9 +84,9 @@ public class InsertProductActivity extends AppCompatActivity {
         });
 
         mBinding.prezzo.addTextChangedListener(productTextWatcher);
-        mBinding.quantita.addTextChangedListener(productTextWatcher);
-        mBinding.pianta.addTextChangedListener(productTextWatcher);
-        mBinding.autoCompleteTextViewFasi.addTextChangedListener(productTextWatcher);
+        mBinding.quantity.addTextChangedListener(productTextWatcher);
+        mBinding.plant.addTextChangedListener(productTextWatcher);
+        mBinding.autoCompleteTextViewPhases.addTextChangedListener(productTextWatcher);
 
 
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
@@ -99,7 +99,7 @@ public class InsertProductActivity extends AppCompatActivity {
                             Intent date = o.getData();
                             plant = (Plant) date.getSerializableExtra("pianta");
                             plantId = plant.getId();
-                            mBinding.pianta.setText(plant.getName());
+                            mBinding.plant.setText(plant.getName());
                             mBinding.toolbarInsProd.setTitle("Inserisci " + plant.getName());
                             try {
                                 phasesList = insertProductViewModel.getPhasesList(plant.getPhases());
@@ -118,28 +118,28 @@ public class InsertProductActivity extends AppCompatActivity {
                         }
                     }
                 });
-        mBinding.pianta.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        mBinding.plant.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                     intent.putExtra("operationCode", Constants.CREATE_PRODUCT_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
-                    mBinding.pianta.clearFocus();
+                    mBinding.plant.clearFocus();
                 }
             }
         });
 
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, phasesNames);
-        mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
+        mBinding.autoCompleteTextViewPhases.setAdapter(adapter);
 
         mBinding.buttonSubmit.setOnClickListener(v -> {
             addProduct();
         });
 
 
-        mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mBinding.autoCompleteTextViewPhases.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 phasePosition = position;
@@ -159,9 +159,9 @@ public class InsertProductActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             String price = mBinding.prezzo.getText().toString();
-            String quantity = mBinding.quantita.getText().toString();
-            String plantText = mBinding.pianta.getText().toString();
-            String phaseText = mBinding.autoCompleteTextViewFasi.getText().toString();
+            String quantity = mBinding.quantity.getText().toString();
+            String plantText = mBinding.plant.getText().toString();
+            String phaseText = mBinding.autoCompleteTextViewPhases.getText().toString();
             mBinding.buttonSubmit.setEnabled(!price.isEmpty() && !quantity.isEmpty() && !plantText.isEmpty() && !phaseText.isEmpty());
         }
 
@@ -183,10 +183,10 @@ public class InsertProductActivity extends AppCompatActivity {
      */
     private void addProduct() {
         double price = Double.parseDouble(mBinding.prezzo.getText().toString());
-        int quantity = Integer.parseInt(mBinding.quantita.getText().toString());
+        int quantity = Integer.parseInt(mBinding.quantity.getText().toString());
         String otherInformation = mBinding.altreInformazioni.getText().toString();
         Boolean exchangeAvailable = mBinding.checkBoxDisponibileAScambi.isChecked();
-        String currentPhase = mBinding.autoCompleteTextViewFasi.getText().toString();
+        String currentPhase = mBinding.autoCompleteTextViewPhases.getText().toString();
         String phaseId = phasesList.get(phasePosition).getId();
 
         String type;

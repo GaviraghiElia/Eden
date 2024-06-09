@@ -62,8 +62,8 @@ public class SearchPlantActivity extends AppCompatActivity {
         }
 
         // Set up the toolbar navigation
-        binding.searchPiantaToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        binding.searchPiantaToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        binding.searchPlantToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        binding.searchPlantToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hasFiltri = false;
@@ -73,7 +73,7 @@ public class SearchPlantActivity extends AppCompatActivity {
         });
 
         // Set up the filter menu
-        Menu menu = binding.searchPiantaToolbar.getMenu();
+        Menu menu = binding.searchPlantToolbar.getMenu();
         menu.findItem(R.id.filter_pianta).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

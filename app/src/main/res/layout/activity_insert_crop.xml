@@ -38,19 +38,8 @@
             android:contentDescription="Login Image"
             android:src="@drawable/undraw_insert_product" />
 
-
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/inserisci_un_prodotto"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:textSize="30sp"
-            android:fontFamily="sans-serif-condensed-medium"/>
-        -->
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/piantaBox"
+            android:id="@+id/plantBox"
             style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,14 +49,14 @@
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/pianta"
+                android:id="@+id/plant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldFasi"
+            android:id="@+id/outlinedTextFieldPhases"
             style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,7 +66,7 @@
             app:startIconDrawable="@drawable/growing_plant_24">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextViewFasi"
+                android:id="@+id/autoCompleteTextViewPhases"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />
@@ -101,7 +90,7 @@
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/quantita"
+                    android:id="@+id/quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />

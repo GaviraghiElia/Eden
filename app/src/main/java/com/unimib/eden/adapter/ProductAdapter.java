@@ -98,11 +98,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.imageViewProductStand = itemView.findViewById(R.id.imageViewProdottoBancarella);
-            this.textViewPlantProduct = itemView.findViewById(R.id.textViewPiantaProdotto);
-            this.textViewPhaseProduct = itemView.findViewById(R.id.textViewFaseProdotto);
-            this.textViewQuantityProduct = itemView.findViewById(R.id.textViewQuantitaProdotto);
-            this.textViewPriceProduct = itemView.findViewById(R.id.textViewPrezzoProdotto);
+            this.imageViewProductStand = itemView.findViewById(R.id.imageViewProductStand);
+            this.textViewPlantProduct = itemView.findViewById(R.id.textViewPlantProduct);
+            this.textViewPhaseProduct = itemView.findViewById(R.id.textViewPhaseProduct);
+            this.textViewQuantityProduct = itemView.findViewById(R.id.textViewQuantityProduct);
+            this.textViewPriceProduct = itemView.findViewById(R.id.textViewPriceProduct);
         }
 
         /**

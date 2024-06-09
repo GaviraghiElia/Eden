@@ -29,7 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.unimib.eden.databinding.ActivityInserimentoColturaBinding;
+import com.unimib.eden.databinding.ActivityInsertCropBinding;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +50,7 @@ import com.unimib.eden.utils.Constants;
 public class InsertCropActivity extends AppCompatActivity {
     private static final String TAG = "InsertCropActivity";
     private InsertCropViewModel insertCropViewModel;
-    private ActivityInserimentoColturaBinding mBinding;
+    private ActivityInsertCropBinding mBinding;
     private String plantId = "";
     private String plantName = "";
     private Plant plant;
@@ -78,7 +78,7 @@ public class InsertCropActivity extends AppCompatActivity {
         insertCropViewModel = new ViewModelProvider(this).get(InsertCropViewModel.class);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        mBinding = ActivityInserimentoColturaBinding.inflate(getLayoutInflater());
+        mBinding = ActivityInsertCropBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
         mBinding.toolbarInsColt.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         mBinding.toolbarInsColt.setNavigationOnClickListener(new View.OnClickListener() {
@@ -88,9 +88,9 @@ public class InsertCropActivity extends AppCompatActivity {
             }
         });
 
-        mBinding.quantita.addTextChangedListener(cropTextWatcher);
-        mBinding.pianta.addTextChangedListener(cropTextWatcher);
-        mBinding.autoCompleteTextViewFasi.addTextChangedListener(cropTextWatcher);
+        mBinding.quantity.addTextChangedListener(cropTextWatcher);
+        mBinding.plant.addTextChangedListener(cropTextWatcher);
+        mBinding.autoCompleteTextViewPhases.addTextChangedListener(cropTextWatcher);
 
         ActivityResultLauncher<Intent> searchPiantaActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -103,7 +103,7 @@ public class InsertCropActivity extends AppCompatActivity {
                             plant = (Plant) data.getSerializableExtra("pianta");
                             plantId = plant.getId();
                             plantName = plant.getName();
-                            mBinding.pianta.setText(plant.getName());
+                            mBinding.plant.setText(plant.getName());
                             mBinding.toolbarInsColt.setTitle("Inserisci " + plant.getName().toLowerCase());
                             try {
                                 phasesList = insertCropViewModel.getPhasesList(plant.getPhases());
@@ -121,25 +121,25 @@ public class InsertCropActivity extends AppCompatActivity {
                         }
                     }
                 });
-        mBinding.pianta.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        mBinding.plant.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
                     Intent intent = new Intent(getApplicationContext(), SearchPlantActivity.class);
                     intent.putExtra("operationCode", Constants.CREATE_CROP_OPERATION_CODE);
                     searchPiantaActivityResultLauncher.launch(intent);
-                    mBinding.pianta.clearFocus();
+                    mBinding.plant.clearFocus();
                 }
             }
         });
 
         adapter = new ArrayAdapter<>(this, R.layout.dropdown_menu_item, phasesNames);
-        mBinding.autoCompleteTextViewFasi.setAdapter(adapter);
+        mBinding.autoCompleteTextViewPhases.setAdapter(adapter);
         mBinding.buttonSubmit.setOnClickListener(v -> {
             addCrop();
         });
 
-        mBinding.autoCompleteTextViewFasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mBinding.autoCompleteTextViewPhases.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 phase =position;
@@ -154,9 +154,9 @@ public class InsertCropActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String quantity = mBinding.quantita.getText().toString();
-            String plantText = mBinding.pianta.getText().toString();
-            String phasesText = mBinding.autoCompleteTextViewFasi.getText().toString();
+            String quantity = mBinding.quantity.getText().toString();
+            String plantText = mBinding.plant.getText().toString();
+            String phasesText = mBinding.autoCompleteTextViewPhases.getText().toString();
             mBinding.buttonSubmit.setEnabled(!quantity.isEmpty() && !plantText.isEmpty() && !phasesText.isEmpty());
         }
 
@@ -177,7 +177,7 @@ public class InsertCropActivity extends AppCompatActivity {
      * for adding the crop to the database.
      */
     private void addCrop() {
-        int quantity = Integer.parseInt(mBinding.quantita.getText().toString());
+        int quantity = Integer.parseInt(mBinding.quantity.getText().toString());
         String note = mBinding.note.getText().toString();
 
         Map<String, Object> crop = new HashMap<>();

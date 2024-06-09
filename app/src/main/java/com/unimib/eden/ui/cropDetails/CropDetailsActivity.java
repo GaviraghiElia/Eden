@@ -56,8 +56,8 @@ public class CropDetailsActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         // Set up the app bar
-        mBinding.toolbarColturaDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        mBinding.toolbarColturaDetails.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.toolbarCropDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mBinding.toolbarCropDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -68,7 +68,7 @@ public class CropDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         crop = (Crop) intent.getSerializableExtra("coltura");
         cropDetailsViewModel.initialize(crop);
-        mBinding.toolbarColturaDetails.setTitle(crop.getPlantName());
+        mBinding.toolbarCropDetails.setTitle(crop.getPlantName());
 
         mBinding.textViewLastWateringFull.setText(cropDetailsViewModel.getNextWatering(this, crop));
         mBinding.textViewInsertionDateFull.setText(Converters.dateToString(crop.getInsertionDate()));

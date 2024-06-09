@@ -29,7 +29,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
 
     private final static String TAG = "PlantAdapter";
     private final List<Plant> plantsList;
-    private int itemLayout = R.layout.search_pianta_item;
+    private int itemLayout = R.layout.search_plant_item;
 
     /**
      * Integer to handle the correct destination following the onClick of a plant.
@@ -54,7 +54,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
     @Override
     public PlantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.search_pianta_item, parent, false);
+                parent.getContext()).inflate(R.layout.search_plant_item, parent, false);
 
         return new PlantViewHolder(view);
     }
@@ -129,8 +129,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
 
         public PlantViewHolder(View itemView) {
             super(itemView);
-            this.textViewPlantName = itemView.findViewById(R.id.piantaName);
-            this.imageViewPlant = itemView.findViewById(R.id.imageViewPiantaSearch);
+            this.textViewPlantName = itemView.findViewById(R.id.plantName);
+            this.imageViewPlant = itemView.findViewById(R.id.imageViewPlantSearch);
 
         }
 

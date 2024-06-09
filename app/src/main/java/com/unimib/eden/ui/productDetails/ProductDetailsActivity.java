@@ -43,8 +43,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         setContentView(mBinding.getRoot());
 
         // Set the app bar
-        mBinding.toolbarProdottoDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
-        mBinding.toolbarProdottoDetails.setNavigationOnClickListener(new View.OnClickListener() {
+        mBinding.toolbarProductDetails.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        mBinding.toolbarProductDetails.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -58,11 +58,11 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productDetailsViewModel.initialize(product);
 
         // Set the title of the toolbar
-        mBinding.toolbarProdottoDetails.setTitle(productDetailsViewModel.getPlantName(product));
+        mBinding.toolbarProductDetails.setTitle(productDetailsViewModel.getPlantName(product));
 
         // Set product phase name
         try {
-            mBinding.textViewFaseFull.setText(productDetailsViewModel.getPhaseName(product));
+            mBinding.textViewPhaseFull.setText(productDetailsViewModel.getPhaseName(product));
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
@@ -74,15 +74,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
         mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(product.getQuantity()) + unitMeasure);
 
         // Set product price
-        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", product.getPrice()) + " €");
+        mBinding.textViewProductPriceFull.setText(String.format("%.2f", product.getPrice()) + " €");
 
         // Set exchange availability
         if (product.getExchangeAvailable()) {
-            mBinding.textViewScambiProdottoFull.setText(R.string.si);
-            mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
+            mBinding.textViewProductExchangeFull.setText(R.string.si);
+            mBinding.cardProductExchange.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
         } else {
-            mBinding.textViewScambiProdottoFull.setText(R.string.no);
-            mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_redContainer));
+            mBinding.textViewProductExchangeFull.setText(R.string.no);
+            mBinding.cardProductExchange.setCardBackgroundColor(getResources().getColor(R.color.md_theme_redContainer));
         }
 
         // Set additional product information

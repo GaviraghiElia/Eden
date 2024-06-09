@@ -15,12 +15,12 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbarColturaDetails"
+                android:id="@+id/toolbarCropDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ToolbarTheme"
-                app:menu="@menu/pianta_details_app_bar_menu"
+                app:menu="@menu/plant_details_app_bar_menu"
                 app:navigationIcon="@drawable/ic_close_24dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -40,7 +40,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardInnaffiamento"
+                    android:id="@+id/cardWatering"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
