@@ -25,7 +25,7 @@ public class Offer {
     @ColumnInfo(name = OFFER_PRICE)
     private double price;
     @ColumnInfo(name = OFFER_STATUS)
-    private Enum.StatoProposta offerStatus;
+    private Enum.OfferStatus offerStatus;
 
     /**
      * Constructor for creating an Offer object from a QueryDocumentSnapshot.
@@ -38,7 +38,7 @@ public class Offer {
         this.buyer = String.valueOf(tempMap.get(OFFER_BUYER));
         this.price = Double.parseDouble(tempMap.get(OFFER_PRICE).toString());
         String statoPropostaString = String.valueOf(tempMap.get(OFFER_STATUS));
-        this.offerStatus = Enum.StatoProposta.valueOf(statoPropostaString);
+        this.offerStatus = Enum.OfferStatus.valueOf(statoPropostaString);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Offer {
      * @param price       The price of the offer.
      * @param offerStatus The status of the offer.
      */
-    public Offer(String id, String buyer, double price, Enum.StatoProposta offerStatus) {
+    public Offer(String id, String buyer, double price, Enum.OfferStatus offerStatus) {
         this.id = id;
         this.buyer = buyer;
         this.price = price;
@@ -82,11 +82,11 @@ public class Offer {
         this.price = price;
     }
 
-    public Enum.StatoProposta getOfferStatus() {
+    public Enum.OfferStatus getOfferStatus() {
         return offerStatus;
     }
 
-    public void setOfferStatus(Enum.StatoProposta offerStatus) {
+    public void setOfferStatus(Enum.OfferStatus offerStatus) {
         this.offerStatus = offerStatus;
     }
 

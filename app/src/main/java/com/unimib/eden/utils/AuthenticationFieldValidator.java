@@ -24,11 +24,11 @@ public class AuthenticationFieldValidator {
     {
         if(!isValidEmail(email))
         {
-            return "Invalid email";
+            return "Email non valida";
         }
         else if(!isValidPassword(password))
         {
-            return "Incorrect password";
+            return "Password errata";
         }
 
         return "success";

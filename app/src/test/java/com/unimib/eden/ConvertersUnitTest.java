@@ -64,7 +64,7 @@ public class ConvertersUnitTest {
 
     @Test
     public void testFromTimestamp() {
-        Long timestamp = 1716935170723L;
+        long timestamp = 1716935170723L;
         Date expected = new Date(timestamp);
 
         Date result = new Converters().fromTimestamp(timestamp);

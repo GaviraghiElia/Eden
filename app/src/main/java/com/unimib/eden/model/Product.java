@@ -98,7 +98,7 @@ public class Product implements Serializable {
         initFromMap(dataMap);
     }
 
-    private void initFromMap(Map<String, Object> dataMap) {
+    public void initFromMap(Map<String, Object> dataMap) {
         this.type = String.valueOf(dataMap.get(PRODUCT_TYPE));
         this.seller = String.valueOf(dataMap.get(PRODUCT_SELLER));
         this.price = Double.parseDouble(dataMap.get(PRODUCT_PRICE).toString());

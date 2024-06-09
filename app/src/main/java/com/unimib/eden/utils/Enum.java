@@ -8,7 +8,7 @@ public class Enum {
     /**
      * Enum representing the status of a proposal.
      */
-    public enum StatoProposta {
+    public enum OfferStatus {
         /**
          * The proposal has been viewed.
          */

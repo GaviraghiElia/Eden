@@ -8,7 +8,7 @@ import com.unimib.eden.utils.ConvertIntMonthToString;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PiantaDetailsActivityUnitTest {
+public class PlantDetailsActivityUnitTest {
 
 
     private ConvertIntMonthToString convertIntMonthToString;

@@ -32,7 +32,6 @@ public class ColturaDaoTest {
     private Crop coltura1 = new Crop(
             "QuV8dadcUbZ5gKNpVhET",
             "beVITqkLHWCerI1XLRxj",
-            //TODO: change to id
             "YPYhzBvIsnbKTsz7BhumJc3oP142",
             20,
             "Coltivazione in vaso sul balcone",
@@ -46,7 +45,6 @@ public class ColturaDaoTest {
     private Crop coltura2 = new Crop(
             "RJWeOugwpBBo4bbZE95C",
             "vxpwZvOefZM28L9GnOmX",
-            //TODO: change to id
             "YPYhzBvIsnbKTsz7BhumJc3oP142",
             5,
             "",
