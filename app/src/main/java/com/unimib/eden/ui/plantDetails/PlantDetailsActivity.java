@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.PhaseAdapter;
 import com.unimib.eden.databinding.ActivityPiantaDetailsBinding;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ConvertIntMonthToString;
@@ -36,8 +36,8 @@ public class PlantDetailsActivity extends AppCompatActivity {
     private PhaseAdapter phaseAdapter;
 
     private int operationCode;
-    Pianta plant = null;
-    List<Fase> phases = null;
+    Plant plant = null;
+    List<Phase> phases = null;
 
     /**
      * Constructor that returns an instance of the activity.
@@ -74,32 +74,32 @@ public class PlantDetailsActivity extends AppCompatActivity {
         plantDetailsViewModel = new ViewModelProvider(this).get(PlantDetailsViewModel.class);
 
         Intent intent = getIntent();
-        plant = (Pianta) intent.getSerializableExtra("pianta");
-        String plantName = plant.getNome();
+        plant = (Plant) intent.getSerializableExtra("pianta");
+        String plantName = plant.getName();
 
-        binding.topAppBar.setTitle(plant.getNome());
+        binding.topAppBar.setTitle(plant.getName());
 
         // binding.piantaNomeDetails.setText(nomePianta);
         int resID = getResources().getIdentifier(plantName.toLowerCase(), "drawable", getPackageName());
         if(resID != 0) {
-            binding.imageViewPiantaDeailts.setImageResource(getResources().getIdentifier(plant.getNome().toLowerCase(), "drawable", getPackageName()));
+            binding.imageViewPiantaDeailts.setImageResource(getResources().getIdentifier(plant.getName().toLowerCase(), "drawable", getPackageName()));
         } else {
             binding.imageViewPiantaDeailts.setVisibility(View.GONE);
         }
 
-        binding.famigliaBotanicaDetails.setText(plant.getFamigliaBotanica());
-        binding.minTemperaturaDetails.setText(String.valueOf(plant.getMinTemperatura()) + "°");
-        binding.maxTemperaturaDetails.setText(String.valueOf(plant.getMaxTemperatura()) + "°");
-        binding.spazioNecessarioDetails.setText(String.valueOf(plant.getSpazioNecessario()) + " cm");
-        binding.altezzaMaxPrevistaDetails.setText(String.valueOf(plant.getAltezzaMaxPrevista()) + " cm");
-        binding.tipoTerrenoDetails.setText(plant.getTipoTerreno());
-        binding.esposizioneSoleDetails.setText(plant.getEsposizioneSole());
-        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getInizioSemina()));
-        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getFineSemina()));
-        binding.descriptionDetails.setText(plant.getDescrizione());
+        binding.famigliaBotanicaDetails.setText(plant.getBotanicalFamily());
+        binding.minTemperaturaDetails.setText(String.valueOf(plant.getMinTemperature()) + "°");
+        binding.maxTemperaturaDetails.setText(String.valueOf(plant.getMaxTemperature()) + "°");
+        binding.spazioNecessarioDetails.setText(String.valueOf(plant.getRequiredSpace()) + " cm");
+        binding.altezzaMaxPrevistaDetails.setText(String.valueOf(plant.getMaxExpectedHeight()) + " cm");
+        binding.tipoTerrenoDetails.setText(plant.getSoilType());
+        binding.esposizioneSoleDetails.setText(plant.getSunExposure());
+        binding.inizioSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingStart()));
+        binding.fineSeminaDetails.setText(ConvertIntMonthToString.getMonth(plant.getSowingEnd()));
+        binding.descriptionDetails.setText(plant.getDescription());
 
         try {
-            phases = plantDetailsViewModel.getPhasesList(plant.getFasi());
+            phases = plantDetailsViewModel.getPhasesList(plant.getPhases());
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

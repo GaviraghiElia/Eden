@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface PlantDao {
      * @return A list of all the plants present in the database.
      */
     @Query("SELECT * FROM 'pianta'")
-    List<Pianta> getAll();
+    List<Plant> getAll();
 
     /**
      * Gets a list of all the plants whose name contains the input string as a substring.
@@ -31,7 +31,7 @@ public interface PlantDao {
      * @return The list of plants whose name contains the input string as a substring.
      */
     @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%'")
-    List<Pianta> searchPlants(String query);
+    List<Plant> searchPlants(String query);
 
     /**
      * Gets a list of all the plants present in the database whose name contains the input string as a substring and satisfies all the input parameters.
@@ -43,7 +43,7 @@ public interface PlantDao {
      * @return The list of all the plants whose name contains the input string as a substring and satisfies all the input parameters.
      */
     @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%' AND esposizione_sole = :sunExposure AND inizio_semina >= :sowingStart AND fine_semina <= :sowingEnd")
-    List<Pianta> searchPlantsAllFilters(String query, String sunExposure, int sowingStart, int sowingEnd);
+    List<Plant> searchPlantsAllFilters(String query, String sunExposure, int sowingStart, int sowingEnd);
 
     /**
      * Gets a list of all the plants present in the database whose name contains the input string as a substring and satisfies all the input parameters.
@@ -54,7 +54,7 @@ public interface PlantDao {
      * @return The list of all the plants whose name contains the input string as a substring and satisfies all the input parameters.
      */
     @Query("SELECT * FROM 'pianta' WHERE nome LIKE '%' || :query || '%' AND inizio_semina >= :sowingStart AND fine_semina <= :sowingEnd")
-    List<Pianta> searchPlantsFilters(String query, int sowingStart, int sowingEnd);
+    List<Plant> searchPlantsFilters(String query, int sowingStart, int sowingEnd);
 
     /**
      * Gets the plant present in the database with the given id.
@@ -63,7 +63,7 @@ public interface PlantDao {
      * @return The plant corresponding to the specified id if present in the database, otherwise null.
      */
     @Query("SELECT * FROM 'pianta' WHERE id = :plantId")
-    Pianta getById(String plantId);
+    Plant getById(String plantId);
 
     /**
      * Deletes the input plant from the database.
@@ -71,7 +71,7 @@ public interface PlantDao {
      * @param plant The plant to delete from the database.
      */
     @Delete
-    void delete(Pianta... plant);
+    void delete(Plant... plant);
 
     /**
      * Inserts the input plant into the database.
@@ -79,5 +79,5 @@ public interface PlantDao {
      * @param plant The plant to insert into the database.
      */
     @Insert
-    void insert(Pianta plant);
+    void insert(Plant plant);
 }

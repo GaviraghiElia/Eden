@@ -2,7 +2,7 @@ package com.unimib.eden;
 
 import android.content.Context;
 
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 
 import androidx.room.Room;
 import static org.junit.Assert.*;
@@ -27,7 +27,7 @@ public class ProdottoDaoTest {
     private ProductRoomDatabase prodottoRoomDatabase;
     private ArrayList<String> offerte = new ArrayList<String>();
 
-    private Prodotto prodotto1 = new Prodotto(
+    private Product prodotto1 = new Product(
             "6ofIp6Ca4utFGT67ysxz",
             "eccedenza",
             "s.erba9@campus.unimib.it",
@@ -39,7 +39,7 @@ public class ProdottoDaoTest {
             "dovrebbe salvarla come eccedenza",
             true
     );
-    private Prodotto prodotto2 = new Prodotto(
+    private Product prodotto2 = new Product(
             "mqpnEeGfbHcQqyMXBRQP",
             "eccedenza",
             "s.erba9@campus.unimib.it",
@@ -68,14 +68,14 @@ public class ProdottoDaoTest {
 
     private void addOneProdottoToDb() {
         offerte.add("IfjXQLn98rnUDu1rax8h");
-        prodotto1.setOfferte(offerte);
+        prodotto1.setOffers(offerte);
         prodottoDao.insert(prodotto1);
     }
 
     private void addTwoProdottiToDb() {
         offerte.add("IfjXQLn98rnUDu1rax8h");
-        prodotto1.setOfferte(offerte);
-        prodotto2.setOfferte(offerte);
+        prodotto1.setOffers(offerte);
+        prodotto2.setOffers(offerte);
         prodottoDao.insert(prodotto1);
         prodottoDao.insert(prodotto2);
     }
@@ -83,14 +83,14 @@ public class ProdottoDaoTest {
     @Test
     public void daoInsert_insertsProdottoIntoDb() {
         addOneProdottoToDb();
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Product> allProdotti = prodottoDao.getAllTest();
         assertEquals(allProdotti.get(0), prodotto1);
     }
 
     @Test
     public void daoGetAllProdotti_returnAllProdottiFromDb() {
         addTwoProdottiToDb();
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Product> allProdotti = prodottoDao.getAllTest();
         assertEquals(allProdotti.get(0), prodotto1);
         assertEquals(allProdotti.get(1), prodotto2);
     }
@@ -100,7 +100,7 @@ public class ProdottoDaoTest {
         addTwoProdottiToDb();
         prodottoDao.delete(prodotto1);
         prodottoDao.delete(prodotto2);
-        List<Prodotto> allProdotti = prodottoDao.getAllTest();
+        List<Product> allProdotti = prodottoDao.getAllTest();
         assertTrue(allProdotti.isEmpty());
     }
 }

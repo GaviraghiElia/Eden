@@ -1,7 +1,7 @@
 package com.unimib.eden.repository;
 import androidx.lifecycle.LiveData;
 
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import java.util.List;
 
 /**
@@ -15,19 +15,19 @@ public interface IProductRepository {
      *
      * @return A list of all products.
      */
-    LiveData<List<Prodotto>> getAllProducts();
+    LiveData<List<Product>> getAllProducts();
 
     /**
      * Deletes a product.
      *
      * @param product The product to delete.
      */
-    void deleteProduct(Prodotto product);
+    void deleteProduct(Product product);
 
     /**
      * Inserts a new product.
      *
      * @param product The product to insert.
      */
-    void insert(Prodotto product);
+    void insert(Product product);
 }

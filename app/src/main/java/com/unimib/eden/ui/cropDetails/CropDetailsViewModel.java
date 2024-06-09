@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.unimib.eden.model.Crop;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.repository.CropRepository;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
@@ -62,7 +62,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @return The name of the plant.
      */
     public String getPlantName(Crop crop) {
-        return getPlantById(crop.getPlantId()).getNome();
+        return getPlantById(crop.getPlantId()).getName();
     }
 
     /**
@@ -71,7 +71,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param crop The crop.
      * @return The plant.
      */
-    public Pianta getPlant(Crop crop) {
+    public Plant getPlant(Crop crop) {
         return getPlantById(crop.getPlantId());
     }
 
@@ -81,7 +81,7 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @param plantId The ID of the plant.
      * @return The plant with the specified ID.
      */
-    private Pianta getPlantById(String plantId) {
+    private Plant getPlantById(String plantId) {
         return plantRepository.getPlantById(plantId);
     }
 
@@ -94,11 +94,11 @@ public class CropDetailsViewModel extends AndroidViewModel {
      * @throws InterruptedException If the current thread was interrupted while waiting.
      */
     public String getPhaseName(Crop crop) throws ExecutionException, InterruptedException {
-        String phaseId = getPlantById(crop.getPlantId()).getFasi().get(crop.getCurrentPhase());
+        String phaseId = getPlantById(crop.getPlantId()).getPhases().get(crop.getCurrentPhase());
         ArrayList<String> phasesIds = new ArrayList<>();
         phasesIds.add(phaseId);
-        List<Fase> phases = phaseRepository.getPhasesFromIds(phasesIds);
-        return phases.get(0).getNomeFase();
+        List<Phase> phases = phaseRepository.getPhasesFromIds(phasesIds);
+        return phases.get(0).getPhaseName();
     }
 
     /**

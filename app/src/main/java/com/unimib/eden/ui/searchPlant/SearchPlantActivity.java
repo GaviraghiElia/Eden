@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.unimib.eden.R;
 import com.unimib.eden.adapter.PlantAdapter;
 import com.unimib.eden.databinding.ActivitySearchPiantaBinding;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.filterSearch.FilterSearchActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -44,7 +44,7 @@ public class SearchPlantActivity extends AppCompatActivity {
     private int operationCode;
     private Map<String, String> filtersMap = new HashMap<>();
     private boolean hasFiltri = false;
-    private LiveData<List<Pianta>> plantList;
+    private LiveData<List<Plant>> plantList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,17 +101,17 @@ public class SearchPlantActivity extends AppCompatActivity {
 
         // Observe the plant list LiveData from ViewModel
         if (hasFiltri) {
-            searchPlantViewModel.getPlantsList(filtersMap).observe(this, new Observer<List<Pianta>>() {
+            searchPlantViewModel.getPlantsList(filtersMap).observe(this, new Observer<List<Plant>>() {
                 @Override
-                public void onChanged(List<Pianta> plants) {
+                public void onChanged(List<Plant> plants) {
                     plantAdapter.update(plants, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }
             });
         } else {
-            searchPlantViewModel.getPlantsList().observe(this, new Observer<List<Pianta>>() {
+            searchPlantViewModel.getPlantsList().observe(this, new Observer<List<Plant>>() {
                 @Override
-                public void onChanged(List<Pianta> plants) {
+                public void onChanged(List<Plant> plants) {
                     plantAdapter.update(plants, operationCode);
                     binding.progressBarSearchPianta.setVisibility(View.GONE);
                 }

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * PlantRoomDatabase class for the Plant database.
  * This class defines the Room database that contains the Plant table.
  */
-@Database(entities = {Pianta.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
+@Database(entities = {Plant.class}, version = Constants.DATABASE_VERSION_PLANT, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class PlantRoomDatabase extends RoomDatabase {
 

@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.repository.ProductRepository;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class StandViewModel extends AndroidViewModel {
     private static final String TAG = "StandViewModel";
-    private final LiveData<List<Prodotto>> mProducts;
+    private final LiveData<List<Product>> mProducts;
     private final ProductRepository productRepository;
 
     /**
@@ -36,7 +36,7 @@ public class StandViewModel extends AndroidViewModel {
      *
      * @return The list of products in the stand.
      */
-    public LiveData<List<Prodotto>> getProducts() {
+    public LiveData<List<Product>> getProducts() {
         return mProducts;
     }
 

@@ -13,7 +13,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.ProductDao;
 import com.unimib.eden.database.ProductRoomDatabase;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -27,7 +27,7 @@ public class ProductRepository implements IProductRepository {
     private static final String TAG = "ProductRepository";
     private final ProductDao mProductDao;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final LiveData<List<Prodotto>> allProducts;
+    private final LiveData<List<Product>> allProducts;
 
     /**
      * Constructs an instance of ProductRepository.
@@ -46,7 +46,7 @@ public class ProductRepository implements IProductRepository {
      * @return a list of all Product objects.
      */
     @Override
-    public LiveData<List<Prodotto>> getAllProducts() {
+    public LiveData<List<Product>> getAllProducts() {
         return allProducts;
     }
 
@@ -56,7 +56,7 @@ public class ProductRepository implements IProductRepository {
      * @param product the Product object to delete.
      */
     @Override
-    public void deleteProduct(Prodotto product) {
+    public void deleteProduct(Product product) {
         new DeleteProductAsyncTask(mProductDao).execute(product);
     }
 
@@ -66,7 +66,7 @@ public class ProductRepository implements IProductRepository {
      * @param product the new Product object to insert.
      */
     @Override
-    public void insert(Prodotto product) {
+    public void insert(Product product) {
         new InsertProductAsyncTask(mProductDao).execute(product);
     }
 
@@ -82,7 +82,7 @@ public class ProductRepository implements IProductRepository {
                     String productId = documentReference.getId();
                     // Add the ID to the productMap
                     productMap.put(Constants.PRODUCT_ID, productId);
-                    Prodotto product = new Prodotto(productMap);
+                    Product product = new Product(productMap);
                     insert(product);
                 });
     }
@@ -100,13 +100,13 @@ public class ProductRepository implements IProductRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for(QueryDocumentSnapshot document: task.getResult()) {
-                                List<Prodotto> tempProduct = allProducts.getValue();
+                                List<Product> tempProduct = allProducts.getValue();
                                 boolean isProductPresent = false;
                                 boolean isProductChanged = false;
-                                Prodotto oldProduct = null;
-                                Prodotto newProduct = null;
+                                Product oldProduct = null;
+                                Product newProduct = null;
                                 if (tempProduct != null) {
-                                    for (Prodotto p : tempProduct) {
+                                    for (Product p : tempProduct) {
                                         if (p.getId().equals(document.getId())) {
                                             isProductPresent = true;
                                         }
@@ -126,17 +126,17 @@ public class ProductRepository implements IProductRepository {
                                         }
                                     }
                                     if (!isProductPresent) {
-                                        newProduct = new Prodotto(document);
+                                        newProduct = new Product(document);
                                         insert(newProduct);
                                     }
                                     if (isProductPresent) {
                                         deleteProduct(oldProduct);
-                                        newProduct = new Prodotto(document);
+                                        newProduct = new Product(document);
                                         insert(newProduct);
 
                                     }
                                 } else { // empty local db
-                                    newProduct = new Prodotto(document);
+                                    newProduct = new Product(document);
                                     insert(newProduct);
                                 }
                             }
@@ -149,7 +149,7 @@ public class ProductRepository implements IProductRepository {
     /**
      * AsyncTask subclass for deleting Product objects in the background.
      */
-    private static class DeleteProductAsyncTask extends AsyncTask<Prodotto, Void, Void> {
+    private static class DeleteProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private final ProductDao productDao;
 
         /**
@@ -168,7 +168,7 @@ public class ProductRepository implements IProductRepository {
          * @return null.
          */
         @Override
-        protected Void doInBackground(Prodotto... products) {
+        protected Void doInBackground(Product... products) {
             productDao.delete(products[0]);
             return null;
         }
@@ -177,7 +177,7 @@ public class ProductRepository implements IProductRepository {
     /**
      * AsyncTask subclass for inserting Product objects in the background.
      */
-    private static class InsertProductAsyncTask extends AsyncTask<Prodotto, Void, Void> {
+    private static class InsertProductAsyncTask extends AsyncTask<Product, Void, Void> {
         private final ProductDao mProductsDao;
 
         /**
@@ -196,7 +196,7 @@ public class ProductRepository implements IProductRepository {
          * @return null.
          */
         @Override
-        protected Void doInBackground(Prodotto... products) {
+        protected Void doInBackground(Product... products) {
             mProductsDao.insert(products[0]);
             return null;
         }

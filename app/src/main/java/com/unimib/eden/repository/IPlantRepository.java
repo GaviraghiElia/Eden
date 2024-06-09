@@ -1,6 +1,6 @@
 package com.unimib.eden.repository;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 
 import java.util.List;
 
@@ -15,21 +15,21 @@ public interface IPlantRepository {
      *
      * @return A list of all plants.
      */
-    List<Pianta> getAllPlants();
+    List<Plant> getAllPlants();
 
     /**
      * Deletes the input plant.
      *
      * @param plant  The plant to delete.
      */
-    void deletePlant(Pianta plant);
+    void deletePlant(Plant plant);
 
     /**
      * Inserts the input plant.
      *
      * @param plant  The plant to insert.
      */
-    void insert(Pianta plant);
+    void insert(Plant plant);
 
     /**
      * Retrieves a plant by its id.
@@ -37,5 +37,5 @@ public interface IPlantRepository {
      * @param plantId  The id of the plant.
      * @return The plant with the specified id.
      */
-    Pianta getPlantById(String plantId);
+    Plant getPlantById(String plantId);
 }

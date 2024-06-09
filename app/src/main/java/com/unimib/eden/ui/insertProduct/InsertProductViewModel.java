@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.repository.ProductRepository;
@@ -53,7 +53,7 @@ public class InsertProductViewModel extends AndroidViewModel {
      * @return A list of strings representing the phases of the plant.
      */
     public ArrayList<String> getPhasesById(String plantId) {
-        return plantRepository.getPlantById(plantId).getFasi();
+        return plantRepository.getPlantById(plantId).getPhases();
     }
 
     /**
@@ -64,7 +64,7 @@ public class InsertProductViewModel extends AndroidViewModel {
      * @throws ExecutionException   If an error occurs during the operation.
      * @throws InterruptedException If the current thread is interrupted while waiting.
      */
-    public List<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
+    public List<Phase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
             return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException | InterruptedException e) {

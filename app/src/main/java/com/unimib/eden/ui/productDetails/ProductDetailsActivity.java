@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.unimib.eden.R;
 import com.unimib.eden.databinding.ActivityProductDetailsBinding;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -25,7 +25,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "ProductDetailsActivity";
 
-    private Prodotto product;
+    private Product product;
     private ProductDetailsViewModel productDetailsViewModel;
     private ActivityProductDetailsBinding mBinding;
 
@@ -54,7 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         // Initialize ViewModel
         productDetailsViewModel = new ViewModelProvider(this).get(ProductDetailsViewModel.class);
         Intent intent = getIntent();
-        product = (Prodotto) intent.getSerializableExtra("prodotto");
+        product = (Product) intent.getSerializableExtra("prodotto");
         productDetailsViewModel.initialize(product);
 
         // Set the title of the toolbar
@@ -70,14 +70,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
 
         // Set quantity and unit of measure
-        String unitMeasure = Objects.equals(product.getFaseAttuale(), Constants.LAST_PHASE) ? " grammi" : " piante";
-        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(product.getQuantita()) + unitMeasure);
+        String unitMeasure = Objects.equals(product.getCurrentPhase(), Constants.LAST_PHASE) ? " grammi" : " piante";
+        mBinding.textViewQuantitaProdottoFull.setText(String.valueOf(product.getQuantity()) + unitMeasure);
 
         // Set product price
-        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", product.getPrezzo()) + " €");
+        mBinding.textViewPrezzoProdottoFull.setText(String.format("%.2f", product.getPrice()) + " €");
 
         // Set exchange availability
-        if (product.getScambioDisponibile()) {
+        if (product.getExchangeAvailable()) {
             mBinding.textViewScambiProdottoFull.setText(R.string.si);
             mBinding.cardProdottoScambi.setCardBackgroundColor(getResources().getColor(R.color.md_theme_secondaryContainer));
         } else {
@@ -86,10 +86,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
 
         // Set additional product information
-        if (product.getAltreInformazioni().isEmpty()) {
+        if (product.getOtherInformation().isEmpty()) {
             mBinding.cardProdottoNote.setVisibility(View.GONE);
         } else {
-            mBinding.textViewInformazioniProdottoFull.setText(product.getAltreInformazioni());
+            mBinding.textViewInformazioniProdottoFull.setText(product.getOtherInformation());
         }
 
         // Button click to view all details

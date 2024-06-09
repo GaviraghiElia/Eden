@@ -5,8 +5,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.unimib.eden.model.Pianta;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Plant;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
 
@@ -41,8 +41,8 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @param product The product.
      * @return The name of the plant.
      */
-    public String getPlantName(Prodotto product) {
-        return getPlantById(product.getPianta()).getNome();
+    public String getPlantName(Product product) {
+        return getPlantById(product.getPlant()).getName();
     }
 
     /**
@@ -51,8 +51,8 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @param product The product.
      * @return The plant.
      */
-    public Pianta getPlant(Prodotto product) {
-        return getPlantById(product.getPianta());
+    public Plant getPlant(Product product) {
+        return getPlantById(product.getPlant());
     }
 
     /**
@@ -61,7 +61,7 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @param plantId The ID of the plant.
      * @return The plant with the specified ID.
      */
-    private Pianta getPlantById(String plantId) {
+    private Plant getPlantById(String plantId) {
         return plantRepository.getPlantById(plantId);
     }
 
@@ -71,8 +71,8 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      * @param product The product.
      * @return The name of the phase in which the product was put on sale.
      */
-    public String getPhaseName(Prodotto product) throws ExecutionException, InterruptedException {
-        return phaseRepository.getPhaseById(product.getFaseAttuale()).getNomeFase();
+    public String getPhaseName(Product product) throws ExecutionException, InterruptedException {
+        return phaseRepository.getPhaseById(product.getCurrentPhase()).getPhaseName();
     }
 
     /**
@@ -80,7 +80,7 @@ public class ProductDetailsViewModel extends AndroidViewModel {
      *
      * @param product The product.
      */
-    public void initialize(Prodotto product) {
+    public void initialize(Product product) {
         // Additional initialization if needed
     }
 }

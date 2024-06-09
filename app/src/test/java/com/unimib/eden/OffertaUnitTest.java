@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.unimib.eden.model.Offerta;
+import com.unimib.eden.model.Offer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,49 +16,49 @@ import com.unimib.eden.utils.Enum;
 
 public class OffertaUnitTest {
     private QueryDocumentSnapshot document;
-    private Offerta offerta;
+    private Offer offerta;
 
     @Before
     public void setUp() {
-        offerta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
+        offerta = new Offer("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
     }
 
     @Test
     public void testConstructor() {
         assertNotNull(offerta);
         assertEquals("idOfferta", offerta.getId());
-        assertEquals("Sandro", offerta.getAcquirente());
-        assertEquals(150, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getStatoPropostaEnum());
+        assertEquals("Sandro", offerta.getBuyer());
+        assertEquals(150, offerta.getPrice(), 0.01);
+        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getOfferStatus());
     }
 
     @Test
     public void testGetters() {
         assertEquals("idOfferta", offerta.getId());
-        assertEquals("Sandro", offerta.getAcquirente());
-        assertEquals(150, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getStatoPropostaEnum());
+        assertEquals("Sandro", offerta.getBuyer());
+        assertEquals(150, offerta.getPrice(), 0.01);
+        assertEquals(Enum.StatoProposta.ACCEPTED, offerta.getOfferStatus());
     }
 
     @Test
     public void testSetters() {
         offerta.setId("idOfferta2");
-        offerta.setAcquirente("Alice");
-        offerta.setPrezzo(200);
-        offerta.setStatoPropostaEnum(Enum.StatoProposta.REJECTED);
+        offerta.setBuyer("Alice");
+        offerta.setPrice(200);
+        offerta.setOfferStatus(Enum.StatoProposta.REJECTED);
 
         assertEquals("idOfferta2", offerta.getId());
-        assertEquals("Alice", offerta.getAcquirente());
-        assertEquals(200, offerta.getPrezzo(), 0.01);
-        assertEquals(Enum.StatoProposta.REJECTED, offerta.getStatoPropostaEnum());
+        assertEquals("Alice", offerta.getBuyer());
+        assertEquals(200, offerta.getPrice(), 0.01);
+        assertEquals(Enum.StatoProposta.REJECTED, offerta.getOfferStatus());
     }
 
     @Test
     public void testEqualsAndHashCode() {
-        Offerta sameOfferta = new Offerta("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
-        Offerta differentOfferta = new Offerta("idOfferta2", "Alice", 200, Enum.StatoProposta.REJECTED);
+        Offer sameOfferta = new Offer("idOfferta", "Sandro", 150, Enum.StatoProposta.ACCEPTED);
+        Offer differentOfferta = new Offer("idOfferta2", "Alice", 200, Enum.StatoProposta.REJECTED);
 
-        Offerta newOfferta = null;
+        Offer newOfferta = null;
         assertEquals(offerta, sameOfferta);
         assertNotEquals(offerta, differentOfferta);
         assertEquals(offerta.hashCode(), sameOfferta.hashCode());

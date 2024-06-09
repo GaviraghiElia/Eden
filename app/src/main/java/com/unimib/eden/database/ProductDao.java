@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface ProductDao {
      * @return A list of all the products present in the database.
      */
     @Query("SELECT * FROM 'prodotto'")
-    LiveData<List<Prodotto>> getAll();
+    LiveData<List<Product>> getAll();
 
     /**
      * Gets all the products present in the database for testing purposes.
@@ -31,7 +31,7 @@ public interface ProductDao {
      * @return A list of all the products present in the database.
      */
     @Query("SELECT * FROM 'prodotto'")
-    List<Prodotto> getAllTest();
+    List<Product> getAllTest();
 
     /**
      * Deletes the specified products from the database.
@@ -39,7 +39,7 @@ public interface ProductDao {
      * @param product The products to delete.
      */
     @Delete
-    void delete(Prodotto... product);
+    void delete(Product... product);
 
     /**
      * Inserts a new product into the database.
@@ -47,5 +47,5 @@ public interface ProductDao {
      * @param product The product to insert.
      */
     @Insert
-    void insert(Prodotto product);
+    void insert(Product product);
 }

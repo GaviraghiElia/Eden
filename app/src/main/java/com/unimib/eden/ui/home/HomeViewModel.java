@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.model.Crop;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.CropRepository;
 import com.unimib.eden.repository.PlantRepository;
@@ -22,8 +22,8 @@ public class HomeViewModel extends AndroidViewModel {
 
     private static final String TAG = "HomeViewModel";
 
-    private final List<Pianta> mPlants;
-    private final List<Fase> mPhases;
+    private final List<Plant> mPlants;
+    private final List<Phase> mPhases;
     private final LiveData<List<Crop>> mCrops;
     private final PlantRepository plantsRepository;
     private final CropRepository cropRepository;
@@ -53,7 +53,7 @@ public class HomeViewModel extends AndroidViewModel {
      *
      * @return A list of plants.
      */
-    public List<Pianta> getPlants() {
+    public List<Plant> getPlants() {
         return mPlants;
     }
 
@@ -62,7 +62,7 @@ public class HomeViewModel extends AndroidViewModel {
      *
      * @return A list of phases.
      */
-    public List<Fase> getPhases() {
+    public List<Phase> getPhases() {
         return mPhases;
     }
 
@@ -81,7 +81,7 @@ public class HomeViewModel extends AndroidViewModel {
      * @param plantId The ID of the plant to retrieve.
      * @return The plant with the specified ID.
      */
-    private Pianta getPlantById(String plantId) {
+    private Plant getPlantById(String plantId) {
         return plantsRepository.getPlantById(plantId);
     }
 

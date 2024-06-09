@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class PiantaUnitTest {
-    private Pianta pianta;
+    private Plant pianta;
 
     @Before
     public void setUp() {
@@ -22,7 +22,7 @@ public class PiantaUnitTest {
         fasi.add("fase1");
         fasi.add("fase2");
 
-        pianta = new Pianta(
+        pianta = new Plant(
                 "beVITqkLHWCerI1XLRxj",
                 "pomodoro",
                 "Pianta di pomodoro (Solanum lycopersicum)",
@@ -43,37 +43,37 @@ public class PiantaUnitTest {
     public void testConstructor() {
         assertNotNull(pianta);
         assertEquals("beVITqkLHWCerI1XLRxj", pianta.getId());
-        assertEquals("pomodoro", pianta.getNome());
-        assertEquals("Pianta di pomodoro (Solanum lycopersicum)", pianta.getDescrizione());
-        assertEquals("Solanaceae", pianta.getFamigliaBotanica());
-        assertEquals(3, pianta.getInizioSemina());
-        assertEquals(4, pianta.getFineSemina());
-        assertEquals(2, pianta.getFasi().size());
-        assertEquals("fase1", pianta.getFasi().get(0));
-        assertEquals(0.0, pianta.getSpazioNecessario(), 0.01);
-        assertEquals("pieno sole", pianta.getEsposizioneSole());
-        assertEquals("ben drenato, ricco di sostanze nutritive", pianta.getTipoTerreno());
-        assertEquals(18, pianta.getMinTemperatura());
-        assertEquals(24, pianta.getMaxTemperatura());
-        assertEquals(2.0, pianta.getAltezzaMaxPrevista(), 0.01);
+        assertEquals("pomodoro", pianta.getName());
+        assertEquals("Pianta di pomodoro (Solanum lycopersicum)", pianta.getDescription());
+        assertEquals("Solanaceae", pianta.getBotanicalFamily());
+        assertEquals(3, pianta.getSowingStart());
+        assertEquals(4, pianta.getSowingEnd());
+        assertEquals(2, pianta.getPhases().size());
+        assertEquals("fase1", pianta.getPhases().get(0));
+        assertEquals(0.0, pianta.getRequiredSpace(), 0.01);
+        assertEquals("pieno sole", pianta.getSunExposure());
+        assertEquals("ben drenato, ricco di sostanze nutritive", pianta.getSoilType());
+        assertEquals(18, pianta.getMinTemperature());
+        assertEquals(24, pianta.getMaxTemperature());
+        assertEquals(2.0, pianta.getMaxExpectedHeight(), 0.01);
     }
 
     @Test
     public void testGetters() {
         assertEquals("beVITqkLHWCerI1XLRxj", pianta.getId());
-        assertEquals("pomodoro", pianta.getNome());
-        assertEquals("Pianta di pomodoro (Solanum lycopersicum)", pianta.getDescrizione());
-        assertEquals("Solanaceae", pianta.getFamigliaBotanica());
-        assertEquals(3, pianta.getInizioSemina());
-        assertEquals(4, pianta.getFineSemina());
-        assertEquals(2, pianta.getFasi().size());
-        assertEquals("fase1", pianta.getFasi().get(0));
-        assertEquals(0.0, pianta.getSpazioNecessario(), 0.01);
-        assertEquals("pieno sole", pianta.getEsposizioneSole());
-        assertEquals("ben drenato, ricco di sostanze nutritive", pianta.getTipoTerreno());
-        assertEquals(18, pianta.getMinTemperatura());
-        assertEquals(24, pianta.getMaxTemperatura());
-        assertEquals(2.0, pianta.getAltezzaMaxPrevista(), 0.01);
+        assertEquals("pomodoro", pianta.getName());
+        assertEquals("Pianta di pomodoro (Solanum lycopersicum)", pianta.getDescription());
+        assertEquals("Solanaceae", pianta.getBotanicalFamily());
+        assertEquals(3, pianta.getSowingStart());
+        assertEquals(4, pianta.getSowingEnd());
+        assertEquals(2, pianta.getPhases().size());
+        assertEquals("fase1", pianta.getPhases().get(0));
+        assertEquals(0.0, pianta.getRequiredSpace(), 0.01);
+        assertEquals("pieno sole", pianta.getSunExposure());
+        assertEquals("ben drenato, ricco di sostanze nutritive", pianta.getSoilType());
+        assertEquals(18, pianta.getMinTemperature());
+        assertEquals(24, pianta.getMaxTemperature());
+        assertEquals(2.0, pianta.getMaxExpectedHeight(), 0.01);
     }
 
     @Test
@@ -82,33 +82,33 @@ public class PiantaUnitTest {
         newFasi.add("fase3");
 
         pianta.setId("GIuCsu9ircjfN4RXWgxe");
-        pianta.setNome("Spinaci");
-        pianta.setDescrizione("Pianta di spinaci (Spinacia oleracea)");
-        pianta.setFamigliaBotanica("Amaranthaceae");
-        pianta.setInizioSemina(3);
-        pianta.setFineSemina(5);
-        pianta.setFasi(newFasi);
-        pianta.setSpazioNecessario(0.0);
-        pianta.setEsposizioneSole("mezz'ombra");
-        pianta.setTipoTerreno("ben drenato, ricco di humus");
-        pianta.setMinTemperatura(10);
-        pianta.setMaxTemperatura(20);
-        pianta.setAltezzaMaxPrevista(0.3);
+        pianta.setName("Spinaci");
+        pianta.setDescription("Pianta di spinaci (Spinacia oleracea)");
+        pianta.setBotanicalFamily("Amaranthaceae");
+        pianta.setSowingStart(3);
+        pianta.setSowingEnd(5);
+        pianta.setPhases(newFasi);
+        pianta.setRequiredSpace(0.0);
+        pianta.setSunExposure("mezz'ombra");
+        pianta.setSoilType("ben drenato, ricco di humus");
+        pianta.setMinTemperature(10);
+        pianta.setMaxTemperature(20);
+        pianta.setMaxExpectedHeight(0.3);
 
         assertEquals("GIuCsu9ircjfN4RXWgxe", pianta.getId());
-        assertEquals("Spinaci", pianta.getNome());
-        assertEquals("Pianta di spinaci (Spinacia oleracea)", pianta.getDescrizione());
-        assertEquals("Amaranthaceae", pianta.getFamigliaBotanica());
-        assertEquals(3, pianta.getInizioSemina());
-        assertEquals(5, pianta.getFineSemina());
-        assertEquals(1, pianta.getFasi().size());
-        assertEquals("fase3", pianta.getFasi().get(0));
-        assertEquals(0.0, pianta.getSpazioNecessario(), 0.01);
-        assertEquals("mezz'ombra", pianta.getEsposizioneSole());
-        assertEquals("ben drenato, ricco di humus", pianta.getTipoTerreno());
-        assertEquals(10, pianta.getMinTemperatura());
-        assertEquals(20, pianta.getMaxTemperatura());
-        assertEquals(0.3, pianta.getAltezzaMaxPrevista(), 0.01);
+        assertEquals("Spinaci", pianta.getName());
+        assertEquals("Pianta di spinaci (Spinacia oleracea)", pianta.getDescription());
+        assertEquals("Amaranthaceae", pianta.getBotanicalFamily());
+        assertEquals(3, pianta.getSowingStart());
+        assertEquals(5, pianta.getSowingEnd());
+        assertEquals(1, pianta.getPhases().size());
+        assertEquals("fase3", pianta.getPhases().get(0));
+        assertEquals(0.0, pianta.getRequiredSpace(), 0.01);
+        assertEquals("mezz'ombra", pianta.getSunExposure());
+        assertEquals("ben drenato, ricco di humus", pianta.getSoilType());
+        assertEquals(10, pianta.getMinTemperature());
+        assertEquals(20, pianta.getMaxTemperature());
+        assertEquals(0.3, pianta.getMaxExpectedHeight(), 0.01);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class PiantaUnitTest {
         fasi1.add("fase1");
         fasi1.add("fase2");
 
-        Pianta pianta1 = new Pianta(
+        Plant pianta1 = new Plant(
                 "beVITqkLHWCerI1XLRxj",
                 "pomodoro",
                 "Pianta di pomodoro (Solanum lycopersicum)",
@@ -137,7 +137,7 @@ public class PiantaUnitTest {
         fasi2.add("fase1");
         fasi2.add("fase2");
 
-        Pianta pianta2 = new Pianta(
+        Plant pianta2 = new Plant(
                 "beVITqkLHWCerI1XLRxj",
                 "pomodoro",
                 "Pianta di pomodoro (Solanum lycopersicum)",

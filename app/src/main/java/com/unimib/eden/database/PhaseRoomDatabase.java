@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * PhaseRoomDatabase class for the Phase database.
  * This class defines the Room database that contains the Phase table.
  */
-@Database(entities = {Fase.class}, version = Constants.DATABASE_VERSION_PHASE, exportSchema = false)
+@Database(entities = {Phase.class}, version = Constants.DATABASE_VERSION_PHASE, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class PhaseRoomDatabase extends RoomDatabase {
     private static final int NUMBER_OF_THREADS = 4;

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.utils.ConvertIntMonthToString;
 
 import java.util.List;
@@ -22,18 +22,18 @@ import java.util.List;
 public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHolder> {
 
     private int itemLayout = R.layout.fase_details_item;
-    private final List<Fase> phasesList;
+    private final List<Phase> phasesList;
 
     /**
      * Constructor for the PhaseAdapter.
      *
      * @param phasesList List of phases to display.
      */
-    public PhaseAdapter(List<Fase> phasesList) {
+    public PhaseAdapter(List<Phase> phasesList) {
         this.phasesList = phasesList;
     }
 
-    public PhaseAdapter(List<Fase> phasesList, int itemLayout) {
+    public PhaseAdapter(List<Phase> phasesList, int itemLayout) {
         this.phasesList = phasesList;
         this.itemLayout = itemLayout;
     }
@@ -47,7 +47,7 @@ public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHol
 
     @Override
     public void onBindViewHolder(@NonNull PhaseAdapter.PhaseViewHolder phaseViewHolder, @SuppressLint("RecyclerView") int position) {
-        Fase phase = phasesList.get(position);
+        Phase phase = phasesList.get(position);
         phaseViewHolder.bind(phase, position);
     }
 
@@ -59,10 +59,10 @@ public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHol
         return 0;
     }
 
-    public void update(List<Fase> fasiList) {
+    public void update(List<Phase> phasesList) {
         if (this.phasesList != null) {
             this.phasesList.clear();
-            this.phasesList.addAll(fasiList);
+            this.phasesList.addAll(phasesList);
             notifyDataSetChanged();
         }
     }
@@ -97,16 +97,16 @@ public class PhaseAdapter extends RecyclerView.Adapter<PhaseAdapter.PhaseViewHol
          * @param phase The phase to display.
          * @param pos   The position of the phase in the list.
          */
-        public void bind(Fase phase, int pos) {
+        public void bind(Phase phase, int pos) {
             pos = pos + 1;
             this.getNamePhaseLabel.setText("Fase " + pos + ":");
-            this.namePhaseDetails.setText(phase.getNomeFase());
-            this.phaseStartDetails.setText(ConvertIntMonthToString.getMonth(phase.getInizioFase()));
-            this.phaseDurationDetails.setText(String.valueOf(phase.getDurataFase()));
-            this.phaseDescriptionDetails.setText(phase.getDescrizione());
-            this.wateringFrequencyPhaseDetails.setText(String.valueOf(phase.getFrequenzaInnaffiamento()));
+            this.namePhaseDetails.setText(phase.getPhaseName());
+            this.phaseStartDetails.setText(ConvertIntMonthToString.getMonth(phase.getPhaseStart()));
+            this.phaseDurationDetails.setText(String.valueOf(phase.getPhaseDuration()));
+            this.phaseDescriptionDetails.setText(phase.getDescription());
+            this.wateringFrequencyPhaseDetails.setText(String.valueOf(phase.getWateringFrequency()));
 
-            String phaseName = phase.getNomeFase().toLowerCase().split(" ")[0];
+            String phaseName = phase.getPhaseName().toLowerCase().split(" ")[0];
 
             int resID = itemView.getContext().getResources()
                     .getIdentifier(phaseName, "drawable", itemView.getContext().getPackageName());

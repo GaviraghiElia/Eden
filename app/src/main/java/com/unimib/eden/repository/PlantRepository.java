@@ -12,7 +12,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.PlantDao;
 import com.unimib.eden.database.PlantRoomDatabase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -31,7 +31,7 @@ public class PlantRepository implements IPlantRepository {
     private final PlantDao mPlantDao;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final List<Pianta> allPlants;
+    private final List<Plant> allPlants;
 
     /**
      * Constructor of the class that generates an instance of PlantRepository.
@@ -50,7 +50,7 @@ public class PlantRepository implements IPlantRepository {
      * @return  A list of all plants.
      */
     @Override
-    public List<Pianta> getAllPlants() {
+    public List<Plant> getAllPlants() {
         return allPlants;
     }
 
@@ -60,14 +60,14 @@ public class PlantRepository implements IPlantRepository {
      * @param plant  The plant to delete from the database.
      */
     @Override
-    public void deletePlant(Pianta plant) {
+    public void deletePlant(Plant plant) {
         new DeletePiantaAsyncTask(mPlantDao).execute(plant);
     }
 
     /**
      * DeletePlantAsyncTask class that performs the deletion operation of a plant in an AsyncTask.
      */
-    private static class DeletePiantaAsyncTask extends AsyncTask<Pianta, Void, Void> {
+    private static class DeletePiantaAsyncTask extends AsyncTask<Plant, Void, Void> {
         private final PlantDao plantDao;
 
         private DeletePiantaAsyncTask(PlantDao plantDao) {
@@ -81,7 +81,7 @@ public class PlantRepository implements IPlantRepository {
          * @return  null.
          */
         @Override
-        protected Void doInBackground(Pianta... plants) {
+        protected Void doInBackground(Plant... plants) {
             plantDao.delete(plants[0]);
             return null;
         }
@@ -93,7 +93,7 @@ public class PlantRepository implements IPlantRepository {
      * @param plant  The plant to be inserted into the database.
      */
     @Override
-    public void insert(Pianta plant) {
+    public void insert(Plant plant) {
 
         new insertPlantAsyncTask(mPlantDao).execute(plant);
     }
@@ -104,14 +104,14 @@ public class PlantRepository implements IPlantRepository {
      * @param plantId  The id of the plant to get from the database.
      */
     @Override
-    public Pianta getPlantById(String plantId) {
+    public Plant getPlantById(String plantId) {
         return mPlantDao.getById(plantId);
     }
 
     /**
      * InsertPlantAsyncTask class that performs the insertion of the plant into the database in an AsyncTask.
      */
-    private static class insertPlantAsyncTask extends AsyncTask<Pianta, Void, Void> {
+    private static class insertPlantAsyncTask extends AsyncTask<Plant, Void, Void> {
         private final PlantDao mPlantDao;
 
         private insertPlantAsyncTask(PlantDao plantDao) {
@@ -124,7 +124,7 @@ public class PlantRepository implements IPlantRepository {
          * @return null.
          */
         @Override
-        protected Void doInBackground(Pianta... plants) {
+        protected Void doInBackground(Plant... plants) {
             mPlantDao.insert(plants[0]);
             return null;
         }
@@ -147,17 +147,17 @@ public class PlantRepository implements IPlantRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                List<Pianta> tempPlants = allPlants;
+                                List<Plant> tempPlants = allPlants;
                                 boolean isPlantPresent = false;
                                 boolean isPlantChanged = false;
-                                Pianta oldPlant = null;
-                                Pianta newPlant = null;
+                                Plant oldPlant = null;
+                                Plant newPlant = null;
                                 assert tempPlants != null;
-                                for (Pianta p : tempPlants) {
+                                for (Plant p : tempPlants) {
                                     if (p.getId().equals(document.getId())) {
                                         isPlantPresent = true;
                                     }
-                                    if (p.getId().equals(document.getId()) && p.getFasi() != (ArrayList) document.getData().get("fasi")) {
+                                    if (p.getId().equals(document.getId()) && p.getPhases() != (ArrayList) document.getData().get("fasi")) {
                                         oldPlant = p;
                                         isPlantChanged = true;
                                     }
@@ -176,7 +176,7 @@ public class PlantRepository implements IPlantRepository {
                                 if (!isPlantPresent) {
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListPhases = (ArrayList) document.getData().get("fasi");
-                                    newPlant = new Pianta(
+                                    newPlant = new Plant(
                                             document.getId(),
                                             String.valueOf(tempMap.get("nome")),
                                             String.valueOf(tempMap.get("descrizione")),
@@ -196,7 +196,7 @@ public class PlantRepository implements IPlantRepository {
                                     deletePlant(oldPlant);
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListPhases = (ArrayList) document.getData().get("fasi");
-                                    newPlant = new Pianta(
+                                    newPlant = new Plant(
                                             document.getId(),
                                             String.valueOf(tempMap.get("nome")),
                                             String.valueOf(tempMap.get("descrizione")),
@@ -226,16 +226,16 @@ public class PlantRepository implements IPlantRepository {
      * @param query The name of the plant to be returned as output.
      * @return  A list of plants whose name contains the input string as a substring.
      */
-    public List<Pianta> searchPlants(String query) throws ExecutionException, InterruptedException {
+    public List<Plant> searchPlants(String query) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new SearchPlantsAsyncTask(mPlantDao).execute(query);
 
-        return (List<Pianta>) asyncTask.get();
+        return (List<Plant>) asyncTask.get();
     }
 
     /**
      * SearchPlantsAsyncTask class responsible for searching plants in an AsyncTask where the plant name contains the input string as a substring.
      */
-    private static class SearchPlantsAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
+    private static class SearchPlantsAsyncTask extends AsyncTask<String, Void, List<Plant>> {
         private final PlantDao plantsDao;
 
         private SearchPlantsAsyncTask(PlantDao plantDao) {
@@ -248,7 +248,7 @@ public class PlantRepository implements IPlantRepository {
          * @return  A list of plants whose name contains the input string as a substring.
          */
         @Override
-        protected List<Pianta> doInBackground(String... strings) {
+        protected List<Plant> doInBackground(String... strings) {
             return plantsDao.searchPlants(strings[0]);
         }
     }
@@ -260,7 +260,7 @@ public class PlantRepository implements IPlantRepository {
      * @param filtersMap The search filters to apply.
      * @return  A list of plants whose name contains the input string as a substring and that satisfy the search filters.
      */
-    public List<Pianta> searchPlants(String query, Map<String, String> filtersMap) throws ExecutionException, InterruptedException {
+    public List<Plant> searchPlants(String query, Map<String, String> filtersMap) throws ExecutionException, InterruptedException {
         String wateringFrequency = "";
         String sunExposure = "";
         String sowingStart = "";
@@ -295,13 +295,13 @@ public class PlantRepository implements IPlantRepository {
                         sowingStart,
                         sowingEnd);
 
-        return (List<Pianta>) asyncTask.get();
+        return (List<Plant>) asyncTask.get();
     }
 
     /**
      * SearchPlantsFiltersAsyncTask class responsible for searching plants in an AsyncTask where the plant name contains the input string as a substring and satisfies the set search filters.
      */
-    private static class SearchPlantsFiltersAsyncTask extends AsyncTask<String, Void, List<Pianta>> {
+    private static class SearchPlantsFiltersAsyncTask extends AsyncTask<String, Void, List<Plant>> {
         private final PlantDao plantDao;
 
         private SearchPlantsFiltersAsyncTask(PlantDao plantDao) {
@@ -315,7 +315,7 @@ public class PlantRepository implements IPlantRepository {
          * @return A list of plants whose name contains the input string as a substring and satisfies the set filters.
          */
         @Override
-        protected List<Pianta> doInBackground(String... strings) {
+        protected List<Plant> doInBackground(String... strings) {
             if (strings[2].equals("")) {
                 return plantDao.searchPlantsFilters(strings[0], Integer.parseInt(strings[3]), Integer.parseInt(strings[4]));
             } else {

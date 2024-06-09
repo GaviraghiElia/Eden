@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface PhaseDao {
      * @return A list of all the phases present in the database.
      */
     @Query("SELECT * FROM 'fase'")
-    List<Fase> getAll();
+    List<Phase> getAll();
 
     /**
      * Gets all the phases present in the database with IDs matching the ones passed as input.
@@ -31,7 +31,7 @@ public interface PhaseDao {
      * @return A list of all the phases present in the database with IDs matching the ones passed as input.
      */
     @Query("SELECT * FROM 'fase' WHERE id IN (:ids)")
-    List<Fase> getPhasesIds(List<String> ids);
+    List<Phase> getPhasesIds(List<String> ids);
 
     /**
      * Deletes the input phase from the database.
@@ -39,7 +39,7 @@ public interface PhaseDao {
      * @param phase The phase to delete from the database.
      */
     @Delete
-    void delete(Fase... phase);
+    void delete(Phase... phase);
 
     /**
      * Inserts the input phase into the database.
@@ -47,7 +47,7 @@ public interface PhaseDao {
      * @param phase The phase to insert into the database.
      */
     @Insert
-    void insert(Fase phase);
+    void insert(Phase phase);
 
     /**
      * Gets a phase from the database based on the specified ID.
@@ -56,5 +56,5 @@ public interface PhaseDao {
      * @return The phase corresponding to the specified ID if present in the database, otherwise null.
      */
     @Query("SELECT * FROM 'fase' WHERE id = :phaseId")
-    Fase getById(String phaseId);
+    Phase getById(String phaseId);
 }

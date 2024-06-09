@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.unimib.eden.database.PlantDao;
 import com.unimib.eden.database.PlantRoomDatabase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +30,7 @@ public class PiantaDaoTest {
     private PlantRoomDatabase piantaRoomDatabase;
     private ArrayList<String> fasi = new ArrayList<String>();
 
-    private Pianta pianta1 = new Pianta(
+    private Plant pianta1 = new Plant(
             "beVITqkLHWCerI1XLRxj",
             "pomodoro",
             "Pianta di pomodoro (Solanum lycopersicum)",
@@ -45,7 +45,7 @@ public class PiantaDaoTest {
             24,
             2.0
     );
-    private Pianta pianta2 = new Pianta(
+    private Plant pianta2 = new Plant(
             "GIuCsu9ircjfN4RXWgxe",
             "Spinaci",
             "Pianta di spinaci (Spinacia oleracea)",
@@ -77,14 +77,14 @@ public class PiantaDaoTest {
 
     private void addOnePiantaToDb() {
         fasi.add("IfjXQLn98rnUDu1rax8h");
-        pianta1.setFasi(fasi);
+        pianta1.setPhases(fasi);
         piantaDao.insert(pianta1);
     }
 
     private void addTwoPianteToDb() {
         fasi.add("IfjXQLn98rnUDu1rax8h");
-        pianta1.setFasi(fasi);
-        pianta2.setFasi(fasi);
+        pianta1.setPhases(fasi);
+        pianta2.setPhases(fasi);
         piantaDao.insert(pianta1);
         piantaDao.insert(pianta2);
     }
@@ -92,14 +92,14 @@ public class PiantaDaoTest {
     @Test
     public void daoInsert_insertsPiantaIntoDb() {
         addOnePiantaToDb();
-        List<Pianta> allPiante = piantaDao.getAll();
+        List<Plant> allPiante = piantaDao.getAll();
         assertEquals(allPiante.get(0), pianta1);
     }
 
    @Test
    public void daoGetAllPiante_returnAllPianteFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.getAll();
+        List<Plant> allPiante = piantaDao.getAll();
        assertEquals(allPiante.get(0), pianta1);
        assertEquals(allPiante.get(1), pianta2);
    }
@@ -109,35 +109,35 @@ public class PiantaDaoTest {
         addTwoPianteToDb();
         piantaDao.delete(pianta1);
         piantaDao.delete(pianta2);
-        List<Pianta> allPiante = piantaDao.getAll();
+        List<Plant> allPiante = piantaDao.getAll();
         assertTrue(allPiante.isEmpty());
    }
 
    @Test
     public void daoSearchPiante_returnsPiantaFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.searchPlants("Spinaci");
+        List<Plant> allPiante = piantaDao.searchPlants("Spinaci");
         assertEquals(allPiante.get(0), pianta2);
    }
 
    @Test
     public void daoSearchPianteFiltri_returnsPiantaFilteredFromDb() {
         addTwoPianteToDb();
-        List<Pianta> allPiante = piantaDao.searchPlantsFilters("pom", 3, 5);
+        List<Plant> allPiante = piantaDao.searchPlantsFilters("pom", 3, 5);
         assertEquals(allPiante.get(0), pianta1);
    }
 
    @Test
     public void daoSearchPianteFiltriAll_returnsPiantaFilteredFromDb() {
        addTwoPianteToDb();
-       List<Pianta> allPiante = piantaDao.searchPlantsAllFilters("Spi",  "mezz'ombra", 3, 5);
+       List<Plant> allPiante = piantaDao.searchPlantsAllFilters("Spi",  "mezz'ombra", 3, 5);
        assertEquals(allPiante.get(0), pianta2);
    }
 
     @Test
     public void daoGetPiantaById_returnsPiantaFromDb() {
         addTwoPianteToDb();
-        Pianta pianta = piantaDao.getById(pianta2.getId());
+        Plant pianta = piantaDao.getById(pianta2.getId());
         assertEquals(pianta, pianta2);
     }
 

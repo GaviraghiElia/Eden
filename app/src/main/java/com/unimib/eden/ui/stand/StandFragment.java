@@ -26,7 +26,7 @@ import com.unimib.eden.R;
 
 import com.unimib.eden.adapter.ProductAdapter;
 import com.unimib.eden.databinding.FragmentStandBinding;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.ui.authentication.AuthenticationActivity;
 import com.unimib.eden.ui.insertProduct.InsertProductActivity;
 import com.unimib.eden.ui.productDetails.ProductDetailsActivity;
@@ -41,7 +41,7 @@ import java.util.Objects;
 public class StandFragment extends Fragment {
     private static final String TAG = "StandFragment";
     private FragmentStandBinding binding;
-    private List<Prodotto> mProducts = new ArrayList<>();
+    private List<Product> mProducts = new ArrayList<>();
     private StandViewModel standViewModel;
     private ProductAdapter mProductAdapter;
     private FirebaseAuth mAuth;
@@ -68,9 +68,9 @@ public class StandFragment extends Fragment {
         standViewModel = new ViewModelProvider(this).get(StandViewModel.class);
         mAuth = FirebaseAuth.getInstance();
 
-        final Observer<List<Prodotto>> allProdottiObserver = new Observer<List<Prodotto>>() {
+        final Observer<List<Product>> allProdottiObserver = new Observer<List<Product>>() {
             @Override
-            public void onChanged(List<Prodotto> prodotti) {
+            public void onChanged(List<Product> prodotti) {
                 mProducts = prodotti;
                 mProductAdapter.update(mProducts);
             }
@@ -114,7 +114,7 @@ public class StandFragment extends Fragment {
         // Initialize the adapter with the product list and item click listener
         mProductAdapter = new ProductAdapter(mProducts, new ProductAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Prodotto prodotto) {
+            public void onItemClick(Product prodotto) {
                 // Navigate to ProdottoDetailsActivity with the selected product
                 Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
                 intent.putExtra("prodotto", prodotto);

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
 
@@ -23,7 +23,7 @@ public class PlantDetailsViewModel extends AndroidViewModel {
     private PlantRepository plantRepository;
     private PhaseRepository phaseRepository;
 
-    private List<Fase> phasesList;
+    private List<Phase> phasesList;
 
     /**
      * Constructor that generates an instance of the PlantDetailsViewModel with an instance of PiantaRepository, FaseRepository, and an empty list of phases.
@@ -46,7 +46,7 @@ public class PlantDetailsViewModel extends AndroidViewModel {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public List<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
+    public List<Phase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
             return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException e) {

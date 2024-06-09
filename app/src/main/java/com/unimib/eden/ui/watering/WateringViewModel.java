@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.unimib.eden.model.Crop;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.repository.CropRepository;
 import com.unimib.eden.repository.PhaseRepository;
@@ -25,8 +25,8 @@ import java.util.List;
 public class WateringViewModel extends AndroidViewModel {
     private static final String TAG = "WateringViewModel";
 
-    private final List<Pianta> mPlants;
-    private final List<Fase> mPhases;
+    private final List<Plant> mPlants;
+    private final List<Phase> mPhases;
     private final LiveData<List<Crop>> mCrops;
     private final LiveData<List<Crop>> mCropsToWater;
     private final PlantRepository plantRepository;
@@ -79,7 +79,7 @@ public class WateringViewModel extends AndroidViewModel {
      *
      * @return A list of plants.
      */
-    public List<Pianta> getPlants() {
+    public List<Plant> getPlants() {
         return mPlants;
     }
 
@@ -88,7 +88,7 @@ public class WateringViewModel extends AndroidViewModel {
      *
      * @return A list of phases.
      */
-    public List<Fase> getPhases() {
+    public List<Phase> getPhases() {
         return mPhases;
     }
 
@@ -116,7 +116,7 @@ public class WateringViewModel extends AndroidViewModel {
      * @param plantId The ID of the plant to be retrieved.
      * @return The plant with the specified ID.
      */
-    private Pianta getPlantById(String plantId) {
+    private Plant getPlantById(String plantId) {
         return plantRepository.getPlantById(plantId);
     }
 

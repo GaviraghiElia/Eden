@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
 import com.unimib.eden.utils.Constants;
@@ -31,7 +31,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private final PhaseRepository phaseRepository;
 
 
-    private final List<Prodotto> mProductsList;
+    private final List<Product> mProductsList;
     private final ProductAdapter.OnItemClickListener onItemClickListener;
     private final int layout;
 
@@ -39,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
      * Interface for handling clicks on RecyclerView items.
      */
     public interface OnItemClickListener {
-        void onItemClick(Prodotto prodotto);
+        void onItemClick(Product prodotto);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
      * @param onItemClickListener Click handler for RecyclerView items.
      * @param layout             Layout to use for each item in the RecyclerView.
      */
-    public ProductAdapter(List<Prodotto> productsList, ProductAdapter.OnItemClickListener onItemClickListener, int layout, Application application) {
+    public ProductAdapter(List<Product> productsList, ProductAdapter.OnItemClickListener onItemClickListener, int layout, Application application) {
         this.mProductsList = productsList;
         this.onItemClickListener = onItemClickListener;
         this.layout = layout;
@@ -77,7 +77,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return 0;
     }
 
-    public void update(List<Prodotto> prodottiList) {
+    public void update(List<Product> prodottiList) {
         if (this.mProductsList != null) {
             this.mProductsList.clear();
             this.mProductsList.addAll(prodottiList);
@@ -110,9 +110,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
          *
          * @param product The product to display.
          */
-        public void bind(Prodotto product) {
+        public void bind(Product product) {
 
-            String namePlantProduct = plantRepository.getPlantById(product.getPianta()).getNome();
+            String namePlantProduct = plantRepository.getPlantById(product.getPlant()).getName();
 
             int resID = itemView.getContext().getResources()
                     .getIdentifier(
@@ -129,17 +129,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             }
 
             this.textViewPlantProduct.setText(namePlantProduct);
-            this.textViewPhaseProduct.setText(phaseRepository.getPhaseById(product.getFaseAttuale()).getNomeFase());
+            this.textViewPhaseProduct.setText(phaseRepository.getPhaseById(product.getCurrentPhase()).getPhaseName());
 
             String unitMeasure;
-            if (Objects.equals(product.getFaseAttuale(), Constants.LAST_PHASE)) {
+            if (Objects.equals(product.getCurrentPhase(), Constants.LAST_PHASE)) {
                 unitMeasure = " grams";
             } else {
                 unitMeasure = " plants";
             }
-            this.textViewQuantityProduct.setText(String.valueOf(product.getQuantita()) + unitMeasure);
+            this.textViewQuantityProduct.setText(String.valueOf(product.getQuantity()) + unitMeasure);
 
-            this.textViewPriceProduct.setText(String.format("%.2f", product.getPrezzo()) + " €");
+            this.textViewPriceProduct.setText(String.format("%.2f", product.getPrice()) + " €");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

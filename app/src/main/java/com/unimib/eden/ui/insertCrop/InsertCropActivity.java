@@ -38,8 +38,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -53,13 +53,13 @@ public class InsertCropActivity extends AppCompatActivity {
     private ActivityInserimentoColturaBinding mBinding;
     private String plantId = "";
     private String plantName = "";
-    private Pianta plant;
+    private Plant plant;
     private int phase = -1;
     private FirebaseAuth firebaseAuth;
 
     ArrayList<String> phasesNames = new ArrayList<>();
 
-    ArrayList<Fase> phasesList;
+    ArrayList<Phase> phasesList;
     ArrayList<Integer> frequencies;
     ArrayAdapter<String> adapter;
 
@@ -100,19 +100,19 @@ public class InsertCropActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult o) {
                         if (o.getResultCode() == Activity.RESULT_OK) {
                             Intent data = o.getData();
-                            plant = (Pianta) data.getSerializableExtra("pianta");
+                            plant = (Plant) data.getSerializableExtra("pianta");
                             plantId = plant.getId();
-                            plantName = plant.getNome();
-                            mBinding.pianta.setText(plant.getNome());
-                            mBinding.toolbarInsColt.setTitle("Inserisci " + plant.getNome().toLowerCase());
+                            plantName = plant.getName();
+                            mBinding.pianta.setText(plant.getName());
+                            mBinding.toolbarInsColt.setTitle("Inserisci " + plant.getName().toLowerCase());
                             try {
-                                phasesList = insertCropViewModel.getPhasesList(plant.getFasi());
-                                frequencies = insertCropViewModel.getWateringFrequency(plant.getFasi());
+                                phasesList = insertCropViewModel.getPhasesList(plant.getPhases());
+                                frequencies = insertCropViewModel.getWateringFrequency(plant.getPhases());
                                 if (!phasesNames.isEmpty()) {
                                     phasesNames.clear();
                                 }
-                                for (Fase f : phasesList) {
-                                    phasesNames.add(f.getNomeFase());
+                                for (Phase f : phasesList) {
+                                    phasesNames.add(f.getPhaseName());
                                 }
                             } catch (ExecutionException | InterruptedException e) {
                                 throw new RuntimeException(e);

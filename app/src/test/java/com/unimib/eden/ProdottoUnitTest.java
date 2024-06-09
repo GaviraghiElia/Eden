@@ -11,7 +11,7 @@ import static com.unimib.eden.utils.Constants.PRODUCT_QUANTITY;
 import static com.unimib.eden.utils.Constants.PRODUCT_EXCHANGE_AVAILABLE;
 import static com.unimib.eden.utils.Constants.PRODUCT_TYPE;
 import static com.unimib.eden.utils.Constants.PRODUCT_SELLER;
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public class ProdottoUnitTest {
 
-    private Prodotto prodotto;
+    private Product prodotto;
 
     @Before
     public void setUp() {
@@ -32,7 +32,7 @@ public class ProdottoUnitTest {
         offerte.add("offerta1");
         offerte.add("offerta2");
 
-        prodotto = new Prodotto(
+        prodotto = new Product(
                 "1",
                 "Frutta",
                 "Venditore1",
@@ -50,30 +50,30 @@ public class ProdottoUnitTest {
     public void testConstructor() {
         assertNotNull(prodotto);
         assertEquals("1", prodotto.getId());
-        assertEquals("Frutta", prodotto.getTipo());
-        assertEquals("Venditore1", prodotto.getVenditore());
-        assertEquals(10.0, prodotto.getPrezzo(), 0.01);
-        assertEquals("Mela", prodotto.getPianta());
-        assertEquals(2, prodotto.getOfferte().size());
-        assertEquals("offerta1", prodotto.getOfferte().get(0));
-        assertEquals(5, prodotto.getQuantita());
-        assertEquals("Fase1", prodotto.getFaseAttuale());
-        assertEquals("Altre informazioni", prodotto.getAltreInformazioni());
-        assertTrue(prodotto.getScambioDisponibile());
+        assertEquals("Frutta", prodotto.getType());
+        assertEquals("Venditore1", prodotto.getSeller());
+        assertEquals(10.0, prodotto.getPrice(), 0.01);
+        assertEquals("Mela", prodotto.getPlant());
+        assertEquals(2, prodotto.getOffers().size());
+        assertEquals("offerta1", prodotto.getOffers().get(0));
+        assertEquals(5, prodotto.getQuantity());
+        assertEquals("Fase1", prodotto.getCurrentPhase());
+        assertEquals("Altre informazioni", prodotto.getOtherInformation());
+        assertTrue(prodotto.getExchangeAvailable());
     }
     @Test
     public void testGetters() {
         assertEquals("1", prodotto.getId());
-        assertEquals("Frutta", prodotto.getTipo());
-        assertEquals("Venditore1", prodotto.getVenditore());
-        assertEquals(10.0, prodotto.getPrezzo(), 0.01);
-        assertEquals("Mela", prodotto.getPianta());
-        assertEquals(2, prodotto.getOfferte().size());
-        assertEquals("offerta1", prodotto.getOfferte().get(0));
-        assertEquals(5, prodotto.getQuantita());
-        assertEquals("Fase1", prodotto.getFaseAttuale());
-        assertEquals("Altre informazioni", prodotto.getAltreInformazioni());
-        assertTrue(prodotto.getScambioDisponibile());
+        assertEquals("Frutta", prodotto.getType());
+        assertEquals("Venditore1", prodotto.getSeller());
+        assertEquals(10.0, prodotto.getPrice(), 0.01);
+        assertEquals("Mela", prodotto.getPlant());
+        assertEquals(2, prodotto.getOffers().size());
+        assertEquals("offerta1", prodotto.getOffers().get(0));
+        assertEquals(5, prodotto.getQuantity());
+        assertEquals("Fase1", prodotto.getCurrentPhase());
+        assertEquals("Altre informazioni", prodotto.getOtherInformation());
+        assertTrue(prodotto.getExchangeAvailable());
     }
 
     @Test
@@ -82,27 +82,27 @@ public class ProdottoUnitTest {
         newOfferte.add("offerta3");
 
         prodotto.setId("2");
-        prodotto.setTipo("Verdura");
-        prodotto.setVenditore("Venditore2");
-        prodotto.setPrezzo(15.0);
-        prodotto.setPianta("Carota");
-        prodotto.setOfferte(newOfferte);
-        prodotto.setQuantita(10);
-        prodotto.setFaseAttuale("Fase2");
-        prodotto.setAltreInformazioni("Nuove informazioni");
-        prodotto.setScambioDisponibile(false);
+        prodotto.setType("Verdura");
+        prodotto.setSeller("Venditore2");
+        prodotto.setPrice(15.0);
+        prodotto.setPlant("Carota");
+        prodotto.setOffers(newOfferte);
+        prodotto.setQuantity(10);
+        prodotto.setCurrentPhase("Fase2");
+        prodotto.setOtherInformation("Nuove informazioni");
+        prodotto.setExchangeAvailable(false);
 
         assertEquals("2", prodotto.getId());
-        assertEquals("Verdura", prodotto.getTipo());
-        assertEquals("Venditore2", prodotto.getVenditore());
-        assertEquals(15.0, prodotto.getPrezzo(), 0.01);
-        assertEquals("Carota", prodotto.getPianta());
-        assertEquals(1, prodotto.getOfferte().size());
-        assertEquals("offerta3", prodotto.getOfferte().get(0));
-        assertEquals(10, prodotto.getQuantita());
-        assertEquals("Fase2", prodotto.getFaseAttuale());
-        assertEquals("Nuove informazioni", prodotto.getAltreInformazioni());
-        assertFalse(prodotto.getScambioDisponibile());
+        assertEquals("Verdura", prodotto.getType());
+        assertEquals("Venditore2", prodotto.getSeller());
+        assertEquals(15.0, prodotto.getPrice(), 0.01);
+        assertEquals("Carota", prodotto.getPlant());
+        assertEquals(1, prodotto.getOffers().size());
+        assertEquals("offerta3", prodotto.getOffers().get(0));
+        assertEquals(10, prodotto.getQuantity());
+        assertEquals("Fase2", prodotto.getCurrentPhase());
+        assertEquals("Nuove informazioni", prodotto.getOtherInformation());
+        assertFalse(prodotto.getExchangeAvailable());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ProdottoUnitTest {
         offerte1.add("offerta1");
         offerte1.add("offerta2");
 
-        Prodotto prodotto1 = new Prodotto(
+        Product prodotto1 = new Product(
                 "1",
                 "Frutta",
                 "Venditore1",
@@ -128,7 +128,7 @@ public class ProdottoUnitTest {
         offerte2.add("offerta1");
         offerte2.add("offerta2");
 
-        Prodotto prodotto2 = new Prodotto(
+        Product prodotto2 = new Product(
                 "1",
                 "Frutta",
                 "Venditore1",
@@ -173,15 +173,15 @@ public class ProdottoUnitTest {
         prodotto.initFromMap(dataMap);
 
         assertEquals("1", prodotto.getId());
-        assertEquals("Verdura", prodotto.getTipo());
-        assertEquals("Venditore2", prodotto.getVenditore());
-        assertEquals(15.0, prodotto.getPrezzo(), 0.01);
-        assertEquals("Carota", prodotto.getPianta());
-        assertEquals(0, prodotto.getOfferte().size());
-        assertEquals(10, prodotto.getQuantita());
-        assertEquals("Fase2", prodotto.getFaseAttuale());
-        assertEquals("Nuove informazioni", prodotto.getAltreInformazioni());
-        assertFalse(prodotto.getScambioDisponibile());
+        assertEquals("Verdura", prodotto.getType());
+        assertEquals("Venditore2", prodotto.getSeller());
+        assertEquals(15.0, prodotto.getPrice(), 0.01);
+        assertEquals("Carota", prodotto.getPlant());
+        assertEquals(0, prodotto.getOffers().size());
+        assertEquals(10, prodotto.getQuantity());
+        assertEquals("Fase2", prodotto.getCurrentPhase());
+        assertEquals("Nuove informazioni", prodotto.getOtherInformation());
+        assertFalse(prodotto.getExchangeAvailable());
     }
 
     @Test
@@ -198,18 +198,18 @@ public class ProdottoUnitTest {
         dataMap.put(PRODUCT_OFFERS, new ArrayList<>());
         dataMap.put(PRODUCT_EXCHANGE_AVAILABLE, false);
 
-        Prodotto prodottoFromMap = new Prodotto(dataMap);
+        Product prodottoFromMap = new Product(dataMap);
 
         assertEquals("2", prodottoFromMap.getId());
-        assertEquals("Verdura", prodottoFromMap.getTipo());
-        assertEquals("Venditore2", prodottoFromMap.getVenditore());
-        assertEquals(15.0, prodottoFromMap.getPrezzo(), 0.01);
-        assertEquals("Carota", prodottoFromMap.getPianta());
-        assertEquals(0, prodottoFromMap.getOfferte().size());
-        assertEquals(10, prodottoFromMap.getQuantita());
-        assertEquals("Fase2", prodottoFromMap.getFaseAttuale());
-        assertEquals("Nuove informazioni", prodottoFromMap.getAltreInformazioni());
-        assertFalse(prodottoFromMap.getScambioDisponibile());
+        assertEquals("Verdura", prodottoFromMap.getType());
+        assertEquals("Venditore2", prodottoFromMap.getSeller());
+        assertEquals(15.0, prodottoFromMap.getPrice(), 0.01);
+        assertEquals("Carota", prodottoFromMap.getPlant());
+        assertEquals(0, prodottoFromMap.getOffers().size());
+        assertEquals(10, prodottoFromMap.getQuantity());
+        assertEquals("Fase2", prodottoFromMap.getCurrentPhase());
+        assertEquals("Nuove informazioni", prodottoFromMap.getOtherInformation());
+        assertFalse(prodottoFromMap.getExchangeAvailable());
     }
 }
 

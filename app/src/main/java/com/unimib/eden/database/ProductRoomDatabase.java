@@ -9,14 +9,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.unimib.eden.model.Prodotto;
+import com.unimib.eden.model.Product;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.Converters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Prodotto.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
+@Database(entities = {Product.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class ProductRoomDatabase extends RoomDatabase {
 

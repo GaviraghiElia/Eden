@@ -12,7 +12,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.unimib.eden.database.PhaseDao;
 import com.unimib.eden.database.PhaseRoomDatabase;
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.utils.Constants;
 import com.unimib.eden.utils.ServiceLocator;
 
@@ -35,7 +35,7 @@ public class PhaseRepository implements IPhaseRepository {
     private final PhaseDao mPhaseDao;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final List<Fase> allPhases;
+    private final List<Phase> allPhases;
 
     /**
      * Constructor of the class that generates an instance of PhaseRepository.
@@ -54,7 +54,7 @@ public class PhaseRepository implements IPhaseRepository {
      * @return A list of all phases.
      */
     @Override
-    public List<Fase> getAllPhases() {
+    public List<Phase> getAllPhases() {
         return allPhases;
     }
 
@@ -64,14 +64,14 @@ public class PhaseRepository implements IPhaseRepository {
      * @param phase The phase to delete within the database.
      */
     @Override
-    public void deletePhase(Fase phase) {
+    public void deletePhase(Phase phase) {
         new DeletePhaseAsyncTask(mPhaseDao).execute(phase);
     }
 
     /**
      * DeletePhaseAsyncTask class that performs the operation of deleting a phase in an AsyncTask.
      */
-    private static class DeletePhaseAsyncTask extends AsyncTask<Fase, Void, Void> {
+    private static class DeletePhaseAsyncTask extends AsyncTask<Phase, Void, Void> {
         private final PhaseDao phaseDao;
 
         private DeletePhaseAsyncTask(PhaseDao phaseDao) {
@@ -85,7 +85,7 @@ public class PhaseRepository implements IPhaseRepository {
          * @return null.
          */
         @Override
-        protected Void doInBackground(Fase... phases) {
+        protected Void doInBackground(Phase... phases) {
             phaseDao.delete(phases[0]);
             return null;
         }
@@ -98,14 +98,14 @@ public class PhaseRepository implements IPhaseRepository {
      * @param phase The phase to insert into the database.
      */
     @Override
-    public void insert(Fase phase) {
+    public void insert(Phase phase) {
         new InsertPhaseAsyncTask(mPhaseDao).execute(phase);
     }
 
     /**
      * InsertPhaseAsyncTask class that performs the insertion of the phase into the database in an AsyncTask.
      */
-    private static class InsertPhaseAsyncTask extends AsyncTask<Fase, Void, Void> {
+    private static class InsertPhaseAsyncTask extends AsyncTask<Phase, Void, Void> {
         private final PhaseDao mPhaseDao;
 
         private InsertPhaseAsyncTask(PhaseDao phaseDao) {
@@ -118,7 +118,7 @@ public class PhaseRepository implements IPhaseRepository {
          * @return null.
          */
         @Override
-        protected Void doInBackground(Fase... phases) {
+        protected Void doInBackground(Phase... phases) {
             mPhaseDao.insert(phases[0]);
             return null;
         }
@@ -131,7 +131,7 @@ public class PhaseRepository implements IPhaseRepository {
      * @return The Phase entity corresponding to the specified ID, if present in the repository, otherwise null.
      */
     @Override
-    public Fase getPhaseById(String phaseId) {
+    public Phase getPhaseById(String phaseId) {
         return mPhaseDao.getById(phaseId);
     }
 
@@ -151,13 +151,13 @@ public class PhaseRepository implements IPhaseRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                List<Fase> tempPhases = allPhases;
+                                List<Phase> tempPhases = allPhases;
                                 boolean isPhasePresent = false;
                                 boolean isPhaseChanged = false;
-                                Fase oldPhase = null;
-                                Fase newPhase = null;
+                                Phase oldPhase = null;
+                                Phase newPhase = null;
                                 assert tempPhases != null;
-                                for (Fase f : tempPhases) {
+                                for (Phase f : tempPhases) {
                                     if (f.getId().equals(document.getId())) {
                                         isPhasePresent = true;
                                     }
@@ -180,7 +180,7 @@ public class PhaseRepository implements IPhaseRepository {
                                 if (!isPhasePresent) {
                                     Map<String, Object> tempMap = document.getData();
 
-                                    newPhase = new Fase(
+                                    newPhase = new Phase(
                                             document.getId(),
                                             String.valueOf(tempMap.get(Constants.PHASE_NAME)),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_START))),
@@ -195,7 +195,7 @@ public class PhaseRepository implements IPhaseRepository {
                                     Map<String, Object> tempMap = document.getData();
                                     ArrayList<String> tmpListPhases = (ArrayList) document.getData().get("fasi");
 
-                                    newPhase = new Fase(
+                                    newPhase = new Phase(
                                             document.getId(),
                                             String.valueOf(tempMap.get(Constants.PHASE_NAME)),
                                             Integer.parseInt(String.valueOf(tempMap.get(Constants.PHASE_START))),
@@ -219,9 +219,9 @@ public class PhaseRepository implements IPhaseRepository {
      * @return The list of all phases present in the database that have IDs matching those passed as input.
      */
     @Override
-    public ArrayList<Fase> getPhasesFromIds(List<String> ids) throws ExecutionException, InterruptedException {
+    public ArrayList<Phase> getPhasesFromIds(List<String> ids) throws ExecutionException, InterruptedException {
         AsyncTask asyncTask = new GetPhasesAsyncTask(mPhaseDao).execute(ids);
-        ArrayList<Fase> phases = (ArrayList<Fase>) asyncTask.get();
+        ArrayList<Phase> phases = (ArrayList<Phase>) asyncTask.get();
 
         // Creates a map associating each ID with its position in the ids list
         Map<String, Integer> idToIndexMap = new HashMap<>();
@@ -231,7 +231,7 @@ public class PhaseRepository implements IPhaseRepository {
 
         Collections.sort(phases, new Comparator<>() {
             @Override
-            public int compare(Fase f1, Fase f2) {
+            public int compare(Phase f1, Phase f2) {
                 return Integer.compare(idToIndexMap.get(f1.getId()), idToIndexMap.get(f2.getId()));
             }
         });
@@ -241,7 +241,7 @@ public class PhaseRepository implements IPhaseRepository {
     /**
      * Class GetPhasesAsyncTask that performs the retrieval of a list of phases based on the input IDs in an AsyncTask.
      */
-    private static class GetPhasesAsyncTask extends AsyncTask<List<String>, Void, List<Fase>> {
+    private static class GetPhasesAsyncTask extends AsyncTask<List<String>, Void, List<Phase>> {
         private final PhaseDao mPhaseDao;
 
         private GetPhasesAsyncTask(PhaseDao phaseDao) {
@@ -256,7 +256,7 @@ public class PhaseRepository implements IPhaseRepository {
          * @return The list of phases whose IDs match those passed as input.
          */
         @Override
-        protected List<Fase> doInBackground(List<String>... list) {
+        protected List<Phase> doInBackground(List<String>... list) {
             return mPhaseDao.getPhasesIds(list[0]);
         }
 

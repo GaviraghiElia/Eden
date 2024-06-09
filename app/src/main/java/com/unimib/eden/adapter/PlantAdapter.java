@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.insertCrop.InsertCropActivity;
 import com.unimib.eden.ui.insertProduct.InsertProductActivity;
 import com.unimib.eden.ui.plantDetails.PlantDetailsActivity;
@@ -28,7 +28,7 @@ import java.util.List;
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
 
     private final static String TAG = "PlantAdapter";
-    private final List<Pianta> plantsList;
+    private final List<Plant> plantsList;
     private int itemLayout = R.layout.search_pianta_item;
 
     /**
@@ -41,11 +41,11 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
      *
      * @param plantsList List of plants to display.
      */
-    public PlantAdapter(List<Pianta> plantsList) {
+    public PlantAdapter(List<Plant> plantsList) {
         this.plantsList = plantsList;
     }
 
-    public PlantAdapter(List<Pianta> plantsList, int itemLayout) {
+    public PlantAdapter(List<Plant> plantsList, int itemLayout) {
         this.plantsList = plantsList;
         this.itemLayout = itemLayout;
     }
@@ -65,7 +65,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         // Create an instance of the ChildItem
         // class for the given position
 
-        Pianta pianta = plantsList.get(position);
+        Plant pianta = plantsList.get(position);
         plantViewHolder.bind(pianta);
 
         plantViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +111,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         return 0;
     }
 
-    public void update(List<Pianta> piantaList, int operationCode) {
+    public void update(List<Plant> piantaList, int operationCode) {
         if (this.plantsList != null) {
             this.plantsList.clear();
             this.plantsList.addAll(piantaList);
@@ -138,10 +138,10 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
          * Bind method that associates plant data with the ViewHolder.
          * @param plant The plant to display.
          */
-        public void bind(Pianta plant) {
-            this.textViewPlantName.setText(plant.getNome());
+        public void bind(Plant plant) {
+            this.textViewPlantName.setText(plant.getName());
 
-            String plantName = plant.getNome().toLowerCase();
+            String plantName = plant.getName().toLowerCase();
             int resID = itemView.getContext().getResources().getIdentifier(plantName, "drawable", itemView.getContext().getPackageName());
 
             if(resID != 0) { // If the image exists in the drawable

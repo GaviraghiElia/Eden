@@ -37,8 +37,8 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import com.unimib.eden.R;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.ui.searchPlant.SearchPlantActivity;
 import com.unimib.eden.utils.Constants;
 
@@ -51,12 +51,12 @@ public class InsertProductActivity extends AppCompatActivity {
     private InsertProductViewModel insertProductViewModel;
     private ActivityInserimentoProdottoBinding mBinding;
     private String plantId = "";
-    private Pianta plant;
+    private Plant plant;
     private String lastPhase = "";
     private int phasePosition;
     private FirebaseAuth firebaseAuth;
     ArrayList<String> phasesNames = new ArrayList<>();
-    List<Fase> phasesList;
+    List<Phase> phasesList;
     ArrayAdapter<String> adapter;
 
 
@@ -97,17 +97,17 @@ public class InsertProductActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult o) {
                         if (o.getResultCode() == Activity.RESULT_OK) {
                             Intent date = o.getData();
-                            plant = (Pianta) date.getSerializableExtra("pianta");
+                            plant = (Plant) date.getSerializableExtra("pianta");
                             plantId = plant.getId();
-                            mBinding.pianta.setText(plant.getNome());
-                            mBinding.toolbarInsProd.setTitle("Inserisci " + plant.getNome());
+                            mBinding.pianta.setText(plant.getName());
+                            mBinding.toolbarInsProd.setTitle("Inserisci " + plant.getName());
                             try {
-                                phasesList = insertProductViewModel.getPhasesList(plant.getFasi());
+                                phasesList = insertProductViewModel.getPhasesList(plant.getPhases());
                                 if (!phasesNames.isEmpty()) {
                                     phasesNames.clear();
                                 }
-                                for (Fase f : phasesList) {
-                                    phasesNames.add(f.getNomeFase());
+                                for (Phase f : phasesList) {
+                                    phasesNames.add(f.getPhaseName());
                                 }
 
                             } catch (ExecutionException | InterruptedException e) {

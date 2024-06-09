@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 
-import com.unimib.eden.model.Fase;
+import com.unimib.eden.model.Phase;
 import com.unimib.eden.repository.CropRepository;
 import com.unimib.eden.repository.PhaseRepository;
 import com.unimib.eden.repository.PlantRepository;
@@ -53,7 +53,7 @@ public class InsertCropViewModel extends AndroidViewModel {
      * @return A list of strings representing the phases of the plant.
      */
     public ArrayList<String> getPhasesFromId(String plantId) {
-        return plantRepository.getPlantById(plantId).getFasi();
+        return plantRepository.getPlantById(plantId).getPhases();
     }
 
     /**
@@ -65,10 +65,10 @@ public class InsertCropViewModel extends AndroidViewModel {
      * @throws InterruptedException if the current thread is interrupted while waiting.
      */
     public ArrayList<Integer> getWateringFrequency(List<String> phasesIds) throws ExecutionException, InterruptedException {
-        ArrayList<Fase> phases = getPhasesList(phasesIds);
+        ArrayList<Phase> phases = getPhasesList(phasesIds);
         ArrayList<Integer> frequencies = new ArrayList<>();
-        for (Fase fase : phases) {
-            frequencies.add(fase.getFrequenzaInnaffiamento());
+        for (Phase fase : phases) {
+            frequencies.add(fase.getWateringFrequency());
         }
         return frequencies;
     }
@@ -81,7 +81,7 @@ public class InsertCropViewModel extends AndroidViewModel {
      * @throws ExecutionException   if an error occurs during the operation execution.
      * @throws InterruptedException if the current thread is interrupted while waiting.
      */
-    public ArrayList<Fase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
+    public ArrayList<Phase> getPhasesList(List<String> phasesIds) throws ExecutionException, InterruptedException {
         try {
             return phaseRepository.getPhasesFromIds(phasesIds);
         } catch (ExecutionException | InterruptedException e) {

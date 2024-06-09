@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Plant;
 import com.unimib.eden.repository.PlantRepository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 public class SearchPlantViewModel extends AndroidViewModel {
     private static final String TAG = "SearchPlantViewModel";
     private final PlantRepository plantRepository;
-    private final MutableLiveData<List<Pianta>> plantListLiveData;
+    private final MutableLiveData<List<Plant>> plantListLiveData;
 
     /**
      * Constructor that initializes the ViewModel with the application context.
@@ -41,7 +41,7 @@ public class SearchPlantViewModel extends AndroidViewModel {
      *
      * @return A LiveData object containing the list of plants.
      */
-    public LiveData<List<Pianta>> getPlantsList() {
+    public LiveData<List<Plant>> getPlantsList() {
         if (plantListLiveData.getValue() == null) {
             searchPlant("");
         }
@@ -55,7 +55,7 @@ public class SearchPlantViewModel extends AndroidViewModel {
      * @param filtersMap A map containing the search filters.
      * @return A LiveData object containing the filtered list of plants.
      */
-    public LiveData<List<Pianta>> getPlantsList(Map<String, String> filtersMap) {
+    public LiveData<List<Plant>> getPlantsList(Map<String, String> filtersMap) {
         if (plantListLiveData.getValue() == null) {
             searchPlant("", filtersMap);
         }
