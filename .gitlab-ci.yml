@@ -9,36 +9,44 @@ variables:
   ANDROID_COMPILE_SDK: "34"
   # Version of the Android build tools we are using.
   ANDROID_BUILD_TOOLS: "34.0.0"
+  # Version of the Android build tools
   ANDROID_SDK_TOOLS: "7583922"
+  # Android Emulator image version
   EMULATOR_IMAGE: "24"
 
-# Packages installation before running script
+# Default settings for all jobs
 default:
   before_script:
+    # Update and install necessary packages
     - apt-get --quiet update --yes
     - apt-get --quiet install --yes wget unzip
+    # Download and unzip the Android SDK command line tools
     - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
     - unzip -d android-sdk-linux android-sdk.zip
 
+    # Set up the Android SDK directory structure
     - mkdir -p android-sdk-linux/cmdline-tools/latest/
     - find android-sdk-linux/cmdline-tools -mindepth 1 -maxdepth 1 ! -name "latest" -exec mv -t android-sdk-linux/cmdline-tools/latest/ {} +
 
+    # Set environment variables for the Android SDK
     - export ANDROID_SDK_ROOT=$PWD/android-sdk-linux
     - export ANDROID_HOME=$PWD/android-sdk-linux
+    - export CMDLINE_TOOLS=$PWD/android-sdk-linux/cmdline-tools/latest/bin
     - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
     - export PATH=$PATH:$PWD/android-sdk-linux/emulator/
+    - export PATH=$PATH:$CMDLINE_TOOLS
 
-    # update and install common android sdk components
-    - android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update
-    - echo y | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
+    # Update and install common android sdk components
+    - sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update
+    - echo y | sdkmanager --sdk_root=${ANDROID_SDK_ROOT} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
-    
+    # Make the Gradle wrapper executable and accept licenses
     - chmod +x ./gradlew
     - set +o pipefail
-    - yes | android-sdk-linux/cmdline-tools/latest/bin/sdkmanager --licenses
+    - yes | sdkmanager --licenses
     - set -o pipefail
 
-# Check linting
+# Job to run lint checks
 lintDebug:
   interruptible: true
   stage: build
@@ -50,7 +58,7 @@ lintDebug:
     expose_as: "lint-report"
     when: always
 
-# Make Project
+# Job to assemble the debug build
 assembleDebug:
   interruptible: true
   stage: build
@@ -60,7 +68,7 @@ assembleDebug:
     paths:
       - app/build/outputs/
 
-
+# Job to run SpotBugs static analysis
 spotbugs:
   stage: verify
   needs: [lintDebug, assembleDebug]
@@ -72,39 +80,40 @@ spotbugs:
       - app/build/reports/spotbugs/
     when: always
 
-
-# Run all tests, if any fails, interrupt the pipeline (fail it)
+# Job to run tests on the debug build
 debugTests:
   needs: [lintDebug, assembleDebug]
   interruptible: true
   stage: test
   script:
-    # install packages needed by emulator
+    # Install packages needed by the emulator
     - apt-get install libx11-dev libpulse0 libgl1 libnss3 libxcomposite-dev libxcursor1 libasound2 --yes
 
-    # install android sdk components and emulator
-    - chmod +x android-sdk-linux/cmdline-tools/latest/bin/sdkmanager
-    - android-sdk-linux/cmdline-tools/latest/bin/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_IMAGE};default;armeabi-v7a"
-
-    # download script for emulator waiting
+    # Install Android SDK components and emulator
+    - chmod +x $CMDLINE_TOOLS/sdkmanager
+    - $CMDLINE_TOOLS/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_IMAGE};default;armeabi-v7a"
+    
+    # Download a script to wait for the emulator to start
     - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
     - chmod +x android-wait-for-emulator
 
-    # create virtual device named "test"
-    - echo no | android-sdk-linux/cmdline-tools/latest/bin/avdmanager -v create avd -n test -k "system-images;android-${EMULATOR_IMAGE};default;armeabi-v7a"
+    # Create virtual device named "test"
+    - echo no | avdmanager -v create avd -n test -k "system-images;android-${EMULATOR_IMAGE};default;armeabi-v7a"
 
-    # start adb server
-    - android-sdk-linux/platform-tools/adb start-server
+    # Start the adb server
+    - adb start-server
 
-    # run emulator and tests
-    - android-sdk-linux/emulator/emulator -avd test -no-boot-anim -no-window -no-audio -no-snapshot &
+    # Run emulator and tests
+    - emulator -avd test -no-boot-anim -no-window -no-audio -no-snapshot &
     - ./android-wait-for-emulator
-    - android-sdk-linux/platform-tools/adb shell input keyevent 82
-    - ./gradlew connectedDebugAndroidTest --info # Integrated tests
-    - ./gradlew createDebugCoverageReport # Generate code coverage report
-    - ./gradlew test --info # Release tests
-      #- ./gradlew testDebug --info
-      #- ./gradlew testDebugUnitTest
+    - adb shell input keyevent 82
+    # Run integrated tests
+    - ./gradlew connectedDebugAndroidTest --info
+    # Generate code coverage report
+    - ./gradlew createDebugCoverageReport
+    # Run release tests
+    - ./gradlew test --info
+    # Generate JaCoCo test report
     - ./gradlew jacocoTestReport
   artifacts:
       paths:
