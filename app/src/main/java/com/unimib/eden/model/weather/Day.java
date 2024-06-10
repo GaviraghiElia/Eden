@@ -8,35 +8,35 @@ import androidx.annotation.NonNull;
  * daily rain probability, and weather conditions.
  */
 public class Day {
-    private final double maxTemp_c;
-    private final double minTemp_c;
-    private final double avgTemp_c;
-    private final double totalPrecipitations_mm;
-    private final int avgHumidity;
-    private final int dailyWillItRain;
-    private final int dailyChanceOfRain;
+    private final double maxtemp_c;
+    private final double mintemp_c;
+    private final double avgtemp_c;
+    private final double totalprecip_mm;
+    private final int avghumidity;
+    private final int daily_will_it_rain;
+    private final int daily_chance_of_rain;
     private final Condition condition;
 
     /**
      * Constructor for the Day class.
      *
-     * @param maxTemp_c Maximum temperature in degrees Celsius.
-     * @param minTemp_c Minimum temperature in degrees Celsius.
-     * @param avgTemp_c Average temperature in degrees Celsius.
-     * @param totalPrecipitations_mm Total precipitation in millimeters.
-     * @param avgHumidity Average humidity in percentage.
-     * @param dailyWillItRain Indicates whether it will rain (1 if likely, 0 otherwise).
-     * @param dailyChanceOfRain Daily chance of rain in percentage.
+     * @param maxtemp_c Maximum temperature in degrees Celsius.
+     * @param mintemp_c Minimum temperature in degrees Celsius.
+     * @param avgtemp_c Average temperature in degrees Celsius.
+     * @param totalprecip_mm Total precipitation in millimeters.
+     * @param avghumidity Average humidity in percentage.
+     * @param daily_will_it_rain Indicates whether it will rain (1 if likely, 0 otherwise).
+     * @param daily_chance_of_rain Daily chance of rain in percentage.
      * @param condition Daily weather conditions.
      */
-    public Day(double maxTemp_c, double minTemp_c, double avgTemp_c, double totalPrecipitations_mm, int avgHumidity, int dailyWillItRain, int dailyChanceOfRain, Condition condition) {
-        this.maxTemp_c = maxTemp_c;
-        this.minTemp_c = minTemp_c;
-        this.avgTemp_c = avgTemp_c;
-        this.totalPrecipitations_mm = totalPrecipitations_mm;
-        this.avgHumidity = avgHumidity;
-        this.dailyWillItRain = dailyWillItRain;
-        this.dailyChanceOfRain = dailyChanceOfRain;
+    public Day(double maxtemp_c, double mintemp_c, double avgtemp_c, double totalprecip_mm, int avghumidity, int daily_will_it_rain, int daily_chance_of_rain, Condition condition) {
+        this.maxtemp_c = maxtemp_c;
+        this.mintemp_c = mintemp_c;
+        this.avgtemp_c = avgtemp_c;
+        this.totalprecip_mm = totalprecip_mm;
+        this.avghumidity = avghumidity;
+        this.daily_will_it_rain = daily_will_it_rain;
+        this.daily_chance_of_rain = daily_chance_of_rain;
         this.condition = condition;
     }
 
@@ -44,13 +44,13 @@ public class Day {
     @Override
     public String toString() {
         return "Day{" +
-                "maxTemp_c=" + maxTemp_c +
-                ", minTemp_c=" + minTemp_c +
-                ", avgTemp_c=" + avgTemp_c +
-                ", totalPrecipitations_mm=" + totalPrecipitations_mm +
-                ", avgHumidity=" + avgHumidity +
-                ", daily_will_it_rain=" + dailyWillItRain +
-                ", daily_chance_of_rain=" + dailyChanceOfRain +
+                "maxtemp_c=" + maxtemp_c +
+                ", mintemp_c=" + mintemp_c +
+                ", avgtemp_c=" + avgtemp_c +
+                ", totalprecip_mm=" + totalprecip_mm +
+                ", avghumidity=" + avghumidity +
+                ", daily_will_it_rain=" + daily_will_it_rain +
+                ", daily_chance_of_rain=" + daily_chance_of_rain +
                 ", condition=" + condition.toString() +
                 '}';
     }
@@ -60,8 +60,8 @@ public class Day {
      *
      * @return The maximum temperature in degrees Celsius.
      */
-    public double getMaxTemp_c() {
-        return maxTemp_c;
+    public double getMaxtemp_c() {
+        return maxtemp_c;
     }
 
     /**
@@ -69,8 +69,8 @@ public class Day {
      *
      * @return The minimum temperature in degrees Celsius.
      */
-    public double getMinTemp_c() {
-        return minTemp_c;
+    public double getMintemp_c() {
+        return mintemp_c;
     }
 
     /**
@@ -78,8 +78,8 @@ public class Day {
      *
      * @return The average temperature in degrees Celsius.
      */
-    public double getAvgTemp_c() {
-        return avgTemp_c;
+    public double getAvgtemp_c() {
+        return avgtemp_c;
     }
 
     /**
@@ -87,8 +87,8 @@ public class Day {
      *
      * @return The total precipitation in millimeters.
      */
-    public double getTotalPrecipitations_mm() {
-        return totalPrecipitations_mm;
+    public double getTotalprecip_mm() {
+        return totalprecip_mm;
     }
 
     /**
@@ -96,8 +96,8 @@ public class Day {
      *
      * @return The average humidity in percentage.
      */
-    public int getAvgHumidity() {
-        return avgHumidity;
+    public int getAvghumidity() {
+        return avghumidity;
     }
 
     /**
@@ -105,8 +105,8 @@ public class Day {
      *
      * @return An integer indicating whether it will rain.
      */
-    public int getDailyWillItRain() {
-        return dailyWillItRain;
+    public int getDaily_will_it_rain() {
+        return daily_will_it_rain;
     }
 
     /**
@@ -114,8 +114,8 @@ public class Day {
      *
      * @return The daily chance of rain in percentage.
      */
-    public int getDailyChanceOfRain() {
-        return dailyChanceOfRain;
+    public int getDaily_chance_of_rain() {
+        return daily_chance_of_rain;
     }
 
     /**

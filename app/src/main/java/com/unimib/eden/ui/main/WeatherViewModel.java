@@ -120,12 +120,12 @@ public class WeatherViewModel extends AndroidViewModel {
                     && lastUpdate.getMonth() == currentDate.getMonth()
                     && lastUpdate.getYear() == currentDate.getYear())) {
                 // It rained enough to consider the plants as watered (yesterday)
-                if (dayWeather.getTotalPrecipitations_mm() > 20) {
+                if (dayWeather.getTotalprecip_mm() > 20) {
                     Date newDate = new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000);
                     datesForCrops.put(coltura, newDate);
                 }
                 // It was too hot and dry, bring forward the watering date by one day
-                else if (dayWeather.getAvgTemp_c() > 35 && dayWeather.getAvgHumidity() < 50) {
+                else if (dayWeather.getAvgtemp_c() > 35 && dayWeather.getAvghumidity() < 50) {
                     Date newDate = new Date(coltura.getLastWatering().getTime() - 2 * 24 * 60 * 60 * 1000);
                     datesForCrops.put(coltura, newDate);
                 } else {

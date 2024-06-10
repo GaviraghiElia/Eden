@@ -101,16 +101,16 @@ public class ForecastDayAdapter extends RecyclerView.Adapter<ForecastDayAdapter.
             String relativeDate = Transformer.getRelativeDate(forecastDay.getDate());
             this.textViewDay.setText(relativeDate);
 
-            double chanceOfRain = forecastDay.getDay().getDailyChanceOfRain();
+            double chanceOfRain = forecastDay.getDay().getDaily_chance_of_rain();
             this.textViewChanceOfRain.setText(String.valueOf(chanceOfRain) + " %");
 
-            double totalPrecipitations = forecastDay.getDay().getTotalPrecipitations_mm();
+            double totalPrecipitations = forecastDay.getDay().getTotalprecip_mm();
             this.textViewTotalPrecipitations.setText(String.valueOf(totalPrecipitations) + " mm");
 
-            double avgTemp = forecastDay.getDay().getAvgTemp_c();
+            double avgTemp = forecastDay.getDay().getAvgtemp_c();
             this.textViewTemperature.setText(String.valueOf(avgTemp) + " °C");
 
-            double avgHumidity = forecastDay.getDay().getAvgHumidity();
+            double avgHumidity = forecastDay.getDay().getAvghumidity();
             this.textViewHumidity.setText(String.valueOf(avgHumidity) + " %");
 
             String imageURL = "https:" + forecastDay.getDay().getCondition().getIcon();
