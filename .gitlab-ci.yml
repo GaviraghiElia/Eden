@@ -133,5 +133,5 @@ assembleRelease:
   artifacts:
     paths:
       - app/build/outputs/apk/release/app-release.apk
-# only:
-#    - main
+  only:
+      - main
