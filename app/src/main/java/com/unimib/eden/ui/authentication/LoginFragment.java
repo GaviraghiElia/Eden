@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,34 +20,56 @@ import com.unimib.eden.R;
 import com.unimib.eden.databinding.FragmentLoginBinding;
 import com.unimib.eden.ui.main.MainActivity;
 
+/**
+ * Manages the login process for the application.
+ * <p>
+ * This class extends the Fragment and overrides the lifecycle methods
+ * to handle the creation, start, and view creation for the login fragment.
+ */
 public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private NavController navController;
 
     private FragmentLoginBinding mBinding;
-    private UtenteViewModel mUtenteViewModel;
+    private UserViewModel mUtenteViewModel;
     private String email;
     private String password;
 
+    /**
+     * Called when the fragment is created.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUtenteViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
+        mUtenteViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
+    /**
+     * Called when the fragment is visible to the user.
+     */
     @Override
     public void onStart() {
         super.onStart();
-        if(!checkSession())
-        {
-            Log.d("mAuth", "login fragment - user not signed");
-        }else
-        {
-            Log.d("mAuth", "login fragment - user auth");
+        if(checkSession()) {
             startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
         }
     }
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to. The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from
+     *                           a previous saved state as given here.
+     * @return The View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = FragmentLoginBinding.inflate(inflater, container, false);
@@ -94,22 +115,14 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        // Button forget passowrd
-        /*
-        mBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_loginFragment_to_forgotPasswordFragment);
-            }
-        });
-
-         */
-
         return view;
     }
 
 
-    private TextWatcher loginTextWatcher = new TextWatcher() {
+    /**
+     * Handles the text change events for login input fields and enables/disables the login button accordingly.
+     */
+    private final TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -126,26 +139,36 @@ public class LoginFragment extends Fragment {
         }
     };
 
+    /**
+     * Validates the given email address.
+     *
+     * @param email The email address to validate.
+     * @return true if the email address is valid, false otherwise.
+     */
     public boolean isValidEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    /**
+     * Displays a message using a Toast and clears the user data in the ViewModel.
+     *
+     * @param message The message to be displayed.
+     */
     private void makeMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
         mUtenteViewModel.clear();
     }
 
     /**
-     * Controlla se l'utente è già autenticato.
-     * @return true se l'utente è autenticato, false altrimenti.
+     * Checks if the user is already authenticated.
+     *
+     * @return True if the user is authenticated, false otherwise.
      */
+
     private boolean checkSession()
     {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser != null)
-            return true;
-
-        return false;
+        return currentUser != null;
     }
 }

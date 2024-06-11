@@ -3,28 +3,22 @@ package com.unimib.eden.utils;
 import static com.unimib.eden.utils.Constants.EMAIL_PATTERN;
 import static com.unimib.eden.utils.Constants.PASSWORD_PATTERN;
 
-import android.content.res.Resources;
-
-import com.unimib.eden.R;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Classe AuthenticationFieldValidator per validare i campi di testo per l'autenticazione nell'applicazione
- *
- * @author Elia Gaviraghi
+ * AuthenticationFieldValidator class for validating text fields for authentication in the application
  */
 public class AuthenticationFieldValidator {
 
     public AuthenticationFieldValidator() {}
 
     /**
-     * Metodo per la validazione delle credenziali inserite
+     * Method for validating the entered credentials
      *
-     * @param email la email da verificare
-     * @param password la password da verificare
-     * @return stringa "success" se ha successo, "email non valida" oppure "password errata" se almeno una delle due non è valida
+     * @param email the email to be verified
+     * @param password the password to be verified
+     * @return string "success" if successful, "invalid email" or "incorrect password" if either one is invalid
      */
     public String isValidCredential(String email, String password)
     {
@@ -32,8 +26,7 @@ public class AuthenticationFieldValidator {
         {
             return "Email non valida";
         }
-        else
-        if(!isValidPassword(password))
+        else if(!isValidPassword(password))
         {
             return "Password errata";
         }
@@ -42,10 +35,10 @@ public class AuthenticationFieldValidator {
     }
 
     /**
-     * Metodo per verificare se una password è valida.
+     * Method to check if a password is valid.
      *
-     * @param password la password da verificare
-     * @return true se la password rispetta il pattern password, false altrimenti
+     * @param password the password to be verified
+     * @return true if the password matches the password pattern, false otherwise
      */
     public boolean isValidPassword(String password)
     {
@@ -55,10 +48,10 @@ public class AuthenticationFieldValidator {
     }
 
     /**
-     * Metodo per verificare se un'email è valida.
+     * Method to check if an email is valid.
      *
-     * @param email l'email da verificare
-     * @return true se l'email rispetta il pattern email, false altrimenti
+     * @param email the email to be verified
+     * @return true if the email matches the email pattern, false otherwise
      */
     public boolean isValidEmail(String email)
     {

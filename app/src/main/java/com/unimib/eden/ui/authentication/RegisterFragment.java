@@ -3,18 +3,16 @@ package com.unimib.eden.ui.authentication;
 import static com.unimib.eden.utils.Constants.EMAIL_PATTERN;
 import static com.unimib.eden.utils.Constants.PASSWORD_PATTERN;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -22,20 +20,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.unimib.eden.R;
+import com.unimib.eden.databinding.FragmentRegisterBinding;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.unimib.eden.R;
-import com.unimib.eden.databinding.FragmentRegisterBinding;
-import com.unimib.eden.ui.main.MainActivity;
-
-/*
- * RegisterFrament Classe per gestire la UI della registrazione utente
- *
- * @author Gaviraghi Elia
- * @version 1.0
+/**
+ * RegisterFragment class to handle the user registration UI.
  */
 public class RegisterFragment extends Fragment
 {
@@ -43,25 +35,23 @@ public class RegisterFragment extends Fragment
     private FirebaseDatabase fDB;
     private NavController navController;
     public FragmentRegisterBinding mBinding;
-    private UtenteViewModel mUserViewModel;
+    private UserViewModel mUserViewModel;
 
     /**
-     * Questa classe gestisce il fragment di registrazione
-     *
-     * @author Gaviraghi Elia
+     * This class handles the registration fragment.
      */
     public RegisterFragment() {}
 
     /**
-     * Metodo chiamato alla creazione del Fragment.
+     * Method called when the Fragment is created.
      *
-     * @param savedInstanceState lo stato salvato dell'istanza
+     * @param savedInstanceState the saved instance state
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mUserViewModel = new ViewModelProvider(requireActivity()).get(UtenteViewModel.class);
+        mUserViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -72,20 +62,20 @@ public class RegisterFragment extends Fragment
     }
 
     /**
-     * Metodo per creare la vista del Fragment.
+     * Method to create the view of the Fragment.
      *
-     * @param inflater l'Inflater per il layout
-     * @param container il contenitore per il gruppo di viste
-     * @param savedInstanceState lo stato salvato dell'istanza
-     * @return la vista creata
+     * @param inflater the layout inflater
+     * @param container the view group container
+     * @param savedInstanceState the saved instance state
+     * @return the created view
      */
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false);
         View view = mBinding.getRoot();
         navController = NavHostFragment.findNavController(this);
 
-        // Text Watcher per abilitare il bottone di registrazione
+        // TextWatcher to enable the register button
         mBinding.registerEmail.addTextChangedListener(registerTextWatcher);
         mBinding.registerPassword.addTextChangedListener(registerTextWatcher);
 
@@ -103,7 +93,7 @@ public class RegisterFragment extends Fragment
                 {
                     mUserViewModel.clear();
                     createUserWithEmailAndPassword(email, password);
-                }else{
+                } else {
                     if(response.equals(getString(R.string.bad_email)))
                     {
                         mBinding.registerEmail.setError(getString(R.string.bad_email));
@@ -114,7 +104,6 @@ public class RegisterFragment extends Fragment
                         mBinding.registerPassword.setError(getString(R.string.incorrect_password));
                         Toast.makeText(getContext(), getString(R.string.password_requirements), Toast.LENGTH_LONG).show();
                         mBinding.registerPassword.requestFocus();
-
                     }
                 }
             }
@@ -133,9 +122,9 @@ public class RegisterFragment extends Fragment
     }
 
     /**
-     * TextWatcher per abilitare il tasto di login quando i campi email e password vengono riempiti
+     * TextWatcher to enable the register button when email and password fields are filled.
      */
-    private TextWatcher registerTextWatcher = new TextWatcher()
+    private final TextWatcher registerTextWatcher = new TextWatcher()
     {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -152,13 +141,11 @@ public class RegisterFragment extends Fragment
         public void afterTextChanged(Editable s) {}
     };
 
-
     /**
-     * Metodo per la creazione di un utente con email e password
+     * Method to create a user with email and password.
      *
-     * @param email la email fornita per la registrazione
-     * @param password la password inserita per la registrazione
-     *
+     * @param email the email provided for registration
+     * @param password the password provided for registration
      */
     public void createUserWithEmailAndPassword(String email, String password)
     {
@@ -167,11 +154,11 @@ public class RegisterFragment extends Fragment
             {
                 if (firebaseResponse.isSuccess())
                 {
-                    makeMessage(getString(R.string.successfull_registration));
+                    makeMessage(getString(R.string.successful_registration));
                     firebaseAuth = FirebaseAuth.getInstance();
                     navController.navigate(R.id.action_registerFragment_to_mainActivity);
                     requireActivity().finish();
-                    //startActivity(new Intent(requireContext(), MainActivity.class));
+                    // startActivity(new Intent(requireContext(), MainActivity.class));
                 }
                 else
                 {
@@ -181,13 +168,12 @@ public class RegisterFragment extends Fragment
         });
     }
 
-
     /**
-     * Metodo per la validazione delle credenziali inserite
+     * Method to validate the provided credentials.
      *
-     * @param email la email da verificare
-     * @param password la password da verificare
-     * @return stringa "success" se ha successo, "email non valida" oppure "password errata" se almeno una delle due non è valida
+     * @param email the email to validate
+     * @param password the password to validate
+     * @return "success" if both are valid, "bad email" or "incorrect password" if either is invalid
      */
     public String isValidCredential(String email, String password)
     {
@@ -195,8 +181,7 @@ public class RegisterFragment extends Fragment
         {
             return getString(R.string.bad_email);
         }
-        else
-        if(!isValidPassword(password))
+        else if(!isValidPassword(password))
         {
             return getString(R.string.incorrect_password);
         }
@@ -205,10 +190,10 @@ public class RegisterFragment extends Fragment
     }
 
     /**
-     * Metodo per verificare se una password è valida.
+     * Method to check if a password is valid.
      *
-     * @param password la password da verificare
-     * @return true se la password rispetta il pattern password, false altrimenti
+     * @param password the password to check
+     * @return true if the password matches the password pattern, false otherwise
      */
     public boolean isValidPassword(String password)
     {
@@ -218,10 +203,10 @@ public class RegisterFragment extends Fragment
     }
 
     /**
-     * Metodo per verificare se un'email è valida.
+     * Method to check if an email is valid.
      *
-     * @param email l'email da verificare
-     * @return true se l'email rispetta il pattern email, false altrimenti
+     * @param email the email to check
+     * @return true if the email matches the email pattern, false otherwise
      */
     public boolean isValidEmail(String email)
     {
@@ -231,9 +216,9 @@ public class RegisterFragment extends Fragment
     }
 
     /**
-     * Metodo per mostrare un messaggio.
+     * Method to display a message.
      *
-     * @param message il messaggio da mostrare
+     * @param message the message to display
      */
     private void makeMessage(String message)
     {

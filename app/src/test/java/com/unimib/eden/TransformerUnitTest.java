@@ -6,187 +6,165 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 
-import com.unimib.eden.R;
-import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
+import com.unimib.eden.model.Crop;
 import com.unimib.eden.utils.Transformer;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransformerUnitTest {
 
-    /**
-     * Testa il metodo per il calcolo dei giorni fino al prossimo innaffiamento.
-     * Verifica che il metodo restituisca il numero corretto di giorni rimanenti.
-     */
-    @Test
-    public void daysToProssimoInnaffiamento_ReturnsCorrectDays() {
-        // Mocking objects
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+    private Transformer transformer;
 
-        // Stubbing methods
-        Date currentDate = new Date();
-        Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
-        when(coltura.getFaseAttuale()).thenReturn(0);
-        when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
-
-        // Calling the method to test
-        long daysRemaining = Transformer.daysToProssimoInnaffiamento(coltura);
-
-        // Asserting the result
-        assertEquals(0, daysRemaining); // Giorni rimanenti fino al prossimo innaffiamento
+    @Before
+    public void setUp() throws Exception {
+        transformer = new Transformer();
     }
 
-    /**
-     * Testa il metodo per la formattazione della stringa per l'innaffiamento
-     * successivo quando non ci sono giorni rimanenti.
-     * Verifica che la stringa formattata sia corretta per la situazione in cui
-     * l'innaffiamento è previsto per oggi.
-     */
     @Test
-    public void formatProssimoInnaffiamento_ReturnsCorrectString_ForZeroDaysRemaining() {
-        // Mocking objects
-        Context context = mock(Context.class);
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+    public void daysToNextWatering_ReturnsCorrectDays() {
+        Crop crop = mock(Crop.class);
 
-        // Stubbing methods
-        when(context.getString(R.string.oggi)).thenReturn("Oggi");
         Date currentDate = new Date();
-        Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
-        when(coltura.getFaseAttuale()).thenReturn(0);
-        when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(5); // La frequenza di innaffiamento è ogni giorno
+        Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
+        when(crop.getCurrentPhase()).thenReturn(0);
+        when(crop.getLastWatering()).thenReturn(lastWatering);
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
 
-        // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        long daysRemaining = transformer.daysToNextWatering(crop);
 
-        // Asserting the result
-        assertEquals("Oggi", formattedString); // Ci si aspetta "Oggi" per oggi
+        assertEquals(0, daysRemaining); // Days to next watering
     }
 
-    /**
-     * Testa il metodo per la formattazione della stringa per l'innaffiamento
-     * successivo quando ci sono giorni rimanenti.
-     * Verifica che la stringa formattata sia corretta per la situazione in cui
-     * l'innaffiamento è previsto tra un certo numero di giorni.
-     */
     @Test
-    public void formatProssimoInnaffiamento_ReturnsCorrectString_ForPositiveDaysRemaining() {
-        // Mocking objects
+    public void formatNextWatering_ReturnsCorrectString_ForZeroDaysRemaining() {
         Context context = mock(Context.class);
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+        Crop crop = mock(Crop.class);
 
-        // Stubbing methods
-        when(context.getString(R.string.tra_giorni)).thenReturn("Tra %d giorni");
-        when(coltura.getFaseAttuale()).thenReturn(0);
-        when(coltura.getUltimoInnaffiamento()).thenReturn(new Date());
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(7); // La frequenza di innaffiamento è ogni 7 giorni
+        when(context.getString(R.string.today)).thenReturn("Oggi");
+        Date currentDate = new Date();
+        Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
+        when(crop.getCurrentPhase()).thenReturn(0);
+        when(crop.getLastWatering()).thenReturn(lastWatering);
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
 
-        // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatNextWatering(context, crop);
 
-        // Asserting the result
-        assertEquals("Tra 5 giorni", formattedString); // Ci si aspetta "Tra 7 giorni" per il prossimo innaffiamento fra 7 giorni
+        assertEquals("Oggi", formattedString);
     }
 
-    /**
-     * Testa il metodo per la formattazione della stringa per l'innaffiamento
-     * successivo quando manca un solo giorno.
-     * Verifica che la stringa formattata sia corretta per la situazione in cui
-     * l'innaffiamento è previsto per il giorno successivo.
-     */
     @Test
-    public void formatProssimoInnaffiamento_ReturnsCorrectString_ForOnePositiveDayRemaining() {
-        // Mocking objects
+    public void formatNextWatering_ReturnsCorrectString_ForPositiveDaysRemaining() {
         Context context = mock(Context.class);
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+        Crop crop = mock(Crop.class);
 
-        // Stubbing methods
-        when(context.getString(R.string.domani)).thenReturn("Domani");
-        Date currentDate = new Date();
-        when(coltura.getFaseAttuale()).thenReturn(0);
-        Date ultimoInnaffiamento = new Date(currentDate.getTime() - 4 * 24 * 60 * 60 * 1000); // 5 days ago
-        when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(1); // La frequenza di innaffiamento è ogni giorno
+        when(context.getString(R.string.within_days)).thenReturn("Tra %d giorni");
+        when(crop.getCurrentPhase()).thenReturn(0);
+        when(crop.getLastWatering()).thenReturn(new Date());
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
 
-        // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatNextWatering(context, crop);
 
-        // Asserting the result
-        assertEquals("Domani", formattedString); // Ci si aspetta "Domani" per il prossimo innaffiamento
+        assertEquals("Tra 5 giorni", formattedString);
     }
 
-    /**
-     * Testa il metodo per la formattazione della stringa per l'innaffiamento
-     * successivo quando ci sono giorni passati rispetto alla data prevista.
-     * Verifica che la stringa formattata sia corretta per la situazione in cui
-     * l'innaffiamento è già in ritardo di qualche giorno rispetto alla data prevista.
-     */
     @Test
-    public void formatProssimoInnaffiamento_ReturnsCorrectString_ForNegativeDaysRemaining() {
-        // Mocking objects
+    public void formatNextWatering_ReturnsCorrectString_ForOnePositiveDayRemaining() {
         Context context = mock(Context.class);
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+        Crop crop = mock(Crop.class);
 
-        // Stubbing methods
-        when(context.getString(R.string.giorni_fa)).thenReturn("In ritardo di %1$d giorni");
+        when(context.getString(R.string.tomorrow)).thenReturn("Domani");
         Date currentDate = new Date();
-        when(coltura.getFaseAttuale()).thenReturn(3);
-        Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 giorni fa
-        when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(3); // La frequenza di innaffiamento è ogni giorno
+        Date lastWatering = new Date(currentDate.getTime() - 4 * 24 * 60 * 60 * 1000); // 4 days ago
+        when(crop.getCurrentPhase()).thenReturn(0);
+        when(crop.getLastWatering()).thenReturn(lastWatering);
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
 
-        // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatNextWatering(context, crop);
 
-        // Asserting the result
-        assertEquals("In ritardo di 2 giorni", formattedString); // Ci si aspetta "Ritardo di un giorno" per i giorni di ritardo
+        assertEquals("Domani", formattedString);
     }
 
-    /**
-     * Testa il metodo per la formattazione della stringa per l'innaffiamento
-     * successivo quando c'è un giorno passato rispetto alla data prevista.
-     * Verifica che la stringa formattata sia corretta per la situazione in cui
-     * l'innaffiamento è in ritardo di un giorno rispetto alla data prevista.
-     */
     @Test
-    public void formatProssimoInnaffiamento_ReturnsCorrectString_ForOneNegativeDayRemaining() {
-        // Mocking objects
+    public void formatNextWatering_ReturnsCorrectString_ForNegativeDaysRemaining() {
         Context context = mock(Context.class);
-        Coltura coltura = mock(Coltura.class);
-        Pianta pianta = mock(Pianta.class);
+        Crop crop = mock(Crop.class);
 
-        // Stubbing methods
-        when(context.getString(R.string.ritardo_giorno)).thenReturn("In ritardo di 1 giorno");
+        when(context.getString(R.string.days_ago)).thenReturn("In ritardo di %1$d giorni");
         Date currentDate = new Date();
-        when(coltura.getFaseAttuale()).thenReturn(1);
-        Date ultimoInnaffiamento = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 giorni fa
-        when(coltura.getUltimoInnaffiamento()).thenReturn(ultimoInnaffiamento);
-        when(coltura.getFrequenzaInnaffiamento()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
-        //when(pianta.getFrequenzaInnaffiamento()).thenReturn(4); // La frequenza di innaffiamento è ogni giorno
+        Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
+        when(crop.getCurrentPhase()).thenReturn(3);
+        when(crop.getLastWatering()).thenReturn(lastWatering);
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
 
-        // Calling the method to test
-        String formattedString = Transformer.formatProssimoInnaffiamento(context, coltura);
+        String formattedString = transformer.formatNextWatering(context, crop);
 
-        // Asserting the result
-        assertEquals("In ritardo di 1 giorno", formattedString); // Ci si aspetta "Ritardo di un giorno" per il giorno di ritardo
+        assertEquals("In ritardo di 2 giorni", formattedString);
+    }
+
+    @Test
+    public void formatNextWatering_ReturnsCorrectString_ForOneNegativeDayRemaining() {
+        Context context = mock(Context.class);
+        Crop crop = mock(Crop.class);
+
+        when(context.getString(R.string.days_delay)).thenReturn("In ritardo di 1 giorno");
+        Date currentDate = new Date();
+        Date lastWatering = new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000); // 5 days ago
+        when(crop.getCurrentPhase()).thenReturn(1);
+        when(crop.getLastWatering()).thenReturn(lastWatering);
+        when(crop.getWateringFrequency()).thenReturn(new ArrayList<>(Arrays.asList(5, 4, 4, 3, 3, 4, 7)));
+
+        String formattedString = transformer.formatNextWatering(context, crop);
+
+        assertEquals("In ritardo di 1 giorno", formattedString);
+    }
+
+    @Test
+    public void testGetRelativeDateToday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = dateFormat.format(new Date());
+        assertEquals("Oggi", Transformer.getRelativeDate(today));
+    }
+
+    @Test
+    public void testGetRelativeDateTomorrow() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String tomorrow = dateFormat.format(calendar.getTime());
+        assertEquals("Domani", Transformer.getRelativeDate(tomorrow));
+    }
+
+    @Test
+    public void testGetRelativeDateDayAfterTomorrow() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dayAfterTomorrow = dateFormat.format(calendar.getTime());
+        assertEquals("Dopodomani", Transformer.getRelativeDate(dayAfterTomorrow));
+    }
+
+    @Test
+    public void testGetRelativeDateOther() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 5); // 5 days after today
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String otherDate = dateFormat.format(calendar.getTime());
+        assertEquals("altro", Transformer.getRelativeDate(otherDate));
+    }
+
+    @Test
+    public void testGetRelativeDateInvalidFormat() {
+        String invalidDate = "31-12-2024"; // invalid format
+        assertEquals("altro", Transformer.getRelativeDate(invalidDate));
     }
 }

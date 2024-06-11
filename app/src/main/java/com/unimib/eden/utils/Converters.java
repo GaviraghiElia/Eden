@@ -12,9 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Classe Converters per le entità Fase e Pianta.
- *
- * @author Alice Hoa Galli
+ * Converters class for the Phase and Plant entities.
  */
 public class Converters {
 

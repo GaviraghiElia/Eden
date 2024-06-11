@@ -144,6 +144,8 @@
     <color name="md_theme_surfaceContainer_highContrast">#EEEFE3</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#E8E9DE</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#E2E3D8</color>
-
+    <color name="md_theme_blueSurface">#d6e3ff</color>
     <color name="md_theme_redContainer">#ffdad8</color>
+    <color name="scrollbar_thumb_color">#FF888888</color>
+    <color name="scrollbar_track_color">#FFD3D3D3</color>
 </resources>
