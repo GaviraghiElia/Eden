@@ -3,6 +3,7 @@ stages:
   - build
   - verify
   - test
+  - deploy
 
 variables:
   # Version of Android SDK we're compiling with.
