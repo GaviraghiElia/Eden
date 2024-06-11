@@ -17,7 +17,7 @@
 
             <ImageView
 
-                android:id="@+id/imageViewMeteo"
+                android:id="@+id/imageViewForecast"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
@@ -25,38 +25,38 @@
                 />
 
         <TextView
-            android:id="@+id/textViewGiorno"
+            android:id="@+id/textViewDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Oggi"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/md_theme_secondary"
-            android:layout_toEndOf="@id/imageViewMeteo"
-            android:layout_alignTop="@id/imageViewMeteo"
+            android:layout_toEndOf="@id/imageViewForecast"
+            android:layout_alignTop="@id/imageViewForecast"
             android:layout_marginStart="14dp"
             android:gravity="center_horizontal"/>
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewGiorno"
+            android:layout_below="@id/textViewDay"
             android:layout_marginTop="30dp"
-            android:layout_toEndOf="@id/imageViewMeteo"
-            android:layout_alignTop="@id/textViewGiorno"
+            android:layout_toEndOf="@id/imageViewForecast"
+            android:layout_alignTop="@id/textViewDay"
             android:rowCount="2"
             android:columnCount="2"
             android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/textViewTemperatura"
+            android:id="@+id/textViewTemperature"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:text="Temperatura"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewMeteo"
-            android:layout_below="@id/textViewGiorno"
+            android:layout_toEndOf="@id/imageViewForecast"
+            android:layout_below="@id/textViewDay"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/thermometer"
             android:drawableTint="@color/md_theme_scrim"
@@ -65,14 +65,14 @@
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textViewUmidita"
+            android:id="@+id/textViewHumidity"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:text="Umidita"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewMeteo"
-            android:layout_below="@id/textViewTemperatura"
+            android:layout_toEndOf="@id/imageViewForecast"
+            android:layout_below="@id/textViewTemperature"
             android:layout_marginStart="14dp"
             android:drawableStart="@drawable/fog"
             android:drawableTint="@color/md_theme_scrim"
@@ -87,7 +87,7 @@
             android:text="Probabilita precipitazioni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewMeteo"
+            android:layout_toEndOf="@id/imageViewForecast"
             android:layout_below="@id/textViewChanceOfRain"
             android:layout_marginStart="4dp"
             android:drawableStart="@drawable/icon_rain"
@@ -103,7 +103,7 @@
             android:text="Totale precipitazioni"
             android:textSize="16sp"
             android:textColor="@color/md_theme_primary"
-            android:layout_toEndOf="@id/imageViewMeteo"
+            android:layout_toEndOf="@id/imageViewForecast"
             android:layout_below="@id/textViewTotalPrec"
             android:layout_marginStart="14dp"
             android:drawableStart="@drawable/height_measure"

@@ -1,33 +1,36 @@
 package com.unimib.eden.model.weather;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 /**
- * La classe Forecast rappresenta le previsioni meteorologiche.
- * Include una lista di oggetti ForecastDay, ciascuno dei quali contiene le previsioni per un singolo giorno.
+ * The Forecast class represents weather forecasts.
+ * It includes a list of ForecastDay objects, each of which contains forecasts for a single day.
  */
 public class Forecast {
 
-    private List<ForecastDay> forecastday;
+    private final List<ForecastDay> forecastday;
 
     /**
-     * Costruttore della classe Forecast.
+     * Constructor for the Forecast class.
      *
-     * @param forecastDay La lista delle previsioni giornaliere.
+     * @param forecastDay The list of daily forecasts.
      */
     public Forecast(List<ForecastDay> forecastDay) {
         this.forecastday = forecastDay;
     }
 
     /**
-     * Restituisce la lista delle previsioni giornaliere.
+     * Returns the list of daily forecasts.
      *
-     * @return La lista delle previsioni giornaliere.
+     * @return The list of daily forecasts.
      */
     public List<ForecastDay> getForecastday() {
         return forecastday;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Forecast{" +

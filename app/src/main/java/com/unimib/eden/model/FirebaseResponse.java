@@ -1,64 +1,57 @@
 package com.unimib.eden.model;
 
 /**
- * Classe FirebaseResponse che rappresenta una risposta da Firebase.
- *
- * @author Gaviraghi Elia
+ * FirebaseResponse class representing a response from Firebase.
  */
-public class FirebaseResponse
-{
+public class FirebaseResponse {
     /**
-     * Indica se l'operazione è stata eseguita con successo.
+     * Indicates whether the operation was successful.
      */
     private boolean success;
 
     /**
-     * Il messaggio di risposta.
+     * The response message.
      */
     private String message;
 
     /**
-     * Costruttore vuoto per FirebaseResponse.
+     * Empty constructor for FirebaseResponse.
      */
     public FirebaseResponse() {}
 
     /**
-     * Restituisce il successo dell'operazione.
+     * Returns the success of the operation.
      *
-     * @return true se l'operazione è stata eseguita con successo, false altrimenti
+     * @return true if the operation was successful, false otherwise
      */
-    public boolean isSuccess()
-    {
+    public boolean isSuccess() {
         return success;
     }
 
     /**
-     * Imposta il successo dell'operazione.
+     * Sets the success of the operation.
      *
-     * @param success il nuovo stato dell'operazione
+     * @param success the new state of the operation
      */
-    public void setSuccess(boolean success)
-    {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
     /**
-     * Restituisce il messaggio di risposta.
+     * Returns the response message.
      *
-     * @return il messaggio di risposta
+     * @return the response message
      */
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
     /**
-     * Imposta il messaggio di risposta.
+     * Sets the response message.
      *
-     * @param message il nuovo messaggio di risposta
+     * @param message the new response message
      */
-    public void setMessage(String message)
-    {
+    public void setMessage(String message) {
         this.message = message;
     }
 }

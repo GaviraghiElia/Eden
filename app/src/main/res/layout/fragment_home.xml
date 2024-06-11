@@ -14,7 +14,7 @@
         android:layout_gravity="bottom|end"
         android:elevation="8dp"
         android:minHeight="48dp"
-        android:text="@string/inserisci_coltura"
+        android:text="@string/insert_crop"
         app:icon="@drawable/ic_baseline_add_24"
         />
 

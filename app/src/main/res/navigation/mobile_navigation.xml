@@ -71,12 +71,12 @@
         android:label="MainActivity" />
     <fragment
         android:id="@+id/navigation_stand"
-        android:name="com.unimib.eden.ui.bancarella.BancarellaFragment"
+        android:name="com.unimib.eden.ui.stand.StandFragment"
         android:label="Bancarella"
         tools:layout="@layout/fragment_stand" />
     <fragment
         android:id="@+id/navigation_irrigazioni"
-        android:name="com.unimib.eden.ui.irrigazioni.IrrigazioniFragment"
+        android:name="com.unimib.eden.ui.watering.WateringFragment"
         android:label="Irrigazioni"
         tools:layout="@layout/fragment_irrigazioni" />
 

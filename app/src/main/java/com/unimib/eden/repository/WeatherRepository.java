@@ -3,8 +3,7 @@ package com.unimib.eden.repository;
 import static com.unimib.eden.utils.Constants.BASE_URL;
 import static com.unimib.eden.utils.Constants.apiKey;
 
-import android.util.Log;
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -14,9 +13,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.unimib.eden.model.weather.Current;
-import com.unimib.eden.model.weather.Forecast;
-import com.unimib.eden.model.weather.Location;
 import com.unimib.eden.model.weather.WeatherForecast;
 import com.unimib.eden.model.weather.WeatherHistory;
 import com.unimib.eden.model.weather.WeatherSearchLocation;
@@ -25,17 +21,16 @@ import com.unimib.eden.service.WeatherService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * Repository per gestire le richieste di dati meteorologici.
+ * Repository to handle weather data requests.
  */
 public class WeatherRepository implements IWeatherRepository {
-    private WeatherService service;
+    private final WeatherService service;
 
     /**
-     * Costruttore che inizializza il repository con il servizio di rete.
-     * Utilizza Retrofit per la comunicazione HTTP.
+     * Constructor that initializes the repository with the network service.
+     * Uses Retrofit for HTTP communication.
      */
     public WeatherRepository() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -47,20 +42,20 @@ public class WeatherRepository implements IWeatherRepository {
     }
 
     /**
-     * Costruttore che permette di iniettare un servizio WeatherService personalizzato.
+     * Constructor that allows injecting a custom WeatherService.
      *
-     * @param service Il servizio WeatherService da utilizzare.
+     * @param service The WeatherService to use.
      */
     public WeatherRepository(WeatherService service) {
         this.service = service;
     }
 
     /**
-     * Recupera i dati della storia meteorologica per una data località e data.
+     * Retrieves historical weather data for a given location and date.
      *
-     * @param location La località per la quale ottenere la storia.
-     * @param date La data per la quale ottenere la storia.
-     * @return LiveData contenente i dati della storia meteorologica.
+     * @param location The location for which to get the history.
+     * @param date The date for which to get the history.
+     * @return LiveData containing the historical weather data.
      */
     public LiveData<WeatherHistory> getHistory(String location, Date date) {
         MutableLiveData<WeatherHistory> data = new MutableLiveData<>();
@@ -74,24 +69,16 @@ public class WeatherRepository implements IWeatherRepository {
         String formattedDate = year + "-" + month + "-" + day;
         Call<WeatherHistory> call = service.getHistory(apiKey, location, formattedDate);
 
-        call.enqueue(new Callback<WeatherHistory>() {
+        call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<WeatherHistory> call, Response<WeatherHistory> response) {
+            public void onResponse(@NonNull Call<WeatherHistory> call, @NonNull Response<WeatherHistory> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    //Log.d("WeatherAppLog", "History - repository - onResponse success");
-                } else {
-                    //Log.d("WeatherAppLog", "History - repository - onResponse not success");
-                    //Log.d("WeatherAppLog", "History - " + response.toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<WeatherHistory> call, Throwable throwable) {
-                //Log.d("WeatherAppLog", "History - " + call.toString());
-                //Log.d("WeatherAppLog", "History - repository - onFailure");
-                //Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getMessage()));
-                //Log.d("WeatherAppLog", "History - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<WeatherHistory> call, @NonNull Throwable throwable) {
             }
         });
 
@@ -99,30 +86,24 @@ public class WeatherRepository implements IWeatherRepository {
     }
 
     /**
-     * Recupera le località di ricerca meteorologica in base alla query di ricerca.
+     * Retrieves weather search locations based on a search query.
      *
-     * @param locationSearch La query di ricerca della località.
-     * @return LiveData contenente una lista di località di ricerca meteorologica.
+     * @param locationSearch The search query for the location.
+     * @return LiveData containing a list of weather search locations.
      */
     public LiveData<List<WeatherSearchLocation>> getSearchlocation(String locationSearch) {
         MutableLiveData<List<WeatherSearchLocation>> data = new MutableLiveData<>();
         Call<List<WeatherSearchLocation>> call = service.getAutocompleteSearch(apiKey, locationSearch);
-        call.enqueue(new Callback<List<WeatherSearchLocation>>() {
+        call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<List<WeatherSearchLocation>> call, Response<List<WeatherSearchLocation>> response) {
+            public void onResponse(@NonNull Call<List<WeatherSearchLocation>> call, @NonNull Response<List<WeatherSearchLocation>> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse success");
-                } else {
-                    //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onResponse not success");
-                    //Log.d("WeatherAppLogSearch", "SearchLocation - " + response.toString());
                 }
             }
+
             @Override
-            public void onFailure(Call<List<WeatherSearchLocation>> call, Throwable throwable) {
-                //Log.d("WeatherAppLogSearch", "SearchLocation - repository - onFailure");
-                //Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getMessage()));
-                //Log.d("WeatherAppLogSearch", "SearchLocation - " + Objects.requireNonNull(throwable.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<List<WeatherSearchLocation>> call, @NonNull Throwable throwable) {
             }
         });
 
@@ -130,39 +111,30 @@ public class WeatherRepository implements IWeatherRepository {
     }
 
     /**
-     * Recupera i dati delle previsioni meteorologiche per una località e per un dato numero di giorni.
+     * Retrieves weather forecast data for a given location and number of days.
      *
-     * @param location La località per la quale ottenere le previsioni.
-     * @param days Il numero di giorni per le previsioni.
-     * @param aqi Parametro per richiedere l'indice di qualità dell'aria.
-     * @param alerts Parametro per richiedere eventuali avvisi.
-     * @return LiveData contenente le previsioni meteorologiche.
+     * @param location The location for which to get the forecast.
+     * @param days The number of days for the forecast.
+     * @param aqi Parameter to request the air quality index.
+     * @param alerts Parameter to request any alerts.
+     * @return LiveData containing the weather forecast data.
      */
     public LiveData<WeatherForecast> getForecast(String location, int days, String aqi, String alerts) {
         MutableLiveData<WeatherForecast> data = new MutableLiveData<>();
         Call<WeatherForecast> call = service.getForecast(apiKey, location, days, aqi, alerts);
 
-        call.enqueue(new Callback<WeatherForecast>() {
+        call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<WeatherForecast> call, Response<WeatherForecast> response) {
+            public void onResponse(@NonNull Call<WeatherForecast> call, @NonNull Response<WeatherForecast> response) {
                 if (response.isSuccessful()) {
                     data.setValue(response.body());
-                    //Log.d("WeatherAppLog", "repository - onResponse success");
-                } else {
-                    //Log.d("WeatherAppLog", "repository - onResponse not success");
-                    //Log.d("WeatherAppLog", response.toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<WeatherForecast> call, Throwable throwable) {
-                //Log.d("WeatherAppLog", call.toString());
-                //Log.d("WeatherAppLog", "repository - onFailure");
-                //Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getMessage()));
-                //Log.d("WeatherAppLog", Objects.requireNonNull(throwable.getLocalizedMessage()));
+            public void onFailure(@NonNull Call<WeatherForecast> call, @NonNull Throwable throwable) {
             }
         });
-
 
         return data;
     }

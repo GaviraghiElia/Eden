@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import android.content.res.Resources;
-
-import com.unimib.eden.ui.authentication.RegisterFragment;
 import com.unimib.eden.utils.AuthenticationFieldValidator;
 
 public class RegisterFragmentUnitTest {

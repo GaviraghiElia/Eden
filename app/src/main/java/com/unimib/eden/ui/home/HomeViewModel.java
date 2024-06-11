@@ -1,102 +1,99 @@
 package com.unimib.eden.ui.home;
 
-
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.unimib.eden.model.Fase;
-import com.unimib.eden.model.Coltura;
-import com.unimib.eden.model.Pianta;
-import com.unimib.eden.repository.FaseRepository;
-import com.unimib.eden.repository.ColturaRepository;
-import com.unimib.eden.repository.PiantaRepository;
+import com.unimib.eden.model.Phase;
+import com.unimib.eden.model.Crop;
+import com.unimib.eden.model.Plant;
+import com.unimib.eden.repository.PhaseRepository;
+import com.unimib.eden.repository.CropRepository;
+import com.unimib.eden.repository.PlantRepository;
 
 import java.util.List;
 
 /**
- * Classe ViewModel per HomeFragment.
- * Questa classe si occupa di gestire i dati correlati a HomeFragment.
+ * ViewModel class for HomeFragment.
+ * This class handles the data related to HomeFragment.
  */
 public class HomeViewModel extends AndroidViewModel {
 
     private static final String TAG = "HomeViewModel";
 
-    private List<Pianta> mPiante;
-
-    private List<Fase> mFasi;
-
-    private LiveData<List<Coltura>> mColture;
-    private PiantaRepository piantaRepository;
-    private ColturaRepository colturaRepository;
-
-    private FaseRepository faseRepository;
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final List<Plant> mPlants;
+    private final List<Phase> mPhases;
+    private final LiveData<List<Crop>> mCrops;
+    private final PlantRepository plantsRepository;
+    private final CropRepository cropRepository;
+    private final PhaseRepository phaseRepository;
 
     /**
-     * Costruttore per HomeViewModel.
+     * Constructor for HomeViewModel.
      *
-     * @param application Un'istanza dell'applicazione.
+     * @param application An instance of the application.
      */
     public HomeViewModel(Application application) {
         super(application);
 
-        // Inizializza i repository
-        piantaRepository = new PiantaRepository(application);
-        faseRepository = new FaseRepository(application);
-        colturaRepository = new ColturaRepository(application);
+        // Initialize repositories
+        plantsRepository = new PlantRepository(application);
+        phaseRepository = new PhaseRepository(application);
+        cropRepository = new CropRepository(application);
 
-        // Recupera i dati dai repository
-        mPiante = piantaRepository.getAllPiante();
-        mFasi = faseRepository.getAllFasi();
-        mColture = colturaRepository.getAllColture();
+        // Retrieve data from repositories
+        mPlants = plantsRepository.getAllPlants();
+        mPhases = phaseRepository.getAllPhases();
+        mCrops = cropRepository.getAllCrops();
     }
 
     /**
-     * Ottieni una lista di piante.
+     * Get a list of plants.
      *
-     * @return Una lista di piante.
+     * @return A list of plants.
      */
-    public List<Pianta> getPiante() {
-        return mPiante;
+    public List<Plant> getPlants() {
+        return mPlants;
     }
 
     /**
-     * Ottieni una lista di fasi.
+     * Get a list of phases.
      *
-     * @return Una lista di fasi.
+     * @return A list of phases.
      */
-    public List<Fase> getFasi() {return mFasi;}
-
-    /**
-     * Ottieni una lista di colture.
-     *
-     * @return Una lista di colture.
-     */
-    public LiveData<List<Coltura>> getColture() {
-        return mColture;
+    public List<Phase> getPhases() {
+        return mPhases;
     }
 
     /**
-     * Ottieni una pianta dal suo ID.
+     * Get a list of crops.
      *
-     * @param piantaId L'ID della pianta da recuperare.
-     * @return La pianta con l'ID specificato.
+     * @return A list of crops.
      */
-    private Pianta getPiantaById(String piantaId) {
-        return piantaRepository.getPiantaById(piantaId);
+    public LiveData<List<Crop>> getCrops() {
+        return mCrops;
     }
 
     /**
-     * Aggiorna il database locale.
+     * Get a plant by its ID.
+     *
+     * @param plantId The ID of the plant to retrieve.
+     * @return The plant with the specified ID.
+     */
+    private Plant getPlantById(String plantId) {
+        return plantsRepository.getPlantById(plantId);
+    }
+
+    /**
+     * Update the local database.
+     *
+     * @param currentUserId The ID of the current user.
      */
     public void updateDB(String currentUserId) {
-        // Aggiorna il database locale con i dati delle colture
-        piantaRepository.updateLocalDB();
-        faseRepository.updateLocalDB();
-        colturaRepository.updateLocalDB(currentUserId);
+        // Update the local database with crop data
+        plantsRepository.updateLocalDB();
+        phaseRepository.updateLocalDB();
+        cropRepository.updateLocalDB(currentUserId);
     }
 }

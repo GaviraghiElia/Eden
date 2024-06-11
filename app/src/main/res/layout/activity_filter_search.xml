@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/searchPiantaToolbar"
+        android:id="@+id/searchPlantToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_theme_surface"
@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toTopOf="@+id/filterSearchButtonConstraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchPiantaToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/searchPlantToolbar">
 
 
         <ScrollView
@@ -50,34 +50,13 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.5" />
 
-                <!--<com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/outlinedTextFieldFrequenzaInnaffiamento"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/frequenza_innaffiamento"
-                    app:errorEnabled="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:startIconDrawable="@drawable/water_drop_24px">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputFrequenzaInnaffiamento"
-                        android:inputType="number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>-->
-
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/outlinedTextFieldEsposizioneSole"
+                    android:id="@+id/outlinedTextFieldSunExposure"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="@string/esposizione"
+                    android:hint="@string/exposure"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +64,7 @@
                     app:startIconDrawable="@drawable/sunny_24px">
 
                     <AutoCompleteTextView
-                        android:id="@+id/esposizioneSoleAutoComplete"
+                        android:id="@+id/sunExposureAutoComplete"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="none"
@@ -94,21 +73,21 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/outlinedTextFieldInizioSemina"
+                    android:id="@+id/outlinedTextFieldSowingStart"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
-                    android:hint="@string/inizio_semina"
+                    android:hint="@string/sowing_start"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_center"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/outlinedTextFieldEsposizioneSole"
+                    app:layout_constraintTop_toBottomOf="@+id/outlinedTextFieldSunExposure"
                     app:startIconDrawable="@drawable/hand_holding_seeding">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEditInizioSemina"
+                        android:id="@+id/textInputEditSowingStart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -116,21 +95,21 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/outlinedTextFieldFineSemina"
+                    android:id="@+id/outlinedTextFieldSowingEnd"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
-                    android:hint="@string/fine_semina"
+                    android:hint="@string/sowing_end"
                     app:errorEnabled="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline_center"
-                    app:layout_constraintTop_toBottomOf="@+id/outlinedTextFieldEsposizioneSole"
+                    app:layout_constraintTop_toBottomOf="@+id/outlinedTextFieldSunExposure"
                     app:startIconDrawable="@drawable/hand_holding_seeding">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEditFineSemina"
+                        android:id="@+id/textInputEditSowingEnd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
