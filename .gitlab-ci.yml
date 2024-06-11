@@ -124,9 +124,9 @@ debugTests:
         - app/build/reports/tests/testDebugUnitTest
         - app/build/reports/jacoco/jacocoTestReport/
 
+# Job to assemble the release build APK and run only on the main branch
 assembleRelease:
   stage: deploy
-  needs: [lintDebug, assembleDebug]
   script:
     # Assemble the release APK
     - ./gradlew assembleRelease
