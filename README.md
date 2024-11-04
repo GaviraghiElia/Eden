@@ -1,4 +1,4 @@
-# eden
+# Eden
 In this project, an Android JAVA application is developed using the MVVM (Model-View-ViewModel) pattern to manage vegetable garden cultivation. The app supports crop management as well as exchanges between users for sharing excess harvest.
 
 ## Project structure 
